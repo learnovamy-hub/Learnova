@@ -1,4 +1,11 @@
-{
+﻿{
+  "name": "learnova-backend",
+  "version": "2.1.0",
+  "type": "module",
+  "scripts": {
+    "start": "node server_updated.mjs",
+    "dev": "node server_updated.mjs"
+  },
   "dependencies": {
     "@supabase/supabase-js": "^2.103.0",
     "axios": "^1.15.0",
