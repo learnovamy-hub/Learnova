@@ -382,7 +382,7 @@ app.get('/api/student/quiz-history', authStudent, async (req, res) => {
 app.get('/api/lessons', async (req, res) => {
   try {
     const { subject, form_level } = req.query;
-    let query = supabase.from('lessons').select('id,title,topic,subject,form_level,teacher_id,created_at').eq('is_published', true);
+    let query = supabase.from('lessons').select('id,title,topic,subject,form_level,teacher_id,created_at,introduction,content,summary,learning_objectives,key_concepts,worked_examples,common_mistakes').eq('is_published', true);
     if (subject) query = query.eq('subject', subject);
     if (form_level) query = query.eq('form_level', form_level);
     const { data, error } = await query.order('created_at', { ascending: false });
