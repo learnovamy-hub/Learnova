@@ -615,3 +615,15 @@ app.listen(PORT, () => {
   console.log(`Multi-subject FAQ: faq_cache table (8 subjects)`);
   console.log(`Claude API: ${claudeApiKey ? 'ready' : 'FAQ-only mode'}\n`);
 });
+
+app.get('/api/ai/analytics', async (req, res) => {
+  try {
+    const { data, error } = await supabase.from('ai_conversations').select('question,subject,topic,source,cost,created_at').order('created_at', { ascending: false }).limit(1000);
+    if (error) throw error;
+    const qCounts = {};
+    const sCounts = {};
+    let cost = 0;
+    (data||[]).forEach(r => { qCounts[r.question]=(qCounts[r.question]||0)+1; sCounts[r.subject]=(sCounts[r.subject]||0)+1; cost+=parseFloat(r.cost||0); });
+    res.json({ total: data?.length||0, total_cost: cost.toFixed(4), top_questions: Object.entries(qCounts).sort((a,b)=>b[1]-a[1]).slice(0,10).map(([q,c])=>({question:q,count:c})), top_subjects: Object.entries(sCounts).sort((a,b)=>b[1]-a[1]).map(([s,c])=>({subject:s,count:c})) });
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
