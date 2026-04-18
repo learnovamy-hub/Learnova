@@ -153,7 +153,8 @@ function findBestFAQ(query) {
     let score = keyWords.filter(w => qWords.has(w)).length;
     if (score > bestScore) { bestScore = score; bestMatch = FAQ_DATA[key]; }
   }
-  return bestScore >= 1 ? bestMatch : null;
+  const minScore = Math.max(2, Math.ceil(qWords.size * 0.3));
+    return bestScore >= minScore ? bestMatch : null;
 }
 
 // â”€â”€ SEARCH faq_cache table (multi-subject) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -195,7 +196,8 @@ async function searchFaqCache(query, subject) {
       }
     }
 
-    return bestScore >= 1 ? bestMatch : null;
+    const minScore = Math.max(2, Math.ceil(qWords.size * 0.3));
+    return bestScore >= minScore ? bestMatch : null;
   } catch (err) {
     console.error('faq_cache search error:', err.message);
     return null;
@@ -608,9 +610,6 @@ app.get('/api/leaderboard', async (req, res) => {
     res.json({ leaderboard: board, total: Object.keys(ss).length });
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
-
-app.get('/api/ai/analytics', async (req, res) => { try { const { data, error } = await supabase.from('ai_conversations').select('question,subject,topic,source,cost,created_at').order('created_at', { ascending: false }).limit(1000); if (error) throw error; const qC = {}; const sC = {}; let cost = 0; (data||[]).forEach(r => { qC[r.question]=(qC[r.question]||0)+1; sC[r.subject]=(sC[r.subject]||0)+1; cost+=parseFloat(r.cost||0); }); res.json({ total: data?.length||0, total_cost: cost.toFixed(4), top_questions: Object.entries(qC).sort((a,b)=>b[1]-a[1]).slice(0,10).map(([q,c])=>({question:q,count:c})), top_subjects: Object.entries(sC).sort((a,b)=>b[1]-a[1]).map(([s,c])=>({subject:s,count:c})) }); } catch (err) { res.status(500).json({ error: err.message }); } });
-
 
 app.listen(PORT, () => {
   console.log(`\nLearnova v2.1 running on port ${PORT}`);
