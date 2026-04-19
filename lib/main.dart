@@ -5,20 +5,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const String API_URL = 'https://attractive-contentment-production-146b.up.railway.app';
 
-// ── SUBJECTS ─────────────────────────────────────────────────────
+// Ã¢â€â‚¬Ã¢â€â‚¬ SUBJECTS Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 const List<Map<String, dynamic>> kSubjects = [
-  {'name': 'Mathematics', 'emoji': '📐', 'color': 0xFF6366F1},
-  {'name': 'Add Maths', 'emoji': '➕', 'color': 0xFF8B5CF6},
-  {'name': 'Physics', 'emoji': '⚡', 'color': 0xFFF59E0B},
-  {'name': 'Biology', 'emoji': '🧬', 'color': 0xFF10B981},
-  {'name': 'Chemistry', 'emoji': '🧪', 'color': 0xFFEF4444},
-  {'name': 'Geography', 'emoji': '🌍', 'color': 0xFF06B6D4},
-  {'name': 'Sejarah', 'emoji': '📜', 'color': 0xFFD97706},
-  {'name': 'Bahasa Malaysia', 'emoji': '🇲🇾', 'color': 0xFFEC4899},
-  {'name': 'English', 'emoji': '📝', 'color': 0xFF14B8A6},
+  {'name': 'Mathematics', 'emoji': 'Ã°Å¸â€œÂ', 'color': 0xFF6366F1},
+  {'name': 'Add Maths', 'emoji': 'Ã¢Å¾â€¢', 'color': 0xFF8B5CF6},
+  {'name': 'Physics', 'emoji': 'Ã¢Å¡Â¡', 'color': 0xFFF59E0B},
+  {'name': 'Biology', 'emoji': 'Ã°Å¸Â§Â¬', 'color': 0xFF10B981},
+  {'name': 'Chemistry', 'emoji': 'Ã°Å¸Â§Âª', 'color': 0xFFEF4444},
+  {'name': 'Geography', 'emoji': 'Ã°Å¸Å’Â', 'color': 0xFF06B6D4},
+  {'name': 'Sejarah', 'emoji': 'Ã°Å¸â€œÅ“', 'color': 0xFFD97706},
+  {'name': 'Bahasa Malaysia', 'emoji': 'Ã°Å¸â€¡Â²Ã°Å¸â€¡Â¾', 'color': 0xFFEC4899},
+  {'name': 'English', 'emoji': 'Ã°Å¸â€œÂ', 'color': 0xFF14B8A6},
 ];
 
-// ── THEME ─────────────────────────────────────────────────────────
+// Ã¢â€â‚¬Ã¢â€â‚¬ THEME Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 const Color kPrimary = Color(0xFF6366F1);
 const Color kPrimary2 = Color(0xFF8B5CF6);
 const Color kGreen = Color(0xFF10B981);
@@ -83,7 +83,7 @@ class LearnovaApp extends StatelessWidget {
   }
 }
 
-// ── SPLASH ────────────────────────────────────────────────────────
+// Ã¢â€â‚¬Ã¢â€â‚¬ SPLASH Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
   @override
@@ -103,7 +103,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final token = prefs.getString('token');
     if (mounted) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (_) => token != null ? const MainShell() : const AuthScreen(),
+        builder: (_) => token != null ? const MainShell() : const LandingScreen(),
       ));
     }
   }
@@ -137,9 +137,10 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-// ── AUTH ──────────────────────────────────────────────────────────
+// Ã¢â€â‚¬Ã¢â€â‚¬ AUTH Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 class AuthScreen extends StatefulWidget {
-  const AuthScreen({super.key});
+  final String role;
+  const AuthScreen({super.key, required this.role});
   @override
   State<AuthScreen> createState() => _AuthScreenState();
 }
@@ -218,7 +219,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   const Text('Learnova', style: TextStyle(color: kText, fontSize: 24, fontWeight: FontWeight.w800)),
                 ]),
                 const SizedBox(height: 40),
-                Text(_isLogin ? 'Welcome back 👋' : 'Join Learnova 🚀', style: const TextStyle(color: kText, fontSize: 26, fontWeight: FontWeight.w800)),
+                Text(_isLogin ? 'Welcome back Ã°Å¸â€˜â€¹' : 'Join Learnova Ã°Å¸Å¡â‚¬', style: const TextStyle(color: kText, fontSize: 26, fontWeight: FontWeight.w800)),
                 const SizedBox(height: 6),
                 Text(_isLogin ? 'Sign in to continue learning' : 'Create your student account', style: const TextStyle(color: kMuted, fontSize: 14)),
                 const SizedBox(height: 32),
@@ -279,7 +280,7 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 }
 
-// ── MAIN SHELL ────────────────────────────────────────────────────
+// Ã¢â€â‚¬Ã¢â€â‚¬ MAIN SHELL Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 class MainShell extends StatefulWidget {
   const MainShell({super.key});
   @override
@@ -328,7 +329,7 @@ class _MainShellState extends State<MainShell> {
   }
 }
 
-// ── SUBJECT SELECTOR WIDGET ───────────────────────────────────────
+// Ã¢â€â‚¬Ã¢â€â‚¬ SUBJECT SELECTOR WIDGET Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 class SubjectSelector extends StatelessWidget {
   final String selected;
   final ValueChanged<String> onChanged;
@@ -371,7 +372,7 @@ class SubjectSelector extends StatelessWidget {
   }
 }
 
-// ── HOME TAB ──────────────────────────────────────────────────────
+// Ã¢â€â‚¬Ã¢â€â‚¬ HOME TAB Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 class HomeTab extends StatefulWidget {
   final String selectedSubject;
   final ValueChanged<String> onSubjectChanged;
@@ -470,7 +471,7 @@ class _HomeTabState extends State<HomeTab> {
                   SliverToBoxAdapter(child: _buildFAQSection()),
                   SliverToBoxAdapter(child: Padding(
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
-                    child: Text('📖 Lessons', style: _sectionTitle()),
+                    child: Text('Ã°Å¸â€œâ€“ Lessons', style: _sectionTitle()),
                   )),
                   _lessons.isEmpty
                       ? SliverToBoxAdapter(child: _emptyState('No lessons yet', 'Your teacher will upload lessons soon'))
@@ -494,7 +495,7 @@ class _HomeTabState extends State<HomeTab> {
       decoration: const BoxDecoration(color: kSurface, border: Border(bottom: BorderSide(color: kBorder))),
       child: Row(children: [
         Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text('$greeting 👋', style: const TextStyle(color: kMuted, fontSize: 13)),
+          Text('$greeting Ã°Å¸â€˜â€¹', style: const TextStyle(color: kMuted, fontSize: 13)),
           const SizedBox(height: 2),
           Text(_name, style: const TextStyle(color: kText, fontSize: 22, fontWeight: FontWeight.w800)),
           Text('${subj['emoji']} ${widget.selectedSubject}', style: const TextStyle(color: kMuted, fontSize: 13)),
@@ -512,7 +513,7 @@ class _HomeTabState extends State<HomeTab> {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
         padding: const EdgeInsets.fromLTRB(20, 16, 20, 10),
-        child: Text('📚 Subject', style: _sectionTitle()),
+        child: Text('Ã°Å¸â€œÅ¡ Subject', style: _sectionTitle()),
       ),
       SubjectSelector(
         selected: widget.selectedSubject,
@@ -528,9 +529,9 @@ class _HomeTabState extends State<HomeTab> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
       child: Row(children: [
-        _actionCard('🤖', 'Ask AI', 'Get instant answers', kPrimary, () => _goToTab(1)),
+        _actionCard('Ã°Å¸Â¤â€“', 'Ask AI', 'Get instant answers', kPrimary, () => _goToTab(1)),
         const SizedBox(width: 12),
-        _actionCard('🧠', 'Take Quiz', 'Test your knowledge', kGreen, () => _goToTab(2)),
+        _actionCard('Ã°Å¸Â§Â ', 'Take Quiz', 'Test your knowledge', kGreen, () => _goToTab(2)),
       ]),
     );
   }
@@ -561,7 +562,7 @@ class _HomeTabState extends State<HomeTab> {
       'What is the discriminant?', 'Sum of arithmetic progression?'
     ];
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(padding: const EdgeInsets.fromLTRB(20, 20, 20, 12), child: Text('⚡ Quick Questions', style: _sectionTitle())),
+      Padding(padding: const EdgeInsets.fromLTRB(20, 20, 20, 12), child: Text('Ã¢Å¡Â¡ Quick Questions', style: _sectionTitle())),
       SizedBox(
         height: 40,
         child: ListView.separated(
@@ -594,7 +595,7 @@ class _HomeTabState extends State<HomeTab> {
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         leading: Container(width: 44, height: 44, decoration: BoxDecoration(color: kPrimary.withOpacity(0.15), borderRadius: BorderRadius.circular(10)), child: const Icon(Icons.book_rounded, color: kPrimary, size: 22)),
         title: Text(lesson['title'] ?? 'Lesson', style: const TextStyle(color: kText, fontWeight: FontWeight.w600, fontSize: 14)),
-        subtitle: Text('${lesson['topic'] ?? ''} · Form ${lesson['form_level'] ?? 4}', style: const TextStyle(color: kMuted, fontSize: 12)),
+        subtitle: Text('${lesson['topic'] ?? ''} Ã‚Â· Form ${lesson['form_level'] ?? 4}', style: const TextStyle(color: kMuted, fontSize: 12)),
         trailing: const Icon(Icons.arrow_forward_ios_rounded, color: kMuted, size: 14),
         onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => LessonScreen(lesson: lesson))),
       ),
@@ -617,7 +618,7 @@ class _HomeTabState extends State<HomeTab> {
   TextStyle _sectionTitle() => const TextStyle(color: kText, fontSize: 16, fontWeight: FontWeight.w700);
 }
 
-// ── LESSON SCREEN ─────────────────────────────────────────────────
+// Ã¢â€â‚¬Ã¢â€â‚¬ LESSON SCREEN Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 class LessonScreen extends StatelessWidget {
   final dynamic lesson;
   const LessonScreen({super.key, required this.lesson});
@@ -635,7 +636,7 @@ class LessonScreen extends StatelessWidget {
             _section('Introduction', lesson['introduction']),
           if (lesson['learning_objectives'] != null && (lesson['learning_objectives'] as List).isNotEmpty) ...[
             const SizedBox(height: 20),
-            const Text('🎯 Learning Objectives', style: TextStyle(color: kText, fontSize: 16, fontWeight: FontWeight.w700)),
+            const Text('Ã°Å¸Å½Â¯ Learning Objectives', style: TextStyle(color: kText, fontSize: 16, fontWeight: FontWeight.w700)),
             const SizedBox(height: 8),
             ...(lesson['learning_objectives'] as List).map((obj) => Padding(
               padding: const EdgeInsets.only(bottom: 6),
@@ -656,7 +657,7 @@ class LessonScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(color: kPrimary.withOpacity(0.1), border: Border.all(color: kPrimary.withOpacity(0.3)), borderRadius: BorderRadius.circular(12)),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                const Text('📝 Summary', style: TextStyle(color: kPrimary, fontSize: 14, fontWeight: FontWeight.w700)),
+                const Text('Ã°Å¸â€œÂ Summary', style: TextStyle(color: kPrimary, fontSize: 14, fontWeight: FontWeight.w700)),
                 const SizedBox(height: 8),
                 Text(lesson['summary'], style: const TextStyle(color: kText, fontSize: 14, height: 1.6)),
               ]),
@@ -677,7 +678,7 @@ class LessonScreen extends StatelessWidget {
   }
 }
 
-// ── AI TUTOR TAB ──────────────────────────────────────────────────
+// Ã¢â€â‚¬Ã¢â€â‚¬ AI TUTOR TAB Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 class AITutorTab extends StatefulWidget {
   final String selectedSubject;
   const AITutorTab({super.key, required this.selectedSubject});
@@ -795,7 +796,7 @@ class _AITutorTabState extends State<AITutorTab> {
         title: Row(children: [
           Text(subj['emoji'] as String, style: const TextStyle(fontSize: 18)),
           const SizedBox(width: 8),
-          Text('AI Tutor · $_currentSubject'),
+          Text('AI Tutor Ã‚Â· $_currentSubject'),
         ]),
         actions: [
           if (_messages.isNotEmpty)
@@ -880,8 +881,8 @@ class _AITutorTabState extends State<AITutorTab> {
     final isUser = msg['role'] == 'user';
     final source = msg['source'] as String?;
     String sourceLabel = '';
-    if (source == 'faq' || source == 'faq_cache') sourceLabel = '⚡ Instant answer';
-    else if (source == 'claude') sourceLabel = '🤖 AI generated';
+    if (source == 'faq' || source == 'faq_cache') sourceLabel = 'Ã¢Å¡Â¡ Instant answer';
+    else if (source == 'claude') sourceLabel = 'Ã°Å¸Â¤â€“ AI generated';
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
@@ -988,7 +989,7 @@ class _AITutorTabState extends State<AITutorTab> {
   }
 }
 
-// ── QUIZZES TAB ───────────────────────────────────────────────────
+// Ã¢â€â‚¬Ã¢â€â‚¬ QUIZZES TAB Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 class QuizzesTab extends StatefulWidget {
   final String selectedSubject;
   const QuizzesTab({super.key, required this.selectedSubject});
@@ -1030,7 +1031,7 @@ class _QuizzesTabState extends State<QuizzesTab> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBg,
-      appBar: AppBar(title: Text('Quizzes · $_currentSubject')),
+      appBar: AppBar(title: Text('Quizzes Ã‚Â· $_currentSubject')),
       body: Column(children: [
         Container(
           color: kSurface,
@@ -1092,7 +1093,7 @@ class _QuizzesTabState extends State<QuizzesTab> {
   }
 }
 
-// ── QUIZ SCREEN ───────────────────────────────────────────────────
+// Ã¢â€â‚¬Ã¢â€â‚¬ QUIZ SCREEN Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 class QuizScreen extends StatefulWidget {
   final String quizId;
   final String title;
@@ -1225,7 +1226,7 @@ class _QuizScreenState extends State<QuizScreen> {
     final pct = _results!['percentage'] ?? 0;
     final feedback = _results!['feedback'] as List? ?? [];
     final color = pct >= 70 ? kGreen : pct >= 50 ? kYellow : kRed;
-    final emoji = pct >= 70 ? '🎉' : pct >= 50 ? '👍' : '💪';
+    final emoji = pct >= 70 ? 'Ã°Å¸Å½â€°' : pct >= 50 ? 'Ã°Å¸â€˜Â' : 'Ã°Å¸â€™Âª';
 
     return Scaffold(
       backgroundColor: kBg,
@@ -1285,7 +1286,7 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 }
 
-// ── PROFILE TAB ───────────────────────────────────────────────────
+// Ã¢â€â‚¬Ã¢â€â‚¬ PROFILE TAB Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});
   @override
@@ -1318,7 +1319,7 @@ class _ProfileTabState extends State<ProfileTab> {
   Future<void> _logout() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
-    if (mounted) Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => const AuthScreen()), (_) => false);
+    if (mounted) Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => const AuthScreen(role: 'student')), (_) => false);
   }
 
   @override
