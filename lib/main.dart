@@ -618,334 +618,62 @@ class _HomeTabState extends State<HomeTab> {
 }
 
 // ── LESSON SCREEN ─────────────────────────────────────────────────
-class LessonScreen extends StatefulWidget {
+class LessonScreen extends StatelessWidget {
   final dynamic lesson;
   const LessonScreen({super.key, required this.lesson});
-  @override
-  State<LessonScreen> createState() => _LessonScreenState();
-}
-
-class _LessonScreenState extends State<LessonScreen> {
-  Map<String, dynamic>? _fullLesson;
-  bool _loading = true;
-  int _currentSection = 0;
-
-  final List<Map<String, String>> _sections = [
-    {'key': 'introduction', 'title': '📖 Introduction', 'emoji': '📖'},
-    {'key': 'objectives', 'title': '🎯 Learning Objectives', 'emoji': '🎯'},
-    {'key': 'content', 'title': '📚 Explanation', 'emoji': '📚'},
-    {'key': 'worked_examples', 'title': '✏️ Worked Examples', 'emoji': '✏️'},
-    {'key': 'common_mistakes', 'title': '⚠️ Common Mistakes', 'emoji': '⚠️'},
-    {'key': 'summary', 'title': '📝 Summary & Key Points', 'emoji': '📝'},
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    _loading = false;
-  }
-
-  dynamic get _lesson => widget.lesson;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kBg,
-      appBar: AppBar(
-        title: Text((_lesson['topic'] ?? 'Lesson').toString()),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16),
-            child: Center(
-              child: Text('${_currentSection + 1}/${_sections.length}',
-                style: const TextStyle(color: kMuted, fontSize: 13)),
-            ),
-          ),
-        ],
-      ),
-      body: _loading
-          ? const Center(child: CircularProgressIndicator(color: kPrimary))
-          : Column(children: [
-              // Section tab bar
-              Container(
-                color: kSurface,
-                height: 44,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  itemCount: _sections.length,
-                  separatorBuilder: (_, __) => const SizedBox(width: 6),
-                  itemBuilder: (ctx, i) {
-                    final isSelected = _currentSection == i;
-                    return GestureDetector(
-                      onTap: () => setState(() => _currentSection = i),
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 200),
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: isSelected ? kPrimary : kSurface2,
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: isSelected ? kPrimary : kBorder),
-                        ),
-                        child: Text(
-                          _sections[i]['title']!,
-                          style: TextStyle(
-                            color: isSelected ? Colors.white : kMuted,
-                            fontSize: 11,
-                            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w400,
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              // Section content
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(20),
-                  child: _buildCurrentSection(),
-                ),
-              ),
-              // Navigation buttons
-              Container(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-                decoration: const BoxDecoration(
-                  color: kSurface,
-                  border: Border(top: BorderSide(color: kBorder)),
-                ),
-                child: Row(children: [
-                  if (_currentSection > 0)
-                    Expanded(child: OutlinedButton(
-                      onPressed: () => setState(() => _currentSection--),
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: kText,
-                        side: const BorderSide(color: kBorder),
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                      ),
-                      child: const Text('← Previous'),
-                    )),
-                  if (_currentSection > 0) const SizedBox(width: 12),
-                  if (_currentSection < _sections.length - 1)
-                    Expanded(child: ElevatedButton(
-                      onPressed: () => setState(() => _currentSection++),
-                      child: const Text('Next →'),
-                    )),
-                  if (_currentSection == _sections.length - 1)
-                    Expanded(child: ElevatedButton(
-                      onPressed: () => Navigator.pop(context),
-                      style: ElevatedButton.styleFrom(backgroundColor: kGreen),
-                      child: const Text('✓ Complete'),
-                    )),
-                ]),
-              ),
-            ]),
-    );
-  }
-
-  Widget _buildCurrentSection() {
-    final section = _sections[_currentSection];
-    final key = section['key']!;
-
-    switch (key) {
-      case 'introduction':
-        final intro = _lesson['introduction']?.toString() ?? '';
-        return _buildTextSection('📖 Introduction', intro, kPrimary);
-
-      case 'objectives':
-        final objs = _lesson['learning_objectives'];
-        if (objs == null) return _emptySection('No objectives available');
-        final list = objs is List ? objs : [];
-        return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          _sectionHeader('🎯 Learning Objectives'),
-          const SizedBox(height: 16),
-          ...list.asMap().entries.map((e) => Container(
-            margin: const EdgeInsets.only(bottom: 10),
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: kGreen.withOpacity(0.08),
-              border: Border.all(color: kGreen.withOpacity(0.25)),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Container(
-                width: 24, height: 24,
-                decoration: BoxDecoration(color: kGreen, borderRadius: BorderRadius.circular(12)),
-                child: Center(child: Text('${e.key + 1}',
-                  style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w800))),
-              ),
-              const SizedBox(width: 12),
-              Expanded(child: Text(e.value.toString(),
-                style: const TextStyle(color: kText, fontSize: 14, height: 1.5))),
-            ]),
-          )),
-        ]);
-
-      case 'content':
-        final content = _lesson['content']?.toString() ?? '';
-        return _buildTextSection('📚 Full Explanation', content, kPrimary);
-
-      case 'worked_examples':
-        final examples = _lesson['worked_examples']?.toString() ?? '';
-        if (examples.isEmpty) return _emptySection('Worked examples coming soon');
-        return _buildExamplesSection(examples);
-
-      case 'common_mistakes':
-        final mistakes = _lesson['common_mistakes']?.toString() ?? '';
-        if (mistakes.isEmpty) return _emptySection('Common mistakes coming soon');
-        return _buildMistakesSection(mistakes);
-
-      case 'summary':
-        final summary = _lesson['summary']?.toString() ?? '';
-        if (summary.isEmpty) return _emptySection('Summary coming soon');
-        return _buildTextSection('📝 Summary & Key Points', summary, kYellow);
-
-      default:
-        return _emptySection('Content coming soon');
-    }
-  }
-
-  Widget _buildTextSection(String title, String content, Color color) {
-    if (content.isEmpty) return _emptySection('Content coming soon');
-    // Split by double newlines for paragraphs
-    final paragraphs = content.split('\n\n').where((p) => p.trim().isNotEmpty).toList();
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      _sectionHeader(title),
-      const SizedBox(height: 16),
-      ...paragraphs.map((para) {
-        final trimmed = para.trim();
-        // Check if it's a header (ALL CAPS or starts with PART)
-        final isHeader = trimmed == trimmed.toUpperCase() && trimmed.length > 3 && trimmed.length < 60
-            || trimmed.startsWith('PART ') || trimmed.startsWith('Law ');
-        if (isHeader) {
-          return Padding(
-            padding: const EdgeInsets.only(top: 20, bottom: 8),
-            child: Text(trimmed,
-              style: TextStyle(color: color, fontSize: 14, fontWeight: FontWeight.w800)),
-          );
-        }
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 12),
-          child: Text(trimmed,
-            style: const TextStyle(color: kText, fontSize: 14, height: 1.75)),
-        );
-      }),
-    ]);
-  }
-
-  Widget _buildExamplesSection(String examples) {
-    final parts = examples.split('───────────────────────────────────────────')
-        .where((p) => p.trim().isNotEmpty).toList();
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      _sectionHeader('✏️ Worked Examples'),
-      const SizedBox(height: 16),
-      ...parts.asMap().entries.map((e) => Container(
-        margin: const EdgeInsets.only(bottom: 16),
-        decoration: BoxDecoration(
-          color: kSurface,
-          border: Border.all(color: kBorder),
-          borderRadius: BorderRadius.circular(12),
-        ),
+      appBar: AppBar(title: Text(lesson['topic'] ?? 'Lesson')),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            decoration: BoxDecoration(
-              color: kPrimary.withOpacity(0.15),
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+          Text(lesson['title'] ?? '', style: const TextStyle(color: kText, fontSize: 22, fontWeight: FontWeight.w800)),
+          const SizedBox(height: 20),
+          if (lesson['introduction'] != null && lesson['introduction'].toString().isNotEmpty)
+            _section('Introduction', lesson['introduction']),
+          if (lesson['learning_objectives'] != null && (lesson['learning_objectives'] as List).isNotEmpty) ...[
+            const SizedBox(height: 20),
+            const Text('🎯 Learning Objectives', style: TextStyle(color: kText, fontSize: 16, fontWeight: FontWeight.w700)),
+            const SizedBox(height: 8),
+            ...(lesson['learning_objectives'] as List).map((obj) => Padding(
+              padding: const EdgeInsets.only(bottom: 6),
+              child: Row(children: [
+                const Icon(Icons.check_circle_outline, color: kGreen, size: 16),
+                const SizedBox(width: 8),
+                Expanded(child: Text(obj.toString(), style: const TextStyle(color: kText, fontSize: 14))),
+              ]),
+            )),
+          ],
+          if (lesson['content'] != null && lesson['content'].toString().isNotEmpty) ...[
+            const SizedBox(height: 20),
+            _section('Explanation', lesson['content']),
+          ],
+          if (lesson['summary'] != null && lesson['summary'].toString().isNotEmpty) ...[
+            const SizedBox(height: 20),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(color: kPrimary.withOpacity(0.1), border: Border.all(color: kPrimary.withOpacity(0.3)), borderRadius: BorderRadius.circular(12)),
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                const Text('📝 Summary', style: TextStyle(color: kPrimary, fontSize: 14, fontWeight: FontWeight.w700)),
+                const SizedBox(height: 8),
+                Text(lesson['summary'], style: const TextStyle(color: kText, fontSize: 14, height: 1.6)),
+              ]),
             ),
-            child: Row(children: [
-              Container(
-                width: 28, height: 28,
-                decoration: BoxDecoration(color: kPrimary, borderRadius: BorderRadius.circular(14)),
-                child: Center(child: Text('${e.key + 1}',
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 13))),
-              ),
-              const SizedBox(width: 10),
-              Text('Example ${e.key + 1}',
-                style: const TextStyle(color: kPrimary, fontWeight: FontWeight.w700, fontSize: 14)),
-            ]),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Text(e.value.trim(),
-              style: const TextStyle(color: kText, fontSize: 13, height: 1.75,
-                fontFamily: 'monospace')),
-          ),
-        ]),
-      )),
-    ]);
-  }
-
-  Widget _buildMistakesSection(String mistakes) {
-    final lines = mistakes.split('\n').where((l) => l.trim().isNotEmpty).toList();
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      _sectionHeader('⚠️ Common Mistakes'),
-      const SizedBox(height: 8),
-      Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: kRed.withOpacity(0.08),
-          border: Border.all(color: kRed.withOpacity(0.3)),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Row(children: [
-          Icon(Icons.warning_amber_rounded, color: kRed, size: 18),
-          const SizedBox(width: 8),
-          const Expanded(child: Text('Study these carefully — these exact mistakes cost marks in SPM!',
-            style: TextStyle(color: kRed, fontSize: 12, fontWeight: FontWeight.w600))),
-        ]),
-      ),
-      const SizedBox(height: 16),
-      ...lines.map((line) {
-        final trimmed = line.trim();
-        if (trimmed.startsWith('❌')) {
-          return Container(
-            margin: const EdgeInsets.only(bottom: 4),
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: kRed.withOpacity(0.08),
-              border: Border.all(color: kRed.withOpacity(0.2)),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Text(trimmed, style: const TextStyle(color: kRed, fontSize: 13, height: 1.5)),
-          );
-        } else if (trimmed.startsWith('✅')) {
-          return Container(
-            margin: const EdgeInsets.only(bottom: 12),
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: kGreen.withOpacity(0.08),
-              border: Border.all(color: kGreen.withOpacity(0.2)),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Text(trimmed, style: const TextStyle(color: kGreen, fontSize: 13, height: 1.5)),
-          );
-        }
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 6),
-          child: Text(trimmed, style: const TextStyle(color: kText, fontSize: 13, height: 1.6)),
-        );
-      }),
-    ]);
-  }
-
-  Widget _sectionHeader(String title) {
-    return Text(title,
-      style: const TextStyle(color: kText, fontSize: 18, fontWeight: FontWeight.w800));
-  }
-
-  Widget _emptySection(String message) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(40),
-        child: Column(children: [
-          const Icon(Icons.hourglass_empty, color: kMuted, size: 48),
-          const SizedBox(height: 12),
-          Text(message, style: const TextStyle(color: kMuted, fontSize: 14)),
+          ],
+          const SizedBox(height: 30),
         ]),
       ),
     );
+  }
+
+  Widget _section(String title, String content) {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text(title, style: const TextStyle(color: kText, fontSize: 16, fontWeight: FontWeight.w700)),
+      const SizedBox(height: 8),
+      Text(content, style: const TextStyle(color: kText, fontSize: 14, height: 1.7)),
+    ]);
   }
 }
 
