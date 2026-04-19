@@ -103,7 +103,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final token = prefs.getString('token');
     if (mounted) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (_) => token != null ? const MainShell() : const LandingScreen(),
+        builder: (_) => token != null ? const MainShell() : LandingScreen(),
       ));
     }
   }
