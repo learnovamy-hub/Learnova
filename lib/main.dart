@@ -5,20 +5,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const String API_URL = 'https://attractive-contentment-production-146b.up.railway.app';
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ SUBJECTS Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+// ΓöÇΓöÇ SUBJECTS ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 const List<Map<String, dynamic>> kSubjects = [
-  {'name': 'Mathematics', 'emoji': 'Ã°Å¸â€œÂ', 'color': 0xFF6366F1},
-  {'name': 'Add Maths', 'emoji': 'Ã¢Å¾â€¢', 'color': 0xFF8B5CF6},
-  {'name': 'Physics', 'emoji': 'Ã¢Å¡Â¡', 'color': 0xFFF59E0B},
-  {'name': 'Biology', 'emoji': 'Ã°Å¸Â§Â¬', 'color': 0xFF10B981},
-  {'name': 'Chemistry', 'emoji': 'Ã°Å¸Â§Âª', 'color': 0xFFEF4444},
-  {'name': 'Geography', 'emoji': 'Ã°Å¸Å’Â', 'color': 0xFF06B6D4},
-  {'name': 'Sejarah', 'emoji': 'Ã°Å¸â€œÅ“', 'color': 0xFFD97706},
-  {'name': 'Bahasa Malaysia', 'emoji': 'Ã°Å¸â€¡Â²Ã°Å¸â€¡Â¾', 'color': 0xFFEC4899},
-  {'name': 'English', 'emoji': 'Ã°Å¸â€œÂ', 'color': 0xFF14B8A6},
+  {'name': 'Mathematics', 'emoji': '≡ƒôÉ', 'color': 0xFF6366F1},
+  {'name': 'Add Maths', 'emoji': 'Γ₧ò', 'color': 0xFF8B5CF6},
+  {'name': 'Physics', 'emoji': 'ΓÜí', 'color': 0xFFF59E0B},
+  {'name': 'Biology', 'emoji': '≡ƒº¼', 'color': 0xFF10B981},
+  {'name': 'Chemistry', 'emoji': '≡ƒº¬', 'color': 0xFFEF4444},
+  {'name': 'Geography', 'emoji': '≡ƒîì', 'color': 0xFF06B6D4},
+  {'name': 'Sejarah', 'emoji': '≡ƒô£', 'color': 0xFFD97706},
+  {'name': 'Bahasa Malaysia', 'emoji': '≡ƒç▓≡ƒç╛', 'color': 0xFFEC4899},
+  {'name': 'English', 'emoji': '≡ƒô¥', 'color': 0xFF14B8A6},
 ];
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ THEME Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+// ΓöÇΓöÇ THEME ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 const Color kPrimary = Color(0xFF6366F1);
 const Color kPrimary2 = Color(0xFF8B5CF6);
 const Color kGreen = Color(0xFF10B981);
@@ -83,7 +83,7 @@ class LearnovaApp extends StatelessWidget {
   }
 }
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ SPLASH Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+// ΓöÇΓöÇ SPLASH ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
   @override
@@ -103,7 +103,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final token = prefs.getString('token');
     if (mounted) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (_) => token != null ? const MainShell() : LandingScreen(),
+        builder: (_) => token != null ? const MainShell() : const LandingScreen(),
       ));
     }
   }
@@ -137,7 +137,38 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ AUTH Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+// ΓöÇΓöÇ AUTH ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+class LandingScreen extends StatelessWidget {
+  const LandingScreen({super.key});
+  @override
+  Widget build(BuildContext ctx) {
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(gradient: RadialGradient(center: Alignment(-0.5,-0.5), radius: 1.2, colors: [Color(0xFF1E1B4B), kBg])),
+        child: SafeArea(child: Padding(padding: const EdgeInsets.all(24), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          const SizedBox(height: 40),
+          Row(children: [Container(width: 48, height: 48, decoration: BoxDecoration(gradient: const LinearGradient(colors: [kPrimary, kPrimary2]), borderRadius: BorderRadius.circular(14)), child: const Icon(Icons.school_rounded, color: Colors.white, size: 26)), const SizedBox(width: 12), const Text('Learnova', style: TextStyle(color: kText, fontSize: 26, fontWeight: FontWeight.w800))]),
+          const Spacer(),
+          const Text('Learn smarter,', style: TextStyle(color: kText, fontSize: 34, fontWeight: FontWeight.w800)),
+          const SizedBox(height: 8),
+          const Text('not harder.', style: TextStyle(color: kPrimary, fontSize: 34, fontWeight: FontWeight.w800)),
+          const SizedBox(height: 12),
+          const Text('AI-powered SPM tutoring for every student.', style: TextStyle(color: kMuted, fontSize: 14)),
+          const Spacer(),
+          const Text('I am a...', style: TextStyle(color: kMuted, fontSize: 13, fontWeight: FontWeight.w600)),
+          const SizedBox(height: 12),
+          GestureDetector(onTap: () => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const AuthScreen(role: 'student'))), child: Container(padding: const EdgeInsets.all(16), decoration: BoxDecoration(color: kSurface, border: Border.all(color: kPrimary.withOpacity(0.4)), borderRadius: BorderRadius.circular(16)), child: Row(children: [Container(width: 48, height: 48, decoration: BoxDecoration(color: kPrimary.withOpacity(0.15), borderRadius: BorderRadius.circular(12)), child: const Icon(Icons.school_rounded, color: kPrimary, size: 24)), const SizedBox(width: 14), Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [const Text('Student', style: TextStyle(color: kPrimary, fontSize: 16, fontWeight: FontWeight.w700)), const Text('Lessons, AI tutor and quizzes', style: TextStyle(color: kMuted, fontSize: 12))])), const Icon(Icons.arrow_forward_ios_rounded, color: kPrimary, size: 14)]))),
+          const SizedBox(height: 12),
+          GestureDetector(onTap: () => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const AuthScreen(role: 'teacher'))), child: Container(padding: const EdgeInsets.all(16), decoration: BoxDecoration(color: kSurface, border: Border.all(color: kGreen.withOpacity(0.4)), borderRadius: BorderRadius.circular(16)), child: Row(children: [Container(width: 48, height: 48, decoration: BoxDecoration(color: kGreen.withOpacity(0.15), borderRadius: BorderRadius.circular(12)), child: const Icon(Icons.person_rounded, color: kGreen, size: 24)), const SizedBox(width: 14), Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [const Text('Teacher', style: TextStyle(color: kGreen, fontSize: 16, fontWeight: FontWeight.w700)), const Text('Upload lessons and track students', style: TextStyle(color: kMuted, fontSize: 12))])), const Icon(Icons.arrow_forward_ios_rounded, color: kGreen, size: 14)]))),
+          const SizedBox(height: 12),
+          GestureDetector(onTap: () => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const AuthScreen(role: 'parent'))), child: Container(padding: const EdgeInsets.all(16), decoration: BoxDecoration(color: kSurface, border: Border.all(color: kYellow.withOpacity(0.4)), borderRadius: BorderRadius.circular(16)), child: Row(children: [Container(width: 48, height: 48, decoration: BoxDecoration(color: kYellow.withOpacity(0.15), borderRadius: BorderRadius.circular(12)), child: const Icon(Icons.family_restroom_rounded, color: kYellow, size: 24)), const SizedBox(width: 14), Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [const Text('Parent', style: TextStyle(color: kYellow, fontSize: 16, fontWeight: FontWeight.w700)), const Text('Monitor your child progress', style: TextStyle(color: kMuted, fontSize: 12))])), const Icon(Icons.arrow_forward_ios_rounded, color: kYellow, size: 14)]))),
+          const SizedBox(height: 32),
+        ]))),
+      ),
+    );
+  }
+}
 class AuthScreen extends StatefulWidget {
   final String role;
   const AuthScreen({super.key, required this.role});
@@ -219,7 +250,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   const Text('Learnova', style: TextStyle(color: kText, fontSize: 24, fontWeight: FontWeight.w800)),
                 ]),
                 const SizedBox(height: 40),
-                Text(_isLogin ? 'Welcome back Ã°Å¸â€˜â€¹' : 'Join Learnova Ã°Å¸Å¡â‚¬', style: const TextStyle(color: kText, fontSize: 26, fontWeight: FontWeight.w800)),
+                Text(_isLogin ? 'Welcome back ≡ƒæï' : 'Join Learnova ≡ƒÜÇ', style: const TextStyle(color: kText, fontSize: 26, fontWeight: FontWeight.w800)),
                 const SizedBox(height: 6),
                 Text(_isLogin ? 'Sign in to continue learning' : 'Create your student account', style: const TextStyle(color: kMuted, fontSize: 14)),
                 const SizedBox(height: 32),
@@ -280,7 +311,7 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 }
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ MAIN SHELL Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+// ΓöÇΓöÇ MAIN SHELL ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 class MainShell extends StatefulWidget {
   const MainShell({super.key});
   @override
@@ -329,7 +360,7 @@ class _MainShellState extends State<MainShell> {
   }
 }
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ SUBJECT SELECTOR WIDGET Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+// ΓöÇΓöÇ SUBJECT SELECTOR WIDGET ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 class SubjectSelector extends StatelessWidget {
   final String selected;
   final ValueChanged<String> onChanged;
@@ -372,7 +403,7 @@ class SubjectSelector extends StatelessWidget {
   }
 }
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ HOME TAB Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+// ΓöÇΓöÇ HOME TAB ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 class HomeTab extends StatefulWidget {
   final String selectedSubject;
   final ValueChanged<String> onSubjectChanged;
@@ -471,7 +502,7 @@ class _HomeTabState extends State<HomeTab> {
                   SliverToBoxAdapter(child: _buildFAQSection()),
                   SliverToBoxAdapter(child: Padding(
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
-                    child: Text('Ã°Å¸â€œâ€“ Lessons', style: _sectionTitle()),
+                    child: Text('≡ƒôû Lessons', style: _sectionTitle()),
                   )),
                   _lessons.isEmpty
                       ? SliverToBoxAdapter(child: _emptyState('No lessons yet', 'Your teacher will upload lessons soon'))
@@ -495,7 +526,7 @@ class _HomeTabState extends State<HomeTab> {
       decoration: const BoxDecoration(color: kSurface, border: Border(bottom: BorderSide(color: kBorder))),
       child: Row(children: [
         Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text('$greeting Ã°Å¸â€˜â€¹', style: const TextStyle(color: kMuted, fontSize: 13)),
+          Text('$greeting ≡ƒæï', style: const TextStyle(color: kMuted, fontSize: 13)),
           const SizedBox(height: 2),
           Text(_name, style: const TextStyle(color: kText, fontSize: 22, fontWeight: FontWeight.w800)),
           Text('${subj['emoji']} ${widget.selectedSubject}', style: const TextStyle(color: kMuted, fontSize: 13)),
@@ -513,7 +544,7 @@ class _HomeTabState extends State<HomeTab> {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
         padding: const EdgeInsets.fromLTRB(20, 16, 20, 10),
-        child: Text('Ã°Å¸â€œÅ¡ Subject', style: _sectionTitle()),
+        child: Text('≡ƒôÜ Subject', style: _sectionTitle()),
       ),
       SubjectSelector(
         selected: widget.selectedSubject,
@@ -529,9 +560,9 @@ class _HomeTabState extends State<HomeTab> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
       child: Row(children: [
-        _actionCard('Ã°Å¸Â¤â€“', 'Ask AI', 'Get instant answers', kPrimary, () => _goToTab(1)),
+        _actionCard('≡ƒñû', 'Ask AI', 'Get instant answers', kPrimary, () => _goToTab(1)),
         const SizedBox(width: 12),
-        _actionCard('Ã°Å¸Â§Â ', 'Take Quiz', 'Test your knowledge', kGreen, () => _goToTab(2)),
+        _actionCard('≡ƒºá', 'Take Quiz', 'Test your knowledge', kGreen, () => _goToTab(2)),
       ]),
     );
   }
@@ -562,7 +593,7 @@ class _HomeTabState extends State<HomeTab> {
       'What is the discriminant?', 'Sum of arithmetic progression?'
     ];
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(padding: const EdgeInsets.fromLTRB(20, 20, 20, 12), child: Text('Ã¢Å¡Â¡ Quick Questions', style: _sectionTitle())),
+      Padding(padding: const EdgeInsets.fromLTRB(20, 20, 20, 12), child: Text('ΓÜí Quick Questions', style: _sectionTitle())),
       SizedBox(
         height: 40,
         child: ListView.separated(
@@ -595,7 +626,7 @@ class _HomeTabState extends State<HomeTab> {
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         leading: Container(width: 44, height: 44, decoration: BoxDecoration(color: kPrimary.withOpacity(0.15), borderRadius: BorderRadius.circular(10)), child: const Icon(Icons.book_rounded, color: kPrimary, size: 22)),
         title: Text(lesson['title'] ?? 'Lesson', style: const TextStyle(color: kText, fontWeight: FontWeight.w600, fontSize: 14)),
-        subtitle: Text('${lesson['topic'] ?? ''} Ã‚Â· Form ${lesson['form_level'] ?? 4}', style: const TextStyle(color: kMuted, fontSize: 12)),
+        subtitle: Text('${lesson['topic'] ?? ''} ┬╖ Form ${lesson['form_level'] ?? 4}', style: const TextStyle(color: kMuted, fontSize: 12)),
         trailing: const Icon(Icons.arrow_forward_ios_rounded, color: kMuted, size: 14),
         onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => LessonScreen(lesson: lesson))),
       ),
@@ -618,7 +649,7 @@ class _HomeTabState extends State<HomeTab> {
   TextStyle _sectionTitle() => const TextStyle(color: kText, fontSize: 16, fontWeight: FontWeight.w700);
 }
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ LESSON SCREEN Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+// ΓöÇΓöÇ LESSON SCREEN ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 class LessonScreen extends StatelessWidget {
   final dynamic lesson;
   const LessonScreen({super.key, required this.lesson});
@@ -636,7 +667,7 @@ class LessonScreen extends StatelessWidget {
             _section('Introduction', lesson['introduction']),
           if (lesson['learning_objectives'] != null && (lesson['learning_objectives'] as List).isNotEmpty) ...[
             const SizedBox(height: 20),
-            const Text('Ã°Å¸Å½Â¯ Learning Objectives', style: TextStyle(color: kText, fontSize: 16, fontWeight: FontWeight.w700)),
+            const Text('≡ƒÄ» Learning Objectives', style: TextStyle(color: kText, fontSize: 16, fontWeight: FontWeight.w700)),
             const SizedBox(height: 8),
             ...(lesson['learning_objectives'] as List).map((obj) => Padding(
               padding: const EdgeInsets.only(bottom: 6),
@@ -657,7 +688,7 @@ class LessonScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(color: kPrimary.withOpacity(0.1), border: Border.all(color: kPrimary.withOpacity(0.3)), borderRadius: BorderRadius.circular(12)),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                const Text('Ã°Å¸â€œÂ Summary', style: TextStyle(color: kPrimary, fontSize: 14, fontWeight: FontWeight.w700)),
+                const Text('≡ƒô¥ Summary', style: TextStyle(color: kPrimary, fontSize: 14, fontWeight: FontWeight.w700)),
                 const SizedBox(height: 8),
                 Text(lesson['summary'], style: const TextStyle(color: kText, fontSize: 14, height: 1.6)),
               ]),
@@ -678,7 +709,7 @@ class LessonScreen extends StatelessWidget {
   }
 }
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ AI TUTOR TAB Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+// ΓöÇΓöÇ AI TUTOR TAB ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 class AITutorTab extends StatefulWidget {
   final String selectedSubject;
   const AITutorTab({super.key, required this.selectedSubject});
@@ -796,7 +827,7 @@ class _AITutorTabState extends State<AITutorTab> {
         title: Row(children: [
           Text(subj['emoji'] as String, style: const TextStyle(fontSize: 18)),
           const SizedBox(width: 8),
-          Text('AI Tutor Ã‚Â· $_currentSubject'),
+          Text('AI Tutor ┬╖ $_currentSubject'),
         ]),
         actions: [
           if (_messages.isNotEmpty)
@@ -881,8 +912,8 @@ class _AITutorTabState extends State<AITutorTab> {
     final isUser = msg['role'] == 'user';
     final source = msg['source'] as String?;
     String sourceLabel = '';
-    if (source == 'faq' || source == 'faq_cache') sourceLabel = 'Ã¢Å¡Â¡ Instant answer';
-    else if (source == 'claude') sourceLabel = 'Ã°Å¸Â¤â€“ AI generated';
+    if (source == 'faq' || source == 'faq_cache') sourceLabel = 'ΓÜí Instant answer';
+    else if (source == 'claude') sourceLabel = '≡ƒñû AI generated';
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
@@ -989,7 +1020,7 @@ class _AITutorTabState extends State<AITutorTab> {
   }
 }
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ QUIZZES TAB Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+// ΓöÇΓöÇ QUIZZES TAB ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 class QuizzesTab extends StatefulWidget {
   final String selectedSubject;
   const QuizzesTab({super.key, required this.selectedSubject});
@@ -1031,7 +1062,7 @@ class _QuizzesTabState extends State<QuizzesTab> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBg,
-      appBar: AppBar(title: Text('Quizzes Ã‚Â· $_currentSubject')),
+      appBar: AppBar(title: Text('Quizzes ┬╖ $_currentSubject')),
       body: Column(children: [
         Container(
           color: kSurface,
@@ -1093,7 +1124,7 @@ class _QuizzesTabState extends State<QuizzesTab> {
   }
 }
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ QUIZ SCREEN Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+// ΓöÇΓöÇ QUIZ SCREEN ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 class QuizScreen extends StatefulWidget {
   final String quizId;
   final String title;
@@ -1226,7 +1257,7 @@ class _QuizScreenState extends State<QuizScreen> {
     final pct = _results!['percentage'] ?? 0;
     final feedback = _results!['feedback'] as List? ?? [];
     final color = pct >= 70 ? kGreen : pct >= 50 ? kYellow : kRed;
-    final emoji = pct >= 70 ? 'Ã°Å¸Å½â€°' : pct >= 50 ? 'Ã°Å¸â€˜Â' : 'Ã°Å¸â€™Âª';
+    final emoji = pct >= 70 ? '≡ƒÄë' : pct >= 50 ? '≡ƒæì' : '≡ƒÆ¬';
 
     return Scaffold(
       backgroundColor: kBg,
@@ -1286,7 +1317,7 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 }
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ PROFILE TAB Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+// ΓöÇΓöÇ PROFILE TAB ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});
   @override
@@ -1319,7 +1350,7 @@ class _ProfileTabState extends State<ProfileTab> {
   Future<void> _logout() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
-    if (mounted) Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => const AuthScreen(role: 'student')), (_) => false);
+    if (mounted) Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => const AuthScreen()), (_) => false);
   }
 
   @override
