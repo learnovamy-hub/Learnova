@@ -106,11 +106,11 @@ class _SplashScreenState extends State<SplashScreen> {
       if (token != null) {
         final role = prefs.getString('role') ?? 'student';
         if (role == 'teacher') {
-          destination = const TeacherPortal();
+          destination = TeacherPortal();
         } else if (role == 'parent') {
-          destination = const ParentPortal();
+          destination = ParentPortal();
         } else {
-          destination = const MainShell();
+          destination = MainShell();
         }
       }
       Navigator.of(context).pushReplacement(MaterialPageRoute(
