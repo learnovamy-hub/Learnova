@@ -102,8 +102,19 @@ class _SplashScreenState extends State<SplashScreen> {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
     if (mounted) {
+      Widget destination = const LandingScreen();
+      if (token != null) {
+        final role = prefs.getString('role') ?? 'student';
+        if (role == 'teacher') {
+          destination = const TeacherPortal();
+        } else if (role == 'parent') {
+          destination = const ParentPortal();
+        } else {
+          destination = const MainShell();
+        }
+      }
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (_) => token != null ? const MainShell() : const LandingScreen(),
+        builder: (_) => destination,
       ));
     }
   }
