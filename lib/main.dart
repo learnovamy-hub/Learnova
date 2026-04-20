@@ -183,13 +183,15 @@ class _AuthScreenState extends State<AuthScreen> {
   final _parentEmailCtrl = TextEditingController();
   bool _isLogin = true;
   bool _isLoading = false;
+  bool _obscurePassword = true;
+  String _errorMessage = '';
 
   Future<void> _submit() async {
     if (_emailCtrl.text.isEmpty || _passwordCtrl.text.isEmpty) {
       _showSnack('Please fill in all fields');
       return;
     }
-    setState(() => _isLoading = true);
+    setState(() { _isLoading = true; _errorMessage = ''; });
     try {
       final endpoint = _isLogin ? '/api/student/login' : '/api/student/signup';
       final body = _isLogin
@@ -217,7 +219,7 @@ class _AuthScreenState extends State<AuthScreen> {
           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const MainShell()));
         }
       } else {
-        _showSnack(data['error'] ?? 'Authentication failed');
+        setState(() => _errorMessage = data['error'] ?? 'Login failed. Please check your email and password.');
       }
     } catch (e) {
       _showSnack('Connection error. Please try again.');
@@ -262,8 +264,42 @@ class _AuthScreenState extends State<AuthScreen> {
                 ],
                 _field(_emailCtrl, 'Email Address', Icons.email_outlined, type: TextInputType.emailAddress),
                 const SizedBox(height: 14),
-                _field(_passwordCtrl, 'Password', Icons.lock_outline, obscure: true),
+                StatefulBuilder(
+                  builder: (context, setFieldState) => TextField(
+                    controller: _passwordCtrl,
+                    obscureText: _obscurePassword,
+                    style: const TextStyle(color: kText),
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      prefixIcon: const Icon(Icons.lock_outline, color: kMuted, size: 20),
+                      suffixIcon: GestureDetector(
+                        onTap: () => setState(() => _obscurePassword = !_obscurePassword),
+                        child: Icon(
+                          _obscurePassword ? Icons.visibility_off_rounded : Icons.visibility_rounded,
+                          color: kMuted, size: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 28),
+                if (_errorMessage.isNotEmpty) ...[
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: kRed.withOpacity(0.1),
+                      border: Border.all(color: kRed.withOpacity(0.4)),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(children: [
+                      const Icon(Icons.error_outline, color: kRed, size: 16),
+                      const SizedBox(width: 8),
+                      Expanded(child: Text(_errorMessage, style: const TextStyle(color: kRed, fontSize: 13))),
+                    ]),
+                  ),
+                  const SizedBox(height: 8),
+                ],
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
