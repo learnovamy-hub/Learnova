@@ -609,6 +609,131 @@ app.get('/api/leaderboard', async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
+
+// ── PRICING ───────────────────────────────────────────────────────
+app.get('/api/pricing', async (req, res) => {
+  try {
+    const { data } = await supabase.from('subject_pricing').select('*').eq('is_active', true).order('subject');
+    res.json({ pricing: data || [] });
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// ── SUBSCRIPTIONS ─────────────────────────────────────────────────
+app.get('/api/student/subscriptions', authStudent, async (req, res) => {
+  try {
+    const { data } = await supabase.from('subscriptions').select('*').eq('student_id', req.user.student_id).eq('status', 'active').gt('expires_at', new Date().toISOString());
+    res.json({ subscriptions: data || [] });
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.post('/api/student/subscribe', authStudent, async (req, res) => {
+  try {
+    const { subject, plan = 'monthly', qr_type = 'duitnow' } = req.body;
+    if (!subject) return res.status(400).json({ error: 'Subject required' });
+    const prices = { monthly: 40, yearly: 400 };
+    const amount = prices[plan] || 40;
+    const refCode = 'LRN-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+    await supabase.from('payment_requests').insert([{ student_id: req.user.student_id, subject, amount, plan, qr_type, reference_code: refCode, status: 'pending' }]);
+    const waText = encodeURIComponent(`Hi Learnova! I paid for ${subject} (${plan}). Ref: ${refCode}. Amount: RM${amount}`);
+    res.json({ reference_code: refCode, amount, subject, plan, qr_type, whatsapp_confirm: `https://wa.me/601XXXXXXXXX?text=${waText}`, instructions: `Pay RM${amount} via ${qr_type.toUpperCase()}. Use reference: ${refCode} in payment description.` });
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.get('/api/student/access/:subject', authStudent, async (req, res) => {
+  try {
+    const { data } = await supabase.from('subscriptions').select('*').eq('student_id', req.user.student_id).eq('subject', req.params.subject).eq('status', 'active').gt('expires_at', new Date().toISOString()).single();
+    res.json({ has_access: !!data, subscription: data || null });
+  } catch (err) { res.json({ has_access: false }); }
+});
+
+app.post('/api/admin/verify-payment', async (req, res) => {
+  try {
+    const { reference_code, admin_key } = req.body;
+    if (admin_key !== (process.env.ADMIN_KEY || 'learnova-admin-2025')) return res.status(403).json({ error: 'Unauthorized' });
+    const { data: request } = await supabase.from('payment_requests').select('*').eq('reference_code', reference_code).single();
+    if (!request) return res.status(404).json({ error: 'Payment request not found' });
+    const expiresAt = new Date();
+    if (request.plan === 'yearly') expiresAt.setFullYear(expiresAt.getFullYear() + 1);
+    else expiresAt.setMonth(expiresAt.getMonth() + 1);
+    await supabase.from('subscriptions').insert([{ student_id: request.student_id, subject: request.subject, plan: request.plan, amount_paid: request.amount, payment_method: request.qr_type, payment_reference: reference_code, status: 'active', expires_at: expiresAt.toISOString(), verified_at: new Date().toISOString() }]);
+    await supabase.from('payment_requests').update({ status: 'verified', verified_at: new Date().toISOString() }).eq('reference_code', reference_code);
+    res.json({ success: true, message: `Subscription activated for ${request.subject}` });
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// ── SPONSORSHIP ───────────────────────────────────────────────────
+app.post('/api/parent/create-sponsorship', authParent, async (req, res) => {
+  try {
+    const { subject, show_progress = false, qr_type = 'duitnow' } = req.body;
+    if (!subject) return res.status(400).json({ error: 'Subject required' });
+    const amount = 480;
+    const refCode = 'SPO-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+    const accessCode = Math.random().toString(36).substring(2, 10).toUpperCase();
+    await supabase.from('sponsorship_seats').insert([{ sponsor_parent_id: req.user.parent_id, subject, amount_paid: amount, payment_reference: refCode, payment_method: qr_type, show_progress_to_sponsor: show_progress, access_code: accessCode, status: 'available' }]);
+    const shareLink = `https://learnovamy-hub.github.io/Learnova/?sponsor=${accessCode}`;
+    const waText = encodeURIComponent(`You have been sponsored to learn ${subject} on Learnova for FREE!
+
+Claim your access here:
+${shareLink}
+
+Access Code: ${accessCode}
+
+Learnova - AI-Powered SPM Tutoring`);
+    res.json({ access_code: accessCode, share_link: shareLink, whatsapp_share: `https://wa.me/?text=${waText}`, amount, subject, reference_code: refCode, instructions: `Pay RM${amount} via ${qr_type.toUpperCase()} with reference: ${refCode}. Share the link with the student you want to sponsor.` });
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.post('/api/student/claim-sponsorship', authStudent, async (req, res) => {
+  try {
+    const { access_code } = req.body;
+    if (!access_code) return res.status(400).json({ error: 'Access code required' });
+    const { data: seat } = await supabase.from('sponsorship_seats').select('*').eq('access_code', access_code.toUpperCase()).eq('status', 'available').single();
+    if (!seat) return res.status(404).json({ error: 'Invalid or already claimed code' });
+    const expiresAt = new Date(); expiresAt.setFullYear(expiresAt.getFullYear() + 1);
+    await supabase.from('subscriptions').insert([{ student_id: req.user.student_id, subject: seat.subject, plan: 'yearly', amount_paid: 0, payment_method: 'sponsored', status: 'active', sponsored_by: seat.sponsor_parent_id, expires_at: expiresAt.toISOString(), verified_at: new Date().toISOString() }]);
+    await supabase.from('sponsorship_seats').update({ status: 'claimed', student_id: req.user.student_id, claimed_at: new Date().toISOString() }).eq('id', seat.id);
+    res.json({ success: true, subject: seat.subject, message: `Welcome! You now have access to ${seat.subject} sponsored by a generous parent.` });
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// ── TEACHER PROFILE ───────────────────────────────────────────────
+app.post('/api/teacher/profile', authTeacher, async (req, res) => {
+  try {
+    const { school, subjects, years_experience, qualifications, teaching_philosophy } = req.body;
+    const { data, error } = await supabase.from('teacher_profiles').upsert([{ teacher_id: req.user.teacher_id, school, subjects: subjects || [], years_experience: years_experience || 0, qualifications, teaching_philosophy, onboarding_completed: true }], { onConflict: 'teacher_id' }).select().single();
+    if (error) throw error;
+    res.json({ success: true, profile: data });
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.get('/api/teacher/profile', authTeacher, async (req, res) => {
+  try {
+    const { data } = await supabase.from('teacher_profiles').select('*').eq('teacher_id', req.user.teacher_id).single();
+    res.json({ profile: data || null, onboarding_completed: data?.onboarding_completed || false });
+  } catch (err) { res.json({ profile: null, onboarding_completed: false }); }
+});
+
+app.get('/api/teacher/dashboard', authTeacher, async (req, res) => {
+  try {
+    const { data: lessons } = await supabase.from('lessons').select('id, subject, is_published').eq('teacher_id', req.user.teacher_id);
+    const { data: quizzes } = await supabase.from('quizzes').select('id').eq('teacher_id', req.user.teacher_id);
+    const { data: profile } = await supabase.from('teacher_profiles').select('*').eq('teacher_id', req.user.teacher_id).single();
+    res.json({ lessons_uploaded: lessons?.length || 0, lessons_published: lessons?.filter(l => l.is_published)?.length || 0, lessons_pending: lessons?.filter(l => !l.is_published)?.length || 0, quizzes_created: quizzes?.length || 0, subjects: profile?.subjects || [], school: profile?.school || '', onboarding_completed: profile?.onboarding_completed || false });
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// ── PARENT-CHILD LINK ─────────────────────────────────────────────
+app.post('/api/parent/link-child', async (req, res) => {
+  try {
+    const { parent_email, student_id } = req.body;
+    if (!parent_email || !student_id) return res.status(400).json({ error: 'parent_email and student_id required' });
+    const { data: parent } = await supabase.from('parents').select('id').eq('email', parent_email.toLowerCase()).single();
+    if (!parent) return res.json({ linked: false, message: 'Parent account not found' });
+    await supabase.from('parent_child_links').upsert([{ parent_id: parent.id, student_id }], { onConflict: 'parent_id,student_id' });
+    res.json({ linked: true, message: 'Parent linked successfully' });
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
 app.listen(PORT, () => {
   console.log(`\nLearnova v2.1 running on port ${PORT}`);
   console.log(`FAQ loaded: ${Object.keys(FAQ_DATA).length} Maths questions`);
