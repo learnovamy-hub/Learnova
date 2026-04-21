@@ -740,3 +740,83 @@ app.listen(PORT, () => {
   console.log(`Multi-subject FAQ: faq_cache table (8 subjects)`);
   console.log(`Claude API: ${claudeApiKey ? 'ready' : 'FAQ-only mode'}\n`);
 });
+// ── MARKING ENGINE ────────────────────────────────────────────────
+function markWorking(studentWorking, markingKeywords, correctAnswer, studentAnswer) {
+  const working = (studentWorking || '').toLowerCase();
+  const answer = (studentAnswer || '').toLowerCase().trim();
+  const correct = (correctAnswer || '').toLowerCase().trim();
+  const answerCorrect = answer === correct || answer.replace(/\s/g,'') === correct.replace(/\s/g,'');
+  const keywords = markingKeywords || [];
+  const foundKeywords = keywords.filter(kw => working.includes(kw.toLowerCase()));
+  const methodScore = keywords.length > 0 ? Math.round((foundKeywords.length / keywords.length) * 100) : (answerCorrect ? 100 : 0);
+  let feedback = '';
+  if (answerCorrect && methodScore >= 60) feedback = 'Correct answer with good working shown.';
+  else if (answerCorrect) feedback = 'Correct answer! Try showing more working steps next time.';
+  else if (!answerCorrect && methodScore >= 60) feedback = 'Good method! Right approach but check your calculation.';
+  else if (!answerCorrect && methodScore > 0) feedback = 'Partially correct method. Review the worked solution below.';
+  else feedback = 'Incorrect. Study the worked solution carefully.';
+  return { answerCorrect, methodScore, feedback };
+}
+
+app.post('/api/quiz/:id/submit', authenticateToken, async (req, res) => {
+  try {
+    const { answers, working_notes } = req.body;
+    const { data: quiz } = await supabase.from('quizzes').select('*').eq('id', req.params.id).single();
+    if (!quiz) return res.status(404).json({ error: 'Quiz not found' });
+    const { data: questions } = await supabase.from('quiz_questions')
+      .select('id, correct_answer, worked_solution, marking_keywords, question_type')
+      .eq('quiz_id', req.params.id);
+    if (!questions || questions.length === 0) return res.status(404).json({ error: 'No questions found' });
+
+    let correct = 0;
+    let totalMethodScore = 0;
+    const questionFeedback = {};
+
+    for (const q of questions) {
+      const studentAnswer = answers[q.id] || answers[q.id.toString()] || '';
+      const studentWorking = working_notes ? (working_notes[q.id] || working_notes[q.id.toString()] || '') : '';
+      const marking = markWorking(studentWorking, q.marking_keywords, q.correct_answer, studentAnswer);
+      if (marking.answerCorrect) correct++;
+      totalMethodScore += marking.methodScore;
+      questionFeedback[q.id] = {
+        correct: marking.answerCorrect,
+        correct_answer: q.correct_answer,
+        worked_solution: q.worked_solution || '',
+        feedback: marking.feedback,
+        method_score: marking.methodScore,
+      };
+    }
+
+    const avgMethodScore = Math.round(totalMethodScore / questions.length);
+    const percentage = Math.round((correct / questions.length) * 100);
+    const overallFeedback = correct === questions.length ? 'Perfect score! Excellent work!' :
+      percentage >= 70 ? 'Great work! Review the questions you missed.' :
+      percentage >= 50 ? 'Good effort. Study the worked solutions carefully.' :
+      'Keep practising! Review all the worked solutions below.';
+
+    const workingText = working_notes ? Object.values(working_notes).filter(Boolean).join('\n---\n') : '';
+
+    await supabase.from('quiz_results').insert({
+      student_id: req.user.id,
+      quiz_id: req.params.id,
+      score: correct,
+      total_questions: questions.length,
+      working_notes: workingText,
+      method_feedback: overallFeedback,
+      method_score: avgMethodScore,
+    });
+
+    res.json({
+      score: correct,
+      total: questions.length,
+      percentage,
+      method_score: avgMethodScore,
+      overall_feedback: overallFeedback,
+      question_feedback: questionFeedback,
+    });
+  } catch (e) {
+    console.error('Quiz submit error:', e);
+    res.status(500).json({ error: e.message });
+  }
+});
+
