@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <base href="/">
+  <base href="/Learnova/">
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta name="description" content="A new Flutter project.">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -15,51 +18,115 @@
 </head>
 <body>
   <script>
+    // ── STEP 1: Listen for cleanup-done message → reload for fresh content ──
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('message', function(event) {
+        if (event.data && event.data.type === 'SW_CLEANUP_DONE') {
+          // Cleanup SW wiped old caches and told us to reload
+          window.location.reload(true);
+        }
+      });
+    }
+  </script>
+
+  <script>
+    // ── STEP 2: Service worker management ──────────────────────────────────
+    // We register a CLEANUP service worker first.
+    // It immediately skips waiting, wipes old caches, and passes all
+    // requests to the network. On the next deploy Flutter re-registers
+    // its own SW with fresh content hashes.
+    if ('serviceWorker' in navigator) {
+
+      // Tell any currently-waiting SW to activate immediately
+      navigator.serviceWorker.getRegistrations().then(function(regs) {
+        regs.forEach(function(reg) {
+          // Force a check for a new SW version right now
+          reg.update();
+          if (reg.waiting) {
+            reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+          }
+        });
+      });
+
+      // Watch for controller changes (new SW took over) → reload
+      navigator.serviceWorker.addEventListener('controllerchange', function() {
+        window.location.reload(true);
+      });
+
+      // Register the cleanup SW (replaces any old Flutter SW)
+      navigator.serviceWorker.register('flutter_service_worker.js', {
+        scope: '/'
+      }).then(function(reg) {
+
+        // If a new SW is already waiting, activate it now
+        if (reg.waiting) {
+          reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+        }
+
+        // Watch for any future SW updates and activate immediately
+        reg.addEventListener('updatefound', function() {
+          var newSW = reg.installing;
+          if (!newSW) return;
+          newSW.addEventListener('statechange', function() {
+            if (newSW.state === 'installed') {
+              newSW.postMessage({ type: 'SKIP_WAITING' });
+            }
+          });
+        });
+
+        // Force update check every time the page loads
+        reg.update();
+      });
+    }
+  </script>
+
+  <script>
+    // ── STEP 3: Speech Recognition (unchanged) ─────────────────────────────
     window.startSpeechRecognition = function(lang, onResult, onError) {
       var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SpeechRecognition) { onError('not-supported'); return; }
 
-      var attempts = 0;
-      var maxAttempts = 2;
-      var gotResult = false;
+      var rec = new SpeechRecognition();
+      rec.lang = lang || 'en-US';
+      rec.continuous = false;
+      rec.interimResults = false;
+      rec.maxAlternatives = 1;
 
-      function start() {
-        var rec = new SpeechRecognition();
-        rec.lang = lang || 'en-US';
-        rec.continuous = false;
-        rec.interimResults = false;
-        rec.maxAlternatives = 1;
+      var done = false;
+      function finish(fn) { if (!done) { done = true; fn(); } }
 
-        rec.onresult = function(e) {
-          gotResult = true;
-          var transcript = e.results[0][0].transcript;
-          onResult(transcript.toLowerCase().trim());
-        };
+      var safety = setTimeout(function() { finish(function() { onError('timeout'); }); }, 10000);
 
-        rec.onerror = function(e) {
-          if (e.error === 'no-speech' && attempts < maxAttempts && !gotResult) {
-            attempts++;
-            setTimeout(start, 300);
-          } else {
-            onError(e.error || 'error');
-          }
-        };
+      rec.onresult = function(e) {
+        clearTimeout(safety);
+        var t = '';
+        for (var i = 0; i < e.results.length; i++) {
+          if (e.results[i].isFinal) t += e.results[i][0].transcript;
+        }
+        finish(function() { onResult(t.trim()); });
+      };
 
-        rec.onend = function() {
-          if (!gotResult && attempts < maxAttempts) {
-            attempts++;
-            setTimeout(start, 300);
-          } else if (!gotResult) {
-            onError('end');
-          }
-        };
+      rec.onerror = function(e) {
+        clearTimeout(safety);
+        finish(function() { onError(e.error || 'error'); });
+      };
 
-        try { rec.start(); } catch(e) { onError('error'); }
-      }
+      rec.onend = function() {
+        clearTimeout(safety);
+        finish(function() { onError('no-speech'); });
+      };
 
-      start();
+      try { rec.start(); }
+      catch(e) { clearTimeout(safety); finish(function() { onError('start-failed'); }); }
+    };
+
+    window.stopSpeechRecognition = function() {
+      try {
+        if (window._activeRec) { window._activeRec.stop(); window._activeRec = null; }
+      } catch(e) {}
     };
   </script>
+
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

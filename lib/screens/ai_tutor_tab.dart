@@ -1,0 +1,1667 @@
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:math';
+// ignore: avoid_web_libraries_in_flutter
+import 'dart:js' as js;
+// ignore: avoid_web_libraries_in_flutter
+import 'dart:html' as html;
+import '../config/constants.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+import 'main_shell.dart';
+import '../widgets/tts_player.dart';
+import '../widgets/animation_panel.dart';
+import '../widgets/workspace_panel.dart';
+import '../widgets/visual_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'session_quiz_screen.dart';
+
+class AITutorTab extends StatefulWidget {
+  final String selectedSubject;
+  const AITutorTab({super.key, required this.selectedSubject});
+  @override
+  State<AITutorTab> createState() => _AITutorTabState();
+}
+
+class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateMixin {
+  final _ctrl       = TextEditingController();
+  final _scrollCtrl = ScrollController();
+  final List<Map<String, dynamic>> _messages = [];
+  bool _loading         = false;
+  bool _sessionStarting = false;
+  String _currentSubject = 'Mathematics';
+
+  bool   _tutorMode  = false;
+  String? _currentTopic;
+  String  _phase     = 'intro';
+  int     _segment   = 0;
+  List<String> _suggestedResponses = [];
+  List<Map<String, dynamic>> _topics = [];
+  List<String> _suggestions = [];
+  String? _pendingSwitchTopic;
+  String? _currentStandardCode;
+  String? _currentStandardDesc;
+  String? _standardsProgress;
+  String _language = 'en';
+
+  // ── Animation state ─────────────────────────────────────────────────
+  List<Map<String, dynamic>> _animSteps    = [];
+  List<Map<String, dynamic>> _animAltSteps = [];
+  bool _showAnim        = false;
+  bool _studentConfused = false;
+  String? _lastAnimCode;
+
+  // ── Voice state ─────────────────────────────────────────────────────
+  bool _isListening = false;
+  bool _voiceMode   = false; // when true: auto-TTS + auto-mic loop
+
+  // ── Quiz state ──────────────────────────────────────────────────────
+  Map<String, dynamic>? _activeQuestion;
+
+  // ── Visual state ─────────────────────────────────────────────────────
+  Map<String, dynamic>? _currentVisual;
+
+  // ── Workspace state ─────────────────────────────────────────────────
+  bool _workspaceSubmitting = false;
+  bool _workspaceExpanded   = false;
+
+  // ── TTS state ────────────────────────────────────────────────────────
+  String? _authToken;
+  html.AudioElement? _audioElement;
+  bool _ttsPlaying = false;
+
+  // ── Orb overlay state ────────────────────────────────────────────────
+  bool _orbMode = false;
+  late AnimationController _orbPulse;
+  String _orbTranscript = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _currentSubject = widget.selectedSubject;
+    _orbPulse = AnimationController(vsync: this, duration: const Duration(milliseconds: 1400))..repeat(reverse: true);
+    _loadTopics();
+    _loadSuggestions();
+    _loadLanguage();
+    _loadToken();
+  }
+
+  Future<void> _loadToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    _authToken = prefs.getString('token');
+  }
+
+  // autoStartMic=false when TTS is about to play — mic re-arms via onEnded callback
+  void _enterOrbMode({bool autoStartMic = true}) {
+    setState(() { _orbMode = true; _voiceMode = true; _orbTranscript = ''; });
+    if (autoStartMic) {
+      Future.delayed(const Duration(milliseconds: 400), _startVoiceInput);
+    }
+  }
+
+  void _exitOrbMode() {
+    _stopSpeech();
+    setState(() { _orbMode = false; _voiceMode = false; _isListening = false; _orbTranscript = ''; });
+  }
+
+  @override
+  void didUpdateWidget(AITutorTab oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.selectedSubject != widget.selectedSubject) {
+      setState(() {
+        _currentSubject = widget.selectedSubject;
+        _tutorMode = false; _currentTopic = null;
+        _messages.clear(); _suggestedResponses = [];
+        _animSteps = []; _animAltSteps = [];
+        _showAnim = false; _lastAnimCode = null;
+        _activeQuestion = null; _currentVisual = null;
+        _voiceMode = false; _isListening = false;
+        _workspaceExpanded = false;
+      });
+      _stopSpeech();
+      _loadTopics();
+      _loadSuggestions();
+    }
+  }
+
+  Future<void> _loadTopics() async {
+    try {
+      final r = await http.get(Uri.parse('$kApiUrl/api/tutor/topics?subject=${Uri.encodeComponent(_currentSubject)}'));
+      if (r.statusCode == 200) {
+        final data = jsonDecode(r.body) as List;
+        if (mounted) setState(() => _topics = data.map((e) => Map<String, dynamic>.from(e)).toList());
+      }
+    } catch (_) {}
+  }
+
+  Future<void> _loadLanguage() async {
+    final prefs = await SharedPreferences.getInstance();
+    var lang = prefs.getString('preferred_language') ?? 'en';
+    if (lang == 'bm') { lang = 'ms'; await prefs.setString('preferred_language', 'ms'); }
+    if (mounted) setState(() => _language = lang);
+  }
+
+  bool get _isBm => _language == 'ms';
+
+  Future<void> _toggleLanguage() async {
+    final next = _language == 'en' ? 'ms' : 'en';
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('preferred_language', next);
+    if (mounted) setState(() => _language = next);
+  }
+
+  Future<void> _loadSuggestions() async {
+    try {
+      final r = await http.get(Uri.parse('$kApiUrl/api/ai/faq?subject=${Uri.encodeComponent(_currentSubject)}'));
+      if (r.statusCode == 200) {
+        final topics = (jsonDecode(r.body)['topics'] as Map<String, dynamic>?) ?? {};
+        final questions = <String>[];
+        topics.forEach((topic, qList) {
+          if (qList is List && questions.length < 6) {
+            for (final q in qList.take(1)) {
+              final question = q['question'] as String? ?? '';
+              if (question.isNotEmpty) questions.add(question[0].toUpperCase() + question.substring(1) + '?');
+            }
+          }
+        });
+        if (mounted) setState(() => _suggestions = questions.take(6).toList());
+      }
+    } catch (_) {}
+  }
+
+  // ── Animation ────────────────────────────────────────────────────────
+  Future<void> _fetchAnimation(String code) async {
+    if (code == _lastAnimCode) return;
+    try {
+      final r = await http.get(Uri.parse('$kApiUrl/api/animations/${Uri.encodeComponent(code)}'));
+      if (r.statusCode == 200) {
+        final data = jsonDecode(r.body);
+        final steps = (data['steps'] as List?)
+            ?.map((e) => Map<String, dynamic>.from(e as Map)).toList() ?? [];
+        final alt = (data['altSteps'] as List?)
+            ?.map((e) => Map<String, dynamic>.from(e as Map)).toList() ?? [];
+        if (mounted && steps.isNotEmpty) {
+          setState(() {
+            _animSteps    = steps;
+            _animAltSteps = alt;
+            _showAnim     = true;
+            _studentConfused = false;
+            _lastAnimCode = code;
+          });
+        }
+      }
+    } catch (_) {}
+  }
+
+  bool _isConfused(String msg) {
+    final l = msg.toLowerCase();
+    const en = ["don't understand", "dont understand", "confused", "not sure",
+      "doesn't make sense", "doesnt make sense", "what do you mean",
+      "i'm lost", "im lost", "lost", "another way", "explain again",
+      "don't get it", "dont get it", "no idea", "huh?"];
+    const ms = ['tak faham', 'tidak faham', 'keliru', 'apa maksud',
+      'cara lain', 'susah', 'faham tak', 'tolong terangkan'];
+    return en.any((k) => l.contains(k)) || ms.any((k) => l.contains(k));
+  }
+
+  // ── Voice: speech-to-text ────────────────────────────────────────────
+  void _startVoiceInput() {
+    if (_isListening || _loading) return;
+    // Don't start mic while TTS is playing — it would pick up the tutor's voice
+    if (_ttsPlaying) {
+      Future.delayed(const Duration(milliseconds: 600), () {
+        if (mounted && _orbMode && !_loading && !_isListening && !_ttsPlaying) _startVoiceInput();
+      });
+      return;
+    }
+    setState(() => _isListening = true);
+    final lang = (_language == 'ms' || _language == 'bm') ? 'ms-MY' : 'en-US';
+    try {
+      js.context.callMethod('startSpeechRecognition', [
+        lang,
+        (String result) {
+          if (!mounted) return;
+          setState(() { _isListening = false; _orbTranscript = result.trim(); });
+          if (result.trim().isNotEmpty) _ask(result.trim());
+        },
+        (String error) {
+          if (mounted) setState(() { _isListening = false; _orbTranscript = ''; });
+          // In orb mode, retry listening after a short pause if not loading
+          if (_orbMode && mounted && !_loading) {
+            Future.delayed(const Duration(milliseconds: 800), () {
+              if (mounted && _orbMode && !_loading && !_isListening) _startVoiceInput();
+            });
+          }
+        },
+      ]);
+    } catch (_) {
+      if (mounted) setState(() => _isListening = false);
+    }
+  }
+
+  // ── Voice: text-to-speech (auto-play tutor response) ─────────────────
+  String _cleanForTts(String text) {
+    return text
+        // Remove markdown formatting
+        .replaceAll(RegExp(r'\*\*?|__?|~~|`+'), '')
+        .replaceAll(RegExp(r'\[([^\]]+)\]\([^)]+\)'), r'$1')
+        .replaceAll(RegExp(r'#+\s*'), '')
+        // Remove bullet/list markers
+        .replaceAll(RegExp(r'^\s*[-•*]\s+', multiLine: true), '')
+        .replaceAll(RegExp(r'^\s*\d+\.\s+', multiLine: true), '')
+        // Remove ellipsis and dashes used as separators
+        .replaceAll('...', '.')
+        .replaceAll('---', '.')
+        .replaceAll('--', ',')
+        // Remove underscore separators
+        .replaceAll(RegExp(r'_{2,}'), '')
+        // Remove any emoji or non-BMP characters
+        .replaceAll(RegExp(r'[\u{1F000}-\u{1FFFF}]', unicode: true), '')
+        .replaceAll(RegExp(r'[\u{2600}-\u{27BF}]', unicode: true), '')
+        // Remove garbled encoding artifacts
+        .replaceAll(RegExp(r'[ðŸ€-ŸšÿÞý]'), '')
+        // Collapse multiple spaces/newlines
+        .replaceAll(RegExp(r'\n+'), '. ')
+        .replaceAll(RegExp(r' {2,}'), ' ')
+        .trim();
+  }
+
+  void _speakText(String text) {
+    final clean = _cleanForTts(text);
+    if (clean.isEmpty) return;
+    _stopSpeech();
+    _speakWithOpenAI(clean);
+  }
+
+  void _stopSpeech() {
+    // Stop OpenAI audio if playing
+    try {
+      _audioElement?.pause();
+      _audioElement = null;
+    } catch (_) {}
+    // Also cancel browser TTS just in case
+    try { js.context['speechSynthesis']?.callMethod('cancel', []); } catch (_) {}
+    if (mounted) setState(() => _ttsPlaying = false);
+  }
+
+  Future<void> _speakWithOpenAI(String text) async {
+    try {
+      if (mounted) setState(() => _ttsPlaying = true);
+
+      final response = await http.post(
+        Uri.parse('$kApiUrl/api/tts'),
+        headers: {
+          'Content-Type': 'application/json',
+          if (_authToken != null) 'Authorization': 'Bearer $_authToken',
+        },
+        body: jsonEncode({'text': text, 'voice': 'nova'}),
+      ).timeout(const Duration(seconds: 20));
+
+      if (response.statusCode == 200 && mounted) {
+        // Create a blob URL from the mp3 bytes and play it
+        final blob = html.Blob([response.bodyBytes], 'audio/mpeg');
+        final url  = html.Url.createObjectUrlFromBlob(blob);
+        final audio = html.AudioElement(url);
+        _audioElement = audio;
+
+        audio.onEnded.listen((_) {
+          html.Url.revokeObjectUrl(url);
+          if (mounted) setState(() => _ttsPlaying = false);
+          // Re-arm mic in voice mode
+          if (_voiceMode && mounted && !_loading) {
+            Future.delayed(const Duration(milliseconds: 400), () {
+              if (mounted && _voiceMode && !_loading) _startVoiceInput();
+            });
+          }
+        });
+
+        audio.onError.listen((_) {
+          html.Url.revokeObjectUrl(url);
+          if (mounted) setState(() => _ttsPlaying = false);
+          _fallbackBrowserTts(text); // fall back on error
+        });
+
+        await audio.play();
+      } else {
+        // API failed — fall back to browser TTS
+        if (mounted) setState(() => _ttsPlaying = false);
+        _fallbackBrowserTts(text);
+      }
+    } catch (e) {
+      if (mounted) setState(() => _ttsPlaying = false);
+      _fallbackBrowserTts(text);
+    }
+  }
+
+  // Fallback: browser speechSynthesis if OpenAI TTS fails
+  void _fallbackBrowserTts(String text) {
+    try {
+      final synth = js.context['speechSynthesis'];
+      if (synth == null) return;
+      final utterance = js.JsObject(js.context['SpeechSynthesisUtterance'], [text]);
+      utterance['lang'] = (_language == 'ms' || _language == 'bm') ? 'ms-MY' : 'en-US';
+      utterance['rate'] = 0.95;
+      utterance['pitch'] = 1.0;
+      utterance['onend'] = js.allowInterop((_) {
+        if (_voiceMode && mounted && !_loading) {
+          Future.delayed(const Duration(milliseconds: 400), () {
+            if (mounted && _voiceMode && !_loading) _startVoiceInput();
+          });
+        }
+      });
+      synth.callMethod('speak', [utterance]);
+    } catch (_) {}
+  }
+
+  // Quick voice input for home screen (fills text field, no orb overlay)
+  void _startQuickVoice() {
+    if (_isListening || _loading) return;
+    setState(() { _isListening = true; _ctrl.clear(); });
+    final lang = (_language == 'ms' || _language == 'bm') ? 'ms-MY' : 'en-US';
+    try {
+      js.context.callMethod('startSpeechRecognition', [
+        lang,
+        (String result) {
+          if (!mounted) return;
+          setState(() { _isListening = false; });
+          if (result.trim().isNotEmpty) {
+            _ctrl.text = result.trim();
+            setState(() {}); // shows send button
+          }
+        },
+        (String error) {
+          if (mounted) setState(() => _isListening = false);
+        },
+      ]);
+    } catch (_) {
+      if (mounted) setState(() => _isListening = false);
+    }
+  }
+
+  void _toggleVoiceMode() {
+    setState(() => _voiceMode = !_voiceMode);
+    if (_voiceMode) {
+      // Kick off the first listen
+      Future.delayed(const Duration(milliseconds: 300), _startVoiceInput);
+    } else {
+      _stopSpeech();
+      setState(() => _isListening = false);
+    }
+  }
+
+  // ── Workspace submit ─────────────────────────────────────────────────
+  Future<void> _onWorkspaceSubmit(WorkspaceResult result) async {
+    setState(() => _workspaceSubmitting = true);
+    try {
+      if (result.mode == 'typed' && (result.typedAnswer ?? '').isNotEmpty) {
+        await _tutorSession(result.typedAnswer!);
+      } else if (result.mode == 'drawn') {
+        await _tutorSession('[Student submitted handwritten working — please continue teaching.]');
+      }
+    } finally {
+      if (mounted) setState(() => _workspaceSubmitting = false);
+    }
+  }
+
+  // ── Session ──────────────────────────────────────────────────────────
+  Future<void> _startTutorSession(String topic) async {
+    if (_sessionStarting || topic.isEmpty) return;
+    _sessionStarting = true;
+
+    final rng = Random();
+    final warmUps = [
+      'Alright, $topic! Before we get into it — what do you already know about this?',
+      'Good choice! So $topic — totally new, or have you seen some of this before?',
+      'Let us do $topic! Quick one first — how confident are you on this already?',
+      'Nice pick! Before I start — what do you already know about $topic?',
+      'Great, $topic it is! Starting from scratch, or just filling in some gaps?',
+    ];
+    final warmUp = warmUps[rng.nextInt(warmUps.length)];
+
+    setState(() {
+      _tutorMode = true; _currentTopic = topic;
+      _phase = 'concept'; _segment = 0; // skip intro — warm-up handled locally
+      _messages.clear();
+      _suggestedResponses = ['Starting fresh, never heard of it!', 'I know a little bit', 'I have studied this before'];
+      _loading = false;
+      _animSteps = []; _animAltSteps = [];
+      _showAnim = false; _lastAnimCode = null; _studentConfused = false;
+      _messages.add({'role': 'ai', 'text': warmUp});
+    });
+
+    _preGenerateQuiz(topic);
+
+    // Open orb — mic auto-starts at 400ms (with TTS guard in _startVoiceInput).
+    // We also attempt TTS immediately; if it plays, mic waits via the _ttsPlaying guard.
+    // If TTS is blocked by browser, mic starts anyway so student can always speak.
+    _enterOrbMode();
+    _speakText(warmUp); // fire immediately — within same gesture context
+
+    _sessionStarting = false;
+  }
+
+  void _preGenerateQuiz(String topic) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final studentId = prefs.getString('student_id') ?? '';
+      if (studentId.isEmpty) return;
+      await http.post(
+        Uri.parse('$kApiUrl/api/session-quiz/generate'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'student_id': studentId, 'subject': _currentSubject, 'topic': topic,
+        }),
+      ).timeout(const Duration(seconds: 15));
+    } catch (_) {}
+  }
+
+  void _exitTutorMode() {
+    _exitOrbMode();
+    _stopSpeech();
+    setState(() {
+      _tutorMode = false; _currentTopic = null;
+      _messages.clear(); _suggestedResponses = [];
+      _animSteps = []; _animAltSteps = [];
+      _showAnim = false; _lastAnimCode = null;
+      _workspaceExpanded = false; _activeQuestion = null; _currentVisual = null;
+    });
+  }
+
+  Future<void> _openSessionQuiz() async {
+    if (_currentTopic == null) return;
+    final prefs = await SharedPreferences.getInstance();
+    final studentId = prefs.getString('student_id') ?? '';
+    if (studentId.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Student profile not found. Please log out and log in again.'),
+          backgroundColor: kRed,
+        ),
+      );
+      return;
+    }
+    _exitOrbMode();
+    _stopSpeech();
+    if (!mounted) return;
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => SessionQuizScreen(
+          studentId: studentId,
+          subject: _currentSubject,
+          topic: _currentTopic!,
+          authToken: _authToken,
+        ),
+      ),
+    );
+    // After returning from quiz, stay in tutor mode so student can keep learning
+  }
+
+  Future<void> _tutorSession(String message) async {
+    if (!_tutorMode || _currentTopic == null) return;
+    setState(() => _loading = true);
+
+    if (message != 'start' && _isConfused(message)) {
+      setState(() => _studentConfused = true);
+    }
+    if (message != 'start') {
+      setState(() => _messages.add({'role': 'user', 'text': message}));
+      _scrollToBottom();
+    }
+    try {
+      final history = _messages.take(10)
+        .map((m) => {'role': m['role'] == 'user' ? 'user' : 'assistant', 'content': m['text'] ?? ''})
+        .toList();
+      final r = await http.post(
+        Uri.parse('$kApiUrl/api/tutor/session'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'subject': _currentSubject, 'topic': _currentTopic,
+          'message': message, 'history': history,
+          'phase': _phase, 'segment': _segment, 'language': _language,
+          'activeQuestion': _activeQuestion,
+          'studentConfused': _studentConfused,
+        }),
+      );
+      if (r.statusCode != 200) {
+        String serverMsg = 'Server error (${r.statusCode})';
+        try {
+          final errBody = jsonDecode(r.body);
+          if (errBody['error'] != null) serverMsg = errBody['error'].toString();
+        } catch (_) {
+          serverMsg = 'Server error ${r.statusCode}: ${r.body.substring(0, r.body.length.clamp(0, 120))}';
+        }
+        setState(() {
+          _messages.add({'role': 'ai', 'text': serverMsg});
+          _loading = false;
+        });
+        return;
+      }
+      final data = jsonDecode(r.body);
+      final newCode = data['standardCode'] as String?;
+
+      setState(() {
+        _phase    = data['phase']   ?? _phase;
+        _segment  = data['segment'] ?? _segment;
+        _currentStandardCode = newCode;
+        _currentStandardDesc = data['standardDesc']      as String?;
+        _standardsProgress   = data['standardsProgress'] as String?;
+        if (data['topicSwitchSuggested'] == true) {
+          _pendingSwitchTopic = data['suggestedTopic'] as String?;
+        }
+        _suggestedResponses = (data['suggestedResponses'] as List?)?.cast<String>() ?? [];
+        _activeQuestion = data['activeQuestion'] != null
+            ? Map<String, dynamic>.from(data['activeQuestion'] as Map)
+            : null;
+        _messages.add({
+          'role': 'ai', 'text': data['reply'] ?? '',
+          'source': data['source'], 'isCheckIn': data['isCheckIn'] ?? false,
+        });
+        // Parse visual if present
+        if (data['visual'] != null) {
+          _currentVisual = Map<String, dynamic>.from(data['visual'] as Map);
+        }
+        // Reset confusion flag after backend has handled it once
+        _studentConfused = false;
+        _loading = false;
+      });
+
+      if (newCode != null && newCode != _lastAnimCode) {
+        _fetchAnimation(newCode);
+      }
+      // Always speak in orb mode; also speak in voice mode (text-only)
+      if (_orbMode || _voiceMode) {
+        final reply = data['reply'] as String? ?? '';
+        if (reply.isNotEmpty) _speakText(reply);
+      }
+    } catch (e) {
+      final msg = e.toString().contains('SocketException') || e.toString().contains('Connection refused')
+          ? 'Cannot reach server — check your internet connection.'
+          : 'Error: ${e.toString().substring(0, e.toString().length.clamp(0, 120))}';
+      setState(() {
+        _messages.add({'role': 'ai', 'text': msg});
+        _loading = false;
+      });
+    }
+    _scrollToBottom();
+  }
+
+  Future<void> _ask(String question) async {
+    if (question.trim().isEmpty) return;
+    if (_pendingSwitchTopic != null && question.toLowerCase().startsWith('yes')) {
+      final t = _pendingSwitchTopic!;
+      _pendingSwitchTopic = null;
+      _ctrl.clear();
+      await _startTutorSession(t);
+      return;
+    }
+    if (_tutorMode && _currentTopic != null) {
+      _ctrl.clear();
+      await _tutorSession(question);
+      return;
+    }
+    setState(() { _messages.add({'role': 'user', 'text': question}); _loading = true; });
+    _ctrl.clear();
+    _scrollToBottom();
+    try {
+      final r = await http.post(
+        Uri.parse('$kApiUrl/api/tutor/session'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'question': question, 'subject': _currentSubject}),
+      );
+      final data = jsonDecode(r.body);
+      final related = data['related_questions'];
+      setState(() {
+        _messages.add({
+          'role': 'ai',
+          'text': data['answer'] ?? 'Sorry, I could not answer that.',
+          'example': data['example'], 'source': data['source'],
+          'related_questions': (related is List) ? related.cast<String>() : <String>[],
+          'wrong_subject_note': data['wrong_subject_note'],
+        });
+        _loading = false;
+      });
+    } catch (_) {
+      setState(() {
+        _messages.add({'role': 'ai', 'text': 'Connection error. Please try again.'});
+        _loading = false;
+      });
+    }
+    _scrollToBottom();
+  }
+
+  void _scrollToBottom() {
+    Future.delayed(const Duration(milliseconds: 300), () {
+      if (_scrollCtrl.hasClients) {
+        _scrollCtrl.animateTo(_scrollCtrl.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
+      }
+    });
+  }
+
+  Map<String, dynamic> get _subjectInfo =>
+    kSubjects.firstWhere((s) => s['name'] == _currentSubject, orElse: () => kSubjects.first);
+
+  bool get _animVisible => _tutorMode && _showAnim && _animSteps.isNotEmpty;
+
+  // True only when the tutor has just given a multiple-choice question
+  bool get _isMcqPhase => _phase == 'quiz_answer' &&
+      _suggestedResponses.length == 4 &&
+      ['A', 'B', 'C', 'D'].every(_suggestedResponses.contains);
+
+  // ── Layout ───────────────────────────────────────────────────────────
+  @override
+  Widget build(BuildContext context) {
+    final subjectColor = Color(_subjectInfo['color'] as int);
+    final isWide = MediaQuery.of(context).size.width > 700;
+
+    return Scaffold(
+      backgroundColor: kBg,
+      appBar: AppBar(
+        title: Text(
+          _tutorMode && _currentTopic != null
+              ? 'Lesson: $_currentTopic'
+              : 'AI Tutor - $_currentSubject',
+          style: const TextStyle(fontSize: 15)),
+        actions: [
+          if (_tutorMode && _animSteps.isNotEmpty)
+            IconButton(
+              icon: Icon(
+                _showAnim ? Icons.picture_in_picture_alt_rounded : Icons.auto_graph_rounded,
+                color: _showAnim ? kPrimary : kMuted, size: 20),
+              tooltip: _showAnim ? 'Hide visual' : 'Show visual',
+              onPressed: () => setState(() => _showAnim = !_showAnim),
+            ),
+          if (_tutorMode) ...[
+            TextButton.icon(
+              onPressed: _openSessionQuiz,
+              icon: const Icon(Icons.quiz_outlined, size: 16, color: kGreen),
+              label: const Text('Take Quiz',
+                  style: TextStyle(color: kGreen, fontWeight: FontWeight.w700)),
+            ),
+            TextButton(
+              onPressed: _exitTutorMode,
+              child: const Text('Exit', style: TextStyle(color: kMuted)),
+            ),
+          ],
+          if (!_tutorMode && _messages.isNotEmpty)
+            IconButton(icon: const Icon(Icons.refresh_rounded),
+              onPressed: () => setState(() => _messages.clear())),
+        ],
+      ),
+      body: isWide ? _buildWideLayout(subjectColor) : _buildMobileLayout(),
+    );
+  }
+
+  // ── Desktop layout ────────────────────────────────────────────────────
+  Widget _buildWideLayout(Color subjectColor) {
+    return Stack(children: [
+    Row(children: [
+      // Left panel
+      if (_tutorMode)
+        SizedBox(
+          width: 360,
+          child: Column(children: [
+            // Animation (top, expands when active)
+            if (_animVisible)
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 6),
+                  child: AnimationPanel(
+                    steps:      _animSteps,
+                    altSteps:   _animAltSteps,
+                    isConfused: _studentConfused,
+                    onDismiss:  () => setState(() => _showAnim = false),
+                  ),
+                ),
+              ),
+            // Workspace (always visible in tutor mode)
+            SizedBox(
+              height: _animVisible ? 260 : 420,
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(10, _animVisible ? 0 : 10, 10, 10),
+                child: WorkspacePanel(
+                  subject:      _currentSubject,
+                  question:     _currentStandardDesc ?? '',
+                  embedded:     true,
+                  isSubmitting: _workspaceSubmitting,
+                  onSubmit:     _onWorkspaceSubmit,
+                ),
+              ),
+            ),
+          ]),
+        )
+      else
+        SizedBox(
+          width: 280,
+          child: Container(
+            decoration: const BoxDecoration(
+              color: kSurface,
+              border: Border(right: BorderSide(color: kBorder))),
+            child: _buildTopicSidebar(),
+          ),
+        ),
+
+      // Chat column
+      Expanded(child: Column(children: [
+        _buildSubjectBar(),
+        if (_messages.isEmpty && !_tutorMode) _buildWelcome(subjectColor),
+        Expanded(child: _buildMessageList()),
+        if (_isMcqPhase) _buildMcqButtons() else if (_suggestedResponses.isNotEmpty) _buildSuggestedResponses(),
+        if (!_tutorMode && _messages.isEmpty) _buildSuggestions(),
+        if (_tutorMode && _messages.length >= 4) _buildEndLessonBanner(),
+        _buildChatInput(),
+      ])),
+    ]),
+    if (_orbMode) _buildOrbOverlay(),
+    ]);
+  }
+
+  // ── End-lesson banner (shown after ≥4 messages in tutor mode) ───────────
+  Widget _buildEndLessonBanner() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+      decoration: BoxDecoration(
+        color: kGreen.withOpacity(0.07),
+        border: Border(
+          top: BorderSide(color: kGreen.withOpacity(0.25)),
+          bottom: BorderSide(color: kGreen.withOpacity(0.15)),
+        ),
+      ),
+      child: Row(
+        children: [
+          const Icon(Icons.school_rounded, color: kGreen, size: 16),
+          const SizedBox(width: 8),
+          const Expanded(
+            child: Text(
+              'Ready to test yourself?',
+              style: TextStyle(color: kGreen, fontSize: 12, fontWeight: FontWeight.w600),
+            ),
+          ),
+          GestureDetector(
+            onTap: _openSessionQuiz,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+              decoration: BoxDecoration(
+                color: kGreen.withOpacity(0.15),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: kGreen.withOpacity(0.4)),
+              ),
+              child: const Text(
+                'Take Quiz →',
+                style: TextStyle(
+                    color: kGreen, fontSize: 12, fontWeight: FontWeight.w700),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ── Mobile layout ─────────────────────────────────────────────────────
+  Widget _buildMobileLayout() {
+    return Stack(children: [
+      // ── Main column ─────────────────────────────────────────────────
+      Column(children: [
+        _buildSubjectBar(),
+        if (_animVisible)
+          SizedBox(
+            height: 230,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(8, 6, 8, 0),
+              child: AnimationPanel(
+                steps:      _animSteps,
+                altSteps:   _animAltSteps,
+                isConfused: _studentConfused,
+                onDismiss:  () => setState(() => _showAnim = false),
+              ),
+            ),
+          ),
+        Expanded(child: _messages.isEmpty && !_tutorMode
+          ? _buildTopicSelector()
+          : _buildMessageList()),
+        if (_isMcqPhase) _buildMcqButtons()
+        else if (_tutorMode && _suggestedResponses.isNotEmpty) _buildSuggestedResponses(),
+        if (_tutorMode && _messages.length >= 4) _buildEndLessonBanner(),
+        _buildChatInput(),
+      ]),
+      // ── Fullscreen orb overlay ───────────────────────────────────────
+      if (_orbMode) _buildOrbOverlay(),
+    ]);
+  }
+
+  // ── Collapsible workspace panel ───────────────────────────────────────
+  Widget _buildWorkspacePanel() {
+    // Auto-expand when a question is active
+    final bool hasQuestion = _activeQuestion != null;
+    final bool expanded = _workspaceExpanded || hasQuestion;
+    final double expandedHeight = 320.0;
+    final double collapsedHeight = 44.0;
+
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 260),
+      curve: Curves.easeInOut,
+      height: expanded ? expandedHeight : collapsedHeight,
+      decoration: BoxDecoration(
+        color: const Color(0xFF1A1D27),
+        border: Border(top: BorderSide(color: Colors.white.withOpacity(0.08), width: 1)),
+      ),
+      child: Column(
+        children: [
+          // ── Header strip — always visible ────────────────────────────
+          GestureDetector(
+            onTap: () => setState(() => _workspaceExpanded = !_workspaceExpanded),
+            behavior: HitTestBehavior.opaque,
+            child: SizedBox(
+              height: collapsedHeight,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  children: [
+                    const Icon(Icons.edit_note_rounded, color: Color(0xFF6366F1), size: 20),
+                    const SizedBox(width: 8),
+                    const Text(
+                      'My Working',
+                      style: TextStyle(
+                        color: Color(0xFFE2E8F0),
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    if (hasQuestion) ...[
+                      const SizedBox(width: 8),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF6366F1).withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Text('Question active',
+                          style: TextStyle(color: Color(0xFF6366F1), fontSize: 10)),
+                      ),
+                    ],
+                    const Spacer(),
+                    AnimatedRotation(
+                      turns: expanded ? 0.5 : 0.0,
+                      duration: const Duration(milliseconds: 260),
+                      child: const Icon(Icons.keyboard_arrow_up_rounded,
+                        color: Color(0xFF94A3B8), size: 22),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          // ── Workspace body — visible when expanded ───────────────────
+          if (expanded)
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(8, 0, 8, 6),
+                child: WorkspacePanel(
+                  subject:      _currentSubject,
+                  question:     _currentStandardDesc ?? '',
+                  embedded:     true,
+                  isSubmitting: _workspaceSubmitting,
+                  onSubmit:     _onWorkspaceSubmit,
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  // ── A/B/C/D grid — only shown when phase=quiz_answer ─────────────────
+  Widget _buildMcqButtons() {
+    return Container(
+      color: kSurface,
+      padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        const Text('Choose your answer:',
+          style: TextStyle(color: kMuted, fontSize: 11, fontWeight: FontWeight.w600)),
+        const SizedBox(height: 8),
+        Row(children: ['A', 'B', 'C', 'D'].map((letter) =>
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: GestureDetector(
+                onTap: () {
+                  _tutorSession(letter);
+                  setState(() => _suggestedResponses = []);
+                },
+                child: Container(
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: kPrimary.withOpacity(0.08),
+                    border: Border.all(color: kPrimary.withOpacity(0.5), width: 1.5),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(letter,
+                    style: const TextStyle(
+                      color: kPrimary, fontSize: 18,
+                      fontWeight: FontWeight.w800)),
+                ),
+              ),
+            ),
+          ),
+        ).toList()),
+      ]),
+    );
+  }
+
+  Widget _buildSubjectBar() {
+    return Container(
+      color: kSurface,
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: SubjectSelector(
+        selected: _currentSubject,
+        onChanged: (s) {
+          setState(() => _currentSubject = s);
+          _loadTopics(); _loadSuggestions();
+          context.findAncestorStateOfType<MainShellState>()?.setSubject(s);
+        },
+      ),
+    );
+  }
+
+  Widget _buildMessageList() {
+    final total = _messages.length;
+    // Extra slots: visual card (if present) + loading indicator
+    final extras = (_currentVisual != null ? 1 : 0) + (_loading ? 1 : 0);
+    return ListView.builder(
+      controller: _scrollCtrl,
+      padding: const EdgeInsets.all(16),
+      itemCount: total + extras,
+      itemBuilder: (ctx, i) {
+        if (i < total) return _buildMessage(_messages[i]);
+        // After all messages: show visual card, then loading indicator
+        final afterIdx = i - total;
+        if (_currentVisual != null && afterIdx == 0) {
+          return VisualWidget(visual: _currentVisual);
+        }
+        return _typingIndicator();
+      },
+    );
+  }
+
+  Widget _buildWelcome(Color color) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(24, 24, 24, 8),
+      child: Column(children: [
+        Container(width: 64, height: 64,
+          decoration: BoxDecoration(color: color.withOpacity(0.15),
+            border: Border.all(color: color.withOpacity(0.4)),
+            borderRadius: BorderRadius.circular(16)),
+          child: const Center(child: Icon(Icons.auto_awesome_rounded, size: 30, color: Colors.white))),
+        const SizedBox(height: 12),
+        Text('$_currentSubject AI Tutor',
+          style: const TextStyle(color: kText, fontSize: 18, fontWeight: FontWeight.w800)),
+        const SizedBox(height: 4),
+        const Text('Choose a topic for a guided lesson, or ask any question below',
+          style: TextStyle(color: kMuted, fontSize: 13), textAlign: TextAlign.center),
+      ]),
+    );
+  }
+
+  Widget _buildTopicSidebar() {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      const Padding(padding: EdgeInsets.all(16),
+        child: Text('Topics', style: TextStyle(color: kText, fontSize: 14, fontWeight: FontWeight.w700))),
+      Expanded(child: ListView(children: _topics.map((t) {
+        final topic = t['topic'] as String? ?? t['title'] as String? ?? '';
+        return ListTile(
+          leading: const Icon(Icons.play_circle_outline, color: kPrimary, size: 20),
+          title: Text(topic, style: const TextStyle(color: kText, fontSize: 13)),
+          subtitle: const Text('Guided lesson', style: TextStyle(color: kMuted, fontSize: 11)),
+          onTap: () => _startTutorSession(topic),
+          dense: true,
+        );
+      }).toList())),
+    ]);
+  }
+
+  Widget _buildTopicSelector() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        const SizedBox(height: 8),
+        Row(children: const [
+          Icon(Icons.auto_awesome_rounded, color: kPrimary, size: 20),
+          SizedBox(width: 8),
+          Text('Choose a topic to start learning',
+            style: TextStyle(color: kText, fontSize: 15, fontWeight: FontWeight.w700)),
+        ]),
+        const SizedBox(height: 4),
+        const Text('Tap any topic for a guided lesson, or ask a question below',
+          style: TextStyle(color: kMuted, fontSize: 12)),
+        const SizedBox(height: 16),
+        if (_topics.isNotEmpty) ...[
+          const Text('Guided Lessons',
+            style: TextStyle(color: kText, fontSize: 14, fontWeight: FontWeight.w700)),
+          const SizedBox(height: 8),
+          ..._topics.map((t) {
+            final topic = t['topic'] as String? ?? t['title'] as String? ?? '';
+            return GestureDetector(
+              onTap: () => _startTutorSession(topic),
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(color: kSurface, border: Border.all(color: kBorder),
+                  borderRadius: BorderRadius.circular(12)),
+                child: Row(children: [
+                  Container(width: 36, height: 36,
+                    decoration: BoxDecoration(color: kPrimary.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8)),
+                    child: const Center(child: Icon(Icons.play_circle_rounded, color: kPrimary, size: 20))),
+                  const SizedBox(width: 12),
+                  Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    Text(t['title'] as String? ?? topic,
+                      style: const TextStyle(color: kText, fontSize: 13, fontWeight: FontWeight.w600)),
+                    const Text('Guided tuition lesson',
+                      style: TextStyle(color: kMuted, fontSize: 11)),
+                  ])),
+                  const Icon(Icons.arrow_forward_ios_rounded, color: kMuted, size: 12),
+                ]),
+              ),
+            );
+          }),
+          const SizedBox(height: 16),
+          const Divider(color: kBorder),
+          const SizedBox(height: 8),
+        ],
+        const Text('Or ask me anything',
+          style: TextStyle(color: kText, fontSize: 15, fontWeight: FontWeight.w700)),
+        const SizedBox(height: 8),
+        ..._suggestions.map((q) => GestureDetector(
+          onTap: () => _ask(q),
+          child: Container(
+            margin: const EdgeInsets.only(bottom: 6),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            decoration: BoxDecoration(color: kSurface, border: Border.all(color: kBorder),
+              borderRadius: BorderRadius.circular(20)),
+            child: Row(children: [
+              const Icon(Icons.arrow_forward_ios_rounded, color: kPrimary, size: 10),
+              const SizedBox(width: 8),
+              Expanded(child: Text(q, style: const TextStyle(color: kText, fontSize: 13))),
+            ]),
+          ),
+        )),
+      ]),
+    );
+  }
+
+  Widget _buildSuggestedResponses() {
+    return Container(
+      color: kSurface,
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        const Text('Quick replies:', style: TextStyle(color: kMuted, fontSize: 11)),
+        const SizedBox(height: 6),
+        Wrap(spacing: 8, runSpacing: 6, children: _suggestedResponses.map((s) => GestureDetector(
+          onTap: () { _tutorSession(s); setState(() => _suggestedResponses = []); },
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+            decoration: BoxDecoration(color: kPrimary.withOpacity(0.1),
+              border: Border.all(color: kPrimary.withOpacity(0.4)),
+              borderRadius: BorderRadius.circular(20)),
+            child: Text(s, style: const TextStyle(color: kPrimary, fontSize: 12, fontWeight: FontWeight.w600))),
+        )).toList()),
+      ]),
+    );
+  }
+
+  Widget _buildSuggestions() {
+    if (_suggestions.isEmpty) return const SizedBox.shrink();
+    return SizedBox(
+      height: 44,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        itemCount: _suggestions.length,
+        separatorBuilder: (_, __) => const SizedBox(width: 8),
+        itemBuilder: (ctx, i) => GestureDetector(
+          onTap: () => _ask(_suggestions[i]),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            decoration: BoxDecoration(color: kSurface2, border: Border.all(color: kBorder),
+              borderRadius: BorderRadius.circular(20)),
+            child: Text(_suggestions[i], style: const TextStyle(color: kText, fontSize: 12))),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMessage(Map<String, dynamic> msg) {
+    final isUser = msg['role'] == 'user';
+    final text   = msg['text'] as String? ?? '';
+    final source = msg['source'] as String?;
+    String sourceLabel = '';
+    if (source == 'lesson_db')   sourceLabel = 'From textbook';
+    else if (source == 'faq_cache')  sourceLabel = 'Instant answer';
+    else if (source == 'quiz_bank')  sourceLabel = 'SPM question bank';
+    else if (source == 'claude')     sourceLabel = 'AI generated';
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+        children: [
+          if (!isUser) ...[
+            Container(width: 32, height: 32,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(colors: [kPrimary, kPrimary2]),
+                borderRadius: BorderRadius.circular(8)),
+              child: const Icon(Icons.auto_awesome_rounded, color: Colors.white, size: 16)),
+            const SizedBox(width: 10),
+          ],
+          Flexible(child: Column(
+            crossAxisAlignment: isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+            children: [
+              if (!isUser && text.length > 50) TtsPlayer(text: text, title: 'Tutor'),
+              Container(
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: isUser ? kPrimary : kSurface,
+                  border: Border.all(color: isUser ? kPrimary : kBorder),
+                  borderRadius: BorderRadius.circular(14)),
+                child: MarkdownBody(data: text, styleSheet: MarkdownStyleSheet(
+                  p:      const TextStyle(color: kText, fontSize: 14, height: 1.6),
+                  h2:     const TextStyle(color: kText, fontSize: 15, fontWeight: FontWeight.w700),
+                  h3:     const TextStyle(color: kPrimary, fontSize: 14, fontWeight: FontWeight.w700),
+                  strong: const TextStyle(color: kText, fontWeight: FontWeight.w700),
+                  code:   const TextStyle(color: kGreen, fontSize: 13, fontFamily: 'monospace'),
+                )),
+              ),
+              if (!isUser && msg['example'] != null) ...[
+                const SizedBox(height: 8),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(color: kGreen.withOpacity(0.1),
+                    border: Border.all(color: kGreen.withOpacity(0.3)),
+                    borderRadius: BorderRadius.circular(10)),
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    const Text('Example:', style: TextStyle(color: kGreen, fontSize: 12, fontWeight: FontWeight.w700)),
+                    const SizedBox(height: 4),
+                    Text(msg['example'].toString(), style: const TextStyle(color: kText, fontSize: 13)),
+                  ])),
+              ],
+              if (!isUser && msg['wrong_subject_note'] != null) ...[
+                const SizedBox(height: 8),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(color: kYellow.withOpacity(0.1),
+                    border: Border.all(color: kYellow.withOpacity(0.4)),
+                    borderRadius: BorderRadius.circular(10)),
+                  child: Text(msg['wrong_subject_note'].toString(),
+                    style: const TextStyle(color: kYellow, fontSize: 12, fontWeight: FontWeight.w600))),
+              ],
+              if (!isUser && sourceLabel.isNotEmpty) ...[
+                const SizedBox(height: 4),
+                Text(sourceLabel, style: const TextStyle(color: kMuted, fontSize: 11)),
+              ],
+              if (!isUser && (msg['related_questions'] as List?)?.isNotEmpty == true) ...[
+                const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(color: kPrimary.withOpacity(0.06),
+                    border: Border.all(color: kPrimary.withOpacity(0.2)),
+                    borderRadius: BorderRadius.circular(12)),
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    const Row(children: [
+                      Icon(Icons.explore_rounded, color: kPrimary, size: 14),
+                      SizedBox(width: 6),
+                      Text('Explore more:', style: TextStyle(color: kPrimary, fontSize: 12, fontWeight: FontWeight.w700))]),
+                    const SizedBox(height: 8),
+                    ...(msg['related_questions'] as List).map((q) => GestureDetector(
+                      onTap: () => _ask(q.toString()),
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 6),
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        decoration: BoxDecoration(color: kSurface2,
+                          border: Border.all(color: kPrimary.withOpacity(0.3)),
+                          borderRadius: BorderRadius.circular(20)),
+                        child: Row(children: [
+                          const Icon(Icons.arrow_forward_ios_rounded, color: kPrimary, size: 10),
+                          const SizedBox(width: 6),
+                          Expanded(child: Text(
+                            q.toString()[0].toUpperCase() + q.toString().substring(1) + '?',
+                            style: const TextStyle(color: kText, fontSize: 12))),
+                        ])),
+                    )),
+                  ])),
+              ],
+            ],
+          )),
+          if (isUser) const SizedBox(width: 10),
+        ],
+      ),
+    );
+  }
+
+  Widget _typingIndicator() {
+    return Row(children: [
+      Container(width: 32, height: 32,
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(colors: [kPrimary, kPrimary2]),
+          borderRadius: BorderRadius.circular(8)),
+        child: const Icon(Icons.auto_awesome_rounded, color: Colors.white, size: 16)),
+      const SizedBox(width: 10),
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(color: kSurface, border: Border.all(color: kBorder),
+          borderRadius: BorderRadius.circular(14)),
+        child: const Row(children: [
+          SizedBox(width: 6, height: 6,
+            child: CircularProgressIndicator(strokeWidth: 2, color: kPrimary)),
+          SizedBox(width: 8),
+          Text('Thinking...', style: TextStyle(color: kMuted, fontSize: 13)),
+        ])),
+    ]);
+  }
+
+  String get _hintText {
+    if (_isBm) {
+      return _tutorMode ? 'Tanya cikgu AI anda...' : 'Tanya tentang $_currentSubject...';
+    }
+    return _tutorMode ? 'Ask your tutor...' : 'Ask about $_currentSubject...';
+  }
+
+  // ── ChatGPT-style input bar ───────────────────────────────────────────
+  Widget _buildChatInput() {
+    final hasText = _ctrl.text.trim().isNotEmpty;
+    return Container(
+      padding: EdgeInsets.fromLTRB(12, 8, 12, MediaQuery.of(context).padding.bottom + 8),
+      decoration: BoxDecoration(
+        color: kSurface,
+        border: const Border(top: BorderSide(color: kBorder)),
+      ),
+      child: Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+        // ── Plus button: workspace + tools ──────────────────────────
+        GestureDetector(
+          onTap: _showWorkspaceSheet,
+          child: Container(
+            width: 40, height: 40,
+            decoration: BoxDecoration(
+              color: kSurface2,
+              shape: BoxShape.circle,
+              border: Border.all(color: kBorder),
+            ),
+            child: const Icon(Icons.add_rounded, color: kMuted, size: 22),
+          ),
+        ),
+        const SizedBox(width: 8),
+        // ── Text field ───────────────────────────────────────────────
+        Expanded(
+          child: TextField(
+            controller: _ctrl,
+            style: const TextStyle(color: kText, fontSize: 14),
+            maxLines: 4,
+            minLines: 1,
+            textInputAction: TextInputAction.newline,
+            decoration: InputDecoration(
+              hintText: _hintText,
+              hintStyle: const TextStyle(color: kMuted, fontSize: 13),
+              filled: true,
+              fillColor: kSurface2,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(22),
+                borderSide: const BorderSide(color: kBorder)),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(22),
+                borderSide: const BorderSide(color: kBorder)),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(22),
+                borderSide: const BorderSide(color: kPrimary)),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            ),
+            onChanged: (_) => setState(() {}),
+          ),
+        ),
+        const SizedBox(width: 8),
+        // ── Send (when typing) or Mic/Orb (when empty) ───────────────
+        AnimatedSwitcher(
+          duration: const Duration(milliseconds: 180),
+          child: hasText
+            ? GestureDetector(
+                key: const ValueKey('send'),
+                onTap: () { final t = _ctrl.text.trim(); _ctrl.clear(); setState(() {}); if (t.isNotEmpty) _ask(t); },
+                child: Container(
+                  width: 40, height: 40,
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(colors: [kPrimary, kPrimary2]),
+                    shape: BoxShape.circle),
+                  child: const Icon(Icons.arrow_upward_rounded, color: Colors.white, size: 20),
+                ),
+              )
+            : GestureDetector(
+                key: const ValueKey('mic'),
+                onTap: _tutorMode ? _enterOrbMode : _startQuickVoice,
+                child: Container(
+                  width: 40, height: 40,
+                  decoration: BoxDecoration(
+                    color: kPrimary.withOpacity(0.12),
+                    shape: BoxShape.circle,
+                    border: Border.all(color: kPrimary.withOpacity(0.5)),
+                  ),
+                  child: Icon(
+                    _isListening ? Icons.stop_rounded : Icons.mic_rounded,
+                    color: _isListening ? Colors.redAccent : kPrimary,
+                    size: 20),
+                ),
+              ),
+        ),
+      ]),
+    );
+  }
+
+  // ── Workspace bottom sheet ────────────────────────────────────────────
+  void _showWorkspaceSheet() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => DraggableScrollableSheet(
+        initialChildSize: 0.65,
+        maxChildSize: 0.92,
+        minChildSize: 0.35,
+        builder: (ctx, scrollCtrl) => Container(
+          decoration: const BoxDecoration(
+            color: Color(0xFF1A1D27),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          ),
+          child: Column(children: [
+            // Handle bar
+            Center(child: Container(
+              width: 40, height: 4,
+              margin: const EdgeInsets.symmetric(vertical: 12),
+              decoration: BoxDecoration(
+                color: kBorder, borderRadius: BorderRadius.circular(2)),
+            )),
+            // Header row
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 16, 12),
+              child: Row(children: [
+                const Icon(Icons.edit_note_rounded, color: kPrimary, size: 20),
+                const SizedBox(width: 8),
+                const Text('My Working', style: TextStyle(
+                  color: kText, fontSize: 15, fontWeight: FontWeight.w700)),
+                const Spacer(),
+                // Language toggle in sheet header
+                GestureDetector(
+                  onTap: _toggleLanguage,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: _isBm ? kPrimary.withOpacity(0.15) : kSurface2,
+                      border: Border.all(color: _isBm ? kPrimary.withOpacity(0.5) : kBorder),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(_isBm ? 'BM' : 'EN',
+                      style: TextStyle(
+                        color: _isBm ? kPrimary : kMuted,
+                        fontSize: 11, fontWeight: FontWeight.w700)),
+                  ),
+                ),
+              ]),
+            ),
+            // Workspace panel fills the rest
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+                child: WorkspacePanel(
+                  subject:      _currentSubject,
+                  question:     _currentStandardDesc ?? '',
+                  embedded:     true,
+                  isSubmitting: _workspaceSubmitting,
+                  onSubmit: (result) {
+                    Navigator.pop(context); // close sheet
+                    _onWorkspaceSubmit(result);
+                  },
+                ),
+              ),
+            ),
+          ]),
+        ),
+      ),
+    );
+  }
+
+  // ── Fullscreen orb overlay ────────────────────────────────────────────
+  Widget _buildOrbOverlay() {
+    final isActive = _isListening || _ttsPlaying || _loading;
+    return Positioned.fill(
+      child: Material(
+        color: Colors.transparent,
+        child: Container(
+          color: const Color(0xF0060D1A),
+          child: SafeArea(
+            child: Column(children: [
+              // Close button
+              Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: GestureDetector(
+                    onTap: _exitOrbMode,
+                    child: Container(
+                      width: 40, height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.08),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(Icons.close_rounded, color: Colors.white54, size: 20),
+                    ),
+                  ),
+                ),
+              ),
+              const Spacer(),
+              // Status label
+              Text(
+                _loading ? 'Thinking...' : _ttsPlaying ? 'Speaking...' : _isListening ? 'Listening...' : 'Tap orb to speak',
+                style: TextStyle(
+                  color: Colors.white.withOpacity(0.45),
+                  fontSize: 14, fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(height: 40),
+              // Animated orb
+              AnimatedBuilder(
+                animation: _orbPulse,
+                builder: (_, __) {
+                  final scale = isActive ? 0.92 + 0.08 * _orbPulse.value : 0.97 + 0.03 * _orbPulse.value;
+                  final glowColor = _isListening
+                      ? const Color(0xFF10B981)
+                      : _ttsPlaying
+                          ? const Color(0xFF6366F1)
+                          : _loading
+                              ? const Color(0xFFF59E0B)
+                              : const Color(0xFF1E88E5);
+                  return GestureDetector(
+                    onTap: () {
+                      if (_isListening) return;
+                      if (_ttsPlaying) { _stopSpeech(); return; }
+                      if (!_loading) _startVoiceInput();
+                    },
+                    child: Transform.scale(
+                      scale: scale,
+                      child: Container(
+                        width: 160, height: 160,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: RadialGradient(colors: [
+                            glowColor.withOpacity(0.9),
+                            const Color(0xFF7C3AED).withOpacity(0.5),
+                            Colors.transparent,
+                          ]),
+                          boxShadow: [BoxShadow(
+                            color: glowColor.withOpacity(isActive ? 0.6 : 0.2),
+                            blurRadius: isActive ? 80 : 30,
+                            spreadRadius: isActive ? 20 : 5,
+                          )],
+                        ),
+                        child: Center(child: _loading
+                          ? const SizedBox(width: 36, height: 36,
+                              child: CircularProgressIndicator(strokeWidth: 2.5, color: Colors.white70))
+                          : _isListening
+                            ? _buildSoundWave()
+                            : _ttsPlaying
+                              ? _buildSpeakingWave()
+                              : const Icon(Icons.mic_rounded, color: Colors.white, size: 52)),
+                      ),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 40),
+              // Transcript — what the student said
+              if (_orbTranscript.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  child: Text('"$_orbTranscript"',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Color(0xFF10B981),
+                      fontSize: 15, fontStyle: FontStyle.italic)),
+                ),
+              const Spacer(),
+              // Last AI message — show full text so student can read while audio plays
+              if (_messages.isNotEmpty) ...[
+                Builder(builder: (_) {
+                  final lastAi = _messages.lastWhere(
+                    (m) => m['role'] == 'ai',
+                    orElse: () => {'text': ''},
+                  );
+                  final text = (lastAi['text'] as String? ?? '')
+                      .replaceAll(RegExp(r'\*+'), '')
+                      .trim();
+                  if (text.isEmpty) return const SizedBox.shrink();
+
+                  // "Tap to hear" button — direct user gesture guarantees audio.play() works
+                  final canHear = !_ttsPlaying && !_loading;
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                  if (canHear)
+                    GestureDetector(
+                      onTap: () => _speakText(text),
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF6366F1).withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: const Color(0xFF6366F1).withOpacity(0.5)),
+                        ),
+                        child: const Row(mainAxisSize: MainAxisSize.min, children: [
+                          Icon(Icons.volume_up_rounded, color: Color(0xFF6366F1), size: 16),
+                          SizedBox(width: 6),
+                          Text('Tap to hear question',
+                              style: TextStyle(color: Color(0xFF6366F1), fontSize: 13, fontWeight: FontWeight.w600)),
+                        ]),
+                      ),
+                    ),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(24, 0, 24, 24),
+                    padding: const EdgeInsets.all(18),
+                    decoration: BoxDecoration(
+                      color: _ttsPlaying
+                          ? const Color(0xFF6366F1).withOpacity(0.10)
+                          : Colors.white.withOpacity(0.05),
+                      borderRadius: BorderRadius.circular(18),
+                      border: Border.all(
+                        color: _ttsPlaying
+                            ? const Color(0xFF6366F1).withOpacity(0.35)
+                            : Colors.white.withOpacity(0.08),
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (_ttsPlaying)
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: Row(children: [
+                              const Icon(Icons.volume_up_rounded,
+                                  color: Color(0xFF6366F1), size: 14),
+                              const SizedBox(width: 6),
+                              Text('Tutor speaking...',
+                                style: TextStyle(
+                                  color: const Color(0xFF6366F1).withOpacity(0.8),
+                                  fontSize: 11, fontWeight: FontWeight.w600)),
+                            ]),
+                          ),
+                        Text(
+                          text,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white.withOpacity(_ttsPlaying ? 0.9 : 0.65),
+                            fontSize: 14, height: 1.5),
+                        ),
+                      ],
+                    ),
+                  ),
+                  ], // Column children
+                  ); // Column
+                }),
+              ],
+            ]),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSoundWave() {
+    return AnimatedBuilder(
+      animation: _orbPulse,
+      builder: (_, __) => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: List.generate(5, (i) {
+          final h = [16.0, 28.0, 40.0, 28.0, 16.0][i] *
+              (0.4 + 0.6 * ((_orbPulse.value + i * 0.2) % 1.0));
+          return Container(
+            margin: const EdgeInsets.symmetric(horizontal: 3),
+            width: 5, height: h,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(3)),
+          );
+        }),
+      ),
+    );
+  }
+
+  Widget _buildSpeakingWave() {
+    return AnimatedBuilder(
+      animation: _orbPulse,
+      builder: (_, __) => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: List.generate(5, (i) {
+          final h = [12.0, 24.0, 36.0, 24.0, 12.0][i] *
+              (0.5 + 0.5 * ((_orbPulse.value + i * 0.15) % 1.0));
+          return Container(
+            margin: const EdgeInsets.symmetric(horizontal: 3),
+            width: 5, height: h,
+            decoration: BoxDecoration(
+              color: const Color(0xFF6366F1),
+              borderRadius: BorderRadius.circular(3)),
+          );
+        }),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    _scrollCtrl.dispose();
+    _orbPulse.dispose();
+    _stopSpeech();
+    super.dispose();
+  }
+}
