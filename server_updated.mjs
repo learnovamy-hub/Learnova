@@ -1,4 +1,4 @@
-import learningEngine from './learning_engine.mjs';
+﻿import learningEngine from './learning_engine.mjs';
 import express from 'express';
 import { createClient } from '@supabase/supabase-js';
 import jwt from 'jsonwebtoken';
@@ -63,83 +63,83 @@ const authParent = (req, res, next) => {
 app.get('/', (req, res) => res.send('Learnova API v2.1'));
 app.get('/health', (req, res) => res.json({ status: 'ok', version: '2.1', timestamp: new Date() }));
 
-// ── FAQ DATA (Maths hardcoded, zero cost AI) ─────────────────────
+// â”€â”€ FAQ DATA (Maths hardcoded, zero cost AI) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const FAQ_DATA = {
   "what is a function": { answer: "A function is a relation where every input (x-value) has exactly ONE output (y-value). If one input gives two different outputs, it's NOT a function.", topic: "Functions", example: "f(x) = 2x + 1. When x = 3, f(3) = 7. Only one answer!" },
-  "what is domain and range": { answer: "Domain = all possible INPUT values (x-values). Range = all possible OUTPUT values (y-values). For f(x) = sqrt(x), domain is x >= 0, range is y >= 0.", topic: "Functions", example: "f(x) = 1/x — Domain: all x except 0. Range: all y except 0." },
-  "how to find inverse function": { answer: "Step 1: Replace f(x) with y. Step 2: Swap x and y. Step 3: Solve for y. Step 4: Replace y with f-inverse(x). The inverse undoes what the function does.", topic: "Functions", example: "f(x) = 2x + 3 → swap → x = 2y + 3 → f-inv(x) = (x-3)/2" },
-  "what is composite function": { answer: "fg(x) means apply g first, then f. Written as f(g(x)). Work from RIGHT to LEFT.", topic: "Functions", example: "f(x)=x², g(x)=x+1. fg(x) = f(x+1) = (x+1)²" },
+  "what is domain and range": { answer: "Domain = all possible INPUT values (x-values). Range = all possible OUTPUT values (y-values). For f(x) = sqrt(x), domain is x >= 0, range is y >= 0.", topic: "Functions", example: "f(x) = 1/x â€” Domain: all x except 0. Range: all y except 0." },
+  "how to find inverse function": { answer: "Step 1: Replace f(x) with y. Step 2: Swap x and y. Step 3: Solve for y. Step 4: Replace y with f-inverse(x). The inverse undoes what the function does.", topic: "Functions", example: "f(x) = 2x + 3 â†’ swap â†’ x = 2y + 3 â†’ f-inv(x) = (x-3)/2" },
+  "what is composite function": { answer: "fg(x) means apply g first, then f. Written as f(g(x)). Work from RIGHT to LEFT.", topic: "Functions", example: "f(x)=xÂ², g(x)=x+1. fg(x) = f(x+1) = (x+1)Â²" },
   "how to find fg x": { answer: "fg(x) = f(g(x)). Apply g first, substitute result into f.", topic: "Functions", example: "f(x)=3x, g(x)=x-2. fg(x) = f(x-2) = 3(x-2) = 3x-6" },
   "what is absolute value": { answer: "|x| always gives a positive value or zero. |x| = x if x >= 0, |x| = -x if x < 0. Distance from zero on number line.", topic: "Functions", example: "|5|=5, |-3|=3, |0|=0" },
-  "how to graph a function": { answer: "1) Make a table of x and y values. 2) Plot points. 3) Connect smoothly. Find x-intercepts (y=0), y-intercept (x=0).", topic: "Functions", example: "f(x)=x²: x=-2→4, x=-1→1, x=0→0, x=1→1, x=2→4. U-shape parabola!" },
-  "what is quadratic equation": { answer: "ax² + bx + c = 0 where a ≠ 0. Highest power is 2. Has at most 2 solutions.", topic: "Quadratic Equations", example: "x² - 5x + 6 = 0 has solutions x=2 and x=3" },
-  "how to use quadratic formula": { answer: "x = (-b ± sqrt(b²-4ac)) / 2a. Identify a, b, c from ax² + bx + c = 0 and substitute.", topic: "Quadratic Equations", example: "x²-5x+6=0: a=1,b=-5,c=6. x=(5±1)/2. So x=3 or x=2" },
-  "what is discriminant": { answer: "b²-4ac tells you about roots: >0 means two real roots, =0 means one repeated root, <0 means no real roots.", topic: "Quadratic Equations", example: "x²-4x+4=0: disc=16-16=0. One root: x=2" },
-  "how to factorise quadratic": { answer: "Find two numbers that MULTIPLY to c and ADD to b in x²+bx+c. Write as (x+p)(x+q).", topic: "Quadratic Equations", example: "x²+5x+6: need ×=6, +=5. That's 2 and 3. Answer: (x+2)(x+3)" },
-  "how to complete the square": { answer: "x²+bx+c: add (b/2)² to both sides to get (x+b/2)²=something. Then solve.", topic: "Quadratic Equations", example: "x²+6x+5=0 → (x+3)²=4 → x=-1 or x=-5" },
-  "what is vertex of parabola": { answer: "Turning point of parabola. For ax²+bx+c, x-coord of vertex = -b/2a. If a>0, it's minimum. If a<0, it's maximum.", topic: "Quadratic Equations", example: "f(x)=x²-4x+3: vertex x=2, y=-1. Vertex: (2,-1)" },
-  "sum and product of roots": { answer: "For ax²+bx+c=0 with roots α and β: α+β = -b/a, αβ = c/a.", topic: "Quadratic Equations", example: "x²-5x+6=0: sum=5, product=6. Roots 2,3 check: 2+3=5✓, 2×3=6✓" },
-  "what are laws of indices": { answer: "aᵐ×aⁿ=aᵐ⁺ⁿ, aᵐ÷aⁿ=aᵐ⁻ⁿ, (aᵐ)ⁿ=aᵐⁿ, a⁰=1, a⁻ⁿ=1/aⁿ, a^(1/n)=nth root of a, a^(m/n)=nth root of aᵐ", topic: "Indices and Surds", example: "2³×2⁴=2⁷=128. 5⁰=1. 2⁻³=1/8" },
+  "how to graph a function": { answer: "1) Make a table of x and y values. 2) Plot points. 3) Connect smoothly. Find x-intercepts (y=0), y-intercept (x=0).", topic: "Functions", example: "f(x)=xÂ²: x=-2â†’4, x=-1â†’1, x=0â†’0, x=1â†’1, x=2â†’4. U-shape parabola!" },
+  "what is quadratic equation": { answer: "axÂ² + bx + c = 0 where a â‰  0. Highest power is 2. Has at most 2 solutions.", topic: "Quadratic Equations", example: "xÂ² - 5x + 6 = 0 has solutions x=2 and x=3" },
+  "how to use quadratic formula": { answer: "x = (-b Â± sqrt(bÂ²-4ac)) / 2a. Identify a, b, c from axÂ² + bx + c = 0 and substitute.", topic: "Quadratic Equations", example: "xÂ²-5x+6=0: a=1,b=-5,c=6. x=(5Â±1)/2. So x=3 or x=2" },
+  "what is discriminant": { answer: "bÂ²-4ac tells you about roots: >0 means two real roots, =0 means one repeated root, <0 means no real roots.", topic: "Quadratic Equations", example: "xÂ²-4x+4=0: disc=16-16=0. One root: x=2" },
+  "how to factorise quadratic": { answer: "Find two numbers that MULTIPLY to c and ADD to b in xÂ²+bx+c. Write as (x+p)(x+q).", topic: "Quadratic Equations", example: "xÂ²+5x+6: need Ã—=6, +=5. That's 2 and 3. Answer: (x+2)(x+3)" },
+  "how to complete the square": { answer: "xÂ²+bx+c: add (b/2)Â² to both sides to get (x+b/2)Â²=something. Then solve.", topic: "Quadratic Equations", example: "xÂ²+6x+5=0 â†’ (x+3)Â²=4 â†’ x=-1 or x=-5" },
+  "what is vertex of parabola": { answer: "Turning point of parabola. For axÂ²+bx+c, x-coord of vertex = -b/2a. If a>0, it's minimum. If a<0, it's maximum.", topic: "Quadratic Equations", example: "f(x)=xÂ²-4x+3: vertex x=2, y=-1. Vertex: (2,-1)" },
+  "sum and product of roots": { answer: "For axÂ²+bx+c=0 with roots Î± and Î²: Î±+Î² = -b/a, Î±Î² = c/a.", topic: "Quadratic Equations", example: "xÂ²-5x+6=0: sum=5, product=6. Roots 2,3 check: 2+3=5âœ“, 2Ã—3=6âœ“" },
+  "what are laws of indices": { answer: "aáµÃ—aâ¿=aáµâºâ¿, aáµÃ·aâ¿=aáµâ»â¿, (aáµ)â¿=aáµâ¿, aâ°=1, aâ»â¿=1/aâ¿, a^(1/n)=nth root of a, a^(m/n)=nth root of aáµ", topic: "Indices and Surds", example: "2Â³Ã—2â´=2â·=128. 5â°=1. 2â»Â³=1/8" },
   "what is a surd": { answer: "An irrational square root that cannot simplify to a whole number. sqrt(2), sqrt(3), sqrt(5) are surds. sqrt(4)=2 is NOT a surd.", topic: "Indices and Surds", example: "sqrt(12)=2sqrt(3) (surd). sqrt(9)=3 (not a surd)" },
-  "how to simplify surds": { answer: "Find the largest perfect square factor: sqrt(n) = sqrt(a²×m) = a×sqrt(m). Look for 4, 9, 16, 25, 36...", topic: "Indices and Surds", example: "sqrt(48)=4sqrt(3), sqrt(75)=5sqrt(3), sqrt(200)=10sqrt(2)" },
+  "how to simplify surds": { answer: "Find the largest perfect square factor: sqrt(n) = sqrt(aÂ²Ã—m) = aÃ—sqrt(m). Look for 4, 9, 16, 25, 36...", topic: "Indices and Surds", example: "sqrt(48)=4sqrt(3), sqrt(75)=5sqrt(3), sqrt(200)=10sqrt(2)" },
   "how to rationalise denominator": { answer: "Remove surds from denominator. For 1/sqrt(a): multiply by sqrt(a)/sqrt(a). For 1/(a+sqrt(b)): multiply by conjugate (a-sqrt(b))/(a-sqrt(b)).", topic: "Indices and Surds", example: "3/sqrt(2) = 3sqrt(2)/2. 1/(1+sqrt(3)) = (sqrt(3)-1)/2" },
   "how to add surds": { answer: "Only add LIKE surds (same number under root). Simplify first, then combine.", topic: "Indices and Surds", example: "2sqrt(3)+5sqrt(3)=7sqrt(3). sqrt(12)+sqrt(3)=2sqrt(3)+sqrt(3)=3sqrt(3)" },
-  "what is negative index": { answer: "a⁻ⁿ = 1/aⁿ. Flip it! Never makes the number negative. 2⁻³ = 1/8 (still positive).", topic: "Indices and Surds", example: "3⁻²=1/9. (1/2)⁻³=8. x⁻¹=1/x" },
-  "what is fractional index": { answer: "a^(m/n) = nth_root(aᵐ). Denominator=ROOT, numerator=POWER.", topic: "Indices and Surds", example: "8^(2/3)=(cube_root 8)²=2²=4. 27^(1/3)=3. 16^(3/4)=2³=8" },
-  "what is linear inequality": { answer: "Like a linear equation but with <, >, ≤, ≥ instead of =. Solution is a RANGE of values.", topic: "Linear Inequalities", example: "2x+3>7 → 2x>4 → x>2" },
-  "how to solve linear inequality": { answer: "Solve like equation EXCEPT: multiplying or dividing by NEGATIVE number FLIPS the inequality sign!", topic: "Linear Inequalities", example: "-2x>6 → x<-3 (flipped!). But 2x>6 → x>3 (no flip)" },
-  "how to show inequality on number line": { answer: "Open circle = strict inequality (< or >) endpoint NOT included. Closed circle = ≤ or ≥ endpoint IS included.", topic: "Linear Inequalities", example: "x>3: open circle at 3, arrow right. x≤-1: closed circle at -1, arrow left." },
-  "what is combined inequality": { answer: "Has TWO conditions like a<x<b. Solve each part separately, find where BOTH satisfied.", topic: "Linear Inequalities", example: "-2<2x+4≤10 → -3<x≤3" },
-  "what is arithmetic progression": { answer: "AP: sequence where each term increases by constant COMMON DIFFERENCE d. General term: Tn = a+(n-1)d", topic: "Progressions", example: "3,7,11,15 is AP with a=3, d=4. T₅=3+4(4)=19" },
+  "what is negative index": { answer: "aâ»â¿ = 1/aâ¿. Flip it! Never makes the number negative. 2â»Â³ = 1/8 (still positive).", topic: "Indices and Surds", example: "3â»Â²=1/9. (1/2)â»Â³=8. xâ»Â¹=1/x" },
+  "what is fractional index": { answer: "a^(m/n) = nth_root(aáµ). Denominator=ROOT, numerator=POWER.", topic: "Indices and Surds", example: "8^(2/3)=(cube_root 8)Â²=2Â²=4. 27^(1/3)=3. 16^(3/4)=2Â³=8" },
+  "what is linear inequality": { answer: "Like a linear equation but with <, >, â‰¤, â‰¥ instead of =. Solution is a RANGE of values.", topic: "Linear Inequalities", example: "2x+3>7 â†’ 2x>4 â†’ x>2" },
+  "how to solve linear inequality": { answer: "Solve like equation EXCEPT: multiplying or dividing by NEGATIVE number FLIPS the inequality sign!", topic: "Linear Inequalities", example: "-2x>6 â†’ x<-3 (flipped!). But 2x>6 â†’ x>3 (no flip)" },
+  "how to show inequality on number line": { answer: "Open circle = strict inequality (< or >) endpoint NOT included. Closed circle = â‰¤ or â‰¥ endpoint IS included.", topic: "Linear Inequalities", example: "x>3: open circle at 3, arrow right. xâ‰¤-1: closed circle at -1, arrow left." },
+  "what is combined inequality": { answer: "Has TWO conditions like a<x<b. Solve each part separately, find where BOTH satisfied.", topic: "Linear Inequalities", example: "-2<2x+4â‰¤10 â†’ -3<xâ‰¤3" },
+  "what is arithmetic progression": { answer: "AP: sequence where each term increases by constant COMMON DIFFERENCE d. General term: Tn = a+(n-1)d", topic: "Progressions", example: "3,7,11,15 is AP with a=3, d=4. Tâ‚…=3+4(4)=19" },
   "what is common difference": { answer: "d = any term minus the previous term. Constant throughout AP. Can be positive, negative, or zero.", topic: "Progressions", example: "5,8,11: d=3. 20,15,10: d=-5" },
-  "sum of arithmetic progression": { answer: "Sn = n/2 × (2a+(n-1)d) OR Sn = n/2 × (first+last). Use whichever info you have!", topic: "Progressions", example: "AP: 2,5,8. S10 = 10/2×(4+27) = 155" },
-  "what is geometric progression": { answer: "GP: each term multiplied by constant RATIO r. General term: Tn = ar^(n-1)", topic: "Progressions", example: "2,6,18,54 is GP with a=2, r=3. T₅=2×81=162" },
+  "sum of arithmetic progression": { answer: "Sn = n/2 Ã— (2a+(n-1)d) OR Sn = n/2 Ã— (first+last). Use whichever info you have!", topic: "Progressions", example: "AP: 2,5,8. S10 = 10/2Ã—(4+27) = 155" },
+  "what is geometric progression": { answer: "GP: each term multiplied by constant RATIO r. General term: Tn = ar^(n-1)", topic: "Progressions", example: "2,6,18,54 is GP with a=2, r=3. Tâ‚…=2Ã—81=162" },
   "what is common ratio": { answer: "r = any term divided by previous term. If |r|<1 terms decrease. If |r|>1 terms grow.", topic: "Progressions", example: "4,12,36: r=3. 100,10,1: r=0.1" },
-  "sum of geometric progression": { answer: "Sn = a(rⁿ-1)/(r-1) when r>1. Sn = a(1-rⁿ)/(1-r) when r<1.", topic: "Progressions", example: "GP: 3,6,12. S5 = 3(32-1)/1 = 93" },
-  "sum to infinity gp": { answer: "For |r|<1: S∞ = a/(1-r). Only works when -1<r<1 (terms shrink to zero).", topic: "Progressions", example: "1,0.5,0.25: S∞=1/(1-0.5)=2" },
+  "sum of geometric progression": { answer: "Sn = a(râ¿-1)/(r-1) when r>1. Sn = a(1-râ¿)/(1-r) when r<1.", topic: "Progressions", example: "GP: 3,6,12. S5 = 3(32-1)/1 = 93" },
+  "sum to infinity gp": { answer: "For |r|<1: Sâˆž = a/(1-r). Only works when -1<r<1 (terms shrink to zero).", topic: "Progressions", example: "1,0.5,0.25: Sâˆž=1/(1-0.5)=2" },
   "how to find nth term": { answer: "AP: Tn=a+(n-1)d. GP: Tn=ar^(n-1). Identify AP or GP first: constant difference=AP, constant ratio=GP.", topic: "Progressions", example: "T8 of 2,5,8: a=2,d=3, T8=2+7(3)=23" },
-  "what is a matrix": { answer: "Rectangular array of numbers in rows and columns. Order = m×n (rows × columns).", topic: "Matrices", example: "2×3 matrix has 2 rows, 3 columns: [[1,2,3],[4,5,6]]" },
-  "how to multiply matrices": { answer: "(m×n)×(n×p)=(m×p). Inner dimensions must match. Row times Column: multiply element by element then add.", topic: "Matrices", example: "[[1,2],[3,4]]×[[5],[6]] = [[17],[39]]" },
-  "what is inverse matrix": { answer: "A×A⁻¹=I. For 2×2: A⁻¹=(1/det)×[[d,-b],[-c,a]] where det=ad-bc.", topic: "Matrices", example: "A=[[2,1],[5,3]]: det=1. A⁻¹=[[3,-1],[-5,2]]" },
+  "what is a matrix": { answer: "Rectangular array of numbers in rows and columns. Order = mÃ—n (rows Ã— columns).", topic: "Matrices", example: "2Ã—3 matrix has 2 rows, 3 columns: [[1,2,3],[4,5,6]]" },
+  "how to multiply matrices": { answer: "(mÃ—n)Ã—(nÃ—p)=(mÃ—p). Inner dimensions must match. Row times Column: multiply element by element then add.", topic: "Matrices", example: "[[1,2],[3,4]]Ã—[[5],[6]] = [[17],[39]]" },
+  "what is inverse matrix": { answer: "AÃ—Aâ»Â¹=I. For 2Ã—2: Aâ»Â¹=(1/det)Ã—[[d,-b],[-c,a]] where det=ad-bc.", topic: "Matrices", example: "A=[[2,1],[5,3]]: det=1. Aâ»Â¹=[[3,-1],[-5,2]]" },
   "what is determinant": { answer: "For [[a,b],[c,d]]: det = ad-bc. If det=0, no inverse exists (singular matrix).", topic: "Matrices", example: "[[3,2],[1,4]]: det=12-2=10. [[2,4],[1,2]]: det=4-4=0 (no inverse)" },
-  "what is gradient of line": { answer: "m = (y₂-y₁)/(x₂-x₁) = rise/run. Positive=up, Negative=down, Zero=horizontal, Undefined=vertical.", topic: "Coordinate Geometry", example: "Points (1,2)(3,6): m=(6-2)/(3-1)=2" },
-  "equation of straight line": { answer: "y=mx+c (gradient-intercept), y-y₁=m(x-x₁) (point-slope), ax+by=c (general). m=gradient, c=y-intercept.", topic: "Coordinate Geometry", example: "m=3, passes (1,2): y=3x-1" },
-  "how to find midpoint": { answer: "M = ((x₁+x₂)/2, (y₁+y₂)/2). Average the coordinates.", topic: "Coordinate Geometry", example: "Midpoint of (2,4)(8,10): M=(5,7)" },
-  "distance between two points": { answer: "d = sqrt((x₂-x₁)²+(y₂-y₁)²). Pythagoras theorem!", topic: "Coordinate Geometry", example: "(1,2) to (4,6): sqrt(9+16)=5" },
-  "parallel and perpendicular lines": { answer: "Parallel: same gradient (m₁=m₂). Perpendicular: m₁×m₂=-1, so m₂=-1/m₁.", topic: "Coordinate Geometry", example: "Line y=2x+3. Parallel: y=2x-1. Perpendicular: y=-x/2+5" },
+  "what is gradient of line": { answer: "m = (yâ‚‚-yâ‚)/(xâ‚‚-xâ‚) = rise/run. Positive=up, Negative=down, Zero=horizontal, Undefined=vertical.", topic: "Coordinate Geometry", example: "Points (1,2)(3,6): m=(6-2)/(3-1)=2" },
+  "equation of straight line": { answer: "y=mx+c (gradient-intercept), y-yâ‚=m(x-xâ‚) (point-slope), ax+by=c (general). m=gradient, c=y-intercept.", topic: "Coordinate Geometry", example: "m=3, passes (1,2): y=3x-1" },
+  "how to find midpoint": { answer: "M = ((xâ‚+xâ‚‚)/2, (yâ‚+yâ‚‚)/2). Average the coordinates.", topic: "Coordinate Geometry", example: "Midpoint of (2,4)(8,10): M=(5,7)" },
+  "distance between two points": { answer: "d = sqrt((xâ‚‚-xâ‚)Â²+(yâ‚‚-yâ‚)Â²). Pythagoras theorem!", topic: "Coordinate Geometry", example: "(1,2) to (4,6): sqrt(9+16)=5" },
+  "parallel and perpendicular lines": { answer: "Parallel: same gradient (mâ‚=mâ‚‚). Perpendicular: mâ‚Ã—mâ‚‚=-1, so mâ‚‚=-1/mâ‚.", topic: "Coordinate Geometry", example: "Line y=2x+3. Parallel: y=2x-1. Perpendicular: y=-x/2+5" },
   "what is mean median mode": { answer: "Mean=sum/count. Median=middle value when sorted. Mode=most frequent value.", topic: "Statistics", example: "3,5,5,7,9: Mean=5.8, Median=5, Mode=5" },
   "what is standard deviation": { answer: "Measures how spread out data is from mean. Small SD=data close to mean. Large SD=widely spread.", topic: "Statistics", example: "SD=0 means all values identical. SD=5 means values typically 5 units from mean." },
   "soh cah toa": { answer: "Sin=Opposite/Hypotenuse, Cos=Adjacent/Hypotenuse, Tan=Opposite/Adjacent. Right-angled triangles only!", topic: "Trigonometry", example: "Opp=3, Hyp=5, Adj=4: Sin=0.6, Cos=0.8, Tan=0.75" },
-  "sine rule": { answer: "a/sinA=b/sinB=c/sinC. Use with 2 angles+1 side, or 2 sides+non-included angle.", topic: "Trigonometry", example: "a/sin30°=b/sin45°. If a=5: b=5×sin45°/sin30°≈7.07" },
-  "cosine rule": { answer: "a²=b²+c²-2bc·cosA. Use with 3 sides or 2 sides+included angle. cosA=(b²+c²-a²)/(2bc)", topic: "Trigonometry", example: "b=5,c=7,A=60°: a²=74-35=39, a≈6.24" },
-  "area of triangle": { answer: "Area=½ab·sinC for any triangle. For right triangles: ½×base×height.", topic: "Trigonometry", example: "Sides 6,8 with 30° between: Area=½×6×8×0.5=12 units²" },
-  "equation of circle": { answer: "(x-h)²+(y-k)²=r². Centre (h,k), radius r. Or x²+y²+2gx+2fy+c=0, centre(-g,-f), radius=sqrt(g²+f²-c).", topic: "Circles", example: "Centre(3,-2), r=5: (x-3)²+(y+2)²=25" },
+  "sine rule": { answer: "a/sinA=b/sinB=c/sinC. Use with 2 angles+1 side, or 2 sides+non-included angle.", topic: "Trigonometry", example: "a/sin30Â°=b/sin45Â°. If a=5: b=5Ã—sin45Â°/sin30Â°â‰ˆ7.07" },
+  "cosine rule": { answer: "aÂ²=bÂ²+cÂ²-2bcÂ·cosA. Use with 3 sides or 2 sides+included angle. cosA=(bÂ²+cÂ²-aÂ²)/(2bc)", topic: "Trigonometry", example: "b=5,c=7,A=60Â°: aÂ²=74-35=39, aâ‰ˆ6.24" },
+  "area of triangle": { answer: "Area=Â½abÂ·sinC for any triangle. For right triangles: Â½Ã—baseÃ—height.", topic: "Trigonometry", example: "Sides 6,8 with 30Â° between: Area=Â½Ã—6Ã—8Ã—0.5=12 unitsÂ²" },
+  "equation of circle": { answer: "(x-h)Â²+(y-k)Â²=rÂ². Centre (h,k), radius r. Or xÂ²+yÂ²+2gx+2fy+c=0, centre(-g,-f), radius=sqrt(gÂ²+fÂ²-c).", topic: "Circles", example: "Centre(3,-2), r=5: (x-3)Â²+(y+2)Â²=25" },
   "what is a vector": { answer: "Has both MAGNITUDE and DIRECTION. |a|=magnitude. -a reverses direction.", topic: "Vectors", example: "A(1,2) to B(4,6): AB=(3,4). |AB|=5" },
-  "how to add vectors": { answer: "Add tip-to-tail. Algebraically: (a₁,a₂)+(b₁,b₂)=(a₁+b₁,a₂+b₂).", topic: "Vectors", example: "(2,3)+(4,-1)=(6,2). (5,7)-(2,3)=(3,4)" },
+  "how to add vectors": { answer: "Add tip-to-tail. Algebraically: (aâ‚,aâ‚‚)+(bâ‚,bâ‚‚)=(aâ‚+bâ‚,aâ‚‚+bâ‚‚).", topic: "Vectors", example: "(2,3)+(4,-1)=(6,2). (5,7)-(2,3)=(3,4)" },
   "how to study maths": { answer: "1) Understand concepts, don't memorise. 2) Practice daily. 3) Do past papers. 4) Focus on weak topics. 5) Show all working for method marks!", topic: "Study Tips", example: "20 mins daily practice beats 3 hours on exam eve!" },
   "how to pass spm maths": { answer: "1) Master Form 4 topics. 2) Do 5+ past papers. 3) Time yourself. 4) Never leave blank. 5) Check your work!", topic: "Study Tips", example: "Students who do 5+ past papers average 30% higher marks." },
   "what is probability": { answer: "P(event) = favourable outcomes / total outcomes. Always between 0 and 1. P=0 means impossible, P=1 means certain.", topic: "Probability", example: "P(heads)=1/2. P(rolling 6)=1/6. P(red from 3R,2B)=3/5" },
   "what is permutation": { answer: "Arrangement where ORDER matters. nPr = n!/(n-r)!. Used for passwords, rankings, sequences.", topic: "Probability", example: "3 people in 3 seats: 3P3=3!=6 arrangements" },
   "what is combination": { answer: "Selection where ORDER does NOT matter. nCr = n!/(r!(n-r)!). Used for choosing teams, committees.", topic: "Probability", example: "Choose 3 from 5: 5C3=10 ways" },
   "what is normal distribution": { answer: "Bell-shaped curve symmetric about mean. 68% data within 1 SD, 95% within 2 SD, 99.7% within 3 SD.", topic: "Statistics", example: "Height data: mean=165cm, SD=5cm. 68% have height 160-170cm" },
-  "what is set notation": { answer: "∪=union (or), ∩=intersection (and), A'=complement (not A), ∅=empty set, ∈=is element of, ⊂=subset.", topic: "Sets", example: "A={1,2,3}, B={2,3,4}. A∪B={1,2,3,4}. A∩B={2,3}" },
-  "what is venn diagram": { answer: "Circles overlapping to show sets. Overlapping region=intersection. Total area=union. Outside all circles=complement.", topic: "Sets", example: "Two circles A and B: middle overlap is A∩B, everything is A∪B" },
+  "what is set notation": { answer: "âˆª=union (or), âˆ©=intersection (and), A'=complement (not A), âˆ…=empty set, âˆˆ=is element of, âŠ‚=subset.", topic: "Sets", example: "A={1,2,3}, B={2,3,4}. AâˆªB={1,2,3,4}. Aâˆ©B={2,3}" },
+  "what is venn diagram": { answer: "Circles overlapping to show sets. Overlapping region=intersection. Total area=union. Outside all circles=complement.", topic: "Sets", example: "Two circles A and B: middle overlap is Aâˆ©B, everything is AâˆªB" },
   "how to solve simultaneous equations": { answer: "Two methods: Substitution (express one variable, substitute) or Elimination (add/subtract to remove one variable).", topic: "Simultaneous Equations", example: "x+y=5, x-y=1. Add: 2x=6, x=3. So y=2." },
-  "what is linear programming": { answer: "Optimising (max or min) an objective function subject to constraints (inequalities). Plot region, find vertices, test objective at each vertex.", topic: "Linear Programming", example: "Maximise P=3x+2y subject to x+y≤10, x≥0, y≥0. Check corner points." },
-  "what is a logarithm": { answer: "log_a(x)=y means a^y=x. Log is the inverse of exponent. log_10 is common log, ln is natural log (base e).", topic: "Logarithms", example: "log_2(8)=3 because 2³=8. log_10(100)=2 because 10²=100" },
-  "laws of logarithms": { answer: "log(AB)=logA+logB, log(A/B)=logA-logB, log(Aⁿ)=nlogA, log_a(a)=1, log_a(1)=0, change base: log_a(b)=log(b)/log(a)", topic: "Logarithms", example: "log(6)=log(2×3)=log2+log3. log(2⁵)=5log2" },
-  "how to solve exponential equation": { answer: "If bases can be matched: equal bases means equal powers. If not, take log of both sides.", topic: "Logarithms", example: "2^x=8 → 2^x=2³ → x=3. 3^x=10 → xlog3=log10 → x=1/log3≈2.096" },
-  "what is a polynomial": { answer: "Expression with non-negative integer powers: anxⁿ+...+a1x+a0. Degree=highest power. Polynomial division uses long division or synthetic.", topic: "Polynomials", example: "3x³-2x²+5x-1 is degree 3 polynomial" },
-  "remainder theorem": { answer: "When polynomial f(x) divided by (x-a), remainder = f(a). No need to do full division!", topic: "Polynomials", example: "f(x)=x³-2x+1 divided by (x-2): remainder=f(2)=8-4+1=5" },
-  "factor theorem": { answer: "If f(a)=0, then (x-a) is a factor of f(x). Use to find factors without full division.", topic: "Polynomials", example: "f(x)=x³-6x²+11x-6. f(1)=0, so (x-1) is a factor" },
-  "what is partial fractions": { answer: "Breaking a complex fraction into simpler parts. For (px+q)/((ax+b)(cx+d)) = A/(ax+b) + B/(cx+d). Find A,B by substituting.", topic: "Partial Fractions", example: "5/(x²-1) = A/(x-1) + B/(x+1). Solve: A=5/2, B=-5/2" },
-  "what is binomial expansion": { answer: "(a+b)ⁿ = sum of nCr × aⁿ⁻ʳ × bʳ for r=0 to n. Coefficients from Pascal's Triangle or nCr.", topic: "Binomial Expansion", example: "(1+x)³ = 1+3x+3x²+x³. Coefficients: 1,3,3,1 from Pascal's row 3" },
-  "what is differentiation": { answer: "Finding the rate of change (gradient) of a function. d/dx(xⁿ)=nxⁿ⁻¹. Differentiation = finding f'(x) = slope at any point.", topic: "Differentiation", example: "f(x)=x³: f'(x)=3x². At x=2: gradient=12" },
-  "what is integration": { answer: "Reverse of differentiation. ∫xⁿ dx = xⁿ⁺¹/(n+1) + C. Definite integral gives area under curve between two x values.", topic: "Integration", example: "∫x² dx = x³/3 + C. ∫₀² x² dx = [x³/3]₀² = 8/3" },
-  "how to find stationary points": { answer: "Set f'(x)=0 and solve for x. Then find y-value. Use f''(x) to determine: f''(x)>0 means minimum, f''(x)<0 means maximum.", topic: "Differentiation", example: "f(x)=x²-4x: f'(x)=2x-4=0 → x=2. f''(2)=2>0 so minimum at (2,-4)" }
+  "what is linear programming": { answer: "Optimising (max or min) an objective function subject to constraints (inequalities). Plot region, find vertices, test objective at each vertex.", topic: "Linear Programming", example: "Maximise P=3x+2y subject to x+yâ‰¤10, xâ‰¥0, yâ‰¥0. Check corner points." },
+  "what is a logarithm": { answer: "log_a(x)=y means a^y=x. Log is the inverse of exponent. log_10 is common log, ln is natural log (base e).", topic: "Logarithms", example: "log_2(8)=3 because 2Â³=8. log_10(100)=2 because 10Â²=100" },
+  "laws of logarithms": { answer: "log(AB)=logA+logB, log(A/B)=logA-logB, log(Aâ¿)=nlogA, log_a(a)=1, log_a(1)=0, change base: log_a(b)=log(b)/log(a)", topic: "Logarithms", example: "log(6)=log(2Ã—3)=log2+log3. log(2âµ)=5log2" },
+  "how to solve exponential equation": { answer: "If bases can be matched: equal bases means equal powers. If not, take log of both sides.", topic: "Logarithms", example: "2^x=8 â†’ 2^x=2Â³ â†’ x=3. 3^x=10 â†’ xlog3=log10 â†’ x=1/log3â‰ˆ2.096" },
+  "what is a polynomial": { answer: "Expression with non-negative integer powers: anxâ¿+...+a1x+a0. Degree=highest power. Polynomial division uses long division or synthetic.", topic: "Polynomials", example: "3xÂ³-2xÂ²+5x-1 is degree 3 polynomial" },
+  "remainder theorem": { answer: "When polynomial f(x) divided by (x-a), remainder = f(a). No need to do full division!", topic: "Polynomials", example: "f(x)=xÂ³-2x+1 divided by (x-2): remainder=f(2)=8-4+1=5" },
+  "factor theorem": { answer: "If f(a)=0, then (x-a) is a factor of f(x). Use to find factors without full division.", topic: "Polynomials", example: "f(x)=xÂ³-6xÂ²+11x-6. f(1)=0, so (x-1) is a factor" },
+  "what is partial fractions": { answer: "Breaking a complex fraction into simpler parts. For (px+q)/((ax+b)(cx+d)) = A/(ax+b) + B/(cx+d). Find A,B by substituting.", topic: "Partial Fractions", example: "5/(xÂ²-1) = A/(x-1) + B/(x+1). Solve: A=5/2, B=-5/2" },
+  "what is binomial expansion": { answer: "(a+b)â¿ = sum of nCr Ã— aâ¿â»Ê³ Ã— bÊ³ for r=0 to n. Coefficients from Pascal's Triangle or nCr.", topic: "Binomial Expansion", example: "(1+x)Â³ = 1+3x+3xÂ²+xÂ³. Coefficients: 1,3,3,1 from Pascal's row 3" },
+  "what is differentiation": { answer: "Finding the rate of change (gradient) of a function. d/dx(xâ¿)=nxâ¿â»Â¹. Differentiation = finding f'(x) = slope at any point.", topic: "Differentiation", example: "f(x)=xÂ³: f'(x)=3xÂ². At x=2: gradient=12" },
+  "what is integration": { answer: "Reverse of differentiation. âˆ«xâ¿ dx = xâ¿âºÂ¹/(n+1) + C. Definite integral gives area under curve between two x values.", topic: "Integration", example: "âˆ«xÂ² dx = xÂ³/3 + C. âˆ«â‚€Â² xÂ² dx = [xÂ³/3]â‚€Â² = 8/3" },
+  "how to find stationary points": { answer: "Set f'(x)=0 and solve for x. Then find y-value. Use f''(x) to determine: f''(x)>0 means minimum, f''(x)<0 means maximum.", topic: "Differentiation", example: "f(x)=xÂ²-4x: f'(x)=2x-4=0 â†’ x=2. f''(2)=2>0 so minimum at (2,-4)" }
 };
 
-// ── FUZZY MATCH for hardcoded FAQ ────────────────────────────────
+// â”€â”€ FUZZY MATCH for hardcoded FAQ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function findBestFAQ(query) {
   const q = query.toLowerCase().trim();
   const keys = Object.keys(FAQ_DATA);
@@ -157,7 +157,7 @@ function findBestFAQ(query) {
   return bestScore >= 1 ? bestMatch : null;
 }
 
-// ── SEARCH faq_cache table (multi-subject) ───────────────────────
+// â”€â”€ SEARCH faq_cache table (multi-subject) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async function searchFaqCache(query, subject) {
   try {
     const q = query.toLowerCase().trim();
@@ -203,7 +203,7 @@ async function searchFaqCache(query, subject) {
   }
 }
 
-// ── AI ASK ENDPOINT (updated: FAQ → faq_cache → Claude) ─────────
+// â”€â”€ AI ASK ENDPOINT (updated: FAQ â†’ faq_cache â†’ Claude) â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.post('/api/ai/ask', async (req, res) => {
   try {
     const { question, topic, subject, use_claude } = req.body;
@@ -270,7 +270,7 @@ app.post('/api/ai/ask', async (req, res) => {
   }
 });
 
-// ── FAQ LIST (combined: hardcoded + faq_cache) ───────────────────
+// â”€â”€ FAQ LIST (combined: hardcoded + faq_cache) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.get('/api/ai/faq', async (req, res) => {
   try {
     const { subject } = req.query;
@@ -312,7 +312,7 @@ app.get('/api/ai/faq/:topic', (req, res) => {
   res.json(results);
 });
 
-// ── SUBJECTS LIST endpoint ───────────────────────────────────────
+// â”€â”€ SUBJECTS LIST endpoint â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.get('/api/ai/subjects', async (req, res) => {
   try {
     const { data } = await supabase
@@ -327,7 +327,7 @@ app.get('/api/ai/subjects', async (req, res) => {
   }
 });
 
-// ── STUDENT ROUTES ────────────────────────────────────────────────
+// â”€â”€ STUDENT ROUTES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.post('/api/student/signup', async (req, res) => {
   try {
     const { email, password, name, parent_email } = req.body;
@@ -379,7 +379,7 @@ app.get('/api/student/quiz-history', authStudent, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// ── LESSON ROUTES ─────────────────────────────────────────────────
+// â”€â”€ LESSON ROUTES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.get('/api/lessons', async (req, res) => {
   try {
     const { subject, form_level } = req.query;
@@ -406,7 +406,7 @@ app.get('/api/lessons/:id', async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// ── QUIZ ROUTES ───────────────────────────────────────────────────
+// â”€â”€ QUIZ ROUTES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.get('/api/quiz/list/:subject', async (req, res) => {
   try {
     const { data } = await supabase.from('quizzes').select('id,title,topic,subject,total_questions,difficulty').eq('subject', req.params.subject).eq('is_published', true);
@@ -441,7 +441,7 @@ app.post('/api/quiz/:id/submit', authStudent, async (req, res) => {
   } catch (err) { console.error('Quiz submit:', err); res.status(500).json({ error: err.message }); }
 });
 
-// ── TEACHER ROUTES ────────────────────────────────────────────────
+// â”€â”€ TEACHER ROUTES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.post('/api/teacher/signup', async (req, res) => {
   try {
     const { email, password, name, subject, school } = req.body;
@@ -525,7 +525,7 @@ app.post('/api/teacher/generate-lesson', authTeacher, async (req, res) => {
   } catch (err) { console.error('Generate lesson:', err); res.status(500).json({ error: err.message }); }
 });
 
-// ── PARENT ROUTES ─────────────────────────────────────────────────
+// â”€â”€ PARENT ROUTES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.post('/api/parent/signup', async (req, res) => {
   try {
     const { email, password, name, child_email } = req.body;
@@ -595,7 +595,7 @@ app.post('/api/redeem', async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// ── LEADERBOARD ───────────────────────────────────────────────────
+// â”€â”€ LEADERBOARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.get('/api/leaderboard', async (req, res) => {
   try {
     const { data: results } = await supabase.from('quiz_results').select('student_id, percentage, students(name)');
@@ -611,7 +611,7 @@ app.get('/api/leaderboard', async (req, res) => {
 });
 
 
-// ── PRICING ───────────────────────────────────────────────────────
+// â”€â”€ PRICING â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.get('/api/pricing', async (req, res) => {
   try {
     const { data } = await supabase.from('subject_pricing').select('*').eq('is_active', true).order('subject');
@@ -619,7 +619,7 @@ app.get('/api/pricing', async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// ── SUBSCRIPTIONS ─────────────────────────────────────────────────
+// â”€â”€ SUBSCRIPTIONS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.get('/api/student/subscriptions', authStudent, async (req, res) => {
   try {
     const { data } = await supabase.from('subscriptions').select('*').eq('student_id', req.user.student_id).eq('status', 'active').gt('expires_at', new Date().toISOString());
@@ -662,7 +662,7 @@ app.post('/api/admin/verify-payment', async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// ── SPONSORSHIP ───────────────────────────────────────────────────
+// â”€â”€ SPONSORSHIP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.post('/api/parent/create-sponsorship', authParent, async (req, res) => {
   try {
     const { subject, show_progress = false, qr_type = 'duitnow' } = req.body;
@@ -697,7 +697,7 @@ app.post('/api/student/claim-sponsorship', authStudent, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// ── TEACHER PROFILE ───────────────────────────────────────────────
+// â”€â”€ TEACHER PROFILE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.post('/api/teacher/profile', authTeacher, async (req, res) => {
   try {
     const { school, subjects, years_experience, qualifications, teaching_philosophy } = req.body;
@@ -723,7 +723,7 @@ app.get('/api/teacher/dashboard', authTeacher, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// ── PARENT-CHILD LINK ─────────────────────────────────────────────
+// â”€â”€ PARENT-CHILD LINK â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.post('/api/parent/link-child', async (req, res) => {
   try {
     const { parent_email, student_id } = req.body;
@@ -741,7 +741,7 @@ app.listen(PORT, () => {
   console.log(`Multi-subject FAQ: faq_cache table (8 subjects)`);
   console.log(`Claude API: ${claudeApiKey ? 'ready' : 'FAQ-only mode'}\n`);
 });
-// ── MARKING ENGINE ────────────────────────────────────────────────
+// â”€â”€ MARKING ENGINE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function markWorking(studentWorking, markingKeywords, correctAnswer, studentAnswer) {
   const working = (studentWorking || '').toLowerCase();
   const answer = (studentAnswer || '').toLowerCase().trim();
@@ -820,4 +820,6 @@ app.post('/api/quiz/:id/submit', authenticateToken, async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
+
+
 
