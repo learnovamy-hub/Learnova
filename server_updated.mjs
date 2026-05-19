@@ -1,3 +1,4 @@
+import learningEngine from './learning_engine.mjs';
 import express from 'express';
 import { createClient } from '@supabase/supabase-js';
 import jwt from 'jsonwebtoken';
@@ -733,7 +734,7 @@ app.post('/api/parent/link-child', async (req, res) => {
     res.json({ linked: true, message: 'Parent linked successfully' });
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
-
+app.use('/api/learn', learningEngine);
 app.listen(PORT, () => {
   console.log(`\nLearnova v2.1 running on port ${PORT}`);
   console.log(`FAQ loaded: ${Object.keys(FAQ_DATA).length} Maths questions`);
