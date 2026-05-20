@@ -811,10 +811,106 @@ app.get('/api/tutor/topics', async (req, res) => {
 
 app.post('/api/tutor/session', async (req, res) => {
   try {
-    const { student_id, subject, topic } = req.body;
-    const { data } = await supabase.from('session_logs').insert({ student_id, subject, topic, started_at: new Date().toISOString() }).select().single();
-    res.json({ ok: true, session_id: data?.id });
-  } catch (e) { res.status(500).json({ error: e.message }); }
+    const { subject, topic, message, history, phase, segment, language, activeQuestion, question } = req.body;
+    const lang = language === 'ms' ? 'Bahasa Malaysia' : 'English';
+
+    // ── Q&A mode: free question, no active topic ──────────────────
+    if (question && !topic) {
+      if (!subject || subject.toLowerCase().includes('math')) {
+        const faqHit = findBestFAQ(question);
+        if (faqHit) {
+          return res.json({ answer: faqHit.answer, example: faqHit.example || null, source: 'faq_cache', related_questions: [] });
+        }
+      }
+      const cacheHit = await searchFaqCache(question, subject);
+      if (cacheHit) {
+        return res.json({ answer: cacheHit.answer, example: null, source: 'faq_cache', related_questions: [] });
+      }
+      if (!claudeApiKey) {
+        return res.json({ answer: "Great question! Ask your teacher or try rephrasing.", source: 'fallback', related_questions: [] });
+      }
+      const { default: Anthropic } = await import('@anthropic-ai/sdk');
+      const anthropic = new Anthropic({ apiKey: claudeApiKey });
+      const claudeRes = await anthropic.messages.create({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 500,
+        system: `You are Nova, a warm Malaysian SPM tutor for ${subject || 'General'}. Answer in ${lang}. Be concise and friendly. Respond with valid JSON only: {"answer":"...","example":"...or null","related_questions":["q1","q2","q3"]}`,
+        messages: [{ role: 'user', content: question }],
+      });
+      let parsed;
+      try {
+        const text = claudeRes.content[0].text.trim();
+        const match = text.match(/\{[\s\S]*\}/);
+        parsed = JSON.parse(match ? match[0] : text);
+      } catch {
+        parsed = { answer: claudeRes.content[0].text, example: null, related_questions: [] };
+      }
+      return res.json({ ...parsed, source: 'claude' });
+    }
+
+    // ── Tutor mode: guided lesson with topic ──────────────────────
+    if (!claudeApiKey) {
+      return res.json({
+        reply: "Sorry, the AI tutor is not available right now. Please try again later.",
+        phase: phase || 'intro', segment: (parseInt(segment) || 0) + 1,
+        suggestedResponses: ["OK, I understand", "Can you explain more?", "Show me an example"],
+        activeQuestion: null, source: 'fallback', isCheckIn: false,
+      });
+    }
+    const { default: Anthropic } = await import('@anthropic-ai/sdk');
+    const anthropic = new Anthropic({ apiKey: claudeApiKey });
+    const currentPhase = phase || 'intro';
+    const currentSegment = parseInt(segment) || 0;
+
+    const systemPrompt = `You are Nova, an engaging Malaysian SPM AI tutor teaching ${subject || 'Mathematics'}, topic: "${topic}".
+Respond in ${lang}. Current phase: "${currentPhase}". Segment: ${currentSegment}.
+Phase order: intro → teach → check → quiz_setup → quiz_answer → done.
+Rules:
+- Warm, encouraging tone; simple clear language; local Malaysian examples
+- intro: introduce the topic with enthusiasm
+- teach: explain step by step with worked examples
+- check: ask a comprehension question (set isCheckIn: true)
+- quiz_setup/quiz_answer: provide a 4-option MCQ
+- Keep replies under 200 words
+
+Respond with valid JSON ONLY:
+{"reply":"...","phase":"next_phase","segment":${currentSegment + 1},"suggestedResponses":["opt1","opt2","opt3"],"isCheckIn":false,"activeQuestion":null}
+For MCQ set activeQuestion: {"question":"...","options":{"A":"...","B":"...","C":"...","D":"..."},"correct":"A","explanation":"..."}`;
+
+    const msgs = [];
+    if (Array.isArray(history)) {
+      for (const h of history.slice(-8)) {
+        msgs.push({ role: h.role === 'user' ? 'user' : 'assistant', content: h.content || '' });
+      }
+    }
+    msgs.push({ role: 'user', content: message === 'start' ? `Start teaching me about "${topic}" in ${subject}.` : (message || 'continue') });
+
+    const claudeRes = await anthropic.messages.create({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 700,
+      system: systemPrompt,
+      messages: msgs,
+    });
+
+    let parsed;
+    try {
+      const text = claudeRes.content[0].text.trim();
+      const match = text.match(/\{[\s\S]*\}/);
+      parsed = JSON.parse(match ? match[0] : text);
+    } catch {
+      parsed = {
+        reply: claudeRes.content[0].text,
+        phase: currentPhase === 'intro' ? 'teach' : currentPhase,
+        segment: currentSegment + 1,
+        suggestedResponses: ["I understand", "Can you explain more?", "Show me an example"],
+        isCheckIn: false, activeQuestion: null,
+      };
+    }
+    return res.json({ ...parsed, source: 'claude' });
+  } catch (e) {
+    console.error('Tutor session error:', e);
+    res.status(500).json({ error: e.message });
+  }
 });
 
 // -- UPDATE FORM -----------------------------------------------
