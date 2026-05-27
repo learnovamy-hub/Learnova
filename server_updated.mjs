@@ -1,24 +1,28 @@
 import learningEngineRouter, { init as initLearningEngine } from './learning_engine.mjs';
+import PregenLookup from './PregenLookup.mjs';
 import express from 'express';
 import { createClient } from '@supabase/supabase-js';
 import jwt from 'jsonwebtoken';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+import rateLimit from 'express-rate-limit';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_ANON_KEY;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
 const claudeApiKey = process.env.CLAUDE_API_KEY;
 
 if (!supabaseUrl || !supabaseKey) {
-  console.error('FATAL: Missing SUPABASE_URL or SUPABASE_ANON_KEY');
+  console.error('FATAL: Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY');
   process.exit(1);
 }
 
 console.log('Supabase connected:', supabaseUrl);
+// Service role key bypasses RLS — correct for a trusted backend server
 const supabase = createClient(supabaseUrl, supabaseKey);
+const pregen = new PregenLookup(supabase);
 initLearningEngine(supabase);
 const JWT_SECRET = process.env.JWT_SECRET || 'learnova-dev-secret-2025';
 
@@ -63,8 +67,42 @@ const authParent = (req, res, next) => {
   } catch { res.status(401).json({ error: 'Invalid token' }); }
 };
 
-app.get('/', (req, res) => res.send('Learnova API v2.1'));
-app.get('/health', (req, res) => res.json({ status: 'ok', version: '2.1', timestamp: new Date() }));
+// ── RATE LIMITING ─────────────────────────────────────────────────
+const generalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 min
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many requests, please try again later.' },
+});
+const tutorLimiter = rateLimit({
+  windowMs: 60 * 1000, // 1 min
+  max: 20,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many tutor requests.' },
+});
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many auth attempts, please wait.' },
+});
+
+app.use('/api/', generalLimiter);
+app.use('/api/tutor', tutorLimiter);
+app.use('/api/ai/ask', tutorLimiter);
+app.use('/api/student/signup', authLimiter);
+app.use('/api/student/login', authLimiter);
+app.use('/api/teacher/signup', authLimiter);
+app.use('/api/teacher/login', authLimiter);
+app.use('/api/parent/signup', authLimiter);
+app.use('/api/parent/login', authLimiter);
+// ──────────────────────────────────────────────────────────────────
+
+app.get('/', (req, res) => res.send('Learnova API v2.2'));
+app.get('/health', (req, res) => res.json({ status: 'ok', version: '2.2', timestamp: new Date() }));
 
 // ── FAQ DATA (Maths hardcoded, zero cost AI) ─────────────────────
 const FAQ_DATA = {
@@ -207,7 +245,7 @@ async function searchFaqCache(query, subject) {
 }
 
 // ── AI ASK ENDPOINT (updated: FAQ → faq_cache → Claude) ─────────
-app.post('/api/ai/ask', async (req, res) => {
+app.post('/api/ai/ask', authStudent, async (req, res) => {
   try {
     const { question, topic, subject, use_claude } = req.body;
     if (!question) return res.status(400).json({ error: 'Question required' });
@@ -653,7 +691,7 @@ app.get('/api/student/access/:subject', authStudent, async (req, res) => {
 app.post('/api/admin/verify-payment', async (req, res) => {
   try {
     const { reference_code, admin_key } = req.body;
-    if (admin_key !== (process.env.ADMIN_KEY || 'learnova-admin-2025')) return res.status(403).json({ error: 'Unauthorized' });
+    if (!process.env.ADMIN_KEY || admin_key !== process.env.ADMIN_KEY) return res.status(403).json({ error: 'Unauthorized' });
     const { data: request } = await supabase.from('payment_requests').select('*').eq('reference_code', reference_code).single();
     if (!request) return res.status(404).json({ error: 'Payment request not found' });
     const expiresAt = new Date();
@@ -809,13 +847,22 @@ app.get('/api/tutor/topics', async (req, res) => {
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
-app.post('/api/tutor/session', async (req, res) => {
+app.post('/api/tutor/session', authStudent, async (req, res) => {
   try {
     const { subject, topic, message, history, phase, segment, language, activeQuestion, question } = req.body;
-    const lang = language === 'ms' ? 'Bahasa Malaysia' : 'English';
+    const lang = (language === 'ms' || language === 'bm') ? 'Bahasa Malaysia' : 'English';
 
     // ── Q&A mode: free question, no active topic ──────────────────
     if (question && !topic) {
+      // Check pregen FAQ bank first (covers all subjects, zero API cost)
+      const pregenFaq = await pregen.detectAndServeFAQ(
+        req.body.country || 'MY', subject || 'General', req.body.topic || '', question
+      );
+      if (pregenFaq) {
+        console.log(`[PreGen] FAQ hit: ${pregenFaq.category}`);
+        return res.json({ answer: pregenFaq.answer, example: null, source: 'faq_cache', from_cache: true, related_questions: [] });
+      }
+
       if (!subject || subject.toLowerCase().includes('math')) {
         const faqHit = findBestFAQ(question);
         if (faqHit) {
@@ -848,6 +895,38 @@ app.post('/api/tutor/session', async (req, res) => {
       return res.json({ ...parsed, source: 'claude' });
     }
 
+    // ── Pregen: serve FAQ or explanation before calling Claude ───
+    if (topic && message && message !== 'start') {
+      const country = req.body.country || 'MY';
+
+      // FAQ check
+      const pregenFaq = await pregen.detectAndServeFAQ(country, subject || 'General', topic, message);
+      if (pregenFaq) {
+        console.log(`[PreGen] Tutor FAQ hit: ${pregenFaq.category}`);
+        return res.json({
+          reply: pregenFaq.answer, source: 'faq_cache', from_cache: true,
+          phase, segment: (parseInt(segment) || 0) + 1, isCheckIn: false,
+          suggestedResponses: ['I understand, thank you!', 'Can you give an example?', 'What about the formula?'],
+          activeQuestion: null,
+        });
+      }
+
+      // Explanation type check
+      const expType = pregen.detectExplanationType(message);
+      if (expType) {
+        const prebuilt = await pregen.getExplanation(country, subject || 'General', topic, expType);
+        if (prebuilt) {
+          console.log(`[PreGen] Explanation hit: ${expType}`);
+          return res.json({
+            reply: prebuilt, source: 'explanation_cache', from_cache: true,
+            phase, segment: (parseInt(segment) || 0) + 1, isCheckIn: false,
+            suggestedResponses: ['That makes sense!', 'Show me an example', 'Teach me more'],
+            activeQuestion: null,
+          });
+        }
+      }
+    }
+
     // ── Tutor mode: guided lesson with topic ──────────────────────
     if (!claudeApiKey) {
       return res.json({
@@ -866,7 +945,7 @@ app.post('/api/tutor/session', async (req, res) => {
       /tak faham|tidak faham|keliru|don'?t (get|understand)|confused|lost|huh\??|no idea|what do you mean|explain again|cara lain/i.test(message || '');
 
     // ── Per-phase token limits (prevent content dumps) ─────────────
-    const phaseTokens = { intro: 320, teach: 480, check: 380, quiz_setup: 380, quiz_answer: 380, done: 380 };
+    const phaseTokens = { intro: 500, teach: 480, check: 380, quiz_setup: 380, quiz_answer: 380, done: 380 };
     const maxTokens = phaseTokens[currentPhase] || 420;
 
     // ── Personality styles ─────────────────────────────────────────
@@ -1034,6 +1113,39 @@ suggestedResponses must be from the STUDENT's perspective, e.g.:
 - "My answer is [X], is that right?"
 - "Can you show another example?"`;
 
+    // Append Kurikulum Merdeka + Pedagogy blocks for Indonesian students
+    const studentCountry = req.body.country || 'MY';
+    if (studentCountry === 'ID' && subject && topic) {
+      // KM Capaian Pembelajaran block
+      const cp = await loadStudentCP(subject, req.body.form || 'Kelas 11');
+      if (cp.length > 0) {
+        const highPriority = cp
+          .filter(c => c.snbt_weight === 'tinggi')
+          .slice(0, 3)
+          .map(c => `- ${c.elemen}: ${c.capaian_pembelajaran.substring(0, 120)}`)
+          .join('\n');
+        if (highPriority) {
+          systemPrompt += `\n\n==================================================\nKURIKULUM MERDEKA (Kemdikbud 2025)\n==================================================\nAjarkan sesuai Capaian Pembelajaran resmi.\nPrioritas SNBT tinggi:\n${highPriority}\nGunakan konteks kehidupan nyata Indonesia.\n==================================================`;
+        }
+      }
+
+      // Project Garuda pedagogy layer
+      const topicKeyword = topic.split(' ').slice(0, 3).join(' ');
+      const { data: pedagogy } = await supabase
+        .from('pedagogy_methods')
+        .select('analogy_used, fear_reduction_phrases, key_shortcuts, teaching_sequence, snbt_relevance')
+        .eq('country', 'ID')
+        .eq('subject', subject)
+        .ilike('topic', `%${topicKeyword}%`)
+        .maybeSingle();
+
+      if (pedagogy) {
+        const shortcuts = (() => { try { return JSON.parse(pedagogy.key_shortcuts || '[]'); } catch { return []; } })();
+        const fears     = (() => { try { return JSON.parse(pedagogy.fear_reduction_phrases || '[]'); } catch { return []; } })();
+        systemPrompt += `\n\n==================================================\nLEARNOVA PEDAGOGY LAYER (Project Garuda)\n==================================================\nGunakan gaya pengajaran ini:\n- Analogi: ${pedagogy.analogy_used || 'gunakan analogi kehidupan sehari-hari'}\n- Urutan: ${pedagogy.teaching_sequence || 'konsep -> contoh -> latihan'}\n${shortcuts.length ? `- Trik: ${shortcuts.slice(0, 3).join(', ')}` : ''}\n${fears.length ? `- Mulai dengan: "${fears[0]}"` : 'Mulai dengan mengurangi kecemasan sebelum masuk materi.'}\n==================================================`;
+      }
+    }
+
     const msgs = [];
     if (Array.isArray(history)) {
       for (const h of history.slice(-10)) {
@@ -1073,8 +1185,55 @@ suggestedResponses must be from the STUDENT's perspective, e.g.:
   }
 });
 
+// ── KM CURRICULUM HELPERS ────────────────────────────────────────
+async function loadStudentCP(subject, studentForm) {
+  const fase = (studentForm || '').includes('10') ? 'Fase E' : 'Fase F';
+  const { data } = await supabase
+    .from('curriculum_structure')
+    .select('elemen, sub_elemen, capaian_pembelajaran, snbt_weight, learnova_method')
+    .eq('country', 'ID')
+    .eq('subject', subject)
+    .eq('fase', fase)
+    .order('snbt_weight', { ascending: false });
+  return data || [];
+}
+
+async function updateCPMastery(studentId, subject, fase, cpCode, isCorrect) {
+  try {
+    const { data: current } = await supabase
+      .from('student_cp_progress')
+      .select('evidence_count, mastery_level')
+      .eq('student_id', studentId)
+      .eq('subject', subject)
+      .eq('cp_code', cpCode)
+      .maybeSingle();
+
+    const prevCount = current?.evidence_count || 0;
+    const newCount  = prevCount + 1;
+    const prevRate  = { mahir: 0.90, cakap: 0.75, layak: 0.60, berkembang: 0.45, belum: 0.0 }[current?.mastery_level || 'belum'];
+    const prevCorrect  = prevRate * prevCount;
+    const newAccuracy  = (prevCorrect + (isCorrect ? 1 : 0)) / newCount;
+
+    let mastery = 'belum';
+    if (newAccuracy >= 0.85)      mastery = 'mahir';
+    else if (newAccuracy >= 0.70) mastery = 'cakap';
+    else if (newAccuracy >= 0.55) mastery = 'layak';
+    else if (newAccuracy >= 0.40) mastery = 'berkembang';
+
+    await supabase.from('student_cp_progress').upsert({
+      student_id: studentId, country: 'ID',
+      subject, fase, cp_code: cpCode,
+      mastery_level: mastery,
+      evidence_count: newCount,
+      last_assessed: new Date().toISOString(),
+    }, { onConflict: 'student_id,subject,fase,cp_code' });
+  } catch (e) {
+    console.error('[CP] mastery update error:', e.message);
+  }
+}
+
 // -- UPDATE FORM -----------------------------------------------
-app.patch('/api/auth/update-form', async (req, res) => {
+app.patch('/api/auth/update-form', authStudent, async (req, res) => {
   try {
     const { student_id, form_level, subjects } = req.body;
     await supabase.from('students').update({ form_level, onboarding_complete: true }).eq('id', student_id);
@@ -1083,9 +1242,10 @@ app.patch('/api/auth/update-form', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`\nLearnova v2.1 running on port ${PORT}`);
+  console.log(`\nLearnova v2.2 running on port ${PORT}`);
   console.log(`FAQ loaded: ${Object.keys(FAQ_DATA).length} Maths questions`);
   console.log(`Multi-subject FAQ: faq_cache table (8 subjects)`);
+  console.log(`PregenLookup: question_bank + faq_bank + concept_explanations (ID + MY)`);
   console.log(`Claude API: ${claudeApiKey ? 'ready' : 'FAQ-only mode'}\n`);
 });
 // ── MARKING ENGINE ────────────────────────────────────────────────
@@ -1153,6 +1313,14 @@ app.post('/api/quiz/:id/submit', authStudent, async (req, res) => {
       method_feedback: overallFeedback,
       method_score: avgMethodScore,
     });
+
+    // CP mastery tracking for Indonesian students
+    if (quiz.country === 'ID' || req.body.country === 'ID') {
+      const fase = (quiz.form || '').includes('10') ? 'Fase E' : 'Fase F';
+      const cpCode = `${quiz.subject || 'General'}:${quiz.topic || 'General'}`;
+      const isCorrect = percentage >= 70;
+      updateCPMastery(req.user.id, quiz.subject, fase, cpCode, isCorrect).catch(() => {});
+    }
 
     res.json({
       score: correct,
