@@ -842,8 +842,20 @@ app.post('/api/tts', async (req, res) => {
 app.get('/api/tutor/topics', async (req, res) => {
   try {
     const { subject } = req.query;
-    const { data } = await supabase.from('lessons').select('id, title, topic, subtopic, form_level').eq('subject', subject).order('topic');
-    res.json({ topics: data || [] });
+    const { data } = await supabase.from('lessons').select('id, title, topic, subtopic, form_level')
+      .eq('subject', subject).in('status', ['published', 'active']).order('topic');
+
+    if (data && data.length > 0) return res.json({ topics: data });
+
+    // Fallback: pregen_status (populated by pregen scripts)
+    const { data: pg } = await supabase.from('pregen_status')
+      .select('topic').eq('subject', subject).eq('status', 'complete')
+      .gt('questions_generated', 0).order('topic');
+    if (pg && pg.length > 0) {
+      return res.json({ topics: pg.map(p => ({ id: null, title: p.topic, topic: p.topic })) });
+    }
+
+    res.json({ topics: [] });
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
