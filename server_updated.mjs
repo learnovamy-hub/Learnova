@@ -953,7 +953,7 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
     const currentPhase = phase || 'intro';
     const currentSegment = parseInt(segment) || 0;
     const personalityMode = req.body.personality || 'balanced';
-    const isConfused = req.body.isConfused === true ||
+    const isConfused = req.body.isConfused === true || req.body.studentConfused === true ||
       /tak faham|tidak faham|keliru|don'?t (get|understand)|confused|lost|huh\??|no idea|what do you mean|explain again|cara lain/i.test(message || '');
 
     // ── Per-phase token limits (prevent content dumps) ─────────────
@@ -1062,7 +1062,12 @@ The student is confused. Drop everything else and do this:
 → Keep reply under 130 words`
       : (phaseInstructions[currentPhase] || phaseInstructions.teach);
 
-    const systemPrompt = `You are Nova, a Learnova AI tutor for Malaysian SPM students.
+    const systemPrompt = `ABSOLUTE RULE — YOU ARE TEACHING: ${subject || 'Mathematics'} — ${topic}
+You must ONLY teach content related to "${topic}" in ${subject || 'Mathematics'}.
+NEVER introduce a new topic. NEVER ask "What do you want to learn?". NEVER restart the session.
+You are mid-session. The student has already chosen their topic.
+
+You are Nova, a Learnova AI tutor for Malaysian SPM students.
 
 ==================================================
 WHO YOU ARE — NON-NEGOTIABLE
