@@ -1253,6 +1253,40 @@ app.patch('/api/auth/update-form', authStudent, async (req, res) => {
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+// ── CONTENT CHUNKS (topic intro screen) ──────────────────────────
+app.get('/api/tutor/content-chunks', async (req, res) => {
+  try {
+    const { subject, topic } = req.query;
+    if (!subject) return res.json({ chunks: [] });
+
+    const cols = 'concept_title,concept_explanation,worked_example,common_mistakes,keywords,difficulty_level';
+
+    // 1. Exact topic ilike match
+    if (topic) {
+      const { data: exact } = await supabase
+        .from('concept_chunks').select(cols)
+        .eq('subject', subject).ilike('topic', '%' + topic + '%')
+        .order('difficulty_level', { ascending: true }).limit(6);
+      if (exact && exact.length > 0) return res.json({ chunks: exact });
+
+      // 2. Keyword fallback — longest word in topic name (>3 chars)
+      const keyword = topic.split(/\s+/).filter(w => w.length > 3).sort((a, b) => b.length - a.length)[0];
+      if (keyword) {
+        const { data: kw } = await supabase
+          .from('concept_chunks').select(cols)
+          .eq('subject', subject).ilike('topic', '%' + keyword + '%')
+          .order('difficulty_level', { ascending: true }).limit(6);
+        if (kw && kw.length > 0) return res.json({ chunks: kw });
+      }
+    }
+
+    // 3. No topic match — return empty so UI shows "coming soon" gracefully
+    return res.json({ chunks: [] });
+  } catch (err) {
+    return res.json({ chunks: [] });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`\nLearnova v2.2 running on port ${PORT}`);
   console.log(`FAQ loaded: ${Object.keys(FAQ_DATA).length} Maths questions`);
