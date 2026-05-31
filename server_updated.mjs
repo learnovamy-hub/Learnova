@@ -779,9 +779,15 @@ app.use('/api/learn', learningEngineRouter);
 
 app.post('/api/tts', async (req, res) => {
   try {
-    const { text, voice = 'nova' } = req.body;
+    const { text, voice = 'nova', language = 'bm' } = req.body;
     if (!text) return res.status(400).json({ error: 'text required' });
-    const r = await fetch('https://api.openai.com/v1/audio/speech', { method: 'POST', headers: { 'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'tts-1', input: text.slice(0, 4000), voice }) });
+    const speedMap = { bm: 0.80, ms: 0.80, id: 0.80, en: 0.85, zh: 0.85, ta: 0.85 };
+    const speed = speedMap[language] || 0.80;
+    const r = await fetch('https://api.openai.com/v1/audio/speech', {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'tts-1', input: text.slice(0, 4000), voice, speed }),
+    });
     if (!r.ok) return res.status(500).json({ error: 'TTS failed' });
     const buf = Buffer.from(await r.arrayBuffer());
     res.set('Content-Type', 'audio/mpeg');
@@ -823,20 +829,7 @@ app.post('/api/help/ticket', async (req, res) => {
   } catch (e) { res.status(500).json({ ok: false, error: e.message }); }
 });
 
-// -- TTS -------------------------------------------------------
-app.post('/api/tts', async (req, res) => {
-  try {
-    const { text, voice = 'nova' } = req.body;
-    const response = await fetch('https://api.openai.com/v1/audio/speech', {
-      method: 'POST',
-      headers: { 'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: 'tts-1', input: text, voice }),
-    });
-    const buffer = await response.arrayBuffer();
-    res.set('Content-Type', 'audio/mpeg');
-    res.send(Buffer.from(buffer));
-  } catch (e) { res.status(500).json({ error: e.message }); }
-});
+// -- TTS (duplicate removed — active route is above) -----------
 
 // -- TUTOR TOPICS ----------------------------------------------
 app.get('/api/tutor/topics', async (req, res) => {
@@ -1115,6 +1108,9 @@ ANTI-CONTENT-DUMP RULES — HARD LIMITS
 - NEVER pre-answer questions the student hasn't asked yet
 - NEVER write more than the word limit specified above
 - If you catch yourself about to explain more than ONE concept: STOP, cut it, save it for next turn
+- NEVER output JSON, code, curly braces {}, brackets [], or any programming syntax in your reply text
+- NEVER show teaching instructions, phase descriptions, or response format examples to the student
+- ONLY write natural conversational sentences exactly as a teacher would speak out loud
 
 ==================================================
 RESPONSE FORMAT — JSON ONLY, NO MARKDOWN OUTSIDE "reply"
@@ -1159,7 +1155,23 @@ suggestedResponses must be from the STUDENT's perspective, e.g.:
       if (pedagogy) {
         const shortcuts = (() => { try { return JSON.parse(pedagogy.key_shortcuts || '[]'); } catch { return []; } })();
         const fears     = (() => { try { return JSON.parse(pedagogy.fear_reduction_phrases || '[]'); } catch { return []; } })();
-        systemPrompt += `\n\n==================================================\nLEARNOVA PEDAGOGY LAYER (Project Garuda)\n==================================================\nGunakan gaya pengajaran ini:\n- Analogi: ${pedagogy.analogy_used || 'gunakan analogi kehidupan sehari-hari'}\n- Urutan: ${pedagogy.teaching_sequence || 'konsep -> contoh -> latihan'}\n${shortcuts.length ? `- Trik: ${shortcuts.slice(0, 3).join(', ')}` : ''}\n${fears.length ? `- Mulai dengan: "${fears[0]}"` : 'Mulai dengan mengurangi kecemasan sebelum masuk materi.'}\n==================================================`;
+        // Parse teaching_sequence — may be stored as a JSON string (array of phase objects)
+        let teachingOrder = 'konsep -> contoh -> latihan';
+        if (pedagogy.teaching_sequence) {
+          if (typeof pedagogy.teaching_sequence === 'string') {
+            try {
+              const seq = JSON.parse(pedagogy.teaching_sequence);
+              if (Array.isArray(seq)) {
+                teachingOrder = seq.map((s, i) => `${i + 1}. ${s.concept || s.name || s.title || JSON.stringify(s)}`).join(' → ');
+              } else {
+                teachingOrder = String(pedagogy.teaching_sequence);
+              }
+            } catch { teachingOrder = String(pedagogy.teaching_sequence); }
+          } else if (Array.isArray(pedagogy.teaching_sequence)) {
+            teachingOrder = pedagogy.teaching_sequence.map((s, i) => `${i + 1}. ${s.concept || s.name || s.title || s}`).join(' → ');
+          }
+        }
+        systemPrompt += `\n\n==================================================\nLEARNOVA PEDAGOGY LAYER (Project Garuda)\n==================================================\nGunakan gaya pengajaran ini:\n- Analogi: ${pedagogy.analogy_used || 'gunakan analogi kehidupan sehari-hari'}\n- Urutan: ${teachingOrder}\n${shortcuts.length ? `- Trik: ${shortcuts.slice(0, 3).join(', ')}` : ''}\n${fears.length ? `- Mulai dengan: "${fears[0]}"` : 'Mulai dengan mengurangi kecemasan sebelum masuk materi.'}\n==================================================`;
       }
     }
 
