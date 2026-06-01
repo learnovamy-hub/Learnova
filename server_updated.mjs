@@ -852,10 +852,31 @@ app.get('/api/tutor/topics', async (req, res) => {
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+// Strip JSON artifacts from a reply string — catches double-encoding where
+// Claude wraps its reply text inside another JSON object
+function safeReply(text) {
+  if (!text || typeof text !== 'string') return text || '';
+  const trimmed = text.trim();
+  if (trimmed.startsWith('{')) {
+    try {
+      const inner = JSON.parse(trimmed);
+      const extracted = inner.reply || inner.answer || inner.content || inner.text || inner.message;
+      if (extracted && typeof extracted === 'string') return extracted;
+    } catch {}
+  }
+  return text;
+}
+
 app.post('/api/tutor/session', authStudent, async (req, res) => {
   try {
     const { subject, topic, message, history, phase, segment, language, activeQuestion, question } = req.body;
-    const lang = (language === 'ms' || language === 'bm') ? 'Bahasa Malaysia' : 'English';
+    const isBm = language === 'ms' || language === 'bm';
+    const lang = isBm ? 'Bahasa Malaysia' : 'English';
+
+    // Language-matched quick-reply suggestions
+    const suggestions = isBm
+      ? ['Faham! Teruskan.', 'Boleh tunjukkan contoh?', 'Saya kurang faham bahagian ini.']
+      : ['I understand, please continue.', 'Can you show an example?', "I'm not sure about this part."];
 
     // ── Q&A mode: free question, no active topic ──────────────────
     if (question && !topic) {
@@ -909,9 +930,9 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
       if (pregenFaq) {
         console.log(`[PreGen] Tutor FAQ hit: ${pregenFaq.category}`);
         return res.json({
-          reply: pregenFaq.answer, source: 'faq_cache', from_cache: true,
+          reply: safeReply(pregenFaq.answer), source: 'faq_cache', from_cache: true,
           phase, segment: (parseInt(segment) || 0) + 1, isCheckIn: false,
-          suggestedResponses: ['I understand, thank you!', 'Can you give an example?', 'What about the formula?'],
+          suggestedResponses: suggestions,
           activeQuestion: null,
         });
       }
@@ -923,9 +944,9 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
         if (prebuilt) {
           console.log(`[PreGen] Explanation hit: ${expType}`);
           return res.json({
-            reply: prebuilt, source: 'explanation_cache', from_cache: true,
+            reply: safeReply(prebuilt), source: 'explanation_cache', from_cache: true,
             phase, segment: (parseInt(segment) || 0) + 1, isCheckIn: false,
-            suggestedResponses: ['That makes sense!', 'Show me an example', 'Teach me more'],
+            suggestedResponses: suggestions,
             activeQuestion: null,
           });
         }
@@ -935,9 +956,9 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
     // ── Tutor mode: guided lesson with topic ──────────────────────
     if (!claudeApiKey) {
       return res.json({
-        reply: "Sorry, the AI tutor is not available right now. Please try again later.",
+        reply: isBm ? "Maaf, jurulatih AI tidak tersedia sekarang. Sila cuba lagi." : "Sorry, the AI tutor is not available right now. Please try again later.",
         phase: phase || 'intro', segment: (parseInt(segment) || 0) + 1,
-        suggestedResponses: ["OK, I understand", "Can you explain more?", "Show me an example"],
+        suggestedResponses: suggestions,
         activeQuestion: null, source: 'fallback', isCheckIn: false,
       });
     }
@@ -1120,11 +1141,8 @@ RESPONSE FORMAT — JSON ONLY, NO MARKDOWN OUTSIDE "reply"
 activeQuestion format (MCQ only):
 {"question":"full question text","options":{"A":"...","B":"...","C":"...","D":"..."},"correct":"A","explanation":"why A is correct, step by step"}
 
-suggestedResponses must be from the STUDENT's perspective, e.g.:
-- "I understand! Please continue."
-- "I'm not sure about [specific part]"
-- "My answer is [X], is that right?"
-- "Can you show another example?"`;
+suggestedResponses must be from the STUDENT's perspective and written in ${lang}.
+${isBm ? 'Examples (Bahasa Malaysia):\n- "Faham! Teruskan."\n- "Saya kurang faham bahagian ini."\n- "Jawapan saya [X], betul ke?"\n- "Boleh tunjukkan contoh lain?"' : 'Examples (English):\n- "I understand! Please continue."\n- "I\'m not sure about [specific part]"\n- "My answer is [X], is that right?"\n- "Can you show another example?"'}`;
 
     // Append Kurikulum Merdeka + Pedagogy blocks for Indonesian students
     const studentCountry = req.body.country || 'MY';
@@ -1200,13 +1218,14 @@ suggestedResponses must be from the STUDENT's perspective, e.g.:
       parsed = JSON.parse(match ? match[0] : text);
     } catch {
       parsed = {
-        reply: claudeRes.content[0].text,
+        reply: safeReply(claudeRes.content[0].text),
         phase: currentPhase === 'intro' ? 'teach' : currentPhase,
         segment: currentSegment + 1,
-        suggestedResponses: ["I understand, please continue", "I'm confused about this part", "Can you show another example?"],
+        suggestedResponses: suggestions,
         isCheckIn: false, activeQuestion: null,
       };
     }
+    if (parsed.reply) parsed.reply = safeReply(parsed.reply);
     return res.json({ ...parsed, source: 'claude' });
   } catch (e) {
     console.error('Tutor session error:', e);
