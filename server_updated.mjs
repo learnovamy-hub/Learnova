@@ -1304,6 +1304,24 @@ app.get('/api/tutor/content-chunks', async (req, res) => {
   }
 });
 
+// ── TOPIC ILLUSTRATIONS ───────────────────────────────────────────
+app.get('/api/tutor/illustrations', async (req, res) => {
+  try {
+    const { subject, topic } = req.query;
+    if (!subject || !topic) return res.json({ illustrations: [] });
+    const { data, error } = await supabase
+      .from('topic_illustrations')
+      .select('title, svg_code, description')
+      .eq('subject', subject)
+      .ilike('topic', '%' + topic + '%')
+      .limit(5);
+    if (error || !data || data.length === 0) return res.json({ illustrations: [] });
+    return res.json({ illustrations: data });
+  } catch (err) {
+    return res.json({ illustrations: [] });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`\nLearnova v2.2 running on port ${PORT}`);
   console.log(`FAQ loaded: ${Object.keys(FAQ_DATA).length} Maths questions`);
