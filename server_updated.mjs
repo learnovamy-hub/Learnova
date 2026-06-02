@@ -907,8 +907,13 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
     const isBm = language === 'ms' || language === 'bm';
     const lang = isBm ? 'Bahasa Malaysia' : 'English';
 
-    // Language-matched quick-reply suggestions
-    const suggestions = isBm
+    const isBmSubject = subject === 'Bahasa Malaysia' || subject === 'Bahasa Melayu' ||
+      !!(topic && (topic.includes('Bahasa Malaysia') || topic.includes('Bahasa Melayu')));
+
+    // Language-matched quick-reply suggestions — BM subject always gets BM replies
+    const suggestions = isBmSubject
+      ? ['Faham! Teruskan.', 'Boleh beri contoh lain?', 'Saya kurang faham bahagian ini.']
+      : isBm
       ? ['Faham! Teruskan.', 'Boleh tunjukkan contoh?', 'Saya kurang faham bahagian ini.']
       : ['I understand, please continue.', 'Can you show an example?', "I'm not sure about this part."];
 
@@ -1110,7 +1115,7 @@ The student is confused. Drop everything else and do this:
 → Keep reply under 130 words`
       : (phaseInstructions[currentPhase] || phaseInstructions.teach);
 
-    const systemPrompt = `ABSOLUTE RULE — YOU ARE TEACHING: ${subject || 'Mathematics'} — ${topic}
+    let systemPrompt = `ABSOLUTE RULE — YOU ARE TEACHING: ${subject || 'Mathematics'} — ${topic}
 You must ONLY teach content related to "${topic}" in ${subject || 'Mathematics'}.
 NEVER introduce a new topic. NEVER ask "What do you want to learn?". NEVER restart the session.
 You are mid-session. The student has already chosen their topic.
@@ -1177,6 +1182,48 @@ activeQuestion format (MCQ only):
 
 suggestedResponses must be from the STUDENT's perspective and written in ${lang}.
 ${isBm ? 'Examples (Bahasa Malaysia):\n- "Faham! Teruskan."\n- "Saya kurang faham bahagian ini."\n- "Jawapan saya [X], betul ke?"\n- "Boleh tunjukkan contoh lain?"' : 'Examples (English):\n- "I understand! Please continue."\n- "I\'m not sure about [specific part]"\n- "My answer is [X], is that right?"\n- "Can you show another example?"'}`;
+
+    // Append strict Bahasa Malaysia rules when subject is BM
+    if (isBmSubject) {
+      systemPrompt += `
+
+==================================================
+PERATURAN MUTLAK — BAHASA MALAYSIA
+==================================================
+Subjek ini adalah Bahasa Malaysia.
+
+1. WAJIB menggunakan Bahasa Malaysia SEPENUHNYA dalam SEMUA respons tanpa pengecualian.
+
+2. DILARANG SAMA SEKALI mencampurkan bahasa Inggeris dalam ayat — tiada code-switching, tiada 'Bahasa Malaysia words' diikuti English words.
+
+3. Gunakan bahasa formal dan baku sepertimana dalam Dewan Bahasa dan Pustaka (DBP).
+
+4. DILARANG menggunakan bahasa pasar, bahasa rojak, atau ungkapan tidak formal.
+
+5. Istilah teknikal mestilah dalam Bahasa Malaysia:
+   - 'karangan' bukan 'essay'
+   - 'kata kerja' bukan 'verb'
+   - 'ayat' bukan 'sentence'
+   - 'penulisan' bukan 'writing'
+   - 'pembacaan' bukan 'reading'
+   - 'tatabahasa' bukan 'grammar'
+   - 'peribahasa' bukan 'proverb'
+   - 'simpulan bahasa' kekal Bahasa Malaysia
+
+6. Soalan pantas (suggestedResponses) MESTI dalam Bahasa Malaysia:
+   - 'Faham! Teruskan.'
+   - 'Boleh beri contoh lain?'
+   - 'Saya kurang faham bahagian ini.'
+   BUKAN 'I understand, please continue'
+
+7. Penilaian dan maklum balas mesti menggunakan frasa formal Bahasa Malaysia:
+   - 'Tepat sekali!' bukan 'Correct!'
+   - 'Baik, cuba lagi.' bukan 'Good try.'
+   - 'Jawapan anda kurang tepat.' bukan 'Wrong answer.'
+
+8. Jika pelajar menulis dalam Bahasa Inggeris, balas dalam Bahasa Malaysia dan lembut galakkan mereka: 'Sila gunakan Bahasa Malaysia ya. Mari kita cuba sekali lagi.'
+==================================================`;
+    }
 
     // Append Kurikulum Merdeka + Pedagogy blocks for Indonesian students
     const studentCountry = req.body.country || 'MY';
