@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import rateLimit from 'express-rate-limit';
+import { exec } from 'child_process';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -103,6 +104,19 @@ app.use('/api/parent/login', authLimiter);
 
 app.get('/', (req, res) => res.send('Learnova API v2.2'));
 app.get('/health', (req, res) => res.json({ status: 'ok', version: '2.2', timestamp: new Date() }));
+
+// ── AUTO BACKUP ───────────────────────────────────────────────────
+function triggerBackup() {
+  exec('python C:\\learnova_app\\extraction\\learnova_backup.py',
+    (error) => {
+      if (error) {
+        console.log('[Backup] Failed:', error.message);
+      } else {
+        console.log('[Backup] Complete');
+      }
+    }
+  );
+}
 
 // ── FAQ DATA (Maths hardcoded, zero cost AI) ─────────────────────
 const FAQ_DATA = {
@@ -379,6 +393,7 @@ app.post('/api/student/signup', async (req, res) => {
     if (error) return res.status(400).json({ error: error.message });
     const token = jwt.sign({ student_id: data[0].id, email }, JWT_SECRET, { expiresIn: '30d' });
     res.json({ token, student_id: data[0].id, name: data[0].name });
+    triggerBackup();
   } catch (err) { console.error('Student signup:', err); res.status(500).json({ error: err.message }); }
 });
 
@@ -423,11 +438,14 @@ app.get('/api/student/quiz-history', authStudent, async (req, res) => {
 // ── LESSON ROUTES ─────────────────────────────────────────────────
 app.get('/api/lessons', async (req, res) => {
   try {
-    const { subject, form_level } = req.query;
-    let query = supabase.from('lessons').select('id,title,topic,subject,form_level,teacher_id,created_at').eq('is_published', true);
+    const { subject, form_level, limit } = req.query;
+    const cols = 'id,title,topic,subject,form_level,teacher_id,created_at,introduction,content,summary,worked_examples,common_mistakes,keywords';
+    let query = supabase.from('lessons').select(cols).eq('is_published', true);
     if (subject) query = query.eq('subject', subject);
     if (form_level) query = query.eq('form_level', form_level);
-    const { data, error } = await query.order('created_at', { ascending: false });
+    query = query.order('created_at', { ascending: false });
+    if (limit) query = query.limit(parseInt(limit));
+    const { data, error } = await query;
     if (error) return res.status(400).json({ error: error.message });
     res.json(data || []);
   } catch (err) { res.status(500).json({ error: err.message }); }
@@ -479,6 +497,7 @@ app.post('/api/quiz/:id/submit', authStudent, async (req, res) => {
     const percentage = Math.round((score / questions.length) * 100);
     const { data: result } = await supabase.from('quiz_results').insert([{ student_id: req.user.student_id, quiz_id: req.params.id, score, total: questions.length, percentage, time_taken_seconds: time_taken_seconds || 0 }]).select();
     res.json({ score, total: questions.length, percentage, feedback, result_id: result?.[0]?.id });
+    triggerBackup();
   } catch (err) { console.error('Quiz submit:', err); res.status(500).json({ error: err.message }); }
 });
 
@@ -835,12 +854,27 @@ app.post('/api/help/ticket', async (req, res) => {
 app.get('/api/tutor/topics', async (req, res) => {
   try {
     const { subject } = req.query;
-    const { data } = await supabase.from('lessons').select('id, title, topic, subtopic, form_level')
-      .eq('subject', subject).in('status', ['published', 'active']).order('topic');
+    const cols = 'id, title, topic, subtopic, form_level, introduction, summary';
 
+    // 1. status field (lessons created via setup scripts)
+    const { data } = await supabase.from('lessons').select(cols)
+      .eq('subject', subject).in('status', ['published', 'active']).order('topic');
     if (data && data.length > 0) return res.json({ topics: data });
 
-    // Fallback: pregen_status (populated by pregen scripts)
+    // 2. is_published boolean (lessons created via teacher portal)
+    const { data: pub } = await supabase.from('lessons').select(cols)
+      .eq('subject', subject).eq('is_published', true).order('topic');
+    if (pub && pub.length > 0) return res.json({ topics: pub });
+
+    // 3. Fallback: concept_chunks (topics with content even if no lesson entry)
+    const { data: cc } = await supabase.from('concept_chunks')
+      .select('topic').eq('subject', subject).order('topic');
+    if (cc && cc.length > 0) {
+      const unique = [...new Map(cc.map(r => [r.topic, r])).values()];
+      return res.json({ topics: unique.map(r => ({ id: null, title: r.topic, topic: r.topic })) });
+    }
+
+    // 4. pregen_status fallback
     const { data: pg } = await supabase.from('pregen_status')
       .select('topic').eq('subject', subject).eq('status', 'complete')
       .gt('questions_generated', 0).order('topic');
@@ -1226,6 +1260,7 @@ ${isBm ? 'Examples (Bahasa Malaysia):\n- "Faham! Teruskan."\n- "Saya kurang faha
       };
     }
     if (parsed.reply) parsed.reply = safeReply(parsed.reply);
+    triggerBackup();
     return res.json({ ...parsed, source: 'claude' });
   } catch (e) {
     console.error('Tutor session error:', e);
@@ -1297,11 +1332,11 @@ app.get('/api/tutor/content-chunks', async (req, res) => {
 
     const cols = 'concept_title,concept_explanation,worked_example,common_mistakes,keywords,difficulty_level';
 
-    // 1. Exact topic ilike match
+    // 1. ILIKE subject + ILIKE topic
     if (topic) {
       const { data: exact } = await supabase
         .from('concept_chunks').select(cols)
-        .eq('subject', subject).ilike('topic', '%' + topic + '%')
+        .ilike('subject', '%' + subject + '%').ilike('topic', '%' + topic + '%')
         .order('difficulty_level', { ascending: true }).limit(6);
       if (exact && exact.length > 0) return res.json({ chunks: exact });
 
@@ -1310,7 +1345,7 @@ app.get('/api/tutor/content-chunks', async (req, res) => {
       if (keyword) {
         const { data: kw } = await supabase
           .from('concept_chunks').select(cols)
-          .eq('subject', subject).ilike('topic', '%' + keyword + '%')
+          .ilike('subject', '%' + subject + '%').ilike('topic', '%' + keyword + '%')
           .order('difficulty_level', { ascending: true }).limit(6);
         if (kw && kw.length > 0) return res.json({ chunks: kw });
       }
@@ -1328,17 +1363,39 @@ app.get('/api/tutor/illustrations', async (req, res) => {
   try {
     const { subject, topic } = req.query;
     if (!subject || !topic) return res.json({ illustrations: [] });
-    const { data, error } = await supabase
+
+    // 1. Exact subject match + topic ilike
+    const { data: exact } = await supabase
       .from('topic_illustrations')
       .select('title, svg_code, description')
       .eq('subject', subject)
       .ilike('topic', '%' + topic + '%')
-      .limit(5);
-    if (error || !data || data.length === 0) return res.json({ illustrations: [] });
-    return res.json({ illustrations: data });
+      .limit(3);
+    if (exact && exact.length > 0) return res.json({ illustrations: exact });
+
+    // 2. ILIKE fallback — handles subject variations (e.g. "Add Maths" vs "Mathematics")
+    const { data: fuzzy } = await supabase
+      .from('topic_illustrations')
+      .select('title, svg_code, description')
+      .ilike('subject', '%' + subject + '%')
+      .ilike('topic', '%' + topic + '%')
+      .limit(3);
+    if (fuzzy && fuzzy.length > 0) return res.json({ illustrations: fuzzy });
+
+    return res.json({ illustrations: [] });
   } catch (err) {
     return res.json({ illustrations: [] });
   }
+});
+
+// ── ADMIN BACKUP ENDPOINT ─────────────────────────────────────────
+app.get('/api/admin/backup', (req, res) => {
+  const secret = req.headers['admin_secret_key'] || req.headers['admin-secret-key'];
+  if (!secret || secret !== process.env.ADMIN_SECRET_KEY) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  triggerBackup();
+  res.json({ status: 'backup started' });
 });
 
 app.listen(PORT, () => {
@@ -1430,6 +1487,7 @@ app.post('/api/quiz/:id/submit', authStudent, async (req, res) => {
       overall_feedback: overallFeedback,
       question_feedback: questionFeedback,
     });
+    triggerBackup();
   } catch (e) {
     console.error('Quiz submit error:', e);
     res.status(500).json({ error: e.message });
