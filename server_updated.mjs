@@ -910,9 +910,12 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
     const isBmSubject = subject === 'Bahasa Malaysia' || subject === 'Bahasa Melayu' ||
       !!(topic && (topic.includes('Bahasa Malaysia') || topic.includes('Bahasa Melayu')));
 
-    // Language-matched quick-reply suggestions — BM subject always gets BM replies
-    const suggestions = isBmSubject
-      ? ['Faham! Teruskan.', 'Boleh beri contoh lain?', 'Saya kurang faham bahagian ini.']
+    const isSejarahSubject = subject === 'Sejarah' || subject === 'Sejarah Indonesia' ||
+      !!(subject && subject.includes('Sejarah'));
+
+    // Language-matched quick-reply suggestions — BM/Sejarah subjects always get BM replies
+    const suggestions = (isBmSubject || isSejarahSubject)
+      ? ['Faham! Teruskan.', 'Boleh cerita lebih lanjut?', 'Saya kurang faham bahagian ini.']
       : isBm
       ? ['Faham! Teruskan.', 'Boleh tunjukkan contoh?', 'Saya kurang faham bahagian ini.']
       : ['I understand, please continue.', 'Can you show an example?', "I'm not sure about this part."];
@@ -1213,6 +1216,54 @@ Subjek ini adalah Bahasa Malaysia.
 6. Soalan pantas (suggestedResponses) MESTI dalam Bahasa Malaysia:
    - 'Faham! Teruskan.'
    - 'Boleh beri contoh lain?'
+   - 'Saya kurang faham bahagian ini.'
+   BUKAN 'I understand, please continue'
+
+7. Penilaian dan maklum balas mesti menggunakan frasa formal Bahasa Malaysia:
+   - 'Tepat sekali!' bukan 'Correct!'
+   - 'Baik, cuba lagi.' bukan 'Good try.'
+   - 'Jawapan anda kurang tepat.' bukan 'Wrong answer.'
+
+8. Jika pelajar menulis dalam Bahasa Inggeris, balas dalam Bahasa Malaysia dan lembut galakkan mereka: 'Sila gunakan Bahasa Malaysia ya. Mari kita cuba sekali lagi.'
+==================================================`;
+    }
+
+    // Append strict Sejarah rules when subject is Sejarah
+    if (isSejarahSubject) {
+      systemPrompt += `
+
+==================================================
+PERATURAN MUTLAK — SEJARAH
+==================================================
+Subjek ini adalah Sejarah.
+
+1. WAJIB menggunakan Bahasa Malaysia SEPENUHNYA dalam SEMUA respons tanpa pengecualian.
+
+2. DILARANG mencampurkan bahasa Inggeris — tiada code-switching langsung.
+
+3. Gunakan bahasa formal dan baku DBP.
+
+4. Istilah teknikal Sejarah mestilah dalam BM:
+   - 'tamadun' bukan 'civilization'
+   - 'penjajahan' bukan 'colonization'
+   - 'kemerdekaan' bukan 'independence'
+   - 'pemberontakan' bukan 'rebellion'
+   - 'perjanjian' bukan 'treaty'
+   - 'perdagangan' bukan 'trade'
+   - 'kerajaan' bukan 'kingdom/government'
+   - 'tokoh' bukan 'figure/leader'
+   - 'peristiwa' bukan 'event'
+   - 'kronologi' bukan 'chronology'
+
+5. Nama tempat dan tokoh sejarah kekal dalam ejaan asal Bahasa Malaysia:
+   - 'Parameswara' bukan 'Paramesvara'
+   - 'Melaka' bukan 'Malacca'
+   - 'Tanah Melayu' bukan 'Malaya'
+   - 'Perang Dunia' bukan 'World War'
+
+6. Quick replies (suggestedResponses) MESTI dalam Bahasa Malaysia:
+   - 'Faham! Teruskan.'
+   - 'Boleh cerita lebih lanjut?'
    - 'Saya kurang faham bahagian ini.'
    BUKAN 'I understand, please continue'
 
