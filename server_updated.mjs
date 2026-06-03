@@ -796,16 +796,33 @@ app.post('/api/parent/link-child', async (req, res) => {
 });
 app.use('/api/learn', learningEngineRouter);
 
+function normalizeTtsInput(text) {
+  return text
+    .replace(/\*\*?|__?|~~|`+/g, '')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/#+\s*/g, '')
+    .replace(/^\s*[-•*]\s+/gm, '')
+    .replace(/^\s*\d+\.\s+/gm, '')
+    .replace(/\.\.\./g, '.').replace(/---/g, '.').replace(/--/g, ',')
+    .replace(/_{2,}/g, '')
+    .replace(/[^\x00-\x7FÀ-ɏЀ-ӿ]/g, '')
+    .replace(/\n+/g, '. ')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+
 app.post('/api/tts', async (req, res) => {
   try {
     const { text, voice = 'nova', language = 'bm' } = req.body;
     if (!text) return res.status(400).json({ error: 'text required' });
+    const clean = normalizeTtsInput(text).slice(0, 4000);
+    if (!clean) return res.status(400).json({ error: 'text empty after normalization' });
     const r = await fetch('https://api.openai.com/v1/audio/speech', {
       method: 'POST',
       headers: { 'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: 'tts-1-hd',
-        input: text.slice(0, 4000),
+        input: clean,
         voice,
         speed: 1.0,
         response_format: 'mp3',
