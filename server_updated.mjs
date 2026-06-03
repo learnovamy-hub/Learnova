@@ -800,12 +800,16 @@ app.post('/api/tts', async (req, res) => {
   try {
     const { text, voice = 'nova', language = 'bm' } = req.body;
     if (!text) return res.status(400).json({ error: 'text required' });
-    const speedMap = { bm: 0.80, ms: 0.80, id: 0.80, en: 0.85, zh: 0.85, ta: 0.85 };
-    const speed = speedMap[language] || 0.80;
     const r = await fetch('https://api.openai.com/v1/audio/speech', {
       method: 'POST',
       headers: { 'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: 'tts-1', input: text.slice(0, 4000), voice, speed }),
+      body: JSON.stringify({
+        model: 'tts-1-hd',
+        input: text.slice(0, 4000),
+        voice,
+        speed: 1.0,
+        response_format: 'mp3',
+      }),
     });
     if (!r.ok) return res.status(500).json({ error: 'TTS failed' });
     const buf = Buffer.from(await r.arrayBuffer());
