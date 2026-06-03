@@ -913,11 +913,21 @@ function safeReply(text) {
   if (!text || typeof text !== 'string') return text || '';
   const trimmed = text.trim();
   if (trimmed.startsWith('{')) {
+    // Try full JSON parse first (happy path)
     try {
       const inner = JSON.parse(trimmed);
       const extracted = inner.reply || inner.answer || inner.content || inner.text || inner.message;
       if (extracted && typeof extracted === 'string') return extracted;
     } catch {}
+    // JSON parse failed (truncated response) — extract "reply" value via regex
+    const replyMatch = trimmed.match(/"reply"\s*:\s*"((?:[^"\\]|\\.)*)"/);
+    if (replyMatch) {
+      // Re-parse as a JSON string to decode \n, \", etc. properly
+      try { return JSON.parse('"' + replyMatch[1] + '"'); } catch {}
+      return replyMatch[1].replace(/\\n/g, '\n').replace(/\\t/g, '\t').replace(/\\"/g, '"');
+    }
+    // Cannot extract anything useful — return empty so UI shows the error fallback
+    return '';
   }
   return text;
 }
@@ -1294,6 +1304,44 @@ Subjek ini adalah Sejarah.
    - 'Jawapan anda kurang tepat.' bukan 'Wrong answer.'
 
 8. Jika pelajar menulis dalam Bahasa Inggeris, balas dalam Bahasa Malaysia dan lembut galakkan mereka: 'Sila gunakan Bahasa Malaysia ya. Mari kita cuba sekali lagi.'
+==================================================`;
+    }
+
+    // General BM word-substitution rules — applied whenever language is BM (all subjects)
+    if (isBm) {
+      systemPrompt += `
+
+==================================================
+BAHASA MALAYSIA — PILIHAN PERKATAAN YANG BETUL
+==================================================
+Gunakan Bahasa Malaysia yang betul dan formal dalam semua respons.
+Elakkan mencampur aduk bahasa Inggeris sesuka hati.
+Istilah teknikal matematik dan sains yang tiada padanan BM yang kukuh boleh dikekalkan
+(contoh: insurans, premium, graf, formula, pecahan, integer, isipadu).
+
+Kata-kata biasa MESTI dalam BM — BUKAN Inggeris:
+- exposed → terdedah
+- involve / involving → melibatkan
+- experience → pengalaman
+- calculation → pengiraan
+- real / real-life → sebenar / kehidupan sebenar
+- accident → kemalangan
+- coverage → perlindungan
+- claim → tuntutan
+- benefit → manfaat / faedah
+- risk → risiko
+- value → nilai
+- amount → jumlah
+- total → jumlah keseluruhan
+- method → kaedah
+- concept → konsep
+- example → contoh
+- question → soalan
+- answer → jawapan
+- understand → faham / memahami
+- apply → guna / menggunakan / menerapkan
+
+Jika ragu antara BM atau Inggeris, PILIH BM.
 ==================================================`;
     }
 
