@@ -27,6 +27,29 @@ const pregen = new PregenLookup(supabase);
 initLearningEngine(supabase);
 const JWT_SECRET = process.env.JWT_SECRET || 'learnova-dev-secret-2025';
 
+// Maps Flutter display names → prefixed Supabase subject keys
+const SUBJECT_KEY_MAP = {
+  'Mathematics':                'MY-Mathematics',
+  'Add Maths':                  'MY-AddMaths',
+  'Physics':                    'MY-Physics',
+  'Biology':                    'MY-Biology',
+  'Chemistry':                  'MY-Chemistry',
+  'Sejarah':                    'MY-Sejarah',
+  'Bahasa Malaysia':            'MY-BahasaMalaysia',
+  'English':                    'MY-English',
+  'Geography':                  'MY-Geography',
+  'A-Level Biology':            'AL-Biology',
+  'A-Level Chemistry':          'AL-Chemistry',
+  'A-Level Mathematics':        'AL-Mathematics',
+  'A-Level Further Mathematics':'AL-FurtherMaths',
+  'A-Level Physics':            'AL-Physics',
+  'Bahasa Indonesia':           'ID-BahasaIndonesia',
+  'Fisika':                     'ID-Fisika',
+  'Matematika':                 'ID-Matematika',
+};
+// Accept both old display name and new prefixed key
+function normalizeSubject(s) { return s ? (SUBJECT_KEY_MAP[s] || s) : s; }
+
 process.on('uncaughtException', (err) => { console.error('UNCAUGHT:', err); process.exit(1); });
 process.on('unhandledRejection', (err) => { console.error('REJECTION:', err); process.exit(1); });
 
@@ -102,8 +125,8 @@ app.use('/api/parent/signup', authLimiter);
 app.use('/api/parent/login', authLimiter);
 // ──────────────────────────────────────────────────────────────────
 
-app.get('/', (req, res) => res.send('Learnova API v2.3'));
-app.get('/health', (req, res) => res.json({ status: 'ok', version: '2.3', timestamp: new Date() }));
+app.get('/', (req, res) => res.send('Learnova API v2.4'));
+app.get('/health', (req, res) => res.json({ status: 'ok', version: '2.4', timestamp: new Date() }));
 
 // ── AUTO BACKUP ───────────────────────────────────────────────────
 function triggerBackup() {
@@ -442,7 +465,7 @@ app.get('/api/lessons', async (req, res) => {
     const cols = 'id,title,topic,subject,form_level,teacher_id,created_at,introduction,content,summary,worked_examples,common_mistakes,keywords';
     // Accept lessons published via either flag (is_published=true) or status field ('published'/'active')
     let query = supabase.from('lessons').select(cols).or('is_published.eq.true,status.eq.published,status.eq.active');
-    if (subject) query = query.ilike('subject', subject);
+    if (subject) query = query.ilike('subject', normalizeSubject(subject));
     if (form_level) query = query.eq('form_level', form_level);
     query = query.order('created_at', { ascending: false });
     if (limit) query = query.limit(parseInt(limit));
@@ -875,7 +898,8 @@ app.post('/api/help/ticket', async (req, res) => {
 // -- TUTOR TOPICS ----------------------------------------------
 app.get('/api/tutor/topics', async (req, res) => {
   try {
-    const { subject } = req.query;
+    const { subject: rawSubject } = req.query;
+    const subject = normalizeSubject(rawSubject);
     const cols = 'id, title, topic, subtopic, form_level, introduction, summary';
 
     // 1. status field (lessons created via setup scripts)
@@ -935,14 +959,15 @@ function safeReply(text) {
 
 app.post('/api/tutor/session', authStudent, async (req, res) => {
   try {
-    const { subject, topic, message, history, phase, segment, language, activeQuestion, question } = req.body;
+    const { subject: rawSubject, topic, message, history, phase, segment, language, activeQuestion, question } = req.body;
+    const subject = normalizeSubject(rawSubject);
     const isBm = language === 'ms' || language === 'bm';
     const lang = isBm ? 'Bahasa Malaysia' : 'English';
 
-    const isBmSubject = subject === 'Bahasa Malaysia' || subject === 'Bahasa Melayu' ||
+    const isBmSubject = subject === 'MY-BahasaMalaysia' || subject === 'Bahasa Malaysia' || subject === 'Bahasa Melayu' ||
       !!(topic && (topic.includes('Bahasa Malaysia') || topic.includes('Bahasa Melayu')));
 
-    const isSejarahSubject = subject === 'Sejarah' || subject === 'Sejarah Indonesia' ||
+    const isSejarahSubject = subject === 'MY-Sejarah' || subject === 'Sejarah' || subject === 'Sejarah Indonesia' ||
       !!(subject && subject.includes('Sejarah'));
 
     // Language-matched quick-reply suggestions — BM/Sejarah subjects always get BM replies
@@ -1495,7 +1520,8 @@ app.patch('/api/auth/update-form', authStudent, async (req, res) => {
 // ── CONTENT CHUNKS (topic intro screen) ──────────────────────────
 app.get('/api/tutor/content-chunks', async (req, res) => {
   try {
-    const { subject, topic } = req.query;
+    const { subject: rawSubject, topic } = req.query;
+    const subject = normalizeSubject(rawSubject);
     if (!subject) return res.json({ chunks: [] });
 
     const cols = 'concept_title,concept_explanation,worked_example,common_mistakes,keywords,difficulty_level';
