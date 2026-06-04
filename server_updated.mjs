@@ -440,13 +440,9 @@ app.get('/api/lessons', async (req, res) => {
   try {
     const { subject, form_level, limit } = req.query;
     const cols = 'id,title,topic,subject,form_level,teacher_id,created_at,introduction,content,summary,worked_examples,common_mistakes,keywords';
-    let query = supabase.from('lessons').select(cols).eq('is_published', true);
-    if (subject) {
-      // Normalize 'Add Maths' aliases: Flutter sends 'Add Maths', DB may store 'Additional Mathematics'
-      const subjectAliases = { 'add maths': 'Additional Mathematics', 'addmaths': 'Additional Mathematics' };
-      const normalized = subjectAliases[subject.toLowerCase()] || subject;
-      query = query.ilike('subject', normalized);
-    }
+    // Accept lessons published via either flag (is_published=true) or status field ('published'/'active')
+    let query = supabase.from('lessons').select(cols).or('is_published.eq.true,status.eq.published,status.eq.active');
+    if (subject) query = query.ilike('subject', subject);
     if (form_level) query = query.eq('form_level', form_level);
     query = query.order('created_at', { ascending: false });
     if (limit) query = query.limit(parseInt(limit));
