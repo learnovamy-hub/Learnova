@@ -1,0 +1,31 @@
+name: learnova_app
+description: "Learnova - AI powered tutoring platform."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  cupertino_icons: ^1.0.6
+  flutter:
+    sdk: flutter
+  flutter_markdown: ^0.7.7+1
+  flutter_svg: ^2.0.9
+  flutter_tts: ^4.0.2
+  http: ^1.1.0
+  qr_flutter: ^4.1.0
+  shared_preferences: ^2.5.5
+  url_launcher: ^6.3.0
+
+dev_dependencies:
+  cupertino_icons: ^1.0.6
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+
+
