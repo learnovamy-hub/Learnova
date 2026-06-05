@@ -125,8 +125,8 @@ app.use('/api/parent/signup', authLimiter);
 app.use('/api/parent/login', authLimiter);
 // ──────────────────────────────────────────────────────────────────
 
-app.get('/', (req, res) => res.send('Learnova API v2.4'));
-app.get('/health', (req, res) => res.json({ status: 'ok', version: '2.4', timestamp: new Date() }));
+app.get('/', (req, res) => res.send('Learnova API v2.5'));
+app.get('/health', (req, res) => res.json({ status: 'ok', version: '2.5', timestamp: new Date() }));
 
 // ── AUTO BACKUP ───────────────────────────────────────────────────
 function triggerBackup() {
@@ -462,7 +462,7 @@ app.get('/api/student/quiz-history', authStudent, async (req, res) => {
 app.get('/api/lessons', async (req, res) => {
   try {
     const { subject, form_level, limit } = req.query;
-    const cols = 'id,title,topic,subject,form_level,teacher_id,created_at,introduction,content,summary,worked_examples,common_mistakes,keywords';
+    const cols = 'id,title,topic,subject,form_level,teacher_id,created_at,introduction,content,summary,worked_examples,common_mistakes';
     // Accept lessons published via either flag (is_published=true) or status field ('published'/'active')
     let query = supabase.from('lessons').select(cols).or('is_published.eq.true,status.eq.published,status.eq.active');
     if (subject) query = query.ilike('subject', normalizeSubject(subject));
@@ -969,12 +969,50 @@ function safeReply(text) {
   return text;
 }
 
+// -- TEXTBOOK CONTEXT FETCHER -------------------------------------------
+async function buildTextbookContext(subject, topic) {
+  if (!subject || !topic) return '';
+  try {
+    const topicKeyword = topic.split(' ').slice(0, 4).join(' ');
+    const { data: chunks, error } = await supabase
+      .from('concept_chunks')
+      .select('concept_title, concept_explanation, worked_example, common_mistakes, keywords')
+      .eq('subject', subject)
+      .ilike('topic', `%${topicKeyword}%`)
+      .limit(5);
+    if (error || !chunks || chunks.length === 0) {
+      // Fallback: broader search without topic filter
+      const { data: fallback } = await supabase
+        .from('concept_chunks')
+        .select('concept_title, concept_explanation, worked_example, common_mistakes')
+        .eq('subject', subject)
+        .limit(3);
+      if (!fallback || fallback.length === 0) return '';
+      return fallback.map(c =>
+        `Tajuk: ${c.concept_title}\n${c.concept_explanation}${c.worked_example ? `\nContoh: ${c.worked_example}` : ''}`
+      ).join('\n---\n');
+    }
+    return chunks.map(c =>
+      `Tajuk: ${c.concept_title}\n${c.concept_explanation}${c.worked_example ? `\nContoh: ${c.worked_example}` : ''}${c.common_mistakes ? `\nKesilapan lazim: ${c.common_mistakes}` : ''}`
+    ).join('\n---\n');
+  } catch (e) {
+    console.error('buildTextbookContext error:', e.message);
+    return '';
+  }
+}
+
 app.post('/api/tutor/session', authStudent, async (req, res) => {
   try {
     const { subject: rawSubject, topic, message, history, phase, segment, language, activeQuestion, question } = req.body;
     const subject = normalizeSubject(rawSubject);
-    const isBm = language === 'ms' || language === 'bm';
-    const lang = isBm ? 'Bahasa Malaysia' : 'English';
+    const curriculum = subject.startsWith('AL-') ? 'ALevel' : subject.startsWith('ID-') ? 'Indonesian' : 'SPM';
+    const isBm = curriculum === 'SPM' || (language === 'ms' || language === 'bm');
+    const isEnglish = curriculum === 'ALevel';
+    const isIndonesian = curriculum === 'Indonesian';
+    const lang = isEnglish ? 'English' : isIndonesian ? 'Bahasa Indonesia' : 'Bahasa Malaysia';
+
+    // Fetch textbook context from concept_chunks
+    const textbookContext = topic ? await buildTextbookContext(subject, topic) : '';
 
     const isBmSubject = subject === 'MY-BahasaMalaysia' || subject === 'Bahasa Malaysia' || subject === 'Bahasa Melayu' ||
       !!(topic && (topic.includes('Bahasa Malaysia') || topic.includes('Bahasa Melayu')));
@@ -982,9 +1020,11 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
     const isSejarahSubject = subject === 'MY-Sejarah' || subject === 'Sejarah' || subject === 'Sejarah Indonesia' ||
       !!(subject && subject.includes('Sejarah'));
 
-    // Language-matched quick-reply suggestions — BM/Sejarah subjects always get BM replies
+    // Language-matched quick-reply suggestions
     const suggestions = (isBmSubject || isSejarahSubject)
       ? ['Faham! Teruskan.', 'Boleh cerita lebih lanjut?', 'Saya kurang faham bahagian ini.']
+      : isIndonesian
+      ? ['Oke, lanjut!', 'Bisa kasih contoh lain?', 'Aku belum paham bagian ini.']
       : isBm
       ? ['Faham! Teruskan.', 'Boleh tunjukkan contoh?', 'Saya kurang faham bahagian ini.']
       : ['I understand, please continue.', 'Can you show an example?', "I'm not sure about this part."];
@@ -1187,24 +1227,64 @@ The student is confused. Drop everything else and do this:
 → Keep reply under 130 words`
       : (phaseInstructions[currentPhase] || phaseInstructions.teach);
 
-    let systemPrompt = `ABSOLUTE RULE — YOU ARE TEACHING: ${subject || 'Mathematics'} — ${topic}
+    // Curriculum-aware identity
+    const novaIdentity = isEnglish
+      ? `You are Nova, Learnova's personal A-Level learning assistant. You are like a brilliant senior student who genuinely enjoys helping others understand deeply — not just memorise. You teach with academic rigour appropriate for Cambridge A-Level, but in an encouraging, supportive way.`
+      : isIndonesian
+      ? `Kamu adalah Nova, asisten belajar pribadi Learnova. Kamu kayak kakak/mas senior yang pinter, sabar, dan suka bantu adik-adik ngerti pelajaran dengan bener — bukan cuma hafalan. Kamu ngajar pakai Bahasa Indonesia yang natural dan friendly.`
+      : `Kau adalah Nova, pembantu belajar peribadi Learnova. Kau macam kakak atau abang senior yang bijak, sabar, dan suka bantu pelajar faham benda dengan betul — bukan sekadar hafal. Kau ajar dalam Bahasa Malaysia yang natural dan mesra.`;
+
+    let systemPrompt = `${isEnglish ? `ABSOLUTE RULE #1 — MANDATORY EVERY RESPONSE:
+You MUST end EVERY single response with one open question that requires the student to TYPE or SPEAK a real answer.
+This rule cannot be ignored under any circumstance.
+The question must NOT be answerable with yes or no.
+The question must relate directly to what you just explained.
+CORRECT examples: "Can you explain that back in your own words?", "If this value changed to X, what would happen?", "Show me your working for this step.", "Give me another example you can think of."
+WRONG examples (never use): "Do you understand?", "Shall we continue?", "Any questions?" — these are yes/no and are forbidden.`
+: isIndonesian ? `PERATURAN MUTLAK #1 — WAJIB DI SETIAP RESPONS:
+Kamu WAJIB mengakhiri SETIAP respons dengan satu pertanyaan terbuka yang mengharuskan siswa mengetik atau berbicara jawaban nyata.
+Aturan ini tidak boleh diabaikan dalam keadaan apapun.
+Pertanyaan tidak boleh dijawab dengan ya atau tidak.
+Pertanyaan harus berkaitan langsung dengan apa yang baru saja kamu jelaskan.
+Contoh BENAR: "Bisa kamu jelaskan balik dengan kata-katamu sendiri?", "Kalau nilai ini berubah jadi X, apa yang terjadi?", "Tunjukkan penghitunganmu untuk langkah ini.", "Beri satu contoh lain yang kamu pikirkan."
+Contoh SALAH (jangan pakai): "Paham?", "Lanjut?", "Ada pertanyaan?" — ini ya/tidak dan dilarang.`
+: `PERATURAN MUTLAK #1 — WAJIB DALAM SETIAP RESPONS:
+Kau WAJIB mengakhiri SETIAP respons dengan satu soalan terbuka yang memerlukan pelajar menaip atau bertutur jawapan.
+Ini tidak boleh diabaikan walau apa pun.
+Soalan TIDAK boleh dijawab dengan ya atau tidak.
+Soalan mesti berkaitan dengan apa yang baru diterangkan.
+Contoh soalan yang BETUL: 'Cuba kau terangkan balik dalam ayat sendiri?', 'Kalau nilai ini berubah kepada X, apa berlaku?', 'Tunjukkan pengiraan kau untuk soalan ini.', 'Bagi satu contoh lain yang kau fikir.'
+Soalan yang SALAH (jangan guna): 'Faham?', 'Nak teruskan?', 'Ada soalan?' — ini soalan ya/tidak dan dilarang.`}
+
+ABSOLUTE RULE — YOU ARE TEACHING: ${subject || 'Mathematics'} — ${topic}
 You must ONLY teach content related to "${topic}" in ${subject || 'Mathematics'}.
 NEVER introduce a new topic. NEVER ask "What do you want to learn?". NEVER restart the session.
 You are mid-session. The student has already chosen their topic.
 
-You are Nova, a Learnova AI tutor for Malaysian SPM students.
+${novaIdentity}
 
 ==================================================
 WHO YOU ARE — NON-NEGOTIABLE
 ==================================================
 You are NOT a chatbot. You are NOT ChatGPT. You are NOT an answer generator.
-You behave like an experienced Malaysian tuition teacher teaching a real student.
-You teach the way tuition teachers in Malaysia teach — patient, structured, step-by-step.
+${isEnglish
+  ? 'You behave like an experienced Cambridge A-Level tutor. Patient, rigorous, step-by-step.'
+  : isIndonesian
+  ? 'Kamu berperilaku seperti kakak/tutor senior yang sabar dan sistematis. Natural, hangat, terstruktur.'
+  : 'Kau bertindak seperti cikgu tuisyen Malaysia yang berpengalaman. Sabar, berstruktur, langkah demi langkah.'}
 
 Teaching personality: ${personalityDesc}
 Subject: ${subject || 'Mathematics'}
 Topic: ${topic}
 Respond in: ${lang}
+${textbookContext ? `
+==================================================
+KONTEKS DARI BUKU TEKS (gunakan untuk mengajar)
+==================================================
+${textbookContext}
+
+${isEnglish ? 'Use the above textbook content to teach. Do not say "according to the textbook" — teach naturally as if you know this yourself.' : isIndonesian ? 'Gunakan konten buku teks di atas untuk mengajar. Jangan bilang "menurut buku teks" — ajar secara natural seolah kamu sendiri yang tahu.' : 'Gunakan konteks buku teks di atas untuk mengajar. Jangan sebut "mengikut buku teks" — ajar secara natural seolah-olah kau sendiri yang tahu benda ni.'}
+==================================================` : ''}
 
 ==================================================
 CORE LEARNOVA TEACHING PRINCIPLES — ALWAYS ENFORCED
@@ -1277,7 +1357,11 @@ activeQuestion format (MCQ only):
 {"question":"full question text","options":{"A":"...","B":"...","C":"...","D":"..."},"correct":"A","explanation":"why A is correct, step by step"}
 
 suggestedResponses must be from the STUDENT's perspective and written in ${lang}.
-${isBm ? 'Examples (Bahasa Malaysia):\n- "Faham! Teruskan."\n- "Saya kurang faham bahagian ini."\n- "Jawapan saya [X], betul ke?"\n- "Boleh tunjukkan contoh lain?"' : 'Examples (English):\n- "I understand! Please continue."\n- "I\'m not sure about [specific part]"\n- "My answer is [X], is that right?"\n- "Can you show another example?"'}`;
+${isIndonesian
+  ? 'Contoh (Bahasa Indonesia):\n- "Oke, paham! Lanjut dong."\n- "Aku belum ngerti bagian ini."\n- "Jawabanku [X], bener nggak?"\n- "Bisa kasih contoh lain?"'
+  : isBm
+  ? 'Examples (Bahasa Malaysia):\n- "Faham! Teruskan."\n- "Saya kurang faham bahagian ini."\n- "Jawapan saya [X], betul ke?"\n- "Boleh tunjukkan contoh lain?"'
+  : 'Examples (English):\n- "I understand! Please continue."\n- "I\'m not sure about [specific part]"\n- "My answer is [X], is that right?"\n- "Can you show another example?"'}`;
 
     // Append strict Bahasa Malaysia rules when subject is BM
     if (isBmSubject) {
