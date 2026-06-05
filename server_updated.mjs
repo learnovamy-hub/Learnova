@@ -839,24 +839,36 @@ app.post('/api/tts', async (req, res) => {
   try {
     const { text, voice = 'nova', language = 'bm' } = req.body;
     if (!text) return res.status(400).json({ error: 'text required' });
+    if (!process.env.OPENAI_API_KEY) {
+      console.error('TTS: OPENAI_API_KEY is not set');
+      return res.status(500).json({ error: 'TTS unavailable: API key not configured' });
+    }
     const clean = normalizeTtsInput(text).slice(0, 4000);
     if (!clean) return res.status(400).json({ error: 'text empty after normalization' });
     const r = await fetch('https://api.openai.com/v1/audio/speech', {
       method: 'POST',
       headers: { 'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'tts-1-hd',
+        model: 'tts-1',
         input: clean,
         voice,
         speed: 1.0,
         response_format: 'mp3',
       }),
     });
-    if (!r.ok) return res.status(500).json({ error: 'TTS failed' });
+    if (!r.ok) {
+      const errText = await r.text();
+      console.error(`TTS OpenAI error ${r.status}:`, errText);
+      return res.status(502).json({ error: 'TTS failed', status: r.status, detail: errText });
+    }
     const buf = Buffer.from(await r.arrayBuffer());
     res.set('Content-Type', 'audio/mpeg');
+    res.set('Cache-Control', 'no-cache');
     res.send(buf);
-  } catch (e) { res.status(500).json({ error: e.message }); }
+  } catch (e) {
+    console.error('TTS exception:', e.message);
+    res.status(500).json({ error: e.message });
+  }
 });
 
 
@@ -1205,8 +1217,32 @@ CORE LEARNOVA TEACHING PRINCIPLES — ALWAYS ENFORCED
 6. If student goes off-topic: gently redirect — "Let's master this first before moving on 😊"
 7. Match SPM exam format, marking scheme, and Paper 1/Paper 2 expectations.
 8. Use Malaysian student-friendly language. BM/Manglish phrases are welcome occasionally.
-9. Every response MUST end with either a question to the student OR a clear next action.
+9. Every response MUST end with a short open question that requires the student to TYPE or SPEAK a real answer — not tap a button.
 10. UNDERSTANDING > MEMORISATION. THINKING > COPYING. GUIDANCE > ANSWERS.
+
+==================================================
+ENDING QUESTION RULES — ENFORCED EVERY MESSAGE
+==================================================
+${isBm ? `Setiap kali kau selesai menerangkan sesuatu konsep, akhiri dengan soalan pendek yang memerlukan pelajar menaip atau bertutur jawapan mereka.
+JANGAN tanya soalan ya/tidak sahaja.
+Soalan MESTI berkaitan dengan apa yang baru diterangkan.
+Tukar-tukar jenis soalan — jangan ulang soalan yang sama setiap mesej.
+Contoh soalan bagus:
+- "Cuba kau terangkan balik apa itu [konsep] dalam ayat sendiri?"
+- "Kalau [nilai], berapakah [jawapan]? Tunjukkan pengiraan kau."
+- "Apa yang jadi kalau [syarat berubah]? Cuba fikirkan."
+- "Di mana kau selalu keliru dalam bahagian ini?"
+- "Boleh kau bagi satu contoh sendiri?"` : `At the end of every explanation, ask a short open question that requires the student to TYPE or SPEAK their answer.
+NEVER ask a yes/no question that can be answered with a tap.
+The question MUST relate directly to what was just explained.
+Vary the question type — do not repeat the same ending every message.
+Good examples:
+- "Can you explain that back in your own words?"
+- "Try solving this: if [value], what is [answer]? Show your working."
+- "What would happen if [condition changed]? Think it through."
+- "Which part of this are you least confident about?"
+- "Give me your own example of this concept."
+`}
 
 ==================================================
 LESSON FLOW (ENFORCED SEQUENCE)
