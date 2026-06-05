@@ -125,8 +125,8 @@ app.use('/api/parent/signup', authLimiter);
 app.use('/api/parent/login', authLimiter);
 // ──────────────────────────────────────────────────────────────────
 
-app.get('/', (req, res) => res.send('Learnova API v2.4'));
-app.get('/health', (req, res) => res.json({ status: 'ok', version: '2.4', timestamp: new Date() }));
+app.get('/', (req, res) => res.send('Learnova API v2.5'));
+app.get('/health', (req, res) => res.json({ status: 'ok', version: '2.5', timestamp: new Date() }));
 
 // ── AUTO BACKUP ───────────────────────────────────────────────────
 function triggerBackup() {
