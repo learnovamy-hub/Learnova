@@ -845,10 +845,8 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
 
   bool get _animVisible => _tutorMode && _showAnim && _animSteps.isNotEmpty;
 
-  // True only when the tutor has just given a multiple-choice question
-  bool get _isMcqPhase => _phase == 'quiz_answer' &&
-      _suggestedResponses.length == 4 &&
-      ['A', 'B', 'C', 'D'].every(_suggestedResponses.contains);
+  // MCQ tappable buttons disabled — students must type their answers
+  bool get _isMcqPhase => false;
 
   void _exitTutorMode() {
     context.findAncestorStateOfType<MainShellState>()?.setTutorMode(false);

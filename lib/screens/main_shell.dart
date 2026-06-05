@@ -25,6 +25,11 @@ class MainShellState extends State<MainShell> {
   String _selectedSubject = 'Mathematics';
   String? _preReadTopic;
   bool _preRead = false;
+  bool _inTutorMode = false;
+
+  void setTutorMode(bool active) {
+    if (mounted) setState(() => _inTutorMode = active);
+  }
 
   static const int _maxSeconds   = 75 * 60;
   static const int _warnSeconds  = 60 * 60;
