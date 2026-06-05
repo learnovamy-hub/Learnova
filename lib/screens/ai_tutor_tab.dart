@@ -1598,10 +1598,8 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
   }
 
   String get _hintText {
-    if (_forceEnglish) {
-      return _tutorMode ? 'Type your answer here...' : 'Ask about $_currentSubject...';
-    }
-    return _tutorMode ? 'Taip jawapan kau di sini...' : 'Tanya tentang $_currentSubject...';
+    if (_forceEnglish) return 'Type your answer or question...';
+    return 'Taip jawapan atau soalan kau...';
   }
 
   // ── ChatGPT-style input bar ───────────────────────────────────────────

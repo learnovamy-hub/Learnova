@@ -10,7 +10,6 @@ import 'ai_tutor_tab.dart';
 import 'quizzes_tab.dart';
 import 'profile_tab.dart';
 import 'notifications_screen.dart';
-import '../widgets/help_button.dart';
 
 class MainShell extends StatefulWidget {
   final String initialSubject;
@@ -240,7 +239,6 @@ class MainShellState extends State<MainShell> {
       child: Scaffold(
       body: Stack(children: [
         _screens[currentIndex],
-        const HelpButton(),
         // Back to Home button — top-left on all non-home tabs
         if (currentIndex != 0)
           Positioned(

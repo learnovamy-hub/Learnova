@@ -1,15 +1,14 @@
 ﻿import 'package:flutter/material.dart';
 const String kApiUrl = 'https://learnova-backend-production-bd3a.up.railway.app';
 const List<Map<String, dynamic>> kSubjects = [
-  {'name': 'Mathematics',     'color': 0xFF6366F1, 'icon': '📐'},
-  {'name': 'Add Maths',       'color': 0xFF8B5CF6, 'icon': '🧮'},
-  {'name': 'Physics',         'color': 0xFFF59E0B, 'icon': '⚡'},
-  {'name': 'Biology',         'color': 0xFF10B981, 'icon': '🧬'},
-  {'name': 'Chemistry',       'color': 0xFFEF4444, 'icon': '🧪'},
-  {'name': 'Geography',       'color': 0xFF06B6D4, 'icon': '🌍'},
-  {'name': 'Sejarah',         'color': 0xFFD97706, 'icon': '📜'},
-  {'name': 'Bahasa Malaysia', 'color': 0xFFEC4899, 'icon': '🇲🇾'},
-  {'name': 'English',         'color': 0xFF14B8A6, 'icon': '📖'},
+  {'name': 'Mathematics',     'color': 0xFF6366F1},
+  {'name': 'Add Maths',       'color': 0xFF8B5CF6},
+  {'name': 'Physics',         'color': 0xFFF59E0B},
+  {'name': 'Biology',         'color': 0xFF10B981},
+  {'name': 'Chemistry',       'color': 0xFFEF4444},
+  {'name': 'Bahasa Malaysia', 'color': 0xFFEC4899},
+  {'name': 'English',         'color': 0xFF14B8A6},
+  {'name': 'Sejarah',         'color': 0xFFD97706},
 ];
 const Color kPrimary  = Color(0xFF6366F1);
 const Color kPrimary2 = Color(0xFF8B5CF6);
