@@ -7,7 +7,6 @@ import '../config/constants.dart';
 import 'home_tab.dart';
 import 'subject_screen.dart';
 import 'ai_tutor_tab.dart';
-import 'quizzes_tab.dart';
 import 'profile_tab.dart';
 import 'notifications_screen.dart';
 
@@ -189,7 +188,7 @@ class MainShellState extends State<MainShell> {
           style: const TextStyle(color: kMuted, height: 1.55)),
         actions: [
           ElevatedButton(
-            onPressed: () { Navigator.pop(context); setState(() => currentIndex = 3); },
+            onPressed: () { Navigator.pop(context); setState(() => currentIndex = 2); },
             style: ElevatedButton.styleFrom(backgroundColor: kPrimary),
             child: const Text('Start quiz', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
           ),
@@ -220,7 +219,6 @@ class MainShellState extends State<MainShell> {
       initialTopic: _preReadTopic,
       preRead: _preRead,
     ),
-    QuizzesTab(selectedSubject: _selectedSubject),
     const ProfileTab(),
   ];
 
@@ -257,8 +255,8 @@ class MainShellState extends State<MainShell> {
               ),
             ),
           ),
-        // Notification bell overlay in top-right (hidden on Profile tab)
-        if (currentIndex != 4)
+        // Notification bell overlay in top-right (hidden on Profil tab)
+        if (currentIndex != 3)
         Positioned(
           top: MediaQuery.of(context).padding.top + 8,
           right: 12,
@@ -301,10 +299,9 @@ class MainShellState extends State<MainShell> {
           type: BottomNavigationBarType.fixed,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home_rounded),          label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.menu_book_rounded),     label: 'Subjects'),
-            BottomNavigationBarItem(icon: Icon(Icons.auto_awesome_rounded),  label: 'AI Tutor'),
-            BottomNavigationBarItem(icon: Icon(Icons.quiz_rounded),          label: 'Quizzes'),
-            BottomNavigationBarItem(icon: Icon(Icons.person_rounded),        label: 'Profile'),
+            BottomNavigationBarItem(icon: Icon(Icons.menu_book_rounded),     label: 'Learn'),
+            BottomNavigationBarItem(icon: Icon(Icons.auto_awesome_rounded),  label: 'Nova'),
+            BottomNavigationBarItem(icon: Icon(Icons.person_rounded),        label: 'Profil'),
           ],
         ),
       ),

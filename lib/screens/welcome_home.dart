@@ -228,7 +228,7 @@ class _WelcomeHomeState extends State<WelcomeHome> with TickerProviderStateMixin
     Navigator.pushReplacement(context, MaterialPageRoute(
       builder: (_) => MainShell(
         initialSubject: _selectedSubject ?? 'Mathematics',
-        initialTabIndex: _selectedMode == 'Quiz' ? 3 : 2,
+        initialTabIndex: 2,
       ),
     ));
   }
