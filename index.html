@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <base href="/Learnova/">
+  <base href="/">
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -18,70 +18,16 @@
 </head>
 <body>
   <script>
-    // ── STEP 1: Listen for cleanup-done message → reload for fresh content ──
+    // Unregister all service workers — no caching needed (pwa-strategy=none)
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.addEventListener('message', function(event) {
-        if (event.data && event.data.type === 'SW_CLEANUP_DONE') {
-          // Cleanup SW wiped old caches and told us to reload
-          window.location.reload(true);
-        }
-      });
-    }
-  </script>
-
-  <script>
-    // ── STEP 2: Service worker management ──────────────────────────────────
-    // We register a CLEANUP service worker first.
-    // It immediately skips waiting, wipes old caches, and passes all
-    // requests to the network. On the next deploy Flutter re-registers
-    // its own SW with fresh content hashes.
-    if ('serviceWorker' in navigator) {
-
-      // Tell any currently-waiting SW to activate immediately
       navigator.serviceWorker.getRegistrations().then(function(regs) {
-        regs.forEach(function(reg) {
-          // Force a check for a new SW version right now
-          reg.update();
-          if (reg.waiting) {
-            reg.waiting.postMessage({ type: 'SKIP_WAITING' });
-          }
-        });
-      });
-
-      // Watch for controller changes (new SW took over) → reload
-      navigator.serviceWorker.addEventListener('controllerchange', function() {
-        window.location.reload(true);
-      });
-
-      // Register the cleanup SW (replaces any old Flutter SW)
-      navigator.serviceWorker.register('flutter_service_worker.js', {
-        scope: '/'
-      }).then(function(reg) {
-
-        // If a new SW is already waiting, activate it now
-        if (reg.waiting) {
-          reg.waiting.postMessage({ type: 'SKIP_WAITING' });
-        }
-
-        // Watch for any future SW updates and activate immediately
-        reg.addEventListener('updatefound', function() {
-          var newSW = reg.installing;
-          if (!newSW) return;
-          newSW.addEventListener('statechange', function() {
-            if (newSW.state === 'installed') {
-              newSW.postMessage({ type: 'SKIP_WAITING' });
-            }
-          });
-        });
-
-        // Force update check every time the page loads
-        reg.update();
+        regs.forEach(function(reg) { reg.unregister(); });
       });
     }
   </script>
 
   <script>
-    // ── STEP 3: Speech Recognition (unchanged) ─────────────────────────────
+    // ── Speech Recognition ─────────────────────────────────────────────────
     window.startSpeechRecognition = function(lang, onResult, onError) {
       var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SpeechRecognition) { onError('not-supported'); return; }
