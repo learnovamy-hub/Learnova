@@ -1,5 +1,5 @@
 # LEARNOVA — Claude Code Master Reference
-Last updated: 2026-06-09
+Last updated: 2026-06-10
 
 ## Project Overview
 Learnova is an AI-powered tutoring platform for Malaysian SPM, A-Level, and Indonesian SNBT students.
@@ -205,6 +205,19 @@ immediately after const app = express(). Allowed origins: learnova.optimus.com.m
 - [x] stripEmojis() added to server /api/lessons/lesson endpoint — all text fields stripped before send.
 - [x] Null safety: hook_sentence cast changed from `as String` to `as String? ?? ''`.
 - [x] Duplicate topic names in Biology (x2) and Sejarah (x1) fixed in Supabase.
+
+## Parent Dashboard UI (COMPLETE 2026-06-10)
+- parent_screen.dart: Full StatefulWidget, STATE A (link screen) + STATE B (dashboard)
+- _buildChildInfo: avatar with green/grey active dot, name, level, subject count, joined days
+- _buildTodayStats: 3 stat boxes — study mins (green if active), lessons, streak (flame icon)
+- _buildThisWeek: 7-day dot matrix (Mon–Sun BM labels), weekly total mins, trend vs last week
+- _buildSpmReadiness: large % + days left + grade chip + progress bar (color by readiness)
+- _buildSubjectProgress: per-subject progress bars with lessons count + weekly mins
+- _buildRecentActivity: last 5 events (lesson/nova/quiz) with icons, subject, title, time ago
+- _buildSummary: Claude Haiku BM paragraph with refresh button
+- _buildDisconnect: subtle text button at bottom
+- /parent route: already exists in main.dart (line 52-53)
+- State persisted in SharedPreferences: parent_student_id
 
 ## Parent Progress Engine (ENHANCED 2026-06-09)
 - lesson_sessions table: ACTIVE (tracks open/close/complete with duration + topic)
