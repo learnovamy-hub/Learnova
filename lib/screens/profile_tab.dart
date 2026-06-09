@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,6 +10,7 @@ import 'landing.dart';
 import 'student_id_screen.dart';
 import 'payment_screen.dart';
 import 'god_mode_screen.dart';
+import 'parent_screen.dart';
 
 class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});
@@ -123,28 +125,8 @@ class _ProfileTabState extends State<ProfileTab> {
                   _statCard('Study Time', '${_profile?['stats']?['totalStudyTime'] ?? 0}m', Icons.timer_rounded, kGreen),
                 ]),
                 const SizedBox(height: 24),
-                // Student ID card shortcut
-                GestureDetector(
-                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const StudentIdScreen())),
-                  child: Container(
-                    margin: const EdgeInsets.only(bottom: 16),
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: [kPrimary.withOpacity(0.15), kPrimary2.withOpacity(0.1)]),
-                      borderRadius: BorderRadius.circular(14),
-                      border: Border.all(color: kPrimary.withOpacity(0.3)),
-                    ),
-                    child: const Row(children: [
-                      Icon(Icons.badge_rounded, color: kPrimary, size: 22),
-                      SizedBox(width: 12),
-                      Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Text('Student ID Card', style: TextStyle(color: kText, fontWeight: FontWeight.w700, fontSize: 14)),
-                        Text('Tunjukkan QR code kepada ibu bapa', style: TextStyle(color: kMuted, fontSize: 12)),
-                      ])),
-                      Icon(Icons.chevron_right_rounded, color: kMuted, size: 20),
-                    ]),
-                  ),
-                ),
+                // Student ID card — shows LRN ID inline + link to full card
+                _buildStudentIdCard(),
                 // Aktiviti 7 Hari
                 _buildActivitySummary(),
                 // Subjek Saya
@@ -207,7 +189,12 @@ class _ProfileTabState extends State<ProfileTab> {
                   },
                   child: const SizedBox(height: 20, width: double.infinity),
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 16),
+                TextButton(
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ParentScreen())),
+                  child: const Text('Ibu Bapa? Pantau di sini →', style: TextStyle(color: kMuted, fontSize: 12)),
+                ),
+                const SizedBox(height: 12),
                 SizedBox(
                   width: double.infinity,
                   child: OutlinedButton.icon(
@@ -231,6 +218,62 @@ class _ProfileTabState extends State<ProfileTab> {
                 const SizedBox(height: 60),
               ]),
             ),
+    );
+  }
+
+  Widget _buildStudentIdCard() {
+    final lrnId = _profile?['student']?['learnova_id']?.toString() ?? '';
+    final displayId = lrnId.isNotEmpty ? lrnId : (_profile?['student']?['student_code']?.toString() ?? '');
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(colors: [kPrimary.withOpacity(0.12), kPrimary2.withOpacity(0.08)]),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: kPrimary.withOpacity(0.3)),
+      ),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Row(children: [
+          const Icon(Icons.badge_rounded, color: kPrimary, size: 18),
+          const SizedBox(width: 8),
+          const Text('ID Pelajar', style: TextStyle(color: kMuted, fontSize: 12, fontWeight: FontWeight.w600)),
+          const Spacer(),
+          GestureDetector(
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const StudentIdScreen())),
+            child: const Text('Lihat Kad →', style: TextStyle(color: kPrimary, fontSize: 12, fontWeight: FontWeight.w600)),
+          ),
+        ]),
+        const SizedBox(height: 10),
+        if (displayId.isNotEmpty) ...[
+          Row(children: [
+            Text(displayId, style: const TextStyle(color: kText, fontSize: 22, fontWeight: FontWeight.w900, letterSpacing: 2, fontFamily: 'monospace')),
+            const SizedBox(width: 10),
+            GestureDetector(
+              onTap: () {
+                Clipboard.setData(ClipboardData(text: displayId));
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text('Disalin: $displayId'),
+                  backgroundColor: kGreen,
+                  behavior: SnackBarBehavior.floating,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  duration: const Duration(seconds: 2),
+                ));
+              },
+              child: Container(
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(color: kPrimary.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
+                child: const Icon(Icons.copy_rounded, color: kPrimary, size: 16),
+              ),
+            ),
+          ]),
+          const SizedBox(height: 6),
+          const Text('Kongsi ID ini dengan ibu bapa untuk pantauan pembelajaran', style: TextStyle(color: kMuted, fontSize: 11)),
+        ] else
+          GestureDetector(
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const StudentIdScreen())),
+            child: const Text('Lihat Student ID Card →', style: TextStyle(color: kPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
+          ),
+      ]),
     );
   }
 

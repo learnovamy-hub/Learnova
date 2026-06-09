@@ -100,7 +100,7 @@ class _TtsPlayerState extends State<TtsPlayer> with SingleTickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      label: _playing ? 'Stop reading' : 'Listen to this message',
+      label: _playing ? 'Stop reading' : 'Baca kuat mesej ini',
       button: true,
       child: GestureDetector(
         onTap: _busy ? null : _toggle,
@@ -137,7 +137,7 @@ class _TtsPlayerState extends State<TtsPlayer> with SingleTickerProviderStateMix
                   })),
               )
             else if (!_busy)
-              const Text('Listen', style: TextStyle(color: Color(0xFF1E88E5), fontSize: 11, fontWeight: FontWeight.w600)),
+              const Text('Baca Kuat', style: TextStyle(color: Color(0xFF1E88E5), fontSize: 11, fontWeight: FontWeight.w600)),
           ]),
         ),
       ),

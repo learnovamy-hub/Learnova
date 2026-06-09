@@ -5,6 +5,7 @@ import 'screens/landing.dart';
 import 'screens/teacher_portal.dart';
 import 'screens/parent_portal.dart';
 import 'screens/welcome_home.dart';
+import 'screens/parent_screen.dart';
 
 void main() { runApp(const LearnovaApp()); }
 
@@ -47,6 +48,11 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _checkAuth() async {
     await Future.delayed(const Duration(milliseconds: 300));
     try {
+      final path = Uri.base.path;
+      if (path == '/parent' || path.startsWith('/parent/')) {
+        if (mounted) Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const ParentScreen()));
+        return;
+      }
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
       if (mounted) {

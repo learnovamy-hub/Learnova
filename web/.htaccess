@@ -1,23 +1,24 @@
-# Enable mod_rewrite
-Options -MultiViews
-RewriteEngine On
+<IfModule LiteSpeed>
+  CacheLookup off
+  StaticCache off
+</IfModule>
 
-# /clear → clear.html (cache buster page)
-RewriteRule ^clear$ /clear.html [L]
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|json|html|wasm)$">
+    Header always set Cache-Control "no-cache, no-store, must-revalidate"
+    Header always set Pragma "no-cache"
+    Header always set Expires "0"
+  </FilesMatch>
 
-# Force no-cache for Flutter app shell — ensures mobile browsers always get latest build
-<FilesMatch "\.(html|js|json)$">
-  Header set Cache-Control "no-cache, no-store, must-revalidate"
-  Header set Pragma "no-cache"
-  Header set Expires "0"
-</FilesMatch>
+  <FilesMatch "\.(png|jpg|jpeg|ico|woff2|ttf|svg)$">
+    Header set Cache-Control "max-age=86400"
+  </FilesMatch>
+</IfModule>
 
-# Allow caching for assets (fonts, images, icons) — these rarely change
-<FilesMatch "\.(png|jpg|jpeg|gif|svg|ttf|woff|woff2|ico)$">
-  Header set Cache-Control "public, max-age=604800"
-</FilesMatch>
-
-# Flutter SPA fallback — route unknown paths to index.html
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(?!clear$).*$ /index.html [L]
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>

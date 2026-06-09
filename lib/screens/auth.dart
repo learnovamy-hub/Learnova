@@ -7,6 +7,7 @@ import 'landing.dart';
 import 'teacher_portal.dart';
 import 'parent_portal.dart';
 import 'welcome_home.dart';
+import 'onboarding_screen.dart';
 
 class AuthScreen extends StatefulWidget {
   final String role;
@@ -56,25 +57,46 @@ class _AuthScreenState extends State<AuthScreen> {
         await prefs.setString('student_name', studentName);
         await prefs.setString('name', studentName);
         // Fetch and cache form_level immediately so WelcomeHome never needs to ask
+        bool needsOnboarding = false;
         if (widget.role == 'student' && studentId.isNotEmpty && token.isNotEmpty) {
           try {
             final pr = await http.get(Uri.parse('$kApiUrl/api/student/profile'),
               headers: {'Authorization': 'Bearer $token'}).timeout(const Duration(seconds: 5));
             if (pr.statusCode == 200) {
-              final form = jsonDecode(pr.body)?['student']?['form_level'];
-              if (form != null) {
-                final fs = 'Form $form';
-                await prefs.setString('student_form_$studentId', fs);
-                await prefs.setString('student_form', fs);
+              final pd = jsonDecode(pr.body);
+              final s = pd['student'];
+              needsOnboarding = s?['onboardingRequired'] == true || s?['onboarding_completed'] != true;
+              final form = s?['form_level']?.toString();
+              if (form != null && form.isNotEmpty) {
+                await prefs.setString('student_form_$studentId', form);
+                await prefs.setString('form_level', form);
               }
+              final activeSubjects = s?['active_subjects'];
+              if (activeSubjects is List) {
+                await prefs.setString('active_subjects', jsonEncode(activeSubjects));
+              }
+              final lrnId = s?['learnova_id']?.toString() ?? '';
+              if (lrnId.isNotEmpty) await prefs.setString('learnova_id', lrnId);
+              if (!(needsOnboarding)) await prefs.setBool('onboarding_completed', true);
             }
           } catch (_) {}
+        }
+        // Log student login activity for parent dashboard
+        if (widget.role == 'student' && studentId.isNotEmpty) {
+          http.post(
+            Uri.parse('$kApiUrl/api/activity/login'),
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode({'studentId': studentId}),
+          ).catchError((_) {});
         }
         if (!mounted) return;
         if (widget.role == 'teacher') {
           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => const TeacherPortal()), (_) => false);
         } else if (widget.role == 'parent') {
           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => const ParentPortal()), (_) => false);
+        } else if (needsOnboarding) {
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+            builder: (_) => OnboardingScreen(studentId: studentId, token: token, studentName: studentName)), (_) => false);
         } else {
           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => WelcomeHome(studentName: studentName, studentId: studentId)), (_) => false);
         }

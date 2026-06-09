@@ -24,9 +24,14 @@ class MainShellState extends State<MainShell> {
   String? _preReadTopic;
   bool _preRead = false;
   bool _inTutorMode = false;
+  Map<String, dynamic>? _lessonContext;
 
   void setTutorMode(bool active) {
     if (mounted) setState(() => _inTutorMode = active);
+  }
+
+  void setLessonContext(Map<String, dynamic>? ctx) {
+    if (mounted) setState(() => _lessonContext = ctx);
   }
 
   static const int _maxSeconds   = 75 * 60;
@@ -218,6 +223,7 @@ class MainShellState extends State<MainShell> {
       selectedSubject: _selectedSubject,
       initialTopic: _preReadTopic,
       preRead: _preRead,
+      lessonContext: _lessonContext,
     ),
     const ProfileTab(),
   ];

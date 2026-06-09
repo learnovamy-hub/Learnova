@@ -2,6 +2,25 @@
 <html>
 <head>
   <base href="$FLUTTER_BASE_HREF">
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for (let registration of registrations) {
+          registration.unregister();
+          console.log('SW unregistered');
+        }
+      });
+
+      if ('caches' in window) {
+        caches.keys().then(function(cacheNames) {
+          cacheNames.forEach(function(cacheName) {
+            caches.delete(cacheName);
+            console.log('Cache cleared:', cacheName);
+          });
+        });
+      }
+    }
+  </script>
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">

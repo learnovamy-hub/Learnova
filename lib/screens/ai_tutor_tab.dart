@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:math' as math;
@@ -22,7 +22,8 @@ class AITutorTab extends StatefulWidget {
   final String selectedSubject;
   final String? initialTopic;
   final bool preRead;
-  const AITutorTab({super.key, required this.selectedSubject, this.initialTopic, this.preRead = false});
+  final Map<String, dynamic>? lessonContext;
+  const AITutorTab({super.key, required this.selectedSubject, this.initialTopic, this.preRead = false, this.lessonContext});
   @override
   State<AITutorTab> createState() => _AITutorTabState();
 }
@@ -49,57 +50,58 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
   String _language = 'bm';
   bool _useEnglish = false;
 
-  // ── Animation state ─────────────────────────────────────────────────
+  // â”€â”€ Animation state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   List<Map<String, dynamic>> _animSteps    = [];
   List<Map<String, dynamic>> _animAltSteps = [];
   bool _showAnim        = false;
   bool _studentConfused = false;
   String? _lastAnimCode;
 
-  // ── Topic animation (pre-built, stored in engine, served on demand) ──
+  // â”€â”€ Topic animation (pre-built, stored in engine, served on demand) â”€â”€
   Map<String, dynamic>? _topicAnimation;
   bool _showTopicAnim = true;
 
-  // ── Voice state ─────────────────────────────────────────────────────
+  // â”€â”€ Voice state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   bool _isListening = false;
   bool _voiceMode   = false; // when true: auto-TTS + auto-mic loop
 
-  // ── Quiz state ──────────────────────────────────────────────────────
+  // â”€â”€ Quiz state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   Map<String, dynamic>? _activeQuestion;
 
-  // ── Workspace state ─────────────────────────────────────────────────
+  // â”€â”€ Workspace state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   bool _workspaceSubmitting = false;
   bool _workspaceExpanded   = false;
 
-  // ── TTS state ────────────────────────────────────────────────────────
+  // â”€â”€ TTS state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   String? _authToken;
   html.AudioElement? _audioElement;
   String? _audioBlobUrl;    // tracked separately so _stopSpeech can revoke it
   bool _ttsPlaying = false;
   int _ttsGeneration = 0;   // incremented each call; stale HTTP responses are discarded
 
-  // ── Illustration overlay state ────────────────────────────────────────
+  // â”€â”€ Illustration overlay state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   bool _showIllustrationOverlay = false;
   String _illustrationTitle = '';
   String _currentSvgCode = '';
   List<Map<String, dynamic>> _topicIllustrations = [];
   int _illustrationIndex = 0;
 
-  // ── Character ────────────────────────────────────────────────────────
+  // â”€â”€ Character â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   static const List<Map<String, dynamic>> _kCharacters = [
-    {'id': 'nova',   'name': 'Nova',        'emoji': '⭐', 'tagline': 'Mesra & sabar',    'color': 0xFF6C5CE7},
-    {'id': 'sarjan', 'name': 'Sarjan Rex',  'emoji': '🎖', 'tagline': 'Tegas & disiplin', 'color': 0xFFDC2626},
-    {'id': 'sensei', 'name': 'Sensei',      'emoji': '⛩', 'tagline': 'Anime & dramatik', 'color': 0xFFDB2777},
-    {'id': 'bestie', 'name': 'Bestie Alia', 'emoji': '🤙', 'tagline': 'Gen Z & santai',   'color': 0xFF059669},
-    {'id': 'chaos',  'name': 'Chaos-chan',  'emoji': '🔥', 'tagline': 'Wild & energetik', 'color': 0xFFF59E0B},
+    {'id': 'nova',   'name': 'Nova',        'emoji': 'â­', 'tagline': 'Mesra & sabar',    'color': 0xFF6C5CE7},
+    {'id': 'sarjan', 'name': 'Sarjan Rex',  'emoji': 'ðŸŽ–', 'tagline': 'Tegas & disiplin', 'color': 0xFFDC2626},
+    {'id': 'sensei', 'name': 'Sensei',      'emoji': 'â›©', 'tagline': 'Anime & dramatik', 'color': 0xFFDB2777},
+    {'id': 'bestie', 'name': 'Bestie Alia', 'emoji': 'ðŸ¤™', 'tagline': 'Gen Z & santai',   'color': 0xFF059669},
+    {'id': 'chaos',  'name': 'Chaos-chan',  'emoji': 'ðŸ”¥', 'tagline': 'Wild & energetik', 'color': 0xFFF59E0B},
   ];
   String _characterId = 'nova';
 
-  // ── Session tracking ─────────────────────────────────────────────────
+  // â”€â”€ Session tracking â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   String? _sessionId;
   String? _studentId;
+  DateTime? _novaSessionStart;
 
-  // ── Orb overlay state ────────────────────────────────────────────────
+  // â”€â”€ Orb overlay state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   bool _orbMode = false;
   late AnimationController _orbPulse;
   String _orbTranscript = '';
@@ -113,11 +115,33 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     _loadSuggestions();
     _loadLanguage();
     _loadCharacter();
-    // Load token first — then start session if navigated from TopicIntroScreen
+    // Load token â€” then start session if navigated from TopicIntroScreen or LessonScreen
     _loadToken().then((_) {
-      if (mounted && widget.preRead && widget.initialTopic != null && widget.initialTopic!.isNotEmpty) {
+      if (!mounted) return;
+      if (widget.lessonContext != null) {
+        _enterLessonMode(widget.lessonContext!);
+      } else if (widget.preRead && widget.initialTopic != null && widget.initialTopic!.isNotEmpty) {
         _startTutorSession(widget.initialTopic!, preRead: true);
       }
+    });
+  }
+
+  // Enter Nova from a LessonScreen with lesson context pre-loaded
+  void _enterLessonMode(Map<String, dynamic> lc) {
+    final lessonTitle = lc['lesson_title'] as String? ?? lc['topic'] as String? ?? 'pelajaran ini';
+    final topic = lc['topic'] as String? ?? '';
+    _sessionId = _newSessionId();
+    _novaSessionStart = DateTime.now();
+    setState(() {
+      _tutorMode    = true;
+      _currentTopic = topic;
+      _phase        = 'teach';
+      _segment      = 0;
+      _messages.clear();
+    });
+    context.findAncestorStateOfType<MainShellState>()?.setTutorMode(true);
+    Future.microtask(() {
+      if (mounted) _tutorSession('Saya nak faham $lessonTitle dengan lebih baik');
     });
   }
 
@@ -174,7 +198,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
         _loadTopics();
         _loadSuggestions();
       } else {
-        // Subject changed while session is active — update label only, don't reset
+        // Subject changed while session is active â€” update label only, don't reset
         setState(() => _currentSubject = widget.selectedSubject);
       }
     }
@@ -185,6 +209,13 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
         if (mounted && widget.initialTopic != null) {
           _startTutorSession(widget.initialTopic!, preRead: true);
         }
+      });
+    }
+    // New lesson context arrived (student tapped Tanya Nova from a different lesson)
+    if (widget.lessonContext != null && widget.lessonContext != oldWidget.lessonContext) {
+      setState(() { _currentSubject = widget.selectedSubject; });
+      Future.delayed(const Duration(milliseconds: 200), () {
+        if (mounted && widget.lessonContext != null) _enterLessonMode(widget.lessonContext!);
       });
     }
   }
@@ -210,7 +241,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
   }
 
   Future<void> _loadLanguage() async {
-    // Always BM by default — language is now subject-locked or per-request
+    // Always BM by default â€” language is now subject-locked or per-request
     if (mounted) setState(() => _language = 'bm');
   }
 
@@ -235,7 +266,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     ]);
   }
 
-  // ── Animation ────────────────────────────────────────────────────────
+  // â”€â”€ Animation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   Future<void> _fetchAnimation(String code) async {
     if (code == _lastAnimCode) return;
     try {
@@ -287,7 +318,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     return en.any((k) => l.contains(k)) || ms.any((k) => l.contains(k));
   }
 
-  // ── Voice: speech-to-text ────────────────────────────────────────────
+  // â”€â”€ Voice: speech-to-text â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   void _startVoiceInput() {
     if (_isListening || _loading) return;
     setState(() => _isListening = true);
@@ -315,7 +346,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     }
   }
 
-  // ── Voice: text-to-speech (auto-play tutor response) ─────────────────
+  // â”€â”€ Voice: text-to-speech (auto-play tutor response) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   String _cleanForTts(String text) {
     return text
         // Remove markdown formatting
@@ -323,7 +354,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
         .replaceAll(RegExp(r'\[([^\]]+)\]\([^)]+\)'), r'$1')
         .replaceAll(RegExp(r'#+\s*'), '')
         // Remove bullet/list markers
-        .replaceAll(RegExp(r'^\s*[-•*]\s+', multiLine: true), '')
+        .replaceAll(RegExp(r'^\s*[-â€¢*]\s+', multiLine: true), '')
         .replaceAll(RegExp(r'^\s*\d+\.\s+', multiLine: true), '')
         // Remove ellipsis and dashes used as separators
         .replaceAll('...', '.')
@@ -335,7 +366,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
         .replaceAll(RegExp(r'[\u{1F000}-\u{1FFFF}]', unicode: true), '')
         .replaceAll(RegExp(r'[\u{2600}-\u{27BF}]', unicode: true), '')
         // Remove garbled encoding artifacts
-        .replaceAll(RegExp(r'[ðŸ€-ŸšÿÞý]'), '')
+        .replaceAll(RegExp(r'[Ã°Å¸â‚¬-Å¸Å¡Ã¿ÃžÃ½]'), '')
         // Collapse multiple spaces/newlines
         .replaceAll(RegExp(r'\n+'), '. ')
         .replaceAll(RegExp(r' {2,}'), ' ')
@@ -421,7 +452,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
         if (mounted && _voiceMode && !_loading && !_isListening) _startVoiceInput();
       });
     } else {
-      // Loading is still in progress — poll until it finishes, then re-arm mic
+      // Loading is still in progress â€” poll until it finishes, then re-arm mic
       Future.delayed(const Duration(milliseconds: 600), _onTtsDone);
     }
   }
@@ -462,14 +493,14 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     }
   }
 
-  // ── Workspace submit ─────────────────────────────────────────────────
+  // â”€â”€ Workspace submit â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   Future<void> _onWorkspaceSubmit(WorkspaceResult result) async {
     setState(() => _workspaceSubmitting = true);
     try {
       if (result.mode == 'typed' && (result.typedAnswer ?? '').isNotEmpty) {
         await _tutorSession(result.typedAnswer!);
       } else if (result.mode == 'drawn') {
-        await _tutorSession('[Student submitted handwritten working — please continue teaching.]');
+        await _tutorSession('[Student submitted handwritten working â€” please continue teaching.]');
       }
     } finally {
       if (mounted) setState(() => _workspaceSubmitting = false);
@@ -526,11 +557,12 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     return null;
   }
 
-  // ── Session ──────────────────────────────────────────────────────────
+  // â”€â”€ Session â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   Future<void> _startTutorSession(String topic, {bool preRead = false}) async {
     if (_sessionStarting || topic.isEmpty) return;
     _sessionStarting = true;
     _sessionId = _newSessionId();
+    _novaSessionStart = DateTime.now();
     context.findAncestorStateOfType<MainShellState>()?.setTutorMode(true);
     setState(() {
       _tutorMode = true; _currentTopic = topic;
@@ -543,7 +575,6 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     });
     _preGenerateQuiz(topic);
     _fetchTopicAnimation(_currentSubject, topic);
-    _loadTopicIllustrations();
     await _tutorSession('start', preRead: preRead);
     _sessionStarting = false;
   }
@@ -638,6 +669,9 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
           'student_name': _studentName ?? '',
           'session_id': _sessionId,
           if (preRead && message == 'start') 'pre_read': true,
+          if (widget.lessonContext != null) 'lessonId': widget.lessonContext!['lesson_id'],
+          if (widget.lessonContext != null) 'lessonContext': widget.lessonContext,
+          'nova_source': widget.lessonContext != null ? 'nova_from_lesson' : 'nova_direct',
         }),
       );
       final data = jsonDecode(r.body);
@@ -845,7 +879,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
 
   bool get _animVisible => _tutorMode && _showAnim && _animSteps.isNotEmpty;
 
-  // MCQ tappable buttons disabled — students must type their answers
+  // MCQ tappable buttons disabled â€” students must type their answers
   bool get _isMcqPhase => false;
 
   void _exitTutorMode() {
@@ -860,20 +894,93 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     });
   }
 
-  // ── Layout ───────────────────────────────────────────────────────────
+  // â”€â”€ Layout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  Widget _buildIdleScreen() {
+    const chips = ['Jelaskan topik ini', 'Bagi saya kuiz', 'Selesaikan soalan', 'Pelan belajar'];
+    return Scaffold(
+      backgroundColor: const Color(0xFF07080C),
+      body: Column(children: [
+        SafeArea(
+          bottom: false,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+            child: Row(children: [
+              Container(
+                width: 32, height: 32,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF0D1018),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: const Color(0xFF181C28)),
+                ),
+                child: const Center(child: Icon(Icons.auto_awesome_rounded,
+                  color: Color(0xFF4A7AFA), size: 16)),
+              ),
+              const SizedBox(width: 10),
+              const Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text('Nova', style: TextStyle(
+                  color: Color(0xFFE8ECF8), fontSize: 14, fontWeight: FontWeight.w500)),
+                Text('Pembantu belajar kamu', style: TextStyle(
+                  color: Color(0xFF4A5070), fontSize: 10)),
+              ]),
+            ]),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: GridView.count(
+            crossAxisCount: 2,
+            shrinkWrap: true,
+            crossAxisSpacing: 8,
+            mainAxisSpacing: 8,
+            childAspectRatio: 2.5,
+            children: chips.map((label) => GestureDetector(
+              onTap: () => _ask(label),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xFF0D1018),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: const Color(0xFF181C28)),
+                ),
+                alignment: Alignment.center,
+                child: Text(label,
+                  style: const TextStyle(color: Color(0xFF6A7A9A), fontSize: 12),
+                  textAlign: TextAlign.center),
+              ),
+            )).toList(),
+          ),
+        ),
+        const Spacer(),
+        Padding(
+          padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+          child: _buildChatInput(),
+        ),
+      ]),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final subjectColor = Color(_subjectInfo['color'] as int);
     final isWide = MediaQuery.of(context).size.width > 700;
 
+    if (_messages.isEmpty && !_tutorMode && widget.lessonContext == null) {
+      return _buildIdleScreen();
+    }
+
     return Scaffold(
       backgroundColor: kBg,
       appBar: _tutorMode
         ? AppBar(
-            leading: BackButton(onPressed: _exitTutorMode),
+            leading: BackButton(onPressed: () {
+              if (widget.lessonContext != null && Navigator.canPop(context)) {
+                Navigator.pop(context);
+              } else {
+                _exitTutorMode();
+              }
+            }),
             title: Text(
               _currentTopic == null ? '' :
-                (_currentTopic!.length > 20 ? '${_currentTopic!.substring(0, 20)}…' : _currentTopic!),
+                (_currentTopic!.length > 20 ? '${_currentTopic!.substring(0, 20)}â€¦' : _currentTopic!),
               style: const TextStyle(fontSize: 14)),
             actions: [
               if (_showLanguageToggle && !_forceEnglish)
@@ -960,7 +1067,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     );
   }
 
-  // ── Desktop layout ────────────────────────────────────────────────────
+  // â”€â”€ Desktop layout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   Widget _buildWideLayout(Color subjectColor) {
     return Row(children: [
       // Left panel
@@ -968,7 +1075,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
         SizedBox(
           width: 360,
           child: Column(children: [
-            // Topic animation (pre-built from engine) — top priority
+            // Topic animation (pre-built from engine) â€” top priority
             if (_topicAnimation != null && _showTopicAnim)
               Expanded(
                 flex: 3,
@@ -1024,6 +1131,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
       Expanded(child: Column(children: [
         if (!_tutorMode) _buildSubjectBar(),
         if (_tutorMode) _buildDisclaimerBanner(),
+        if (_tutorMode && widget.lessonContext != null) _buildLessonBanner(),
         if (_messages.isEmpty && !_tutorMode) _buildWelcome(subjectColor),
         Expanded(child: _buildMessageList()),
         if (_isMcqPhase) _buildMcqButtons(),
@@ -1033,14 +1141,15 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     ]);
   }
 
-  // ── Mobile layout ─────────────────────────────────────────────────────
+  // â”€â”€ Mobile layout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   Widget _buildMobileLayout() {
     return Stack(children: [
-      // ── Main column ─────────────────────────────────────────────────
+      // â”€â”€ Main column â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       Column(children: [
         if (!_tutorMode) _buildSubjectBar(),
         if (_tutorMode) _buildDisclaimerBanner(),
-        // Topic animation (pre-built, from engine) — shown first when in tutor mode
+        if (_tutorMode && widget.lessonContext != null) _buildLessonBanner(),
+        // Topic animation (pre-built, from engine) â€” shown first when in tutor mode
         if (_tutorMode && _topicAnimation != null && _showTopicAnim)
           SizedBox(
             height: 310,
@@ -1072,14 +1181,13 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
         if (_isMcqPhase) _buildMcqButtons(),
         _buildChatInput(),
       ]),
-      // ── Fullscreen orb overlay ───────────────────────────────────────
-      if (_orbMode) _buildOrbOverlay(),
-      // ── Illustration fullscreen overlay ──────────────────────────────
+      // â”€â”€ Fullscreen orb overlay â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+      // â”€â”€ Illustration fullscreen overlay â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       if (_showIllustrationOverlay) _buildIllustrationOverlay(),
     ]);
   }
 
-  // ── Collapsible workspace panel ───────────────────────────────────────
+  // â”€â”€ Collapsible workspace panel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   Widget _buildWorkspacePanel() {
     // Auto-expand when a question is active
     final bool hasQuestion = _activeQuestion != null;
@@ -1097,7 +1205,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
       ),
       child: Column(
         children: [
-          // ── Header strip — always visible ────────────────────────────
+          // â”€â”€ Header strip â€” always visible â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
           GestureDetector(
             onTap: () => setState(() => _workspaceExpanded = !_workspaceExpanded),
             behavior: HitTestBehavior.opaque,
@@ -1141,7 +1249,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
               ),
             ),
           ),
-          // ── Workspace body — visible when expanded ───────────────────
+          // â”€â”€ Workspace body â€” visible when expanded â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
           if (expanded)
             Expanded(
               child: Padding(
@@ -1160,7 +1268,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     );
   }
 
-  // ── A/B/C/D grid — only shown when phase=quiz_answer ─────────────────
+  // â”€â”€ A/B/C/D grid â€” only shown when phase=quiz_answer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   Widget _buildMcqButtons() {
     return Container(
       color: kSurface,
@@ -1207,7 +1315,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
         Icon(Icons.info_outline_rounded, size: 13, color: Colors.amber[700]),
         const SizedBox(width: 6),
         const Expanded(child: Text(
-          'Platform AI — semak dengan guru untuk pengesahan',
+          'Platform AI â€” semak dengan guru untuk pengesahan',
           style: TextStyle(fontSize: 11, color: Color(0xFF92400E)))),
         GestureDetector(
           onTap: _showFullDisclaimer,
@@ -1215,6 +1323,38 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
             fontSize: 11, color: Colors.amber[800],
             decoration: TextDecoration.underline,
             decorationColor: Colors.amber[800]))),
+      ]),
+    );
+  }
+
+  Widget _buildLessonBanner() {
+    final lc = widget.lessonContext!;
+    final lessonTitle = lc['lesson_title'] as String? ?? lc['topic'] as String? ?? 'Pelajaran';
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+      color: kPrimary.withOpacity(0.1),
+      child: Row(children: [
+        const Text('ðŸ“š', style: TextStyle(fontSize: 13)),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Text(lessonTitle,
+            style: const TextStyle(color: kText, fontSize: 12, fontWeight: FontWeight.w600),
+            overflow: TextOverflow.ellipsis),
+        ),
+        GestureDetector(
+          onTap: () {
+            if (Navigator.canPop(context)) {
+              Navigator.pop(context);
+            } else {
+              _exitTutorMode();
+            }
+          },
+          child: const Row(mainAxisSize: MainAxisSize.min, children: [
+            Icon(Icons.arrow_back_ios_rounded, color: kPrimary, size: 12),
+            SizedBox(width: 2),
+            Text('Pelajaran', style: TextStyle(color: kPrimary, fontSize: 12, fontWeight: FontWeight.w600)),
+          ]),
+        ),
       ]),
     );
   }
@@ -1255,12 +1395,16 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
             border: Border.all(color: color.withOpacity(0.4)),
             borderRadius: BorderRadius.circular(16)),
           child: const Center(child: Icon(Icons.auto_awesome_rounded, size: 30, color: Colors.white))),
-        const SizedBox(height: 12),
-        Text('$_currentSubject AI Tutor',
-          style: const TextStyle(color: kText, fontSize: 18, fontWeight: FontWeight.w800)),
-        const SizedBox(height: 4),
-        const Text('Pilih topik untuk pelajaran berpandu, atau tanya sebarang soalan di bawah',
+        const SizedBox(height: 16),
+        const Text('Hei! Kamu nak belajar apa hari ni?',
+          style: TextStyle(color: kText, fontSize: 17, fontWeight: FontWeight.w800),
+          textAlign: TextAlign.center),
+        const SizedBox(height: 6),
+        const Text('Atau ada topik dari pelajaran tadi yang kamu nak faham lebih dalam?',
           style: TextStyle(color: kMuted, fontSize: 13), textAlign: TextAlign.center),
+        const SizedBox(height: 4),
+        const Text('Pilih topik di bawah atau taip soalan terus.',
+          style: TextStyle(color: kBorder, fontSize: 12), textAlign: TextAlign.center),
       ]),
     );
   }
@@ -1283,6 +1427,12 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
   }
 
   Widget _buildTopicSelector() {
+    final subjectInfo = kSubjects.firstWhere(
+      (s) => s['name'] == _currentSubject,
+      orElse: () => kSubjects.first,
+    );
+    final subjectColor = Color(subjectInfo['color'] as int);
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -1294,9 +1444,39 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
             style: TextStyle(color: kText, fontSize: 15, fontWeight: FontWeight.w700)),
         ]),
         const SizedBox(height: 4),
-        const Text('Ketik mana-mana topik untuk pelajaran berpandu, atau tanya soalan di bawah',
+        const Text('Pilih topik di bawah untuk pelajaran berpandu bersama Nova',
           style: TextStyle(color: kMuted, fontSize: 12)),
-        ..._suggestions.take(4).map((q) => GestureDetector(
+        const SizedBox(height: 12),
+        if (_topics.isNotEmpty) ...[
+          ..._topics.map((t) {
+            final topicName = (t['topic'] as String? ?? t['title'] as String? ?? '').trim();
+            if (topicName.isEmpty) return const SizedBox.shrink();
+            return GestureDetector(
+              onTap: () => _startTutorSession(topicName),
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                decoration: BoxDecoration(
+                  color: subjectColor.withOpacity(0.06),
+                  border: Border.all(color: subjectColor.withOpacity(0.25)),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(children: [
+                  Icon(Icons.play_circle_outline_rounded, color: subjectColor, size: 18),
+                  const SizedBox(width: 10),
+                  Expanded(child: Text(topicName, style: const TextStyle(color: kText, fontSize: 13))),
+                  Icon(Icons.arrow_forward_ios_rounded, color: subjectColor.withOpacity(0.5), size: 12),
+                ]),
+              ),
+            );
+          }),
+          const SizedBox(height: 8),
+          const Divider(color: kBorder, height: 1),
+          const SizedBox(height: 12),
+        ],
+        const Text('Tanya soalan', style: TextStyle(color: kMuted, fontSize: 11, fontWeight: FontWeight.w600, letterSpacing: 0.5)),
+        const SizedBox(height: 8),
+        ..._suggestions.take(3).map((q) => GestureDetector(
           onTap: () => _ask(q),
           child: Container(
             margin: const EdgeInsets.only(bottom: 8),
@@ -1444,6 +1624,37 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     ]);
   }
 
+  // Extract clean reply text from a message value.
+  // Handles: raw JSON strings, literal \n sequences, non-string values.
+  static String _parseNovaText(dynamic raw) {
+    String t;
+    if (raw is String) {
+      t = raw;
+    } else if (raw != null) {
+      t = raw.toString();
+    } else {
+      return '';
+    }
+    // If server double-encoded the JSON, extract the reply field
+    final trimmed = t.trimLeft();
+    if (trimmed.startsWith('{') && t.contains('"reply"')) {
+      try {
+        final j = jsonDecode(t) as Map<String, dynamic>;
+        final extracted = j['reply'] ?? j['answer'];
+        if (extracted is String && extracted.isNotEmpty) t = extracted;
+      } catch (_) {
+        // regex fallback: grab first "reply":"..." value
+        final m = RegExp(r'"reply"\s*:\s*"((?:[^"\\]|\\.)*)"').firstMatch(t);
+        if (m != null) {
+          try { t = jsonDecode('"${m.group(1)}"') as String; } catch (_) { t = m.group(1)!; }
+        }
+      }
+    }
+    // Convert literal \n sequences (sometimes Claude includes them)
+    t = t.replaceAll(r'\n', '\n').replaceAll(r'\t', '\t');
+    return t;
+  }
+
   Widget _buildMessage(Map<String, dynamic> msg) {
     // Disclaimer pill
     if (msg['role'] == 'disclaimer') {
@@ -1464,7 +1675,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     }
 
     final isUser = msg['role'] == 'user';
-    final text   = msg['text'] as String? ?? '';
+    final text = _parseNovaText(msg['text']);
     final source = msg['source'] as String?;
     String sourceLabel = '';
     if (source == 'lesson_db')   sourceLabel = 'Dari buku teks';
@@ -1490,30 +1701,6 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
             crossAxisAlignment: isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
             children: [
               if (!isUser && text.length > 50) TtsPlayer(text: text, title: 'Tutor', language: _language),
-              if (!isUser && _topicIllustrations.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 6),
-                  child: Wrap(spacing: 6, children: List.generate(_topicIllustrations.length, (i) {
-                    final ill = _topicIllustrations[i];
-                    return GestureDetector(
-                      onTap: () => _showIllustrationItem(i),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF6C5CE7).withOpacity(0.12),
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: const Color(0xFF6C5CE7).withOpacity(0.3)),
-                        ),
-                        child: Row(mainAxisSize: MainAxisSize.min, children: [
-                          const Icon(Icons.image_outlined, size: 13, color: Color(0xFF6C5CE7)),
-                          const SizedBox(width: 4),
-                          Text(ill['title'] as String? ?? 'Ilustrasi',
-                            style: const TextStyle(color: Color(0xFF6C5CE7), fontSize: 11, fontWeight: FontWeight.w600)),
-                        ]),
-                      ),
-                    );
-                  })),
-                ),
               Container(
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
@@ -1576,6 +1763,112 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     );
   }
 
+  bool _isGraphTopic() {
+    final t = (_currentTopic ?? '').toLowerCase();
+    return t.contains('graph') || t.contains('graf') || t.contains('coordinate')
+        || t.contains('koordinat') || t.contains('elevation') || t.contains('sudut')
+        || t.contains('angle') || t.contains('trigonometr') || t.contains('sin ')
+        || t.contains('cos ') || t.contains('tan ') || t.contains('quadratic')
+        || t.contains('kuadratik') || t.contains('linear') || t.contains('garis lurus');
+  }
+
+  Widget _buildGraphPlaceholder() {
+    final t = (_currentTopic ?? '').toLowerCase();
+    final isAnglesTopic = t.contains('elevation') || t.contains('angle') || t.contains('sudut') || t.contains('trigonometr');
+
+    // Static SVG for Angles of Elevation / trigonometry
+    const anglesSvg = '''
+<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="320" height="200" fill="#0D1117"/>
+  <!-- Ground line -->
+  <line x1="20" y1="160" x2="300" y2="160" stroke="#6C5CE7" stroke-width="2"/>
+  <!-- Vertical object -->
+  <line x1="60" y1="160" x2="60" y2="50" stroke="#00B894" stroke-width="2"/>
+  <!-- Line of sight -->
+  <line x1="60" y1="160" x2="260" y2="60" stroke="#FDCB6E" stroke-width="2" stroke-dasharray="6,3"/>
+  <!-- Right angle box -->
+  <rect x="60" y="148" width="12" height="12" fill="none" stroke="#00B894" stroke-width="1.5"/>
+  <!-- Angle arc -->
+  <path d="M 100 160 A 40 40 0 0 0 78 131" fill="none" stroke="#FDCB6E" stroke-width="1.5"/>
+  <!-- Labels -->
+  <text x="275" y="155" fill="#6C5CE7" font-size="11" font-family="monospace">x</text>
+  <text x="45" y="46" fill="#00B894" font-size="11" font-family="monospace">h</text>
+  <text x="105" y="148" fill="#FDCB6E" font-size="11" font-family="monospace">Î¸</text>
+  <text x="130" y="100" fill="#FDCB6E" font-size="10" font-family="monospace">Garis Nampak</text>
+  <text x="90" y="180" fill="#DFE6E9" font-size="10" font-family="monospace">Jarak mendatar</text>
+  <text x="4" y="108" fill="#DFE6E9" font-size="10" font-family="monospace" transform="rotate(-90 20 110)">Tinggi</text>
+</svg>''';
+
+    // Generic coordinate graph SVG
+    const graphSvg = '''
+<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="320" height="200" fill="#0D1117"/>
+  <!-- Grid lines -->
+  <g stroke="#1E2432" stroke-width="1">
+    <line x1="40" y1="20" x2="40" y2="180"/>
+    <line x1="80" y1="20" x2="80" y2="180"/>
+    <line x1="120" y1="20" x2="120" y2="180"/>
+    <line x1="160" y1="20" x2="160" y2="180"/>
+    <line x1="200" y1="20" x2="200" y2="180"/>
+    <line x1="240" y1="20" x2="240" y2="180"/>
+    <line x1="280" y1="20" x2="280" y2="180"/>
+    <line x1="20" y1="40" x2="300" y2="40"/>
+    <line x1="20" y1="80" x2="300" y2="80"/>
+    <line x1="20" y1="120" x2="300" y2="120"/>
+    <line x1="20" y1="160" x2="300" y2="160"/>
+  </g>
+  <!-- Axes -->
+  <line x1="160" y1="10" x2="160" y2="190" stroke="#6C5CE7" stroke-width="2"/>
+  <line x1="10" y1="100" x2="310" y2="100" stroke="#6C5CE7" stroke-width="2"/>
+  <!-- Arrow heads -->
+  <polygon points="160,8 155,18 165,18" fill="#6C5CE7"/>
+  <polygon points="312,100 302,95 302,105" fill="#6C5CE7"/>
+  <!-- Sample curve (parabola) -->
+  <path d="M 60 170 Q 160 20 260 170" fill="none" stroke="#FDCB6E" stroke-width="2"/>
+  <!-- Labels -->
+  <text x="165" y="15" fill="#6C5CE7" font-size="11" font-family="monospace">y</text>
+  <text x="298" y="96" fill="#6C5CE7" font-size="11" font-family="monospace">x</text>
+  <text x="130" y="115" fill="#DFE6E9" font-size="9" font-family="monospace">O(0,0)</text>
+</svg>''';
+
+    final svgData = isAnglesTopic ? anglesSvg : graphSvg;
+    final label = isAnglesTopic ? 'Diagram Sudut Dongakan' : 'Graf â€” $_currentTopic';
+
+    return Container(
+      margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+      decoration: BoxDecoration(
+        color: const Color(0xFF0D1117),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: const Color(0xFF6C5CE7).withOpacity(0.3)),
+      ),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(12, 10, 12, 4),
+          child: Row(children: [
+            const Icon(Icons.bar_chart_rounded, size: 14, color: Color(0xFF6C5CE7)),
+            const SizedBox(width: 6),
+            Expanded(child: Text(label,
+              style: const TextStyle(color: Color(0xFF6C5CE7), fontSize: 11, fontWeight: FontWeight.w600),
+              overflow: TextOverflow.ellipsis)),
+            GestureDetector(
+              onTap: () {
+                if (_topicIllustrations.isNotEmpty) _showIllustrationItem(0);
+              },
+              child: const Text('Lihat â†’', style: TextStyle(color: Color(0xFF6C5CE7), fontSize: 10)),
+            ),
+          ]),
+        ),
+        SizedBox(
+          height: 160,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+            child: SvgPicture.string(svgData, fit: BoxFit.contain),
+          ),
+        ),
+      ]),
+    );
+  }
+
   Widget _typingIndicator() {
     return Row(children: [
       Container(width: 32, height: 32,
@@ -1599,10 +1892,14 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
 
   String get _hintText {
     if (_forceEnglish) return 'Type your answer or question...';
-    return 'Taip jawapan atau soalan kau...';
+    if (widget.lessonContext != null && _tutorMode) {
+      final title = widget.lessonContext!['lesson_title'] as String? ?? '';
+      return title.isNotEmpty ? 'Tanya pasal $title...' : 'Tanya pasal pelajaran ini...';
+    }
+    return 'Taip jawapan atau soalan kamu...';
   }
 
-  // ── ChatGPT-style input bar ───────────────────────────────────────────
+  // â”€â”€ ChatGPT-style input bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   Widget _buildChatInput() {
     final hasText = _ctrl.text.trim().isNotEmpty;
     return Container(
@@ -1612,7 +1909,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
         border: const Border(top: BorderSide(color: kBorder)),
       ),
       child: Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-        // ── Plus button: workspace + tools ──────────────────────────
+        // â”€â”€ Plus button: workspace + tools â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         GestureDetector(
           onTap: _showWorkspaceSheet,
           child: Container(
@@ -1626,7 +1923,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
           ),
         ),
         const SizedBox(width: 8),
-        // ── Text field ───────────────────────────────────────────────
+        // â”€â”€ Text field â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         Expanded(
           child: TextField(
             controller: _ctrl,
@@ -1654,7 +1951,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
           ),
         ),
         const SizedBox(width: 8),
-        // ── Send (when typing) or Mic/Orb (when empty) ───────────────
+        // â”€â”€ Send (when typing) or Mic/Orb (when empty) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         AnimatedSwitcher(
           duration: const Duration(milliseconds: 180),
           child: hasText
@@ -1690,7 +1987,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     );
   }
 
-  // ── Workspace bottom sheet ────────────────────────────────────────────
+  // â”€â”€ Workspace bottom sheet â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   void _showWorkspaceSheet() {
     showModalBottomSheet(
       context: context,
@@ -1763,7 +2060,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     );
   }
 
-  // ── Illustration fullscreen overlay ──────────────────────────────────
+  // â”€â”€ Illustration fullscreen overlay â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   Widget _buildIllustrationOverlay() {
     return Positioned.fill(
       child: Material(
@@ -1846,7 +2143,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     );
   }
 
-  // ── Fullscreen orb overlay ────────────────────────────────────────────
+  // â”€â”€ Fullscreen orb overlay â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   Widget _buildOrbOverlay() {
     final isActive = _isListening || _ttsPlaying || _loading;
     return Positioned.fill(
@@ -1932,7 +2229,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
                 },
               ),
               const SizedBox(height: 40),
-              // Transcript — what the student said
+              // Transcript â€” what the student said
               if (_orbTranscript.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -2028,7 +2325,27 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     _scrollCtrl.dispose();
     _orbPulse.dispose();
     _stopSpeech();
+    _recordNovaSession();
     super.dispose();
+  }
+
+  void _recordNovaSession() {
+    final sid = _studentId;
+    final start = _novaSessionStart;
+    final msgCount = _messages.where((m) => m['role'] == 'user').length;
+    if (sid == null || start == null || msgCount == 0) return;
+    final durationMinutes = DateTime.now().difference(start).inMinutes;
+    http.post(
+      Uri.parse('$kApiUrl/api/nova/session-end'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'studentId': sid,
+        'subject': _currentSubject,
+        'topic': _currentTopic ?? '',
+        'messagesCount': msgCount,
+        'durationMinutes': durationMinutes,
+      }),
+    ).ignore();
   }
 }
 
