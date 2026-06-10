@@ -13,6 +13,7 @@ import rateLimit from 'express-rate-limit';
 import { exec } from 'child_process';
 
 const app = express();
+app.set('trust proxy', 1); // Railway runs behind a proxy — needed for express-rate-limit
 const PORT = process.env.PORT || 3000;
 
 const allowedOrigins = [
