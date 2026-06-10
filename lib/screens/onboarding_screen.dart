@@ -59,8 +59,10 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
+  // Step 0 = level, 1 = language, 2 = subjects, 3 = success
   int    _step      = 0;
   String? _level;
+  String  _teachingLang = 'bm'; // 'bm' | 'en' | 'zh'
   bool   _advancing = false;
   bool   _submitting = false;
   String _learnovaId = '';
@@ -86,20 +88,56 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     ('Chemistry',       false, 'Chemistry'),
     ('Biology',         false, 'Biology'),
   ];
+  static const _zhRows = [
+    ('马来文 (BM)', true,  '马来文'),
+    ('英文 (English)', true, '英文'),
+    ('数学',      false, 'ZH-Mathematics'),
+    ('附加数学',   false, 'ZH-AddMaths'),
+    ('物理',      false, 'ZH-Physics'),
+    ('化学',      false, 'ZH-Chemistry'),
+    ('生物',      false, 'ZH-Biology'),
+    ('历史',      false, 'ZH-Sejarah'),
+  ];
 
   final Set<String> _selected = {'Bahasa Malaysia', 'English'};
 
-  List<(String, bool, String)> get _rows =>
-      _level == 'A-Level' ? _alRows : _spmRows;
+  List<(String, bool, String)> get _rows {
+    if (_teachingLang == 'zh') return _zhRows;
+    if (_level == 'A-Level') return _alRows;
+    return _spmRows;
+  }
 
-  // â”€â”€ Level tap â€” select + auto-advance after 300ms â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Level tap — select + advance to language step ────────────────────────────
 
   void _selectLevel(String level) async {
     if (_advancing) return;
     _advancing = true;
     setState(() => _level = level);
     await Future.delayed(const Duration(milliseconds: 300));
-    if (mounted) setState(() { _step = 1; _advancing = false; });
+    // A-Level always English — skip language step
+    if (level == 'A-Level') {
+      _teachingLang = 'en';
+      if (mounted) setState(() { _step = 2; _advancing = false; });
+    } else {
+      if (mounted) setState(() { _step = 1; _advancing = false; });
+    }
+  }
+
+  void _selectLang(String lang) async {
+    if (_advancing) return;
+    _advancing = true;
+    setState(() {
+      _teachingLang = lang;
+      // Reset subject selection based on language
+      _selected.clear();
+      if (lang == 'zh') {
+        _selected.addAll(['马来文 (BM)', '英文 (English)']);
+      } else {
+        _selected.addAll(['Bahasa Malaysia', 'English']);
+      }
+    });
+    await Future.delayed(const Duration(milliseconds: 300));
+    if (mounted) setState(() { _step = 2; _advancing = false; });
   }
 
   // â”€â”€ Submit onboarding â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -132,8 +170,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         await prefs.setString('learnova_id', lrnId);
         await prefs.setString('active_subjects', jsonEncode(active));
         await prefs.setString('form_level', _level ?? '');
+        await prefs.setString('teaching_language', _teachingLang);
         await prefs.setBool('onboarding_completed', true);
-        if (mounted) setState(() { _learnovaId = lrnId; _step = 2; });
+        if (mounted) setState(() { _learnovaId = lrnId; _step = 3; });
       } else {
         if (mounted) _snack('Ralat berlaku. Cuba lagi.');
       }
@@ -173,7 +212,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 selected: _level,
                 onTap: _selectLevel,
               ),
-            1 => _SubjectScreen(
+            1 => _LangScreen(
+                selected: _teachingLang,
+                onTap: _selectLang,
+              ),
+            2 => _SubjectScreen(
                 rows: _rows,
                 selected: _selected,
                 submitting: _submitting,
@@ -279,6 +322,97 @@ class _LevelOption extends StatelessWidget {
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 // SCREEN 2 â€” SUBJECTS
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+// ── SCREEN 1b — LANGUAGE PREFERENCE ─────────────────────────────────────────
+
+class _LangScreen extends StatelessWidget {
+  final String selected;
+  final void Function(String) onTap;
+  const _LangScreen({required this.selected, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          const Text('Bahasa pengajaran kamu?',
+            style: TextStyle(color: _kHeading, fontSize: 22, fontWeight: FontWeight.w600),
+            textAlign: TextAlign.center),
+          const SizedBox(height: 8),
+          const Text('Nova akan mengajar dalam bahasa yang kamu pilih.',
+            style: TextStyle(color: _kMuted, fontSize: 13),
+            textAlign: TextAlign.center),
+          const SizedBox(height: 36),
+          _LangOption(
+            lang: 'bm', label: 'Bahasa Malaysia',
+            subtitle: 'SPM — Bahasa Melayu',
+            selected: selected == 'bm', onTap: () => onTap('bm'),
+          ),
+          const SizedBox(height: 12),
+          _LangOption(
+            lang: 'en', label: 'English',
+            subtitle: 'SPM — English medium',
+            selected: selected == 'en', onTap: () => onTap('en'),
+          ),
+          const SizedBox(height: 12),
+          _LangOption(
+            lang: 'zh', label: '中文 (Mandarin)',
+            subtitle: 'SPM — 华文教学',
+            selected: selected == 'zh', onTap: () => onTap('zh'),
+          ),
+        ]),
+      ),
+    );
+  }
+}
+
+class _LangOption extends StatelessWidget {
+  final String lang, label, subtitle;
+  final bool selected;
+  final VoidCallback onTap;
+  const _LangOption({
+    required this.lang, required this.label, required this.subtitle,
+    required this.selected, required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 150),
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        decoration: BoxDecoration(
+          color: selected ? _kAccent.withOpacity(0.12) : const Color(0xFF0D0F18),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: selected ? _kAccent : _kOptBorder, width: selected ? 1.5 : 0.5),
+        ),
+        child: Row(children: [
+          Text(
+            lang == 'bm' ? 'MY' : lang == 'en' ? 'EN' : '中',
+            style: TextStyle(
+              color: selected ? _kAccent : _kMuted,
+              fontSize: 18, fontWeight: FontWeight.w800, fontFamily: 'monospace'),
+          ),
+          const SizedBox(width: 16),
+          Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(label, style: TextStyle(
+              color: selected ? _kHeading : _kOptText,
+              fontSize: 15, fontWeight: FontWeight.w600)),
+            const SizedBox(height: 2),
+            Text(subtitle, style: const TextStyle(color: _kMuted, fontSize: 11)),
+          ])),
+          if (selected) Icon(Icons.check_circle_rounded, color: _kAccent, size: 18),
+        ]),
+      ),
+    );
+  }
+}
+
+// ── SCREEN 2 — SUBJECTS ──────────────────────────────────────────────────────
 
 class _SubjectScreen extends StatelessWidget {
   final List<(String, bool, String)> rows;

@@ -2,7 +2,7 @@
 Last updated: 2026-06-10
 
 ## Project Overview
-Learnova is an AI-powered tutoring platform for Malaysian SPM, A-Level, and Indonesian SNBT students.
+Learnova is an AI-powered tutoring platform for Malaysian SPM, A-Level, Indonesian SNBT, and Mandarin-medium SPM students.
 Live URL: https://learnova.optimus.com.my
 Backend: https://learnova-backend-production-bd3a.up.railway.app
 
@@ -31,17 +31,23 @@ Backend: https://learnova-backend-production-bd3a.up.railway.app
 
 ## Subject Naming Convention (CRITICAL)
 Always use prefixed names in Supabase:
-SPM: MY-Physics, MY-Chemistry, MY-Biology,
-     MY-Mathematics, MY-AddMaths,
-     MY-BahasaMalaysia, MY-English, MY-Sejarah
-A-Level: AL-Physics, AL-Chemistry, AL-Biology,
-         AL-Mathematics, AL-FurtherMaths
+SPM BM:    MY-Physics, MY-Chemistry, MY-Biology,
+           MY-Mathematics, MY-AddMaths,
+           MY-BahasaMalaysia, MY-English, MY-Sejarah
+A-Level:   AL-Physics, AL-Chemistry, AL-Biology,
+           AL-Mathematics, AL-FurtherMaths
 Indonesian: ID-Fisika, ID-Kimia, ID-Biologi,
             ID-Matematika, ID-BahasaIndonesia
+Mandarin:  ZH-Mathematics, ZH-AddMaths, ZH-Physics, ZH-Chemistry,
+           ZH-Biology, ZH-Sejarah, ZH-English, ZH-BahasaMalaysia
+           (No content yet — infrastructure only)
 
 Flutter sends unprefixed names.
 Server normalizeSubject() converts them.
 NEVER remove normalizeSubject().
+
+Four teaching languages: bm (MY-), en (AL-), id (ID-), zh (ZH-)
+Stored in SharedPreferences: 'teaching_language'
 
 ## TTS Configuration (NEVER CHANGE)
 Model: tts-1-hd
@@ -269,6 +275,21 @@ immediately after const app = express(). Allowed origins: learnova.optimus.com.m
     Stats line: uses real _todayMinutes + _streak (not stale weekly_stats from dashboard cache)
     Missions: mission1=always done, mission2=lastSection=='completed', mission3=locked until active
 
+## Audio Pre-generation Pipeline (2026-06-10)
+- structured_lessons.audio_url TEXT — cPanel URL for pre-generated MP3
+- structured_lessons.audio_generated_at TIMESTAMPTZ — when generated
+- generate_audio.py: batch script, reads lessons with null audio_url
+  AL- subjects → Kokoro af_sarah (free, local inference)
+  MY-/ID- subjects → OpenAI TTS nova (paid but pre-generated = pay once)
+  ZH- subjects → Kokoro zf_xiaobei (future, espeak-ng zh support needed)
+- Kokoro models: C:\learnova_audio\models\kokoro-v1.0.onnx (325MB) + voices-v1.0.bin (28MB)
+- WAV → MP3 conversion via ffmpeg (already installed)
+- FTP upload to /public_html/Learnova/audio/ on cPanel
+- lesson_screen.dart _loadAudio(): check audio_url → direct AudioElement(url), else call /api/tts
+- To run: set SUPABASE_SERVICE_KEY, LEARNOVA_FTP_PASS (optionally OPENAI_API_KEY for MY-)
+  Then: python C:\learnova_app\generate_audio.py --limit 5 (test)
+        python C:\learnova_app\generate_audio.py --limit 0 (all)
+
 ## Supabase Tables Added (2026-06-07, enhanced 2026-06-09)
 - lesson_sessions: id UUID, student_id TEXT, lesson_id TEXT, subject TEXT, topic TEXT,
     started_at TIMESTAMPTZ, ended_at TIMESTAMPTZ, duration_seconds INT, completed BOOLEAN
@@ -323,6 +344,16 @@ Never re-add CupertinoIcons.
 - [x] Parent Progress Engine: fully connected, 9-section dashboard, lesson + login data
 - [x] Parent linking: /api/parent/connect wired to ParentConnectScreen
 - [x] New Supabase tables: lesson_sessions, student_logins
+- [x] Audio pre-generation: Kokoro (AL-) + OpenAI (MY-) pipeline, generate_audio.py (2026-06-10)
+      Dengar mode checks audio_url first (free/instant), falls back to OpenAI TTS API
+      Kokoro models: C:\learnova_audio\models\ (kokoro-v1.0.onnx + voices-v1.0.bin)
+      MP3s stored at: learnova.optimus.com.my/audio/{id}_{title}.mp3
+      Run: python C:\learnova_app\generate_audio.py [--limit N] [--subject AL-]
+- [x] Mandarin support infrastructure (2026-06-10): ZH- subject prefix, Nova zh prompt,
+      onboarding language step (BM/EN/ZH), home greeting in Chinese, kZHSubjects in constants
+      teaching_language stored in SharedPreferences ('bm'|'en'|'zh')
+      ZH- Nova: separate early-return path in server with NOVA_ZH_SYSTEM_PROMPT
+      Content generation for ZH- is a SEPARATE TASK (not done yet)
 
 ## Smart Greeting Rules (NEVER CHANGE)
 Greeting logic: check if first name part matches MUSLIM_NAME_INDICATORS list.

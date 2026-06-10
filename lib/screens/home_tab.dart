@@ -24,6 +24,7 @@ class _HomeTabState extends State<HomeTab> {
   String _token = '';
   String _studentId = '';
   String _firstSubject = '';
+  String _teachingLang = 'bm';
 
   @override
   void initState() {
@@ -33,9 +34,10 @@ class _HomeTabState extends State<HomeTab> {
 
   Future<void> _loadDashboard() async {
     final prefs = await SharedPreferences.getInstance();
-    _token     = prefs.getString('token') ?? '';
-    _name      = prefs.getString('student_name') ?? prefs.getString('name') ?? '';
-    _studentId = prefs.getString('student_id') ?? '';
+    _token       = prefs.getString('token') ?? '';
+    _name        = prefs.getString('student_name') ?? prefs.getString('name') ?? '';
+    _studentId   = prefs.getString('student_id') ?? '';
+    _teachingLang = prefs.getString('teaching_language') ?? 'bm';
 
     // Load active subjects to pick first one for next lesson
     final rawSubjects = prefs.getString('active_subjects');
@@ -180,7 +182,13 @@ class _HomeTabState extends State<HomeTab> {
     'zaaimah', 'zafirah', 'zahidah', 'zahiya', 'zahra', 'zara', 'zuhailin', 'zuhaira', 'zuyyin',
   ];
 
-  static String getSmartGreeting(String name) {
+  static String getSmartGreeting(String name, {String teachingLang = 'bm'}) {
+    final h = DateTime.now().hour;
+    if (teachingLang == 'zh') {
+      if (h < 12) return '早上好';
+      if (h < 17) return '下午好';
+      return '晚上好';
+    }
     if (name.isNotEmpty) {
       final parts = name.toLowerCase().split(RegExp(r'\s+'));
       final isMuslim = parts.any((p) =>
@@ -188,13 +196,12 @@ class _HomeTabState extends State<HomeTab> {
               p.startsWith(ind) || (ind.startsWith(p) && p.length >= 3)));
       if (isMuslim) return 'Assalamualaikum';
     }
-    final h = DateTime.now().hour;
     if (h < 12) return 'Selamat pagi';
     if (h < 17) return 'Selamat petang';
     return 'Selamat malam';
   }
 
-  String get _greeting => getSmartGreeting(_name);
+  String get _greeting => getSmartGreeting(_name, teachingLang: _teachingLang);
 
   String get _firstName {
     if (_name.isEmpty) return 'Pelajar';

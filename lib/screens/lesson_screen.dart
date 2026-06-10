@@ -275,6 +275,33 @@ class _LessonScreenState extends State<LessonScreen>
     setState(() { _ttsLoading = true; });
 
     try {
+      // Use pre-generated audio from cPanel if available (free, instant)
+      final pregenUrl = _lesson!['audio_url'] as String?;
+      if (pregenUrl != null && pregenUrl.isNotEmpty) {
+        _disposeAudio(keepState: true);
+        _audioUrl = pregenUrl;
+        _audioEl  = html.AudioElement(pregenUrl);
+        _audioEl!.preload = 'auto';
+
+        _timeSub = _audioEl!.onTimeUpdate.listen((_) {
+          if (mounted) setState(() {
+            _audioPosition = (_audioEl?.currentTime ?? 0).toDouble();
+            final dur = _audioEl?.duration;
+            _audioDuration = (dur != null && dur.isFinite ? dur : 0).toDouble();
+          });
+        });
+        _endSub = _audioEl!.onEnded.listen((_) {
+          _pulseCtrl.stop();
+          if (mounted) setState(() { _ttsPlaying = false; _audioPosition = 0; });
+        });
+
+        await _audioEl!.play();
+        _pulseCtrl.repeat(reverse: true);
+        if (mounted) setState(() { _ttsLoading = false; _ttsPlaying = true; });
+        return;
+      }
+
+      // Fall back to OpenAI TTS API
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token') ?? '';
       final text = _cleanForTts(_buildListenText());
@@ -300,8 +327,8 @@ class _LessonScreenState extends State<LessonScreen>
         _timeSub = _audioEl!.onTimeUpdate.listen((_) {
           if (mounted) setState(() {
             _audioPosition = (_audioEl?.currentTime ?? 0).toDouble();
-            _audioDuration = (_audioEl?.duration?.isFinite == true
-                ? _audioEl!.duration! : 0).toDouble();
+            final dur = _audioEl?.duration;
+            _audioDuration = (dur != null && dur.isFinite ? dur : 0).toDouble();
           });
         });
 
