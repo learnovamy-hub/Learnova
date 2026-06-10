@@ -28,6 +28,21 @@ Set-Location C:\learnova_app
 if ($LASTEXITCODE -ne 0) { Write-Host "BUILD FAILED." -ForegroundColor Red; exit 1 }
 Write-Host "Build complete." -ForegroundColor Green
 
+# Step 1b — Stamp build timestamp into URLs to bust LiteSpeed memory cache
+$buildTs = [DateTimeOffset]::UtcNow.ToString("yyyyMMddHHmmss")
+$enc     = New-Object System.Text.UTF8Encoding $false   # UTF-8 no BOM
+# Patch index.html: replace placeholder with real timestamp
+$idxPath = "$localWeb\index.html"
+[System.IO.File]::WriteAllText($idxPath,
+  ([System.IO.File]::ReadAllText($idxPath) -replace '__BUILD_TS__', $buildTs), $enc)
+# Patch flutter_bootstrap.js: version the main.dart.js URL
+$bsPath  = "$localWeb\flutter_bootstrap.js"
+[System.IO.File]::WriteAllText($bsPath,
+  ([System.IO.File]::ReadAllText($bsPath) -replace
+    '"mainJsPath":"main\.dart\.js"',
+    "`"mainJsPath`":`"main.dart.js?v=$buildTs`""), $enc)
+Write-Host "Cache-bust stamp: $buildTs" -ForegroundColor Cyan
+
 # Step 2 — Ensure .htaccess is in build output
 Write-Host "`n[2/4] Copying .htaccess to build output..." -ForegroundColor Yellow
 Copy-Item "C:\learnova_app\web\.htaccess" "$localWeb\.htaccess" -Force
