@@ -1,0 +1,318 @@
+Processing: C:\learnova_app\textbooks\F5 Add Maths.pdf
+Subject: MY-AddMaths  Form: 5  Pages: 11-307 of 307
+------------------------------------------------------------
+  p 11/307  SKIP  Page contains only background/motivational text and no specific mathematical explanation, formula, or worked example.
+  p 12/307  SAVED  Bab 1: Sukatan Membulat | 1.1 Radian
+  p 13/307  SAVED  Bab 1: Sukatan Membulat | Konsep Radian
+  p 14/307  SAVED  Bab 1: Sukatan Membulat | Penukaran antara Darjah dan Radian
+  p 15/307  SAVED  Bab 1: Sukatan Membulat | 1.2 Panjang Lengkok Suatu Bulatan
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-AddMaths, 5, Bab 1: Sukatan Membulat, Rumus Panjang Lengkok) already exists.","hint":null,"message":"duplicate key value violat
+  p 16/307  DB-ERR  Bab 1: Sukatan Membulat | Panjang Lengkok
+  p 17/307  SAVED  Bab 1: Sukatan Membulat | 
+  p 18/307  SAVED  Bab 1: Sukatan Membulat | Menentukan perimeter tembereng suatu bulatan
+  p 19/307  SAVED  Bab 1: Sukatan Membulat | Menyelesaikan masalah yang melibatkan panjang lengkok
+  p 20/307  SAVED  Bab 1: Sukatan Membulat | 
+  p 21/307  SAVED  Bab 1 | 1.2 Sukatan Membulat
+  p 22/307  SAVED  Bab 1: Sukatan Membulat | 1.3 Luas Sektor Suatu Bulatan
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-AddMaths, 5, Bab 1: Sukatan Membulat, Luas Sektor Bulatan) already exists.","hint":null,"message":"duplicate key value violates
+  p 23/307  DB-ERR  Bab 1: Sukatan Membulat | Luas Sektor
+  p 24/307  SAVED  Bab 1: Sukatan Membulat | Luas Sektor
+  p 25/307  SAVED  Bab 1: Sukatan Membulat | Menentukan luas tembereng suatu bulatan
+  p 26/307  SAVED  Bab 1: Sukatan Membulat | Luas Tembereng
+  p 27/307  SAVED  Bab 1: Sukatan Membulat | Menyelesaikan masalah yang melibatkan luas sektor
+  p 28/307  SAVED  Bab 1: Sukatan Membulat | Luas Sektor
+  p 29/307  SKIP  The page contains only formative exercises (Latihan Formatif) with no new concept explanation or worked example.
+  p 30/307  SAVED  Bab 1: Sukatan Membulat | 1.4 Aplikasi Sukatan Membulat
+  p 31/307  SAVED  Bab 1: Sukatan Membulat | 1.4.1 Aplikasi Sukatan Membulat
+  p 32/307  SAVED  Bab 1: Sukatan Membulat | 
+  p 33/307  SAVED  Bab 1: Sukatan Membulat | Rumus Asas Sukatan Membulat
+  p 34/307  SKIP  Page contains only practice problems (Latihan Sumatif) without concept explanation or worked example.
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-AddMaths, 5, Bab 1: Sukatan Membulat, Aplikasi Sukatan Membulat) already exists.","hint":null,"message":"duplicate key value vi
+  p 35/307  DB-ERR  Bab 1: Sukatan Membulat | 
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-AddMaths, 5, Bab 1: Sukatan Membulat, Aplikasi Sukatan Membulat) already exists.","hint":null,"message":"duplicate key value vi
+  p 36/307  DB-ERR  Bab 1: Sukatan Membulat | Aplikasi Sukatan Membulat
+  p 37/307  SAVED  Bab 1: Sukatan Membulat | 
+  p 38/307  SKIP  (only 20 words)
+  p 39/307  SAVED  Bab 2: Pembezaan | Pengenalan
+  p 40/307  SAVED  Bab 2: Pembezaan | 2.1 Had dan Hubungannya dengan Pembezaan
+  p 41/307  SAVED  Bab 2: Pembezaan | 
+  p 42/307  SAVED  Bab 2: Pembezaan | Menentukan Nilai Had Fungsi
+  p 43/307  SAVED  Bab 2: Pembezaan | Had
+  p 44/307  SAVED  Bab 2: Pembezaan | Pembezaan dengan Prinsip Pertama
+  p 45/307  SAVED  Bab 2: Pembezaan | Konsep Had dan Terbitan Pertama
+  p 46/307  SAVED  Bab 1: Pembezaan | Pembezaan dengan Prinsip Pertama
+  p 47/307  SAVED  Bab 2: Pembezaan | Pembezaan dengan Prinsip Pertama
+  p 48/307  SAVED  Bab 2: Pembezaan | 2.2 Pembezaan Peringkat Pertama
+  p 49/307  SAVED  Bab 2: Pembezaan | 
+  p 50/307  SAVED  Bab 2: Pembezaan | 
+  p 51/307  SAVED  Bab 2: Pembezaan | 
+  p 52/307  SAVED  Bab 2: Pembezaan | Terbitan Pertama Fungsi Gubahan
+  p 53/307  SAVED  Bab 2: Pembezaan | Petua Rantai (Chain Rule)
+  p 54/307  SAVED  Bab 2: Pembezaan | Petua Hasil Darab
+  p 55/307  SAVED  Bab 2: Pembezaan | Petua Hasil Bahagi
+  p 56/307  SAVED  Bab 2: Differentiation | Petua Hasil Darab (Product Rule)
+  p 57/307  SAVED  Bab 2: Pembezaan | Petua Hasil Bahagi
+  p 58/307  SAVED  Bab 2: Pembezaan | Latihan Formatif
+  p 59/307  SAVED  Bab 2: Pembezaan | Pembezaan Peringkat Kedua
+  p 60/307  SAVED  Bab 2: Pembezaan | Aplikasi Pembezaan
+  p 61/307  SAVED  Bab 2: Pembezaan | 2.4 Aplikasi Pembezaan
+  p 62/307  SAVED  Bab 2: Pembezaan | Kecerunan Tangen
+  p 63/307  SAVED  Bab 2: Pembezaan | Persamaan tangen dan normal kepada satu lengkung pada suatu titik
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-AddMaths, 5, Bab 2: Pembezaan, Persamaan Tangen dan Normal) already exists.","hint":null,"message":"duplicate key value violate
+  p 64/307  DB-ERR  Bab 2: Pembezaan | Menyelesaikan masalah yang melibatkan tangen dan normal
+  p 65/307  SAVED  Bab 2: Pembezaan | Aplikasi Pembezaan: Tangen kepada Lengkung
+  p 66/307  SAVED  Bab 2: Pembezaan | 2.9 Tangen dan Normal
+  p 67/307  SAVED  Bab 2: Pembezaan | Titik Pusingan dan Sifat Titik Pusingan Tersebut
+  p 68/307  SAVED  Bab 9: Pembezaan | Titik Pegun dan Sifatnya
+  p 69/307  SAVED  Bab 2: Pembezaan | Titik Pusingan
+  p 70/307  SAVED  Bab 2: Pembezaan | Pembezaan Peringkat Kedua
+  p 71/307  SAVED  Bab 2: Pembezaan | Titik Pusingan
+  p 72/307  SAVED  Bab 2: Pembezaan | Menentukan Sifat Titik Pegun
+  p 73/307  SAVED  Bab 2: Pembezaan | Menyelesaikan masalah yang melibatkan nilai maksimum dan nilai minimum serta mentafsir penyelesaian tersebut
+  p 74/307  SAVED  Bab 2: Pembezaan | Aplikasi Pembezaan dalam Pengoptimuman
+  p 75/307  SAVED  Bab 2: Pembezaan | Aplikasi Pembezaan
+  p 76/307  SAVED  Bab 1: Pembezaan | Kadar Perubahan
+  p 77/307  SAVED  Bab 2: Pembezaan | 2.12 Kadar Perubahan
+  p 78/307  SAVED  Bab 180: Kadar Perubahan | Aplikasi Pembezaan - Kadar Perubahan Berkaitan
+  p 79/307  SAVED  Bab 2: Pembezaan | Aplikasi Matematik
+  p 80/307  SAVED  Bab 2: Pembezaan | Mentafsir dan menentukan perubahan kecil dan penghampiran suatu kuantiti
+  p 81/307  SAVED  Bab 2: Pembezaan | Perubahan Kecil dan Penghampiran
+  p 82/307  ERROR  Empty content from DeepSeek (finish_reason=stop)
+  p 83/307  SAVED  Bab 2: Pembezaan | Perubahan Kecil dan Penghampiran
+  p 84/307  SAVED  Bab 2: Pembezaan | Aplikasi Matematik
+  p 85/307  SAVED  Bab 2: Pembezaan | 2.4
+  p 86/307  SAVED  Bab 2: Pembezaan | 
+  p 87/307  SKIP  Page contains a summative exercise set and discussion prompts, not a specific concept to teach.
+  p 88/307  SKIP  Page contains only practice problems, no explanatory content to structure into a teaching unit.
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-AddMaths, 5, Bab 2: Pembezaan, Perubahan Kecil dalam Isi Padu) already exists.","hint":null,"message":"duplicate key value viol
+  p 89/307  DB-ERR  Bab 2: Pembezaan | Aplikasi Pembezaan: Perubahan Kecil dan Hampiran
+  p 90/307  SKIP  Introductory page with no specific mathematical content; only a motivational paragraph.
+  p 91/307  SKIP  Page contains historical background and applications of integration, but no explicit teachable concept, formula, or worked example for SPM Add Maths.
+  p 92/307  SAVED  Bab 3: Pengamiran | 3.1 Pengamiran sebagai Songsangan Pembezaan
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-AddMaths, 5, Bab 3: Pengamiran, Pengamiran sebagai Songsangan Pembezaan) already exists.","hint":null,"message":"duplicate key 
+  p 93/307  DB-ERR  Bab 3: Pengamiran | 3.1.1 Pengamiran sebagai Songsangan Pembezaan
+  p 94/307  SAVED  Bab 2 | 
+  p 95/307  SAVED  Bab 2: Pengamiran | 3.2 Kamiran Tak Tentu
+  p 96/307  SAVED  Bab 3: Pengamiran | Kamiran tak tentu bagi suatu fungsi algebra
+  p 97/307  SAVED  Bab 2: Pengamiran | 
+  p 98/307  SAVED  Bab 2: Pembezaan | Kamiran Tak Tentu bagi (ax + b)^n
+  p 99/307  SAVED  Bab 2: Pengamiran | Kaedah Penggantian
+  p100/307  SAVED  Bab 2: Pembezaan | Persamaan lengkung daripada fungsi kecerunan
+  p101/307  SAVED  Bab 3: Pengamiran | 3.2 Pengamiran
+  p102/307  SAVED  Bab 3: Pengamiran | 3.3 Kamiran Tentu
+  p103/307  SAVED  Bab 2: Pengamiran | Kamiran Tentu
+  p104/307  SAVED  Bab 2: Kamiran | Sifat Kamiran Tentu
+  p105/307  SKIP  Page contains only exercises (Latihan Kendiri) with no new concept explanation.
+  p106/307  SAVED  Bab 2: Pengamiran | 2.4 Luas di bawah suatu lengkung
+  p107/307  SAVED  Bab 4: Pengamiran | 
+  p108/307  SAVED  Bab 4: Pengamiran | Luas rantau
+  p109/307  SAVED  Bab 4: Pengamiran | Luas rantau antara suatu lengkung dengan paksi-y
+  p110/307  SAVED  Bab 4: Pengamiran | 3.3.3 Luas antara Lengkung dengan Paksi-y
+  p111/307  SAVED  Bab 4: Pengamiran | Luas di antara Lengkung dengan Paksi
+  p112/307  SAVED  Bab 4: Pengamiran | Luas rantau antara suatu lengkung dengan garis lurus
+  p113/307  SAVED  Bab 4: Pengamiran | 
+  p114/307  SAVED  Bab 4: Aplikasi Pengamiran | Luas rantau di antara dua lengkung
+  p115/307  SAVED  Bab 4: Pengamiran | Perkaitan antara had bagi hasil tambah isi padu silinder dengan isi padu janaan daripada kisaran suatu rantau
+  p116/307  SAVED  Bab 4: Aplikasi Pengamiran | Isi Padu Bongkah Janaan
+  p117/307  SAVED  Bab 4: Pengamiran | Isi padu janaan bagi suatu rantau yang dikisarkan pada paksi-x atau paksi-y
+  p118/307  SAVED  Bab 4: Pengamiran | Isi Padu Janaan (Kisaran pada Paksi-x dan Paksi-y)
+  p119/307  SAVED  Bab 4: Pengamiran | Isi Padu Janaan
+  p120/307  SKIP  Page contains only practice questions (Latihan Formatif) without new concept explanation or worked example.
+  p121/307  SAVED  Bab 3: Pengamiran | 3.4 Aplikasi Pengamiran
+  p122/307  SAVED  Bab 4: Pengamiran | Aplikasi Matematik
+  p123/307  SAVED  Bab 2: Pengamiran | Latihan Kendiri 3.8
+  p124/307  SAVED  Bab 2: Pengamiran | SUDUT REFLEKSI
+  p125/307  SKIP  Page contains only summative practice problems and historical background, no new concept explanation or worked example.
+  p126/307  SAVED  Bab 2: Pembezaan | 
+  p127/307  SKIP  Page contains only problem exercises and project description, no explanatory content or solved examples to form a teaching unit.
+  p128/307  SKIP  (only 23 words)
+  p129/307  SAVED  Bab 2: Pilih Atur dan Gabungan | Pengenalan
+  p130/307  SAVED  Bab 2 | 4.1 Pilih Atur
+  p131/307  SAVED  Bab 2: Pilih Atur dan Gabungan | Petua Pendaraban
+  p132/307  SAVED  Bab 2: Pilih Atur dan Gabungan | Pilih Atur Objek Berbeza
+  p133/307  SAVED  Bab 2: Pilih Atur dan Gabungan | Pilih Atur Bulatan
+  p134/307  SAVED  Bab 2: Pilih Atur dan Gabungan | Pilih Atur Membulat (Gelang/Kalung)
+  p135/307  SAVED  Bab 4: Pilih Atur dan Gabungan | Pilih Atur
+  p136/307  SAVED  Bab 4: Pilih Atur dan Gabungan | Menentukan bilangan pilih atur bagi n objek yang melibatkan objek secaman
+  p137/307  SAVED  Bab 4: Pilih Atur dan Gabungan | Pilih Atur Melibatkan Objek Secaman
+  p138/307  SAVED  Bab 4: Pilih Atur dan Gabungan | Menyelesaikan masalah yang melibatkan pilih atur dengan syarat tertentu
+  p139/307  SAVED  Bab 4: Pilih Atur dan Gabungan | Pilih Atur dengan Syarat
+  p140/307  SAVED  Bab 4: Pilih Atur dan Gabungan | Aplikasi Pilih Atur
+  p141/307  SKIP  Page contains only practice exercises, no explanatory content.
+  p142/307  SAVED  Bab 4: Pilih Atur dan Gabungan | Gabungan
+  p143/307  SAVED  Bab 2: Pilih Atur dan Gabungan | Gabungan
+  p144/307  SAVED  Bab 2: Gabungan | Kombinasi
+  p145/307  SAVED  Bab 4: Pilih Atur dan Gabungan | Menyelesaikan masalah yang melibatkan gabungan dengan syarat tertentu
+  p146/307  SAVED  Bab 2 | 
+  p147/307  SAVED  Bab 4: Pilih Atur dan Gabungan | 
+  p148/307  SKIP  Page consists only of instructions for an infographic and a list of summative exercises (Latihan Sumatif) without any new concept explanation or worked example.
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-AddMaths, 5, Bab 4: Pilih Atur dan Gabungan, Gabungan dengan Syarat) already exists.","hint":null,"message":"duplicate key valu
+  p149/307  DB-ERR  Bab 4: Pilih Atur dan Gabungan | Gabungan
+  p150/307  SKIP  Chapter introduction page with no specific concept explanation or worked example.
+  p151/307  SAVED  Bab 4: Pilih Atur                         Gabungan | 
+  p152/307  SAVED  Bab 5: Taburan Kebarangkalian | 5.1 Pemboleh Ubah Rawak
+  p153/307  SAVED  Bab 5: Taburan Kebarangkalian | Pemboleh ubah rawak diskret dan pemboleh ubah rawak selanjar
+  p154/307  SAVED  Bab 4: Pilih Atur Gabungan | Pemboleh Ubah Rawak
+  p155/307  SAVED  Bab 5: Taburan Kebarangkalian | Taburan kebarangkalian pemboleh ubah rawak diskret
+  p156/307  SAVED  Bab 4: Pilih Atur dan Gabungan | 
+  p157/307  SAVED  Bab 5: Taburan Kebarangkalian | 
+  p158/307  SAVED  Bab 4: Pilih Atur | Jadual dan Graf Taburan Kebarangkalian Pemboleh Ubah Rawak Diskret
+  p159/307  SAVED  Bab 5: Taburan Kebarangkalian | Taburan Binomial
+  p160/307  SAVED  Bab 4: Pilih Atur Gabungan | 
+  p161/307  SAVED  Bab 5: Taburan Kebarangkalian | 5.1 Pemboleh Ubah Rawak dan Taburan Kebarangkalian
+  p162/307  SAVED  Bab 4: Pilih Atur | 5.2 Taburan Binomial
+  p163/307  SAVED  Bab 4: Pilih Atur dan Gabungan | Taburan Binomial
+  p164/307  SAVED  Bab 5: Taburan Binomial | Ciri-ciri Taburan Binomial
+  p165/307  SAVED  Bab 4: Pilih Atur dan Gabungan | Kebarangkalian suatu peristiwa bagi taburan binomial
+  p166/307  SAVED  Bab 4: Pilih Atur | Taburan Binomial
+  p167/307  SAVED  Bab 5: Taburan Kebarangkalian | Taburan Binomial
+  p168/307  SAVED  Bab 4: Pilih Atur dan Gabungan | Membina jadual, melukis graf dan mentafsir maklumat taburan binomial
+  p169/307  SAVED  Bab 5: Taburan Kebarangkalian | 5.2 Taburan Binomial
+  p170/307  SKIP  Page contains only practice problems (Latihan Kendiri 5.7) without concept explanation or worked examples.
+  p171/307  SAVED  Bab 5: Taburan Kebarangkalian | Nilai min, varians dan sisihan piawai bagi suatu taburan binomial
+  p172/307  SAVED  Bab 5: Taburan Binomial | Varians dan Sisihan Piawai bagi Taburan Binomial
+  p173/307  SAVED  Bab 5: Taburan Kebarangkalian | Menyelesaikan masalah yang melibatkan taburan binomial
+  p174/307  SAVED  Bab 5: Taburan Kebarangkalian | Menyelesaikan Masalah yang Melibatkan Taburan Binomial
+  p175/307  SKIP  Page contains only practice exercises (Latihan Formatif) with no new concept explanation.
+  p176/307  SAVED  Bab 5: Taburan Kebarangkalian | 5.3 Taburan Normal
+  p177/307  SAVED  Bab 5: Taburan Kebarangkalian | 5.3 Taburan Normal
+  p178/307  SAVED  Bab 5: Taburan Normal | Taburan Normal
+  p179/307  SAVED  Bab 5: Taburan Kebarangkalian | Variasi rawak dan hukum bilangan besar
+  p180/307  SAVED  Bab 6: Taburan Kebarangkalian | Taburan Normal Piawai
+  p181/307  SAVED  Bab 5: Taburan Kebarangkalian | Taburan Normal Piawai (Standard Normal Distribution)
+  p182/307  SAVED  Bab 4: Pilih Atur | Menentukan dan mentafsir skor piawai, Z
+  p183/307  SAVED  Bab 5: Taburan Kebarangkalian | Menentukan kebarangkalian suatu peristiwa bagi taburan normal
+  p184/307  SAVED  Bab 5: Taburan Kebarangkalian | Taburan Normal Piawai
+  p185/307  SAVED  Bab 4: Taburan Kebarangkalian | Taburan Normal Piawai
+  p186/307  SAVED  Bab 5: Taburan Normal | 5.3.4
+  p187/307  SAVED  Bab 4: Pilih Atur                         Gabungan | Taburan Kebarangkalian
+  p188/307  SAVED  Bab 5: Taburan Normal | 
+  p189/307  SKIP  Page contains only practice exercises (Latihan Kendiri 5.12) without explanation or worked examples.
+  p190/307  SAVED  Bab 4: Pilih Atur Gabungan | Taburan Normal
+  p191/307  SAVED  Bab 5: Taburan Kebarangkalian | Taburan Normal
+  p192/307  SAVED  Bab 5: Taburan Normal | 
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-AddMaths, 5, Bab 5: Taburan Kebarangkalian, Taburan Normal Piawai dan Skor-z) already exists.","hint":null,"message":"duplicate
+  p193/307  DB-ERR  Bab 5: Taburan Kebarangkalian | 5.3 Taburan Normal
+  p194/307  SAVED  Bab 4: Taburan Kebarangkalian | Sudut Refleksi
+  p195/307  SKIP  Page contains only a set of practice problems (Latihan Sumatif) and an instruction to create an infographic, with no concept explanation or worked example to structure into a teaching unit.
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-AddMaths, 5, Bab 4: Pilih Atur dan Gabungan, Kebarangkalian Taburan Binomial) already exists.","hint":null,"message":"duplicate
+  p196/307  DB-ERR  Bab 4: Pilih Atur dan Gabungan | Kebarangkalian dan Taburan
+  p197/307  SAVED  Bab 4: Pilih Atur dan Gabungan | Taburan Kebarangkalian
+  p198/307  SKIP  Page is a chapter introduction with list of subtopics and real-world context; no specific concept explanation or worked example.
+  p199/307  SAVED  Bab 4: Pilih Atur Gabungan | 
+  p200/307  SAVED  Bab 6: Sudut Positif dan Sudut Negatif | Mewakilkan sudut positif dan sudut negatif dalam satah Cartes
+  p201/307  SAVED  Bab 11: Fungsi Trigonometri | 
+  p202/307  SAVED  Bab 11: ? rad | 6.1
+  p203/307  SAVED  Bab 6: Fungsi Trigonometri | 6.2 Nisbah Trigonometri bagi Sebarang Sudut
+  p204/307  SAVED  Bab 11: Trigonometri | Sudut Pelengkap
+  p205/307  SAVED  Bab 6: Fungsi Trigonometri | Sudut Pelengkap
+  p206/307  SAVED  Bab 11: ? rad | Menentukan nilai nisbah trigonometri bagi sebarang sudut
+  p207/307  SAVED  Bab 11: Fungsi Trigonometri | Kaedah 3: Menggunakan nilai nisbah trigonometri sudut rujukan yang sepadan
+  p208/307  SAVED  Bab 6: Fungsi Trigonometri | Nisbah Trigonometri bagi Sudut Negatif
+  p209/307  SAVED  Bab 11: ? rad | Nisbah Trigonometri bagi Sudut Khas
+  p210/307  SAVED  Bab 6: Fungsi Trigonometri | Latihan Kendiri 6.3
+  p211/307  SAVED  Bab 2: Fungsi Trigonometri | 6.3 Graf Fungsi Sinus, Kosinus dan Tangen
+  p212/307  SAVED  Bab 2: Fungsi Trigonometri | Graf Fungsi Trigonometri
+  p213/307  SAVED  Bab 2: Fungsi Trigonometri | Graf Fungsi Trigonometri
+  p214/307  SAVED  Bab 2: Fungsi Trigonometri | Kesan Perubahan Parameter a, b dan c
+  p215/307  SAVED  Bab 2: Fungsi Trigonometri | Graf Fungsi Trigonometri
+  p216/307  SAVED  Bab 2: Fungsi Trigonometri | Melakar Graf Fungsi Trigonometri
+  p217/307  SAVED  Bab 2: Fungsi Trigonometri | Menyelesaikan persamaan trigonometri dengan kaedah graf
+  p218/307  SAVED  Bab 2: Fungsi Trigonometri | Bilangan Penyelesaian Persamaan Trigonometri
+  p219/307  SAVED  Bab 8: Fungsi Trigonometri | Menyelesaikan Persamaan Trigonometri Secara Graf
+  p220/307  SAVED  Bab 6: Fungsi Trigonometri | 6.3 Latihan Formatif
+  p221/307  SAVED  Bab 6: Fungsi Trigonometri | 6.4 Identiti Asas
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-AddMaths, 5, Bab 6: Fungsi Trigonometri, Identiti Asas Trigonometri) already exists.","hint":null,"message":"duplicate key valu
+  p222/307  DB-ERR  Bab 6: Fungsi Trigonometri | 6.4 Identiti Asas Trigonometri
+  p223/307  SAVED  Bab 6: Fungsi Trigonometri | Membuktikan identiti trigonometri menggunakan identiti asas
+  p224/307  SAVED  Bab 6: Fungsi Trigonometri | 6.4 Identiti Trigonometri
+  p225/307  SAVED  Bab 6: Fungsi Trigonometri | Rumus Sudut Majmuk dan Rumus Sudut Berganda
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-AddMaths, 5, Bab 6: Fungsi Trigonometri, Rumus Sudut Majmuk) already exists.","hint":null,"message":"duplicate key value violat
+  p226/307  DB-ERR  Bab 6: Fungsi Trigonometri | Rumus Sudut Majmuk
+  p227/307  SAVED  Unit 4: Fungsi Trigonometri | Penggunaan Rumus Sudut Majmuk
+  p228/307  SAVED  Bab 6: Fungsi Trigonometri | Menerbitkan rumus sudut berganda
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-AddMaths, 5, Bab 6: Fungsi Trigonometri, Rumus Sudut Berganda) already exists.","hint":null,"message":"duplicate key value viol
+  p229/307  DB-ERR  Bab 6: Fungsi Trigonometri | Rumus Sudut Berganda
+  p230/307  SAVED  Bab 7: Rumus Trigonometri | Rumus Sudut Separuh
+  p231/307  SKIP  Page contains only practice exercises, no concept explanation or worked examples.
+  p232/307  SAVED  Bab 6: Fungsi Trigonometri | 6.6 Aplikasi Fungsi Trigonometri
+  p233/307  SAVED  Bab 6: Fungsi Trigonometri | 
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-AddMaths, 5, Bab 6: Fungsi Trigonometri, Menyelesaikan Persamaan Trigonometri) already exists.","hint":null,"message":"duplicat
+  p234/307  DB-ERR  Bab 6: Fungsi Trigonometri | 6.6.1 Menyelesaikan Persamaan Trigonometri
+  p235/307  SAVED  Bab 6: Fungsi Trigonometri | Aplikasi Identiti Trigonometri
+  p236/307  SAVED  Bab 6: Fungsi Trigonometri | 6.6.2 Aplikasi Identiti Trigonometri
+  p237/307  SAVED  Bab 6: Fungsi Trigonometri | 6.6 Latihan Formatif
+  p238/307  SKIP  Page is a chapter reflection/summary page with no specific concept explanation or worked example.
+  p239/307  SKIP  Page contains only exercises (Latihan Sumatif), not concept explanation or worked example.
+  p240/307  SKIP  Page contains only practice problems, no new concept or explanation.
+  p241/307  SAVED  Bab 6: Fungsi Trigonometri | Magic Hexagon
+  p242/307  SKIP  (only 14 words)
+  p243/307  SAVED  Bab 6: Pengaturcaraan Linear | 
+  p244/307  SAVED  Bab 6: Pengaturcaraan Linear | 7.1 Model Pengaturcaraan Linear
+  p245/307  SAVED  Bab 6: Pengaturcaraan Linear | Model Matematik
+  p246/307  SAVED  Bab 6: Ketaksamaan Linear dalam Dua Pemboleh Ubah | Mewakilkan Ketaksamaan Linear Secara Grafik
+  p247/307  SAVED  Bab 6: Pengaturcaraan Linear | Pengoptimuman dalam Pengaturcaraan Linear
+  p248/307  SAVED  Bab 6: Ketaksamaan Linear dalam Dua Pemboleh Ubah | Nilai Maksimum dan Minimum bagi Fungsi Objektif
+  p249/307  SKIP  Page contains only practice questions (Latihan Formatif) and no new concept explanation or worked example.
+  p250/307  SAVED  Bab 6: Pengaturcaraan Linear | 7.2 Aplikasi Pengaturcaraan Linear
+  p251/307  SAVED  Bab 6: Pengaturcaraan Linear | 
+  p252/307  SAVED  Bab 6: Pemprograman Linear | Aplikasi Matematik
+  p253/307  SAVED  Bab 6: Pengaturcaraan Linear | 7.2.1 Menyelesaikan masalah pengaturcaraan linear
+  p254/307  SAVED  Bab 7: Pengaturcaraan Linear | Latihan Kendiri 7.2
+  p255/307  SKIP  Halaman ini hanya mengandungi soalan latihan, bukan penerangan konsep atau contoh kerja.
+  p256/307  SAVED  Bab 6: Pengaturcaraan Linear | Sudut Refleksi
+  p257/307  SKIP  Page contains only Latihan Sumatif (summative exercises) without concept explanation or worked examples.
+  p258/307  SAVED  Bab 6: Pengaturcaraan Linear | 
+  p259/307  SAVED  Bab 7: Pengaturcaraan Linear | 
+  p260/307  SKIP  Chapter opening page with only introduction and learning standards list; no specific mathematical content to teach.
+  p261/307  SAVED  Bab 8: Kinematik Gerakan Linear | 
+  p262/307  SAVED  Bab 8: Kinematik Gerakan Linear | 8.1 Sesaran, Halaju dan Pecutan sebagai Fungsi Masa
+  p263/307  SAVED  Bab 8: Kinematik Gerakan Linear | Sesaran Seketika dan Tafsiran Kedudukan
+  p264/307  SAVED  Bab 6: Kinematik Gerakan Linear | Halaju Seketika
+  p265/307  SAVED  Bab 8: Kinematik Gerakan Linear | Kenal Pasti Halaju daripada Graf Sesaran-Masa
+  p266/307  SAVED  Bab 7: Kinematik Gerakan Linear | 8.1 Pecutan
+  p267/307  SAVED  Bab 8: Kinematik Gerakan Linear | 
+  p268/307  SAVED  Bab 8: Kinematik Gerakan Linear | Menentukan jumlah jarak yang dilalui oleh suatu zarah dalam suatu tempoh masa tertentu
+  p269/307  SKIP  Page contains only practice problems (Latihan Formatif) without concept explanation or teaching content.
+  p270/307  SAVED  Bab 8: Kinematik Gerakan Linear | Hubung kait antara fungsi sesaran, fungsi halaju dan fungsi pecutan
+  p271/307  SAVED  Bab 8: Kinematik Gerakan Linear | Graf dan Tafsiran Gerakan
+  p272/307  SAVED  Bab 1: Kinematik Gerakan Linear | Menentukan dan mentafsir halaju seketika suatu zarah daripada fungsi sesaran
+  p273/307  SAVED  Bab 1: Kinematik Gerakan Linear | Halaju Seketika
+  p274/307  SAVED  Bab 1: Kinematik Gerakan Linear | Menentukan dan mentafsir pecutan seketika suatu zarah daripada fungsi halaju dan fungsi sesaran
+  p275/307  SAVED  Bab 8: Kinematik Gerakan Linear | Pecutan Seketika dan Nyahpecutan
+  p276/307  SAVED  Bab 8: Kinematik Gerakan Linear | 8.2 Pembezaan dalam Kinematik Linear
+  p277/307  SAVED  Bab 8: Kinematik Gerakan Linear | Menentukan dan mentafsir halaju seketika suatu zarah daripada fungsi pecutan
+  p278/307  SAVED  Bab 8: Kinematik Gerakan Linear | Halaju Maksimum dan Minimum
+  p279/307  SAVED  Bab 1: Kinematik Gerakan Linear | Menentukan dan mentafsir sesaran seketika suatu zarah daripada fungsi halaju dan fungsi pecutan
+  p280/307  SAVED  Bab 1: Kinematik Gerakan Linear | Sesaran, Halaju dan Pecutan
+  p281/307  SKIP  Page contains only Latihan Formatif (formative exercises) for subtopic 8.3, no new concept explanation or worked example.
+  p282/307  SAVED  Bab 8: Kinematik Gerakan Linear | 8.4 Aplikasi Kinematik Gerakan Linear
+  p283/307  SAVED  Bab 8: Kinematik Gerakan Linear | 8.4.1 Aplikasi Kamiran
+  p284/307  SAVED  Bab 8: Kinematik Gerakan Linear | 8.4 Aplikasi Pembezaan dan Pengamiran
+  p285/307  SAVED  Bab 8: Kinematik Gerakan Linear | 
+  p286/307  SAVED  Bab 1: Pembezaan | Aplikasi Pembezaan dalam Kinematik Gerakan Linear
+  p287/307  SAVED  Bab 1: Kinematik Gerakan Linear | 
+  p288/307  SAVED  Bab 1: Kinematik Gerakan Linear | Konsep Halaju dan Pecutan
+  p289/307  SKIP  Page contains only answer keys for various exercises, no new teachable content.
+  p290/307  SKIP  Page contains only answers to exercises, no teachable content.
+  p291/307  SKIP  Page contains only answer keys for exercises from previous chapters; no new teaching content.
+  p292/307  SKIP  The page contains only answer keys for multiple exercises (Latihan Kendiri 3.2, 3.6, 3.7) with no explanatory content, worked examples, or concept teaching. It is a solutions page, not instructional material.
+  p293/307  SKIP  The page contains only answers to exercises from various chapters, no teachable content or concept explanation.
+  p294/307  SAVED  Bab 5: Taburan Kebarangkalian | Taburan Kebarangkalian Diskrit
+  p295/307  SKIP  Page contains only exercise answers and fragmented tables, no new concept explanation or worked example.
+  p296/307  SKIP  Page contains only answers to exercises from multiple latihan, no explanatory content.
+  p297/307  SKIP  Page contains only answers to exercises and graphs, no new teaching content.
+  p298/307  SAVED  Bab 6: FUNGSI TRIGONOMETRI | 
+  p299/307  SKIP  Page contains only answer keys from exercises, no teachable content or explanations.
+  p300/307  SAVED  Bab 7: PENGATURCARAAN LINEAR | 
+  p301/307  SKIP  Page contains only exercise answers, no new teachable content.
+  p302/307  SKIP  Page contains only exercise answers and mixed content from different chapters, not a teaching unit.
+  p303/307  SKIP  Page contains only exercises and answers, no new concept or explanation.
+  p304/307  SKIP  Page is a glossary, not a teaching unit.
+  p305/307  SKIP  Page is a reference list (Senarai Rujukan) with no teachable content.
+  p306/307  SKIP  Index page, no teachable content.
+  p307/307  SKIP  (only 11 words)
+------------------------------------------------------------
+DONE: 234 saved, 48 skipped, 15 errors
+Backup: C:\Learnova\MY-AddMaths_F5_results.json
+DONE: 234 saved, 48 skipped, 15 errors

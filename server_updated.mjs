@@ -2,7 +2,7 @@
 import PregenLookup from './PregenLookup.mjs';
 import * as subjectEngine from './subject_access_engine.mjs';
 import * as profileEngine from './student_profile_engine.mjs';
-import { formatNovaResponse, cleanTextForTTS, NOVA_ZH_SYSTEM_PROMPT } from './learnova_core.mjs';
+import { formatNovaResponse, cleanTextForTTS, NOVA_ZH_PROMPT, NOVA_TA_PROMPT, TEACHING_LANGUAGES, AUDIO_COLUMN } from './learnova_core.mjs';
 import cors from 'cors';
 import express from 'express';
 import { createClient } from '@supabase/supabase-js';
@@ -186,9 +186,10 @@ app.get('/health', async (req, res) => {
   checks.cors_origin = 'https://learnova.optimus.com.my';
 
   // Environment variables
-  checks.claude_api_key = process.env.CLAUDE_API_KEY ? 'OK' : 'MISSING';
-  checks.openai_key     = process.env.OPENAI_API_KEY ? 'OK' : 'MISSING';
-  checks.supabase_url   = process.env.SUPABASE_URL   ? 'OK' : 'MISSING';
+  checks.claude_api_key  = process.env.CLAUDE_API_KEY     ? 'OK' : 'MISSING';
+  checks.openai_key      = process.env.OPENAI_API_KEY     ? 'OK' : 'MISSING';
+  checks.deepinfra_key   = process.env.DEEPINFRA_API_KEY  ? 'OK' : 'MISSING';
+  checks.supabase_url    = process.env.SUPABASE_URL       ? 'OK' : 'MISSING';
 
   // Lesson count
   try {
@@ -1118,6 +1119,135 @@ app.post('/api/tts', async (req, res) => {
 });
 
 
+// ── ON-DEMAND AUDIO WITH PERMANENT CACHE ─────────────────────────────────────
+// Generates audio on first student request, uploads to cPanel, caches URL in Supabase.
+// Subsequent requests serve the cached URL instantly (no API call).
+
+async function buildLessonText(lesson) {
+  const parts = [];
+  if (lesson.lesson_title) parts.push(lesson.lesson_title + '.');
+  if (lesson.concept_explanation) parts.push(lesson.concept_explanation);
+  if (lesson.worked_example) parts.push('Contoh: ' + lesson.worked_example);
+  if (lesson.key_formula) parts.push('Formula utama: ' + lesson.key_formula);
+  return parts.join(' ').replace(/\s+/g, ' ').trim().slice(0, 4000);
+}
+
+async function uploadAudioToStorage(buffer, filename) {
+  // Upload MP3 to cPanel via FTP, return public URL
+  const { Client } = await import('basic-ftp');
+  const client = new Client();
+  try {
+    await client.access({
+      host: 'learnova.optimus.com.my',
+      user: 'optimus',
+      password: 'sa@yHLVwmHMN',
+      port: 21,
+      secure: false,
+    });
+    const remotePath = `/home/optimus/public_html/Learnova/audio/${filename}`;
+    const { Readable } = await import('stream');
+    const readable = Readable.from(buffer);
+    await client.uploadFrom(readable, remotePath);
+    return `https://learnova.optimus.com.my/Learnova/audio/${filename}`;
+  } finally {
+    client.close();
+  }
+}
+
+app.get('/api/audio/:lessonId', async (req, res) => {
+  try {
+    const { lessonId } = req.params;
+    const lang = req.query.lang || 'bm';
+    const audioCol = AUDIO_COLUMN[lang] || 'audio_url';
+
+    // Check cache in Supabase
+    const { data: lesson, error } = await supabase
+      .from('structured_lessons')
+      .select(`id, lesson_title, concept_explanation, worked_example, key_formula, ${audioCol}`)
+      .eq('id', lessonId)
+      .single();
+
+    if (error || !lesson) return res.status(404).json({ error: 'Lesson not found' });
+
+    const cachedUrl = lesson[audioCol];
+    if (cachedUrl && cachedUrl.length > 0) {
+      return res.json({ url: cachedUrl, cached: true });
+    }
+
+    // Generate audio
+    const text = await buildLessonText(lesson);
+    if (!text) return res.status(400).json({ error: 'No lesson text to generate audio from' });
+
+    const langConfig = TEACHING_LANGUAGES[lang] || TEACHING_LANGUAGES['bm'];
+    let audioBuffer;
+
+    if (langConfig.ttsEngine === 'kokoro') {
+      // DeepInfra serverless Kokoro API
+      if (!process.env.DEEPINFRA_API_KEY) {
+        return res.status(503).json({ error: 'DEEPINFRA_API_KEY not configured' });
+      }
+      const deepRes = await fetch('https://api.deepinfra.com/v1/inference/hexgrad/Kokoro-82M', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.DEEPINFRA_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: cleanTextForTTS(text),
+          voice: langConfig.ttsVoice,
+          output_format: 'mp3',
+        }),
+      });
+      if (!deepRes.ok) {
+        const e = await deepRes.text();
+        console.error('DeepInfra error:', e);
+        return res.status(502).json({ error: 'DeepInfra TTS failed', detail: e });
+      }
+      const deepJson = await deepRes.json();
+      const b64 = deepJson.audio || deepJson.audio_url;
+      if (!b64) return res.status(502).json({ error: 'No audio in DeepInfra response' });
+      audioBuffer = Buffer.from(b64.replace(/^data:audio\/[^;]+;base64,/, ''), 'base64');
+    } else {
+      // OpenAI TTS (bm / id)
+      if (!process.env.OPENAI_API_KEY) {
+        return res.status(503).json({ error: 'OPENAI_API_KEY not configured' });
+      }
+      const oaiRes = await fetch('https://api.openai.com/v1/audio/speech', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'tts-1',
+          input: cleanTextForTTS(text),
+          voice: langConfig.ttsVoice,
+          response_format: 'mp3',
+        }),
+      });
+      if (!oaiRes.ok) {
+        const e = await oaiRes.text();
+        return res.status(502).json({ error: 'OpenAI TTS failed', detail: e });
+      }
+      audioBuffer = Buffer.from(await oaiRes.arrayBuffer());
+    }
+
+    // Upload to cPanel
+    const filename = `${lessonId}_${lang}.mp3`;
+    const publicUrl = await uploadAudioToStorage(audioBuffer, filename);
+
+    // Save URL back to Supabase
+    await supabase.from('structured_lessons')
+      .update({ [audioCol]: publicUrl })
+      .eq('id', lessonId);
+
+    return res.json({ url: publicUrl, cached: false });
+  } catch (e) {
+    console.error('/api/audio error:', e.message);
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // -- HELP SYSTEM ----------------------------------------------
 app.post('/api/help/log', async (req, res) => {
   try {
@@ -1252,15 +1382,16 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
     const { subject: rawSubject, topic, message, history, phase, segment, language, activeQuestion, question,
             lessonId, lessonContext } = req.body;
     const subject = normalizeSubject(rawSubject);
+    const teachingLang = req.body.teaching_language || language || 'bm';
     const curriculum = subject.startsWith('AL-') ? 'ALevel'
       : subject.startsWith('ID-') ? 'Indonesian'
-      : subject.startsWith('ZH-') ? 'Mandarin'
       : 'SPM';
-    const isBm = curriculum === 'SPM' || (language === 'ms' || language === 'bm');
-    const isEnglish = curriculum === 'ALevel';
-    const isIndonesian = curriculum === 'Indonesian';
-    const isMandarin = curriculum === 'Mandarin';
-    const lang = isEnglish ? 'English' : isIndonesian ? 'Bahasa Indonesia' : isMandarin ? 'Chinese' : 'Bahasa Malaysia';
+    const isBm = teachingLang === 'bm' || teachingLang === 'ms' || (curriculum === 'SPM' && !teachingLang);
+    const isEnglish = curriculum === 'ALevel' || teachingLang === 'en';
+    const isIndonesian = curriculum === 'Indonesian' || teachingLang === 'id';
+    const isMandarin = teachingLang === 'zh';
+    const isTamil = teachingLang === 'ta';
+    const lang = isEnglish ? 'English' : isIndonesian ? 'Bahasa Indonesia' : isMandarin ? 'Chinese' : isTamil ? 'Tamil' : 'Bahasa Malaysia';
 
     // Fetch textbook context from concept_chunks
     const textbookContext = topic ? await buildTextbookContext(subject, topic) : '';
@@ -1481,22 +1612,22 @@ The student is confused. Drop everything else and do this:
 â†' Keep reply under 130 words`
       : (phaseInstructions[currentPhase] || phaseInstructions.teach);
 
-    // Curriculum-aware identity
-    // Mandarin students get the full ZH prompt — return early before BM/EN/ID logic
-    if (isMandarin) {
-      const zhPrompt = NOVA_ZH_SYSTEM_PROMPT +
-        `\n\n正在教的科目：${subject || 'Mathematics'}${topic ? ` — ${topic}` : ''}`;
-      const zhMessages = await anthropic.messages.create({
+    // Mandarin / Tamil: dedicated Nova prompts — return early before BM/EN/ID logic
+    if (isMandarin || isTamil) {
+      const langPrompt = isMandarin
+        ? NOVA_ZH_PROMPT + `\n\n正在教的科目：${subject || 'Mathematics'}${topic ? ` — ${topic}` : ''}`
+        : NOVA_TA_PROMPT + `\n\nபடிக்கும் பாடம்: ${subject || 'Mathematics'}${topic ? ` — ${topic}` : ''}`;
+      const langMessages = await anthropic.messages.create({
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 1024,
-        system: zhPrompt,
+        system: langPrompt,
         messages: history && history.length > 0
           ? [...history.map(m => ({ role: m.role, content: m.content })),
              { role: 'user', content: message }]
           : [{ role: 'user', content: message }],
       });
-      const zhReply = formatNovaResponse(zhMessages.content[0]?.text);
-      return res.json({ reply: zhReply, subject, topic });
+      const langReply = formatNovaResponse(langMessages.content[0]?.text);
+      return res.json({ reply: langReply, subject, topic });
     }
 
     const novaIdentity = isEnglish

@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "C:\Learnova\process_subject.py", line 396, in <module>
+    start_page   = int(sys.argv[5]) - 1  # convert 1-indexed to 0-indexed
+                   ~~~^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'Sejarah'

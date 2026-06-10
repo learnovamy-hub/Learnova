@@ -1,0 +1,1158 @@
+[
+  {
+    "page": 8,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Halaman ini ialah jadual kandungan atau senarai tema, bukan kandungan pengajaran yang boleh diajar."
+  },
+  {
+    "page": 9,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Halaman ini adalah pendahuluan buku teks yang menerangkan ciri dan struktur buku, bukan kandungan pengajaran spesifik seperti tatabahasa, sastera, atau kemahiran bahasa."
+  },
+  {
+    "page": 10,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Halaman ini hanya menerangkan struktur buku dan ikon, bukan kandungan pembelajaran Bahasa Malaysia."
+  },
+  {
+    "page": 11,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Halaman ini hanya mengandungi penerangan struktur bab dan aktiviti pembelajaran, bukan kandungan pengajaran spesifik."
+  },
+  {
+    "page": 12,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Halaman ini mengandungi penerangan tentang struktur modul dan aktiviti pemulihan, pengukuhan, pengayaan, bukan kandungan bahasa Malaysia yang boleh diajar."
+  },
+  {
+    "page": 13,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Halaman ini hanya mengandungi penerangan tentang ciri-ciri buku teks (QR Code, Penilaian, Bacaan Luas, AR Code) dan tidak mengandungi kandungan Bahasa Malaysia yang boleh diajar."
+  },
+  {
+    "page": 14,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Halaman ini mengandungi peta kandungan sahaja, bukan bahan pengajaran."
+  },
+  {
+    "page": 15,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Halaman hanya mengandungi jadual standard kandungan dan rujukan halaman, bukan kandungan pengajaran."
+  },
+  {
+    "page": 16,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Halaman ini hanya mengandungi senarai standard kandungan dan halaman rujukan, tanpa kandungan pengajaran yang boleh diajar."
+  },
+  {
+    "page": 17,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Halaman ini mengandungi panduan pedagogi umum (Pembelajaran Berasaskan Inkuiri) dan bukan kandungan Bahasa Malaysia yang boleh diajar secara langsung dalam sukatan SPM."
+  },
+  {
+    "page": 18,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Halaman ini mengandungi penerangan tentang Pembelajaran Berasaskan Projek yang bersifat pedagogi umum, bukan kandungan Bahasa Malaysia yang boleh diajar seperti tatabahasa, sastera, atau kemahiran bahasa."
+  },
+  {
+    "page": 19,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Halaman ini menerangkan kaedah pembelajaran berasaskan masalah, bukan kandungan bahasa Malaysia yang boleh diajar untuk SPM."
+  },
+  {
+    "page": 20,
+    "bab": "Bab 1: Teknik Bacaan",
+    "skip": false,
+    "subtopic": "KWLH dan CHATT",
+    "concept_title": "KWLH dan CHATT",
+    "concept_explanation": "KWLH merupakan teknik bacaan yang membantu murid mengaktifkan pengetahuan sedia ada, menetapkan tujuan membaca, dan menilai pemahaman menerusi empat lajur: Know, What, Learned, How. CHATT pula melatih murid mengenal pasti kata kunci, idea penting, dan isi sokongan dengan langkah Circle, Highlight, Asterisk, Transfer, dan Teacher. Kedua-dua teknik ini penting dalam kemahiran membaca kritis dan analitis untuk SPM, terutama dalam menganalisis teks sastera dan bukan sastera.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara lajur K (yang diketahui) dan L (dipelajari) atau tidak mengisi lajur H dengan sumber yang sesuai. Dalam CHATT, murid kadangkala gagal membezakan idea utama dengan isi sampingan.",
+    "keywords": [
+      "KWLH",
+      "CHATT",
+      "kata kunci",
+      "idea penting",
+      "isi sokongan",
+      "pemahaman bacaan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 21,
+    "bab": "Bab 1: Kemahiran Membaca",
+    "skip": false,
+    "subtopic": "Teknik Membaca Aktif",
+    "concept_title": "Teknik QUACK dan ACID",
+    "concept_explanation": "Teknik QUACK dan ACID adalah strategi membaca aktif yang membantu pelajar memahami teks fakta dengan lebih mendalam. QUACK melibatkan menandakan soalan (Q), menggaris takrif (U), menanda asterisk pada idea penting (A), membulatkan fakta dan definisi (C), serta menandakan kata kunci (K). Manakala ACID pula menggalakkan pembaca mencatat persetujuan (A), kekeliruan (C), minat (I), dan ketidaksetujuan (D) terhadap isi teks. Kedua-dua teknik ini meningkatkan interaksi dengan teks dan membantu pelajar membuat pertimbangan kritis terhadap maklumat yang dibaca.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering kali keliru antara fungsi setiap simbol dalam teknik QUACK, contohnya menandakan asterisk pada semua maklumat tanpa membezakan yang penting atau menarik. Selain itu, dalam teknik ACID, pelajar mungkin hanya mencatat persetujuan atau minat sahaja, tetapi mengabaikan aspek kekeliruan dan ketidaksetujuan yang penting untuk analisis kritis.",
+    "keywords": [
+      "QUACK",
+      "ACID",
+      "tanda soal",
+      "garis bawah",
+      "asterisk",
+      "bulat",
+      "kata kunci"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 22,
+    "bab": "Bab 1: Kemahiran Membaca",
+    "skip": false,
+    "subtopic": "Teknik Membaca SQ4R, Preview, dan ReQuest",
+    "concept_title": "Teknik Membaca Aktif",
+    "concept_explanation": "Teknik SQ4R terdiri daripada enam langkah: meninjau, menyoal, membaca, mencatat, menyatakan kembali, dan membuat refleksi. Langkah-langkah ini membantu murid bersiap sedia sebelum membaca (prabaca), melibatkan diri semasa bacaan, dan memberikan reaksi selepas bacaan. Selain itu, terdapat teknik Preview (membaca untuk gambaran awal) dan ReQuest (membaca untuk membuat ramalan). Penguasaan teknik ini meningkatkan kefahaman dan ingatan terhadap teks.",
+    "worked_example": "Contoh: Murid membaca teks tentang alam sekitar. Langkah pertama: meninjau tajuk dan gambar. Langkah kedua: menyoal soalan seperti 'Apakah punca pencemaran?'. Langkah ketiga: membaca teks secara aktif. Langkah keempat: mencatat isi penting. Langkah kelima: menyatakan kembali isi menggunakan ayat sendiri. Langkah keenam: membuat refleksi tentang apa yang dipelajari.",
+    "common_mistakes": "Murid sering melangkau langkah meninjau dan menyoal, lalu terus membaca tanpa tujuan. Ada juga yang tidak mencatat atau hanya menyalin semula teks tanpa pemahaman.",
+    "keywords": [
+      "teknik membaca",
+      "SQ4R",
+      "Preview",
+      "ReQuest",
+      "meninjau",
+      "menyoal",
+      "refleksi"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 23,
+    "bab": "Bab 1: Merealisasikan Impian",
+    "skip": false,
+    "subtopic": "Sukan dan Jati Diri",
+    "concept_title": "Sukan, Seni, dan Jati Diri",
+    "concept_explanation": "Sukan bukan sekadar aktiviti fizikal, tetapi juga seni yang memupuk jati diri dan keseimbangan manusiawi. Melalui sukan, pelajar dapat mengharmonikan aspek fizikal, mental, dan emosi. Pemahaman ini penting dalam kemahiran bahasa bagi membina hujah berkaitan peranan sukan dalam pembangunan diri dan masyarakat.",
+    "worked_example": "Soalan: Mengapakah pasukan sorak penting dalam sesuatu acara sukan?\nContoh jawapan: Pasukan sorak penting kerana mereka memberi semangat kepada pemain dan penonton, seterusnya meningkatkan momentum permainan. Selain itu, gerakan sorakan yang teratur mencerminkan disiplin dan kerjasama, justeru memupuk semangat kesukanan. Aktiviti ini juga menggalakkan penyertaan pelajar dalam sukan secara tidak langsung.",
+    "common_mistakes": "Pelajar sering menganggap sukan hanya untuk kecergasan fizikal tanpa mengaitkannya dengan pembentukan jati diri atau keseimbangan mental dan emosi. Selain itu, mereka mungkin sukar menghubungkan unsur seni dalam sukan seperti koordinasi dan kreativiti pergerakan.",
+    "keywords": [
+      "sukan",
+      "jati diri",
+      "fizikal",
+      "mental",
+      "emosi",
+      "pasukan sorak",
+      "seni"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 24,
+    "bab": "Bab 1: Kitalah Juara!",
+    "skip": false,
+    "subtopic": "Sorak-sorai dan Sebutan",
+    "concept_title": "Mendengar dan Menyebut Sorak",
+    "concept_explanation": "Dalam aktiviti ini, murid mendengar dan mengenal pasti perbezaan sebutan perkataan, rangkai kata, istilah, dan ungkapan dengan jelas dan betul. Murid juga perlu mempersembahkan sorakan secara kreatif. Ini melatih kemahiran mendengar dan bertutur serta penggunaan intonasi yang sesuai dalam konteks sukan dan semangat berpasukan.",
+    "worked_example": "Contoh sorak: 'Suria! Suria! Bangkit demi Juara! Semangat Putih pantang tulang, jangan kalah putih mata. Ayuh, bangkit semula! Gagah usaha tangga jaya semua. (ulang) Suria! Suria! Suria! Suria! Oh...!' Murid boleh mencontohi sebutan dan intonasi yang betul.",
+    "common_mistakes": "Kesilapan biasa termasuk sebutan yang tidak jelas (misalnya 'pantang tulang' disebut sebagai 'pantang tulang' tanpa penekanan), intonasi yang terlalu mendatar, dan penggunaan rangkai kata seperti 'bagai aur dengan tebing' yang perlu disebut dengan betul dan berirama.",
+    "keywords": [
+      "sorak",
+      "sebutan",
+      "rangkai kata",
+      "intonasi",
+      "kreativiti",
+      "pasukan sorak",
+      "semangat juang"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 25,
+    "bab": "Bab 1: Kemahiran Mendengar dan Bertutur",
+    "skip": false,
+    "subtopic": "Sorak-sorai dan Sebutan Ungkapan",
+    "concept_title": "Sorak-sorai dan Sebutan",
+    "concept_explanation": "Halaman ini memperkenalkan sorak-sorai dalam sukan sebagai contoh ujaran yang memerlukan sebutan yang jelas dan betul. Pelajar perlu mendengar, mengenal, menyebut, dan membezakan sebutan perkataan, rangkai kata, istilah, dan ungkapan seperti dalam puisi 'Purnama Bunga Bangsa' dan sorakan peminat bola sepak. Perbezaan sebutan seperti intonasi dan tekanan suara mempengaruhi makna dan semangat dalam ujaran.",
+    "worked_example": "Contoh: 'Jikalau takut dilambung ombak, Jangan berani melawan Purnama' – perhatikan sebutan 'Purnama' dengan tekanan pada suku kata pertama. Dalam sorakan 'Luaskan Kuasamu Johor', sebutan 'Luaskan' perlu jelas untuk memberi semangat.",
+    "common_mistakes": "Pelajar sering menyebut 'Purnama' sebagai 'Purnama' tanpa tekanan yang betul, atau menyebut 'sorak-sorai' dengan nada yang sama rata tanpa mengikut intonasi yang sesuai. Juga keliru antara ungkapan dalam puisi dan sorakan biasa.",
+    "keywords": [
+      "sorak",
+      "sorai",
+      "sebutan",
+      "ungkapan",
+      "Purnama",
+      "intonasi",
+      "ujaran"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 26,
+    "bab": "Bab 1: Menawan Samudera",
+    "skip": false,
+    "subtopic": "Syarahan: Kepentingan Sukan Air",
+    "concept_title": "Syarahan dan Kata Tunggal/Majmuk",
+    "concept_explanation": "Dalam bab ini, pelajar perlu membaca syarahan dengan sebutan dan intonasi yang betul serta kepantasan yang wajar. Pelajar juga perlu mengenal pasti bentuk kata tunggal (contoh: 'sukan', 'air') dan kata majmuk (contoh: 'sukan air', 'luncur jet') dalam teks syarahan. Selain itu, pelajar perlu meneroka kepentingan sukan air kepada negara dan menyampaikannya dalam bentuk syarahan. Kemahiran ini menggabungkan aspek sebutan, tatabahasa (bentuk kata), dan penulisan syarahan.",
+    "worked_example": "Contoh: Daripada teks syarahan, kata tunggal: 'sukan', 'air', 'pantai'. Kata majmuk: 'sukan air', 'luncur jet', 'guru penolong kanan'. Pelajar perlu menulis semula dengan menggunakan kata majmuk yang betul dalam ayat sendiri.",
+    "common_mistakes": "Kesilapan biasa pelajar ialah membaca syarahan dengan intonasi yang tidak sesuai (monoton) dan tidak memberikan penekanan pada kata kunci. Dari segi tatabahasa, pelajar sering keliru antara kata tunggal dan kata majmuk, misalnya menganggap 'sukan air' sebagai dua kata tunggal sedangkan ia adalah kata majmuk. Pelajar juga mungkin gagal mengenal pasti kata majmuk yang terdiri daripada dua perkataan yang dieja terpisah tetapi bermaksud satu unit seperti 'luncur jet'.",
+    "keywords": [
+      "syarahan",
+      "kata tunggal",
+      "kata majmuk",
+      "sebutan",
+      "intonasi",
+      "sukan air"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 27,
+    "bab": "Bab 1: Kemahiran Membaca dan Tatabahasa",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Kata Tunggal dan Kata Majmuk",
+    "concept_explanation": "Kata tunggal ialah perkataan yang tidak menerima sebarang imbuhan atau tidak digabungkan dengan kata lain, seperti 'sukan' dan 'air'. Kata majmuk pula ialah gabungan dua kata dasar atau lebih yang membawa makna tertentu, seperti 'sukan air' dan 'nilai murni'. Dalam teks syarahan, penggunaan kata tunggal dan majmuk perlu tepat mengikut konteks untuk menyampaikan maksud dengan jelas. Pelajar perlu mengenal pasti dan menggunakan kedua-dua bentuk kata ini dengan betul dalam penulisan dan pembacaan.",
+    "worked_example": "Berdasarkan teks syarahan, kenal pasti tiga kata tunggal dan tiga kata majmuk. Jawapan: Kata tunggal: lemak, badan, sihat. Kata majmuk: sukan air, nilai murni, dasar laut.",
+    "common_mistakes": "Pelajar sering keliru antara kata majmuk dengan kata ganda, atau menulis kata majmuk secara terpisah tanpa sempang (misalnya 'sukan air' ditulis 'sukanair'). Dalam membaca syarahan, pelajar kerap membaca dengan intonasi yang tidak sesuai, seperti terlalu laju atau tidak mengikut jeda yang betul, serta sebutan yang kurang jelas bagi kata majmuk.",
+    "keywords": [
+      "kata tunggal",
+      "kata majmuk",
+      "syarahan",
+      "pidato",
+      "intonasi",
+      "sebutan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 28,
+    "bab": "Bab 1: Sukan dan Kerjaya",
+    "skip": false,
+    "subtopic": "E-Sukan",
+    "concept_title": "Analisis Kata dan Istilah",
+    "concept_explanation": "Dalam bahan ini, pelajar perlu menganalisis maklumat tentang e-sukan untuk mengenal pasti kata, istilah, rangkai kata, dan ungkapan yang sesuai mengikut konteks. Kemahiran ini penting untuk memahami maksud tersurat dan tersirat dalam pelbagai bahan bacaan. Selain itu, pelajar perlu membina ayat yang membezakan makna kata atau istilah dalam konteks berbeza, misalnya 'lumayan' yang bermaksud banyak dalam konteks wang, tetapi boleh juga bermaksud memuaskan dalam situasi lain. Aktiviti ini mengukuhkan penguasaan kosa kata dan kepekaan terhadap penggunaan bahasa yang tepat.",
+    "worked_example": "Contoh: Kenal pasti istilah 'MOBA' dalam bahan. Istilah ini merujuk kepada jenis permainan video strategi berpasukan. Ayat: Pemain MOBA perlu bekerjasama untuk menghancurkan markas lawan. Bina ayat lain yang membezakan makna: 'Markas' dalam konteks tentera bermaksud ibu pejabat, manakala dalam e-sukan ia merujuk kepada benteng akhir dalam permainan.",
+    "common_mistakes": "Pelajar sering keliru antara 'kata' dan 'istilah' — kata bersifat umum, manakala istilah khusus dalam bidang. Contohnya, 'atlet' adalah kata biasa, tetapi 'atlet e-sukan' adalah istilah khusus. Selain itu, ayat yang dibina kadangkala tidak menunjukkan perbezaan makna yang jelas, seperti menggunakan sinonim tanpa konteks berbeza.",
+    "keywords": [
+      "e-sukan",
+      "atlet",
+      "lumayan",
+      "MOBA",
+      "berdaya saing",
+      "markas"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 29,
+    "bab": "Bab 1: E-Sukan",
+    "skip": false,
+    "subtopic": "Wawancara dengan Atlet E-Sukan",
+    "concept_title": "Memahami Wawancara dan E-Sukan",
+    "concept_explanation": "Teks ini merupakan contoh wawancara yang berkaitan dengan e-sukan. Pelajar dapat mempelajari struktur wawancara termasuk soalan dan jawapan secara langsung. Selain itu, perbincangan mengenai disiplin, jenis permainan, dan pencapaian atlet e-sukan memperkaya kosa kata dan kefahaman tentang isu semasa. Aspek tatabahasa seperti penggunaan ayat tanya dan kata ganti nama diri juga dapat dikenal pasti.",
+    "worked_example": "Soalan: Apakah jenis permainan yang dimainkan oleh Ramona Azween? Jawapan: Counter Strike (1.6 dan Global Offensive).",
+    "common_mistakes": "Pelajar sering keliru antara jenis permainan e-sukan dan sukan tradisional. Selain itu, penggunaan istilah Inggeris seperti 'Counter Strike' perlu ditulis dengan betul dalam konteks Bahasa Malaysia.",
+    "keywords": [
+      "e-sukan",
+      "atlet",
+      "wawancara",
+      "disiplin",
+      "pencapaian",
+      "pasukan",
+      "pertandingan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 30,
+    "bab": "Bab 1: Kemahiran Mendengar dan Bertutur",
+    "skip": false,
+    "subtopic": "Kursus Asas Berenang",
+    "concept_title": "Peribahasa dan Aktiviti Lisan",
+    "concept_explanation": "Unit ini menekankan kemahiran mendengar dan bertutur melalui tema berenang. Pelajar perlu mendengar, memahami, dan menuturkan bahan yang mengandungi peribahasa 'hendak belajar berenang, dapatkan itik'. Peribahasa ini mengajar bahawa kita perlu belajar daripada orang yang pakar dalam bidang tersebut. Selain itu, pelajar juga perlu meneroka maklumat lanjut tentang panduan asas berenang dan melaporkannya secara lisan. Fokus tatabahasa termasuk penggunaan kata nama seperti 'fasilitator' dan 'pensyarah' serta struktur ayat dalam pengumuman kursus. Aktiviti ini mengukuhkan kemahiran mendengar secara kritis dan bertutur dengan jelas dalam konteks formal.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar kerap tersilap menyebut perkataan seperti 'fasilitator' (ejaan baku: fasilitator) atau salah faham maksud peribahasa secara literal. Ada juga yang lupa menggunakan bahasa yang formal semasa melaporkan maklumat secara lisan.",
+    "keywords": [
+      "peribahasa",
+      "berenang",
+      "kursus",
+      "fasilitator",
+      "kemahiran lisan",
+      "mendengar",
+      "bertutur"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 31,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Halaman ini mengandungi kandungan sukan (renang) dan tidak berkaitan dengan pengajaran Bahasa Malaysia (tatabahasa, sastera, atau kemahiran bahasa)."
+  },
+  {
+    "page": 32,
+    "bab": "Bab 1: Drama",
+    "skip": false,
+    "subtopic": "Skrip Drama: Bukan Halangan",
+    "concept_title": "Pembacaan dan Persembahan Drama",
+    "concept_explanation": "Drama ialah karya sastera yang dipersembahkan di atas pentas. Pembacaan skrip drama memerlukan intonasi dan nada yang betul bagi melambangkan perasaan watak. Pelajar perlu memahami watak, latar, dan konflik dalam skrip untuk menyampaikan dialog dengan berkesan. Selain itu, pelajar digalakkan memberikan pandangan peribadi tentang persoalan yang diangkat, serta menyambung skrip secara kreatif. Kemahiran ini mengasah pertuturan, pendengaran, dan pemikiran kritis dalam konteks sastera.",
+    "worked_example": "Sambungan skrip: Encik Aris: (Duduk rapat) Lia, papa faham tekanan peperiksaan. Tapi ingat, atlet hebat seperti Nicol David juga bijak dalam pelajaran. Mungkin Lia boleh atur jadual dengan baik. Dahlia: (Mengeluh) Tapi papa, Lia takut gagal. Encik Aris: Gagal itu guru yang terbaik, sayang. Papa dan mama sentiasa sokong. (Dahlia tersenyum dan memeluk papa.)",
+    "common_mistakes": "Pelajar sering membaca skrip dengan intonasi yang monoton tanpa mengikut emosi watak. Ada juga yang salah mentafsir perasaan watak, contohnya dialog marah dibaca dengan nada lembut. Selain itu, pelajar kerap gagal menyampaikan maksud tersirat dalam dialog, seperti sindiran atau rasa kesal.",
+    "keywords": [
+      "drama",
+      "skrip",
+      "intonasi",
+      "nada",
+      "watak",
+      "dialog",
+      "tema",
+      "persembahan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 33,
+    "bab": "Bab 1: Impian Merealisasikan",
+    "skip": false,
+    "subtopic": "Skrip Drama",
+    "concept_title": "Membaca Drama dengan Intonasi",
+    "concept_explanation": "Skrip drama ini menampilkan dialog antara Dahlia dan ibu bapanya yang memberikan sokongan moral. Pelajar perlu membaca dengan intonasi dan nada yang sesuai bagi menggambarkan emosi watak—seperti sedih, terkejut, dan gembira. Apresiasi drama melibatkan pemahaman tema impian dan motivasi, serta respons peribadi terhadap mesej yang disampaikan. Perhatikan penggunaan bahasa yang puitis dan unsur sastera seperti monolog dalaman.",
+    "worked_example": "Soalan contoh: Bacakan dialog Dahlia ('Kawan-kawan ketawakan Lia...') dengan nada sedih. Kemudian, bacakan respons Puan Ros ('Lia tetap cantik di mata mama...') dengan nada lembut dan yakin. Jelaskan perubahan intonasi yang sesuai.",
+    "common_mistakes": "Pelajar sering membaca dialog secara rata tanpa emosi, atau gagal membezakan nada watak yang berbeza (marah, sedih, gembira). Selain itu, ada yang tidak memahami konteks budaya seperti perbandingan dengan atlet negara.",
+    "keywords": [
+      "skrip drama",
+      "intonasi",
+      "nada",
+      "dialog",
+      "watak",
+      "tema impian",
+      "respons peribadi"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 34,
+    "bab": "Bab 1",
+    "skip": false,
+    "subtopic": "Menyusuri Pulau Inspirasi",
+    "concept_title": "Memahami Teks Naratif Perjalanan",
+    "concept_explanation": "Teks ini merupakan sebuah naratif perjalanan yang menggambarkan pengalaman penulis menjelajahi Tasmania. Pelajar perlu memahami urutan peristiwa, penggunaan kata adjektif untuk menggambarkan suasana, dan idea utama dalam setiap perenggan. Kemahiran membaca pemahaman ini penting untuk menjawab soalan berkaitan bahan sastera atau bukan sastera dalam peperiksaan. Selain itu, pelajar dapat belajar tentang struktur penulisan pengalaman peribadi yang menarik serta mengenal pasti unsur-unsur deskriptif dan naratif.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering terlepas pandang perincian kecil seperti kata hubung dan kata adjektif yang penting untuk memahami suasana. Kesilapan lain ialah gagal membezakan antara fakta dan pendapat dalam teks, serta tidak dapat menyusun urutan peristiwa dengan betul.",
+    "keywords": [
+      "Tasmania",
+      "naratif",
+      "perjalanan",
+      "deskriptif",
+      "pengalaman",
+      "kata adjektif",
+      "urutan masa"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 35,
+    "bab": "Bab 1: Tema Impian",
+    "skip": false,
+    "subtopic": "Penulisan Deskriptif",
+    "concept_title": "Teknik Penulisan Deskriptif",
+    "concept_explanation": "Penulisan deskriptif bertujuan melukiskan suasana, tempat, atau peristiwa dengan terperinci menggunakan bahasa yang indah dan gaya bahasa yang sesuai. Penulis perlu menggunakan pancaindera untuk menggambarkan pengalaman secara hidup, seperti dalam petikan ini yang menggambarkan perjalanan ke Taman Negara Cradle Mountain. Penggunaan kata adjektif, perbandingan, dan imejan dapat membantu pembaca membayangkan suasana dengan jelas.",
+    "worked_example": "Petikan di atas merupakan contoh karangan deskriptif yang menggambarkan pengalaman menjelajah taman negara. Penulis menggunakan frasa seperti 'hati kami melompat kegirangan' dan 'pemandangan yang amat menakjubkan' untuk menunjukkan emosi dan keindahan. Pelajar boleh meneliti bagaimana penulis menyusun urutan peristiwa dan menggunakan pancaindera untuk mencipta kesan realistik.",
+    "common_mistakes": "Pelajar sering menggunakan terlalu banyak kata adjektif tanpa penjimatan, atau gagal menyusun urutan peristiwa dengan jelas. Penggunaan bahasa kiasan yang tidak sesuai juga boleh mengelirukan pembaca. Pastikan deskripsi tetap fokus pada tema utama dan tidak meleret-leret.",
+    "keywords": [
+      "penulisan deskriptif",
+      "imejan",
+      "bahasa kiasan",
+      "pancaindera",
+      "gaya bahasa",
+      "urutan peristiwa"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 36,
+    "bab": "Bab 1: Pendidikan dan Ilmu",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Ilmu sebagai Pelita Hati",
+    "concept_explanation": "Rangkap pantun ini menekankan kepentingan ilmu dalam kehidupan. Ilmu diumpamakan sebagai pelita yang menerangi kegelapan, bermaksud ilmu memberi panduan dan penerangan dalam hidup. Pantun ini mengajar bahawa ilmu diperoleh melalui usaha gigih dan akan mendatangkan penghormatan serta kasih sayang. Dari segi bahasa, penggunaan rima dan irama menjadikannya mudah diingati serta mengandungi unsur kiasan. Pelajar perlu memahami nilai murni seperti rajin dan gigih dalam menuntut ilmu.",
+    "worked_example": "Soalan 1: Apakah makanan yang sesuai untuk minda? Jawapan: Makanan yang sesuai untuk minda adalah ilmu pengetahuan, bacaan yang berfaedah, dan pengalaman belajar yang mendidik.",
+    "common_mistakes": "Pelajar sering tersalah tafsir maksud kiasan 'pelita hati' secara literal, iaitu menganggap ia lampu sebenar. Mereka juga gagal mengaitkan nilai murni seperti 'rajin' dengan konteks kehidupan seharian.",
+    "keywords": [
+      "ilmu",
+      "pelita hati",
+      "pantun",
+      "kiasan",
+      "nilai murni",
+      "usaha",
+      "penyuluh"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 38,
+    "bab": "Bab 1: Makanan untuk Sejahtera Negara",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Homograf dan Homofon",
+    "concept_explanation": "Homograf ialah perkataan yang ejaannya sama tetapi sebutannya berbeza, seperti 'perang' (pertempuran) dan 'perang' (warna). Homofon pula ialah perkataan yang ejaannya berbeza tetapi sebutannya hampir sama, seperti 'bang' dan 'bank'. Pemahaman perbezaan ini penting untuk mengelakkan kekeliruan dalam komunikasi lisan dan tulisan. Pelajar perlu mengenal pasti konteks penggunaan bagi menentukan makna yang tepat.",
+    "worked_example": "Contoh homograf: perang (pertempuran) vs perang (warna). Contoh homofon: bang vs bank. Pelajar dikehendaki mendengar, mengenal pasti, dan membina ayat menggunakan perkataan tersebut.",
+    "common_mistakes": "Pelajar sering keliru antara homograf dan homofon, atau gagal membezakan sebutan perkataan homograf dalam konteks ayat. Kesalahan ejaan bagi homofon juga lazim berlaku.",
+    "keywords": [
+      "homograf",
+      "homofon",
+      "sebutan",
+      "ejaan",
+      "perbezaan sebutan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 39,
+    "bab": "Bab 1",
+    "skip": false,
+    "subtopic": "Vitamin untuk Minda",
+    "concept_title": "Vitamin Penting untuk Otak",
+    "concept_explanation": "Teks ini menerangkan vitamin yang diperlukan untuk memelihara dan meningkatkan keupayaan otak. Vitamin-vitamin seperti Tiami (B1), Niasin (B3), Piros (B6), dan Kobal (B12) memainkan peranan penting dalam penghadaman karbohidrat, pengukuhan mental, dan pembentukan sel darah. Dari segi kemahiran bahasa, teks ini menggunakan struktur ayat yang menerangkan fungsi dan sumber setiap vitamin, serta kesan kekurangan vitamin, yang boleh membantu pelajar memahami penulisan informatif dan teknik penjelasan sebab-akibat.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara nama vitamin (contohnya, Tiami dengan Niasin) dan fungsi khusus setiap vitamin. Ada juga yang tersilap ejaan nama vitamin seperti 'Piros' menjadi 'Piroksin'.",
+    "keywords": [
+      "Tiami (B1)",
+      "Niasin (B3)",
+      "Piros (B6)",
+      "Kobal (B12)",
+      "keupayaan mental",
+      "ketenangan diri"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 40,
+    "bab": "Bab 1: Bahasa Melayu di Persada Dunia",
+    "skip": false,
+    "subtopic": "Pengajaran Bahasa Melayu di Jepun",
+    "concept_title": "BM di Jepun",
+    "concept_explanation": "Bahasa Melayu diajarkan di pelbagai institusi di Jepun, termasuk universiti dan sekolah. Pelajar mempelajari tatabahasa, membaca, mendengar, dan berbicara, serta aspek budaya, kesenian, sosial, politik, ekonomi, dan geografi Malaysia. Program ini bermula sejak tahun 1908, dan hubungan diplomatik antara Jepun dan Malaysia diperkukuh melalui pengajaran bahasa Melayu.",
+    "worked_example": "Soalan: Berdasarkan bahan, kenal pasti dan jelaskan maklumat tentang pengajaran bahasa Melayu di Jepun. Contoh jawapan: Bahasa Melayu diajarkan di Setsunan University dan Tokyo University of Foreign Studies sebagai jurusan utama, serta di kira-kira 20 universiti lain sebagai bahasa asing pilihan. Lebih 10 buah sekolah turut menawarkan mata pelajaran Bahasa Melayu. Pelajar mempelajari tatabahasa, kemahiran mendengar, membaca, dan berbicara, serta budaya dan kesenian Malaysia.",
+    "common_mistakes": "Pelajar sering kali terkeliru antara bilangan universiti yang menawarkan jurusan utama dan yang menawarkan sebagai bahasa asing pilihan. Selain itu, ada yang gagal menyebut aspek budaya dan sosial yang turut dipelajari, hanya fokus pada kemahiran bahasa semata-mata.",
+    "keywords": [
+      "Bahasa Melayu",
+      "pengajaran",
+      "Jepun",
+      "tatabahasa",
+      "budaya",
+      "hubungan diplomatik",
+      "institusi"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 41,
+    "bab": "Bab 1: Bahasa Melayu di Persada Dunia",
+    "skip": false,
+    "subtopic": "Bahasa Melayu Mekar di Bumi Uzbekistan",
+    "concept_title": "Keunikan Tatabahasa Melayu",
+    "concept_explanation": "Bahasa Melayu mempunyai keunikan dari segi tatabahasa kerana kata kerjanya tidak berubah mengikut masa, sama ada masa lalu, sekarang, atau hadapan. Ini memudahkan pembelajaran berbanding bahasa lain yang mempunyai sistem konjugasi kata kerja. Selain itu, bahasa Melayu kaya dengan kata pinjaman daripada bahasa Arab dan Parsi, yang turut ditemui dalam bahasa Uzbek, seperti perkataan 'dunia', 'sabun', dan 'alam'. Pengetahuan tentang ciri ini membantu pelajar memahami keluwesan dan pengaruh luar dalam bahasa Melayu.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering tersilap anggap bahawa kata kerja Melayu berubah bentuk berdasarkan masa, seperti dalam bahasa Inggeris. Sebenarnya, kata kerja Melayu tetap sama dan hanya ditambah kata bantu seperti 'sudah', 'sedang', atau 'akan' untuk menunjukkan masa.",
+    "keywords": [
+      "Bahasa Melayu",
+      "Uzbekistan",
+      "Kata Kerja",
+      "Tatabahasa",
+      "Kata Pinjaman",
+      "Persamaan Bahasa",
+      "Kata Bantu"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 42,
+    "bab": "Bab 1: Sejahtera Negara Terdidik Insan",
+    "skip": false,
+    "subtopic": "Evolusi Pembelajaran Sepanjang Hayat",
+    "concept_title": "Pembelajaran Sepanjang Hayat",
+    "concept_explanation": "Petikan Hikayat Hang Tuah ini menonjolkan amalan berguru dan menuntut ilmu sepanjang hayat. Hang Tuah belajar pelbagai ilmu, termasuk ilmu perajurit dan firasat, daripada Aria Putera tanpa mengira usia. Konsep ini berkait rapat dengan pembelajaran sepanjang hayat yang menekankan bahawa ilmu boleh diperoleh dari pelbagai sumber dan peringkat kehidupan. Dalam konteks moden, pelajar perlu membudayakan sikap ingin tahu dan kesediaan belajar secara berterusan, sama ada melalui teknologi atau pengalaman. Aspek tatabahasa seperti kata kerja aktif transitif (misalnya 'diajarnya') dan kata hubung pancangan (misalnya 'kerana') digunakan untuk menyampaikan urutan peristiwa dan sebab-akibat dalam petikan.",
+    "worked_example": "Soalan 1: Berdasarkan bahan, tulis ramalan tentang cara manusia menuntut ilmu pada masa hadapan dengan memberikan justifikasi yang sesuai. \nJawapan contoh: Pada masa hadapan, manusia akan menuntut ilmu melalui platform realiti maya yang membolehkan simulasi pembelajaran interaktif. Justifikasinya, kemajuan teknologi akan mengatasi batasan fizikal dan geografi, selari dengan semangat pembelajaran sepanjang hayat yang ditunjukkan oleh Hang Tuah berguru dengan Aria Putera di bukit.",
+    "common_mistakes": "Pelajar sering gagal mengaitkan petikan sastera dengan tema pembelajaran sepanjang hayat, sebaliknya sekadar menceritakan semula peristiwa. Selain itu, ramalan masa hadapan mungkin terlalu umum tanpa justifikasi yang kritis. Kesalahan bahasa seperti penggunaan kata ganti diri yang tidak tepat dalam petikan (contohnya 'cucuku' sebagai kata panggilan) juga perlu diberi perhatian.",
+    "keywords": [
+      "pembelajaran sepanjang hayat",
+      "berguru",
+      "Hikayat Hang Tuah",
+      "ilmu",
+      "firasat",
+      "hulubalang",
+      "isyarat"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 43,
+    "bab": "Bab 1: Pendidikan Tanpa Batasan",
+    "skip": false,
+    "subtopic": "Pendidikan Inklusif di Malaysia",
+    "concept_title": "Pendidikan Inklusif: Peluang Tanpa Sempadan",
+    "concept_explanation": "Petikan dialog ini membincangkan konsep pendidikan tanpa batasan di Malaysia. Pendidikan tidak lagi terhad kepada pembelajaran di sekolah; pelajar boleh belajar melalui media sosial, sidang video, dan Internet. Walau bagaimanapun, pendidikan formal di sekolah, kolej, dan universiti tetap penting. Kerajaan Malaysia turut menyediakan pendidikan inklusif untuk golongan kurang upaya melalui sekolah khas, serta Program Sekolah dalam Hospital dan sekolah integriti di penjara. Ini menunjukkan komitmen negara untuk memastikan setiap lapisan masyarakat mendapat akses kepada pendidikan.",
+    "worked_example": "Soalan: Berdasarkan petikan, nyatakan dua bentuk pendidikan alternatif yang disediakan oleh kerajaan Malaysia untuk golongan yang memerlukan.\nJawapan: 1. Program Sekolah dalam Hospital untuk murid yang menghadapi masalah kesihatan kronik. 2. Sekolah integriti di penjara untuk remaja yang menjalani hukuman.",
+    "common_mistakes": "Pelajar sering menganggap pembelajaran dalam talian menggantikan pendidikan formal sepenuhnya. Sebaliknya, petikan menekankan bahawa Internet hanya menambah ilmu, manakala sekolah, kolej, dan universiti masih diperlukan. Pelajar juga kurang memahami konsep pendidikan inklusif yang merangkumi golongan kurang upaya, pesakit, dan banduan.",
+    "keywords": [
+      "pendidikan inklusif",
+      "sekolah dalam hospital",
+      "sekolah integriti",
+      "homeschooling",
+      "kurikulum kebangsaan",
+      "media sosial",
+      "pembelajaran formal"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 44,
+    "bab": "Bab 1: Malaysia Membaca",
+    "skip": false,
+    "subtopic": "Kuala Lumpur Kota Buku Dunia",
+    "concept_title": "Kota Buku Dunia",
+    "concept_explanation": "Kuala Lumpur telah diiktiraf sebagai Kota Buku Dunia oleh UNESCO pada tahun 2020. Pengiktirafan ini bertujuan menyemarakkan budaya membaca dalam kalangan masyarakat Malaysia. Slogan 'KL Baca: Menyantuni Masyarakat Melalui Pembacaan' menekankan kepentingan membaca untuk kesejahteraan negara dan pembentukan insan terdidik. Pelajar perlu memahami impak pengiktirafan ini dan dapat menghuraikannya dalam konteks kemahiran mendengar dan bertutur.",
+    "worked_example": "Soalan: Dengar bahan dengan telitinya dan huraikan impak pengiktirafan Kuala Lumpur sebagai Kota Buku Dunia. Jawapan: Antara impak termasuk peningkatan kesedaran tentang kepentingan membaca, galakan kepada aktiviti literasi, dan pengiktirafan antarabangsa yang meningkatkan imej negara sebagai sebuah masyarakat yang berbudaya membaca.",
+    "common_mistakes": "Pelajar mungkin hanya menyebut fakta tanpa menghuraikan impak secara mendalam. Kesilapan lain ialah tidak mengaitkan dengan tema 'Sejahtera Negara, Terdidik Insan' atau tidak menjawab berdasarkan bahan yang didengar.",
+    "keywords": [
+      "Kota Buku Dunia",
+      "UNESCO",
+      "budaya membaca",
+      "literasi",
+      "sejahtera negara",
+      "insan terdidik"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 45,
+    "bab": "Bab 1",
+    "skip": false,
+    "subtopic": "Kepelbagaian Budaya dan Pemuliharaan Alam Sekitar",
+    "concept_title": "Kota Buku Dunia Kuala Lumpur",
+    "concept_explanation": "Kuala Lumpur diiktiraf sebagai Kota Buku Dunia yang mengetengahkan konsep kepelbagaian budaya dan pemuliharaan alam sekitar. Pelaksanaan aktiviti pembacaan dan perbukuan disemarakkan melalui lima teras utama seperti penganjuran Pesta Buku Antarabangsa dan pembangunan minat membaca dalam kalangan remaja. Dalam kemahiran berbahasa, murid perlu mendengar dan menuturkan ayat yang berkaitan dengan tema ini dengan intonasi dan sebutan yang betul, serta memahami makna istilah seperti 'perbukuan' dan 'monumen'.",
+    "worked_example": "",
+    "common_mistakes": "Kesilapan biasa termasuk salah menyebut perkataan seperti 'kepelbagaian' (kepelbagaian) dan 'pemuliharaan' (pemuliharaan), serta penggunaan ayat yang tidak gramatis semasa membincangkan teras utama Kota Buku.",
+    "keywords": [
+      "Kota Buku Dunia",
+      "kepelbagaian budaya",
+      "pemuliharaan alam sekitar",
+      "aktiviti membaca",
+      "perbukuan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 46,
+    "bab": "Bab 1: Kemahiran Lisan – Pidato dan Kata Terbitan",
+    "skip": false,
+    "subtopic": "Membaca dan Memahami Teks Pidato",
+    "concept_title": "Pidato: Sebutan dan Kata Terbitan",
+    "concept_explanation": "Pidato memerlukan sebutan yang jelas, intonasi yang betul, dan nada yang sesuai untuk menyampaikan idea dengan berkesan. Dalam teks pidato 'Bilik Darjah Masa Hadapan', kata terbitan seperti 'pengajaran' (dari kata dasar 'ajar' dengan imbuhan peN-an) dan 'kelebihan' (dari 'lebih' dengan imbuhan ke-an) perlu dikenal pasti. Pelajar perlu memahami bentuk kata terbitan seperti awalan, akhiran, dan apitan untuk membina ayat yang gramatis. Kemahiran ini penting untuk meningkatkan kefasihan lisan dan pemahaman tatabahasa.",
+    "worked_example": "Contoh kata terbitan daripada teks: 'pengajaran' – kata dasar 'ajar' + peN-an. Ayat: 'Pengajaran berkesan memerlukan kaedah yang interaktif.' 'Kelebihan' – kata dasar 'lebih' + ke-an. Ayat: 'Kelebihan bilik darjah masa hadapan ialah penggunaan teknologi.' Pelajar boleh bina ayat lain seperti 'kemudahan' (dari 'mudah' + ke-an): 'Kemudahan komputer membantu murid belajar.'",
+    "common_mistakes": "Pelajar sering keliru antara kata terbitan dan kata majmuk, contohnya 'bilik darjah' (kata majmuk) bukan kata terbitan. Selain itu, sebutan yang tidak betul seperti 'pengajaran' disebut 'peng-ajaran' tanpa mengikut hukum fonologi juga menjadi kesilapan biasa. Kesilapan lain ialah menggunakan imbuhan yang salah, misalnya 'pengajaran' ditulis sebagai 'pemajaran'.",
+    "keywords": [
+      "pidato",
+      "kata terbitan",
+      "sebutan",
+      "intonasi",
+      "bilik darjah masa hadapan",
+      "pengajaran berkesan",
+      "imbuhan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 47,
+    "bab": "Bab 1",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Bilik Darjah Masa Hadapan",
+    "concept_explanation": "Teks ini merupakan contoh karangan berbentuk syarahan atau ucapan yang membincangkan transformasi bilik darjah pada masa hadapan. Pelajar dapat mempelajari struktur karangan yang terdiri daripada pendahuluan, tiga hujah (mengikut isi), dan kesimpulan. Penggunaan kata ganti nama diri 'hadirin dan hadirat' serta ungkapan seperti 'Hujah saya yang kedua' menunjukkan ciri bahasa formal lisan. Selain itu, teks ini juga menggunakan pantun pada akhir karangan sebagai penutup yang kreatif. Pelajar perlu memahami cara menyusun hujah secara berurutan dan menggunakan contoh konkrit seperti papan pintar dan aktiviti puisi muzikal untuk menyokong isi.",
+    "worked_example": "Teks ini sendiri boleh dijadikan contoh karangan syarahan. Soalan latihan: 'Anda sebagai seorang pelajar ditugaskan untuk menyampaikan syarahan bertajuk \"Bilik Darjah Masa Hadapan\". Tulis teks syarahan anda selengkapnya.' Jawapan contoh terdapat dalam teks di atas.",
+    "common_mistakes": "Pelajar sering lupa menggunakan kata sapaan yang sesuai pada awal syarahan, seperti 'Hadirin dan hadirat sekalian'. Ada juga yang tidak membezakan antara hujah dengan isi karangan biasa, menyebabkan struktur tidak jelas. Selain itu, penggunaan pantun pada akhir karangan perlu menepati rima dan maksud berkaitan, bukan sekadar meletakkan pantun tanpa kaitan.",
+    "keywords": [
+      "syarahan",
+      "hujah",
+      "papan pintar",
+      "fasilitator",
+      "puisi muzikal",
+      "pantun",
+      "bilik darjah masa hadapan",
+      "era industri 4.0"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 48,
+    "bab": "Bab 1: Sejahtera Negara Terdidik, Insan",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Permainan Imbuhan Kata",
+    "concept_explanation": "Aktiviti ini melibatkan permainan stesen untuk mengenal pasti dan menguasai imbuhan kata nama, kata kerja, dan kata adjektif. Pelajar dibahagikan kepada kumpulan dan perlu menyediakan soalan menggunakan aplikasi digital seperti Kahoot. Permainan ini menggalakkan pembelajaran aktif dan pengukuhan tatabahasa secara kolaboratif.",
+    "worked_example": "Contoh soalan untuk Stesen X (imbuhan kata nama): Apakah kata nama yang terbentuk daripada kata dasar 'ajar' dengan imbuhan 'pe-'? Jawapan: pelajar. Pelajar perlu menjawab soalan dalam masa yang ditetapkan.",
+    "common_mistakes": "Pelajar sering keliru antara imbuhan kata nama dengan kata kerja, contohnya 'pekerja' (kata nama) vs 'bekerja' (kata kerja). Juga, penggunaan imbuhan yang salah seperti 'menulis' ditulis sebagai 'menulih'.",
+    "keywords": [
+      "imbuhan",
+      "kata nama",
+      "kata kerja",
+      "kata adjektif",
+      "Kahoot",
+      "permainan bahasa",
+      "stesen",
+      "tatabahasa"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 49,
+    "bab": "Bab 1: Kemahiran Bahasa dan Sastera",
+    "skip": false,
+    "subtopic": "Memetik Bintang",
+    "concept_title": "Ilmu dan Kerjaya dalam Puisi",
+    "concept_explanation": "Puisi ini menggunakan rima akhir yang sama (kerjaya, jaya, raya) untuk menekankan hubungan antara ilmu, kerjaya, dan kejayaan. Setiap baris dimulakan dengan kata sendi 'dengan' yang berfungsi sebagai penanda cara atau alat. Tema ini dikaitkan dengan soalan perbincangan tentang prospek kerjaya dalam bidang penerbangan, animasi, dan forensik. Pelajar dapat mengaplikasikan kemahiran berbahasa dengan memberikan pendapat yang terperinci dan menggunakan kosa kata yang tepat.",
+    "worked_example": "Soalan 1: Apakah prospek kerjaya dalam bidang penerbangan? Jawapan contoh: Prospek kerjaya dalam bidang penerbangan termasuk juruterbang, pramugari, dan jurutera penerbangan. Bidang ini memerlukan kemahiran komunikasi yang baik, penguasaan bahasa Inggeris, dan disiplin diri yang tinggi. Dengan ilmu yang mendalam, seseorang boleh mencapai kerjaya yang cemerlang dalam industri ini.",
+    "common_mistakes": "Pelajar sering memberikan jawapan yang terlalu umum tanpa menyebut contoh kerjaya yang spesifik. Ada juga yang menggunakan ayat yang tidak lengkap atau gagal menggunakan kata sendi 'dengan' dengan betul dalam penulisan karangan.",
+    "keywords": [
+      "ilmu",
+      "kerjaya",
+      "prospek",
+      "penerbangan",
+      "animasi",
+      "forensik"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 50,
+    "bab": "Bab 1: Kerjaya Impian",
+    "skip": false,
+    "subtopic": "Kerjaya di Awan Biru",
+    "concept_title": "Memberikan Respons Lisan",
+    "concept_explanation": "Dalam kemahiran mendengar dan bertutur, pelajar perlu memberikan respons berdasarkan bahan yang didengar dengan mengutamakan kejelasan, nada, dan kefasihan yang betul. Kejelasan merujuk kepada sebutan dan penyampaian idea yang mudah difahami. Nada perlu sesuai dengan situasi, misalnya formal atau santun. Kefasihan pula melibatkan kelancaran dan penggunaan intonasi yang tepat. Aktiviti ini melatih pelajar untuk memahami maklumat tentang kerjaya dalam bidang penerbangan seperti tugas juruterbang, dan seterusnya memberikan pendapat secara lisan.",
+    "worked_example": "Contoh: Pelajar diminta memilih satu laluan kerjaya seperti juruterbang daripada risalah pameran. Kemudian, berikan respons lisan yang menjelaskan alasan pemilihan, menyatakan tanggungjawab utama juruterbang, dan menyebut keperluan kelayakan seperti lulusan institusi penerbangan yang diiktiraf CAAM. Respons hendaklah disampaikan dengan suara jelas, nada yakin, dan fasih.",
+    "common_mistakes": "Pelajar sering membaca terus daripada bahan tanpa memahami maksud, menyebabkan respons tidak asli. Selain itu, nada yang terlalu perlahan atau terlalu laju, serta intonasi yang monoton boleh menjejaskan kejelasan. Kesilapan lain ialah tidak menyusun idea dengan teratur, menyebabkan respons kelihatan melompat-lompat.",
+    "keywords": [
+      "respons",
+      "kejelasan",
+      "nada",
+      "kefasihan",
+      "juruterbang",
+      "penerbangan",
+      "kerjaya"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 51,
+    "bab": "Bab 1: Kemahiran Mendengar dan Bertutur",
+    "skip": false,
+    "subtopic": "1.2.1 Mendengar dan Memberikan Respons dengan Mengutamakan Aspek Kejelasan, Nada, dan Kefasihan",
+    "concept_title": "Mendengar dan Memberi Respons",
+    "concept_explanation": "Kemahiran mendengar dan memberikan respons merupakan aspek penting dalam komunikasi lisan. Semasa mendengar, murid perlu memberi tumpuan kepada isi penting dan nada suara penutur. Apabila memberi respons, pastikan kejelasan sebutan, nada yang sesuai (misalnya sopan atau tegas mengikut situasi), dan kefasihan dalam penyampaian. Contoh dalam teks menunjukkan bagaimana pengawal trafik udara dan jurutera penyelenggaraan kapal terbang menggunakan komunikasi yang jelas dan tepat untuk memastikan keselamatan. Latihan seperti ini melatih murid untuk berfikir secara kritis dan bertutur dengan yakin.",
+    "worked_example": "Contoh: Dengar rakaman perbualan antara pengawal trafik udara dan juruterbang. Kemudian, berikan respons secara lisan dengan menyatakan semula arahan yang didengar menggunakan ayat yang jelas dan nada yang sesuai.",
+    "common_mistakes": "Pelajar sering gagal menangkap butiran penting semasa mendengar, atau memberikan respons dengan nada yang terlalu perlahan atau tidak jelas. Ada juga yang tergagap-gagap (kurang fasih) kerana tidak membuat persediaan minda sebelum bercakap.",
+    "keywords": [
+      "mendengar",
+      "respons",
+      "kejelasan",
+      "nada",
+      "kefasihan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 52,
+    "bab": "Bab 1: Kemahiran Membaca dan Menulis",
+    "skip": false,
+    "subtopic": "Membaca Bahan Bukan Fiksyen: Mencari dan Menganalisis Maklumat",
+    "concept_title": "Membaca untuk Mencari Maklumat",
+    "concept_explanation": "Kemahiran membaca untuk mengenal pasti maklumat tersurat dan tersirat dalam teks bukan fiksyen seperti artikel forensik. Pelajar perlu membezakan fakta dan pendapat, serta memahami istilah saintifik seperti 'forensik' dan 'CSI'. Penggunaan kata nama dan kata kerja dalam konteks sains perlu dianalisis untuk menjawab soalan kefahaman. Selain itu, pelajar perlu menilai kepentingan bukti fizikal dalam penyiasatan jenayah.",
+    "worked_example": "Soalan: Sejauh manakah kerjaya forensik dapat membantu menyelesaikan masalah jenayah? Jawapan: Kerjaya forensik membantu dengan mengumpul bukti fizikal seperti cap jari, tumpahan kimia, dan dokumen di tempat kejadian, kemudian dianalisis oleh unit khusus seperti Unit Siasatan Cap Jari dan Unit Siasatan Audio/Video. Hasil analisis ini digunakan dalam perundangan untuk menyelesaikan kes jenayah dengan lebih tepat.",
+    "common_mistakes": "Pelajar sering keliru antara pelbagai unit forensik seperti CSI, Unit Cap Jari, dan Unit Audio/Video. Mereka juga mungkin tidak membezakan antara bukti fizikal dan bukti digital, atau gagal mengaitkan peranan setiap unit dengan jenis kes jenayah yang berbeza.",
+    "keywords": [
+      "forensik",
+      "CSI",
+      "PDRM",
+      "cap jari",
+      "bahan bukti",
+      "siasatan jenayah",
+      "Unit Pemprosesan Pusat"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 53,
+    "bab": "Bab 1: Kemahiran Membaca",
+    "skip": false,
+    "subtopic": "Membaca dan Memahami Maklumat Tersurat dan Tersirat",
+    "concept_title": "Maklumat Tersurat dan Tersirat",
+    "concept_explanation": "Maklumat tersurat merujuk kepada maklumat yang dinyatakan secara jelas dalam teks, seperti tugas dan syarat menjadi Pegawai Forensik PDRM yang dinyatakan dalam laluan kerjaya. Maklumat tersirat pula perlu disimpulkan berdasarkan maklumat yang diberikan, contohnya kepentingan forensik dalam menyelesaikan pelbagai kes jenayah seperti kehilangan wang atau penemuan rangka manusia. Pelajar perlu membaca dengan teliti untuk membezakan kedua-dua jenis maklumat ini. Dalam teks ini, pelajar dapat melihat contoh kes yang memerlukan forensik dan memahami peranan pegawai forensik dalam siasatan.",
+    "worked_example": "Soalan: Berdasarkan teks, nyatakan satu maklumat tersurat dan satu maklumat tersirat tentang kerjaya Pegawai Forensik PDRM.\nJawapan:\n- Maklumat tersurat: Pegawai forensik perlu menjalani Latihan Asas Kepolisan di Pusat Latihan Polis selama setahun.\n- Maklumat tersirat: Pegawai forensik memerlukan kemahiran khusus dalam forensik untuk membantu siasatan, seperti dalam kes penggodaman atau penemuan rangka manusia.",
+    "common_mistakes": "Pelajar sering mengelirukan maklumat tersurat dengan tersirat, iaitu menyatakan maklumat yang jelas sebagai tersirat. Selain itu, pelajar juga cenderung membuat andaian tanpa merujuk kepada teks asal, menyebabkan kesimpulan yang salah.",
+    "keywords": [
+      "maklumat tersurat",
+      "maklumat tersirat",
+      "Pegawai Forensik",
+      "PDRM",
+      "siasatan",
+      "forensik perubatan",
+      "bacaan kritis"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 54,
+    "bab": "Bab 1: Media dan Animasi",
+    "skip": false,
+    "subtopic": "Daripada Kartun kepada Animasi",
+    "concept_title": "Evolusi Animasi Malaysia",
+    "concept_explanation": "Petikan ini membincangkan sejarah perkembangan animasi di Malaysia, bermula daripada wayang kulit yang digerakkan secara manual oleh dalang, sehinggalah kepada animasi digital moden menggunakan perisian canggih seperti Autodesk Maya dan Adobe Creative Suite. Antara karya penting termasuk filem animasi pendek pertama Hikayat Sang Kancil (1983) yang mengambil masa 16 tahun untuk disiapkan secara lukisan tangan, siri televisyen Usop Sontorian (1995), dan filem cereka Silat Legenda (1998). Pelajar perlu memahami urutan perkembangan ini serta kepentingan kemahiran manual dan digital dalam industri animasi. Aspek tatabahasa seperti penggunaan kata hubung dan penanda wacana dapat dikenal pasti dalam teks.",
+    "worked_example": "",
+    "common_mistakes": "Antara kesilapan biasa pelajar ialah menganggap Hikayat Sang Kancil sebagai filem cereka penuh, sedangkan ia adalah filem pendek berdurasi 13 minit. Selain itu, pelajar sering keliru antara animasi 2D dan 3D serta alat yang digunakan. Ada juga yang tidak memahami peranan dalang dalam wayang kulit.",
+    "keywords": [
+      "wayang kulit",
+      "animasi",
+      "dalang",
+      "usop sontorian",
+      "hikayat sang kancil",
+      "perisian digital"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 55,
+    "bab": "Bab 1: Kemahiran Menulis",
+    "skip": false,
+    "subtopic": "Menulis untuk Meramal",
+    "concept_title": "Puisi Sang Animator",
+    "concept_explanation": "Puisi 'Sang Animator' menggambarkan peranan seorang animator dalam menghidupkan watak dan menghasilkan karya animasi yang berkualiti. Teks ini mengajak murid meramal prospek kerjaya juruanimasi pada masa hadapan berdasarkan perkembangan industri animasi tempatan yang kini bertaraf antarabangsa. Murid perlu menggunakan kemahiran menulis untuk meramal dengan memberi justifikasi yang kukuh, menghubungkan fakta daripada teks dengan pengetahuan sedia ada. Penguasaan kosa kata teknikal seperti 'animasi 3D', 'interaktif', dan 'watak tempatan' penting untuk menghasilkan ramalan yang meyakinkan.",
+    "worked_example": "Soalan: Pada pendapat anda, bagaimanakah prospek kerjaya juruanimasi pada masa hadapan? Contoh jawapan: Prospek kerjaya juruanimasi pada masa hadapan sangat cerah. Hal ini kerana filem animasi tempatan seperti 'BoBoiBoy the Movie' dan 'Geng: Pengembaraan Bermula' telah berjaya menembusi pasaran antarabangsa. Selain itu, teknologi perisian moden membolehkan animasi dihasilkan dengan lebih kreatif dan realistik. Oleh itu, permintaan terhadap juruanimasi mahir akan meningkat, terutamanya dalam industri hiburan digital dan pendidikan.",
+    "common_mistakes": "Murid sering kali memberikan ramalan tanpa justifikasi atau hanya menyalin semula ayat daripada teks. Ada juga yang gagal menggunakan kata hubung dan penanda wacana untuk menghubungkan idea. Selain itu, penggunaan istilah teknikal yang tidak tepat seperti 'animasi 2D' untuk filem 3D boleh menjejaskan kualiti ramalan.",
+    "keywords": [
+      "animasi",
+      "juruanimasi",
+      "ramalan",
+      "watak",
+      "perisian",
+      "hiburan",
+      "prospek kerjaya"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 56,
+    "bab": "Bab 1: Menjulang Potensi Diri",
+    "skip": false,
+    "subtopic": "Hiasi Peribadi, Yakini Diri",
+    "concept_title": "Menyediakan Resume Program Budaya",
+    "concept_explanation": "Kemahiran menulis resume yang baik amat penting dalam memohon program budaya antarabangsa. Pelajar perlu menggunakan bahasa yang formal, tepat, dan ringkas untuk menonjolkan keistimewaan diri seperti pencapaian, kemahiran, dan sifat peribadi. Selain itu, aspek tatabahasa seperti ejaan, penggunaan kata sendi, dan struktur ayat perlu diberi perhatian bagi memastikan resume profesional dan meyakinkan. Contoh resume di atas menunjukkan cara menyusun maklumat secara teratur dengan bahagian seperti anugerah, kemahiran, dan rujukan.",
+    "worked_example": "Contoh resume Nur Ain Sofia yang lengkap dengan butiran peribadi, pencapaian (Tokoh Pemimpin Muda, Johan Tarian Zapin), kemahiran (Microsoft Office, bahasa), dan rujukan. Pelajar boleh meniru format ini untuk menghasilkan resume sendiri.",
+    "common_mistakes": "Antara kesilapan biasa termasuk penggunaan bahasa terlalu formal atau terlalu santai, tidak menyertakan maklumat hubungan yang lengkap, dan gagal menonjolkan kemahiran unik. Pelajar juga sering kali tidak menyemak ejaan dan tanda baca dengan teliti.",
+    "keywords": [
+      "resume",
+      "temu duga",
+      "potensi diri",
+      "kemahiran bahasa",
+      "program budaya",
+      "pencapaian",
+      "formal"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 57,
+    "bab": "Bab 1: Kemahiran Mendengar dan Bertutur",
+    "skip": false,
+    "subtopic": "Temu Duga",
+    "concept_title": "Bahasa dalam Temu Duga",
+    "concept_explanation": "Temu duga merupakan satu bentuk komunikasi formal yang memerlukan penggunaan bahasa yang sopan, jelas, dan teratur. Pelajar perlu memahami struktur perbualan seperti memberi salam, menjawab soalan dengan lengkap, dan menggunakan kata sapaan yang sesuai. Dalam contoh ini, Nur Ain Sofia menggunakan bahasa yang santun dan memberikan jawapan yang terperinci tentang latar belakang, motivasi, dan hasratnya. Aspek tatabahasa seperti penggunaan kata ganti diri (saya, tuan, puan) serta ayat yang gramatis perlu ditekankan. Selain itu, tema budaya dan jati diri Malaysia dapat dikaitkan dengan nilai murni seperti bangga akan warisan negara.",
+    "worked_example": "Soalan: Mengapakah saudari memohon program budaya peringkat antarabangsa ini?\nJawapan (contoh): Saya memohon program ini kerana ingin melihat keunikan dan mengenali budaya masyarakat di luar negara. Pada masa yang sama, saya akan mengambil peluang menonjolkan jati diri sebagai rakyat Malaysia yang kaya dengan budaya.",
+    "common_mistakes": "Pelajar sering menggunakan bahasa yang tidak formal seperti 'saya nak' atau 'sebab tu lah'. Mereka juga mungkin memberikan jawapan yang terlalu pendek dan tidak menjelaskan hujah. Kesilapan lain ialah tidak menjaga nada suara dan tidak menggunakan kata sapaan yang sesuai.",
+    "keywords": [
+      "temu duga",
+      "bahasa formal",
+      "kata sapaan",
+      "budaya",
+      "jati diri",
+      "komunikasi lisan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 58,
+    "bab": "Bab 1: Kerjaya",
+    "skip": false,
+    "subtopic": "Penggunaan Akronim dalam Teks",
+    "concept_title": "Akronim dan Ayat",
+    "concept_explanation": "Akronim ialah singkatan yang dibentuk daripada huruf awal perkataan dalam sesuatu frasa. Contohnya, Yawam (Yayasan Anak Watan Malaysia) dan Permam (Persatuan Mahasiswa Muda). Dalam penulisan, akronim perlu diperkenalkan dengan menulis frasa penuh pada kali pertama, kemudian diikuti dengan singkatan dalam kurungan. Seterusnya, akronim boleh digunakan secara bersendirian dalam ayat. Penggunaan akronim yang betul memudahkan komunikasi dan menjimatkan ruang penulisan.",
+    "worked_example": "Contoh ayat: Karnival kerjaya ini dianjurkan oleh Yayasan Anak Watan Malaysia (Yawam) dan Persatuan Mahasiswa Muda (Permam). Pelawat boleh mendapatkan bimbingan kerjaya serta mendaftar pekerjaan melalui kaunter yang disediakan oleh Yawam dan Permam.",
+    "common_mistakes": "1. Tidak menulis frasa penuh terlebih dahulu sebelum menggunakan akronim. 2. Menulis akronim dengan huruf kecil atau tanda baca yang salah. 3. Mengguna akronim yang tidak dikenali tanpa penjelasan.",
+    "keywords": [
+      "akronim",
+      "Yawam",
+      "Permam",
+      "singkatan",
+      "karnival kerjaya",
+      "frasa penuh",
+      "tatabahasa"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 59,
+    "bab": "Bab 1: Alam Kerjaya Terbentang Luas",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Pemahaman Petikan Laporan",
+    "concept_explanation": "Petikan ini merupakan laporan tentang karnival kerjaya yang dianjurkan oleh Yawam dan Permam. Pelajar perlu memahami isi penting seperti peluang pekerjaan dan aktiviti yang disediakan. Peribahasa di akhir petikan, 'jika pengayuh sayang dibasahkan, sampan tidak akan sampai ke seberang', bermaksud jika seseorang enggan berusaha, dia tidak akan berjaya. Ini mengajar pelajar tentang kepentingan usaha dalam mencari pekerjaan.",
+    "worked_example": "",
+    "common_mistakes": "Kesilapan biasa pelajar ialah tidak memahami maksud peribahasa dalam konteks petikan. Selain itu, pelajar mungkin tersalah tafsir fakta dalam laporan.",
+    "keywords": [
+      "karnival kerjaya",
+      "peribahasa",
+      "laporan",
+      "temu duga",
+      "peluang pekerjaan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 60,
+    "bab": "Bab 1: Kerjaya dan Pekerjaan",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Ciri Pekerja Cemerlang",
+    "concept_explanation": "Dalam menulis karangan mengenai ciri-ciri pekerja cemerlang, pelajar perlu merujuk bahan rangsangan yang diberikan. Antara ciri utama ialah kerja berpasukan, keterampilan berkomunikasi, berdisiplin, bijak menyelesaikan masalah, dan mahir menggunakan teknologi terkini. Pelajar perlu menghuraikan pendapat sendiri dengan menggunakan ayat yang gramatis serta menyusun isi secara teratur. Karangan haruslah mempunyai pengenalan, isi, dan penutup yang lengkap.",
+    "worked_example": "Pekerja cemerlang sememangnya memiliki pelbagai ciri unggul. Antaranya, mereka mampu bekerja secara berpasukan, memiliki keterampilan berkomunikasi yang baik, berdisiplin, bijak menyelesaikan masalah, dan mahir menggunakan teknologi terkini. Ciri-ciri ini penting untuk memastikan produktiviti dan kejayaan dalam organisasi. Kesimpulannya, setiap pekerja perlu berusaha menguasai ciri-ciri tersebut untuk menjadi cemerlang.",
+    "common_mistakes": "Pelajar sering gagal memberikan pendapat sendiri dan sekadar menyenaraikan ciri tanpa huraian. Penggunaan ayat yang tidak gramatis, ejaan salah, dan kurang penggunaan penanda wacana juga menjadi kesalahan biasa. Selain itu, ada yang tidak mematuhi arahan soalan seperti tidak menyatakan pendapat atau tidak merujuk bahan rangsangan.",
+    "keywords": [
+      "pekerja cemerlang",
+      "kerja berpasukan",
+      "komunikasi",
+      "disiplin",
+      "penyelesaian masalah",
+      "teknologi terkini",
+      "ayat gramatis"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 61,
+    "bab": "Bab 1: Kemahiran Membaca dan Menganalisis Maklumat",
+    "skip": false,
+    "subtopic": "Menganalisis Maklumat Tersurat dan Tersirat",
+    "concept_title": "Maklumat Tersurat dan Tersirat",
+    "concept_explanation": "Maklumat tersurat merujuk kepada fakta atau data yang dinyatakan secara jelas dalam bahan, seperti peratusan, angka, atau pernyataan langsung. Maklumat tersirat pula ialah maksud yang tidak dinyatakan secara langsung tetapi boleh disimpulkan berdasarkan maklumat tersurat, konteks, atau logik. Dalam analisis infografik atau petikan, pelajar perlu membezakan kedua-dua jenis maklumat, misalnya data peratusan graduan bekerja adalah tersurat, manakala implikasi tentang jurang jantina dalam pekerjaan adalah tersirat. Kemahiran ini penting untuk menjawab soalan kefahaman dan penulisan rumusan di peringkat SPM.",
+    "worked_example": "Soalan 3: Berdasarkan infografik, rumuskan maklumat tersurat dan tersirat tentang kadar kebolehpasaran graduan. Jawapan contoh: Maklumat tersurat: Kadar kebolehpasaran graduan pada tahun 2018 ialah 80.2%, dengan graduan lelaki mencatat 82.3% dan graduan wanita 78.7%. Maklumat tersirat: Terdapat jurang kebolehpasaran antara jantina, mungkin disebabkan perbezaan bidang pengajian atau persepsi majikan. Selain itu, peningkatan 11% dari tahun 2017 menunjukkan usaha meningkatkan kualiti graduan atau keperluan pasaran.",
+    "common_mistakes": "Pelajar sering tersalah anggap dengan mencampuradukkan maklumat tersurat dan tersirat, contohnya menyatakan 'graduan wanita kurang bekerja' sebagai tersurat apabila ia adalah inferens. Mereka juga gagal menyokong inferens dengan bukti data atau mengabaikan butiran penting seperti perbandingan tahun atau kategori institusi.",
+    "keywords": [
+      "maklumat tersurat",
+      "maklumat tersirat",
+      "analisis",
+      "infografik",
+      "kebolehpasaran graduan",
+      "kefahaman petikan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 62,
+    "bab": "Bab 1: Sukan dan Kesihatan",
+    "skip": false,
+    "subtopic": "Kebaikan Sukan dan Ikon Sukan Negara",
+    "concept_title": "Kebaikan Sukan dan Ikon Sukan",
+    "concept_explanation": "Petikan ini membincangkan dua kebaikan utama aktiviti sukan di sekolah, iaitu mencungkil bakat remaja dan memupuk perpaduan. Sukan juga memperkenalkan ikon negara seperti Azizulhasni Awang dan Siti Rahmah Mohamed Nasir yang menjadi contoh kejayaan. Pelajar perlu memahami bagaimana huraian fakta dan contoh konkrit digunakan untuk menyokong pendapat dalam penulisan karangan. Kemahiran mengenal pasti isi tersurat dan tersirat penting untuk menjawab soalan kefahaman.",
+    "worked_example": "",
+    "common_mistakes": "",
+    "keywords": [
+      "sukan",
+      "bakat",
+      "perpaduan",
+      "ikon negara",
+      "atlet",
+      "kejohanan",
+      "semangat kesukanan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 63,
+    "bab": "Bab 1: Sukan dan Kecemerlangan",
+    "skip": false,
+    "subtopic": "Pemahaman Teks dan Kosa Kata",
+    "concept_title": "Faedah Sukan dan Latihan Kosa Kata",
+    "concept_explanation": "Sukan memberikan pelbagai faedah kepada remaja, termasuk kesihatan fizikal, kecerdasan minda, dan motivasi daripada ikon sukan seperti Sivasangari. Di samping itu, kemahiran bahasa seperti pembentukan akronim (contoh: KOBILANG) dan penggunaan kata dasar tanpa imbuhan dalam ayat perlu dikuasai. Latihan ini mengukuhkan pemahaman bacaan dan penulisan karangan.",
+    "worked_example": "Soalan 1: Berdasarkan petikan, faedah sukan kepada remaja termasuk membina disiplin, meningkatkan kesihatan, dan memupuk semangat berpasukan. Contoh bina ayat: suruhanjaya - Suruhanjaya Pilihan Raya menguruskan pilihan raya. (tanpa imbuhan)",
+    "common_mistakes": "Pelajar sering menambahkan imbuhan pada perkataan seperti 'suruhanjaya' menjadi 'menyuruhanjayakan' atau menganggap akronim seperti 'KOBILANG' sebagai singkatan biasa. Elakkan menggunakan perkataan sebagai peribahasa atau kata nama khas.",
+    "keywords": [
+      "suruhanjaya",
+      "antarabangsa",
+      "mencampuradukkan",
+      "pengambilalihan",
+      "gimrama",
+      "asbut",
+      "akronim"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 64,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Halaman hanya mengandungi jadual acara dan soalan latihan, tiada penerangan konsep bahasa yang boleh diajar."
+  },
+  {
+    "page": 65,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Halaman hanya mengandungi pantun dan tiga soalan perbincangan tanpa penerangan konsep atau contoh pengajaran."
+  },
+  {
+    "page": 66,
+    "bab": "Bab 1: Kemahiran Mendengar dan Bertutur",
+    "skip": false,
+    "subtopic": "Mendengar dan Menyusun Fakta",
+    "concept_title": "Mendengar dan Membentang Fakta",
+    "concept_explanation": "Kemahiran mendengar melibatkan penumpuan terhadap bahan yang didengar untuk mendapatkan fakta dan hujah. Pelajar perlu menyusun fakta yang diperoleh secara teratur dan membuat pembentangan menggunakan multimedia. Aktiviti ini menggalakkan pemahaman dan komunikasi yang berkesan.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering gagal mencatat fakta utama semasa mendengar, atau menyusun hujah tanpa urutan yang logik. Mereka juga mungkin tidak menggunakan bahasa yang sesuai semasa pembentangan.",
+    "keywords": [
+      "rozel",
+      "fakta",
+      "hujah",
+      "pembentangan",
+      "multimedia",
+      "mendengar",
+      "menyusun"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 67,
+    "bab": "Bab 1: Bertuah Bumi di Harapan Menjulang",
+    "skip": false,
+    "subtopic": "1.3.1 Mendengar, menyebut semula dan menyusun fakta serta hujah",
+    "concept_title": "Menyusun Fakta tentang Rozel",
+    "concept_explanation": "Unit ini memfokuskan kemahiran mendengar dan menyusun fakta serta hujah berdasarkan maklumat tentang rozel (Hibiscus sabdariffa L.). Pelajar perlu mendengar petikan, menyebut semula fakta dengan betul, dan menyusun maklumat mengikut urutan logik. Antara fakta yang perlu dikenal pasti termasuklah kegunaan rozel sebagai tanaman hiasan, bahan makanan (kordial, halwa, jem), bahan industri farmaseutikal, serta data eksport ke Australia dari tahun 2016 hingga 2018 yang menunjukkan peningkatan kuantiti dan pendapatan. Pelajar juga perlu memahami proses penanaman rozel dari penyediaan biji benih, penyemaian, hingga penanaman di batas.",
+    "worked_example": "Soalan: Dengarkan petikan tentang rozel. Kemudian, susun langkah-langkah penanaman rozel mengikut urutan yang betul. Jawapan: 1. Biji benih rozel dibekalkan oleh pejabat pertanian kepada petani. 2. Benih rozel disemai di dalam dulang semaian. 3. Setelah bercambah, rozel ditanam di batas dengan jarak tertentu. 4. Selepas matang, kaliks rozel diproses menjadi pelbagai produk seperti jem, kordial, dan halwa. Contoh lain: Berdasarkan jadual eksport, nyatakan trend eksport rozel ke Australia dari 2016 hingga 2018. Jawapan: Kuantiti eksport meningkat daripada 11,527.9 kg kepada 17,325.8 kg, dan pendapatan meningkat daripada RM85,303.84 kepada RM132,542.31, dengan bilangan kontena meningkat daripada 4 kepada 6.",
+    "common_mistakes": "Pelajar sering keliru antara istilah seperti 'kaliks' dengan 'biji' atau 'daun muda'. Kesilapan lain ialah tidak menyusun proses penanaman mengikut urutan yang betul, misalnya menyebut penanaman di batas sebelum penyemaian. Selain itu, pelajar mungkin tersalah membaca data eksport, seperti mengabaikan unit atau tahun. Pelajar juga perlu berhati-hati dengan sebutan perkataan asing seperti 'Hibiscus sabdariffa'.",
+    "keywords": [
+      "Hibiscus sabdariffa",
+      "roz",
+      "kordial",
+      "halwa",
+      "jem",
+      "tanaman hiasan",
+      "eksport",
+      "FAMA"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 68,
+    "bab": "Bab 1",
+    "skip": false,
+    "subtopic": "Membaca dan Memahami Maklumat",
+    "concept_title": "Maklumat Tersurat dan Tersirat",
+    "concept_explanation": "Dalam petikan 'Terbaik dari Kolam', pelajar perlu membezakan maklumat tersurat (fakta jelas) seperti udang harimau memerlukan air payau masin, dengan maklumat tersirat seperti potensi penternakan udang harimau pada masa hadapan. Kemahiran ini penting untuk menjawab soalan pemahaman. Selain itu, pelajar dapat mengenal pasti kata kunci seperti 'parameter indeks kualiti air' dan 'ancaman' untuk memahami isi tersirat.",
+    "worked_example": "Soalan: Nyatakan dua maklumat tersurat tentang habitat udang harimau. Jawapan: (i) Udang harimau memerlukan sumber air payau masin sebagai habitatnya. (ii) Penternak membina kolam berhampiran sungai dan laut.",
+    "common_mistakes": "Pelajar sering keliru antara maklumat tersurat dan tersirat, contohnya menganggap 'udang harimau mendapat permintaan tinggi pada musim perayaan' sebagai tersirat sedangkan ia tersurat. Juga, mereka mungkin tidak menyebut ancaman sebagai maklumat tersirat.",
+    "keywords": [
+      "maklumat tersurat",
+      "maklumat tersirat",
+      "udang harimau",
+      "Penaeus monodon",
+      "parameter kualiti air",
+      "penternakan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 69,
+    "bab": "Bab 1: Penternakan Udang Harimau",
+    "skip": false,
+    "subtopic": "Pengeluaran Udang Harimau dari Kolam Air Payau/Masin",
+    "concept_title": "Teknik Penternakan Udang Harimau",
+    "concept_explanation": "Teks ini memperkenalkan aspek-aspek penting dalam penternakan udang harimau, termasuk pengeluaran mengikut negeri, langkah pencegahan penyakit, dan teknik pemberian makanan. Pelajar dapat mempelajari perbendaharaan kata khusus seperti 'kincir air', 'autofeeder', dan 'nutrien'. Kemahiran membaca jadual data serta mengenal pasti isi tersurat dan tersirat dalam perenggan dapat diasah. Penekanan turut diberikan pada struktur ayat dan penggunaan kata kerja dalam konteks proses penternakan.",
+    "worked_example": "Soalan: Berdasarkan teks, nyatakan tiga langkah yang diambil oleh penternak untuk memastikan udang harimau sihat. Jawapan: (i) Mengasingkan udang yang sakit ke kolam lain sebagai langkah kawalan penyakit. (ii) Memberi makanan secara manual (menabur empat kali sehari) dan automatik (menggunakan autofeeder). (iii) Memastikan nutrien seperti magnesium sulfat dan kalsium klorida mencukupi serta menjaga suhu air antara 25°C hingga 32°C.",
+    "common_mistakes": "Pelajar sering keliru antara 'kaedah manual' dan 'kaedah automatik' dalam pemberian makanan. Selain itu, ada yang tersalah tafsir bahawa kincir air hanya berfungsi untuk menghasilkan oksigen, padahal ia juga membentuk arus dan mengumpulkan sisa kumbahan. Kesilapan juga berlaku apabila membaca jadual dengan tidak membezakan lajur 'Tan metrik' dan 'Nilai dalam RM'.",
+    "keywords": [
+      "udang harimau",
+      "kolam air payau",
+      "kaedah manual",
+      "kaedah automatik",
+      "kincir air",
+      "nutrien"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 70,
+    "bab": "Bab 1: Drama",
+    "skip": false,
+    "subtopic": "Arnab, Si Pencuri Hati",
+    "concept_title": "Membaca Drama dan Kata Nama",
+    "concept_explanation": "Dalam unit ini, pelajar akan mempelajari cara membaca skrip drama dengan intonasi dan nada yang betul untuk menyampaikan emosi watak. Selain itu, pelajar perlu mengenal pasti golongan kata nama (kata nama am, khas, dan lain-lain) dalam dialog dan menggunakannya untuk membina ayat dialog yang gramatis. Aktiviti lakonan membantu pelajar memahami karakter dan situasi drama. Kemahiran ini penting untuk menguasai aspek seni bahasa dan tatabahasa dalam subjek Bahasa Malaysia SPM.",
+    "worked_example": "",
+    "common_mistakes": "Kesilapan biasa termasuk membaca skrip tanpa intonasi yang sesuai, gagal membezakan kata nama am dan kata nama khas, dan tidak menggunakan nada yang sesuai dengan emosi watak.",
+    "keywords": [
+      "skrip drama",
+      "intonasi",
+      "golongan kata nama",
+      "dialog",
+      "lakonan",
+      "nada"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 71,
+    "bab": "Bab 1: Kemahiran Berbahasa",
+    "skip": false,
+    "subtopic": "Perbincangan dalam Kumpulan",
+    "concept_title": "Menyampaikan Pendapat secara Berkesan",
+    "concept_explanation": "Dalam perbincangan kumpulan, penting untuk menyampaikan pendapat dengan jelas dan sopan. Gunakan kata-kata seperti 'saya setuju', 'saya tidak setuju', 'menarik cadangan awak'. Berikan alasan yang kukuh untuk menyokong hujah. Contohnya, Adora menggunakan fakta tentang tiga jenis arnab untuk meyakinkan rakan-rakannya. Peribahasa seperti 'bertangguh itu pencuri masa' boleh digunakan untuk memujuk. Pelajar perlu menguasai kemahiran ini untuk perbincangan dalam kelas dan kehidupan seharian.",
+    "worked_example": "Soalan: Dalam perbincangan, bagaimana kamu menyatakan tidak setuju dengan cadangan rakan? Contoh: 'Saya tidak setuju. Penternakan kambing memerlukan kawasan yang luas, jadi lebih sesuai menternak arnab.'",
+    "common_mistakes": "Pelajar sering menggunakan bahasa yang terlalu keras seperti 'Awak salah!' atau tidak memberikan alasan. Ada juga yang tidak mendengar pendapat orang lain dan terus memotong percakapan.",
+    "keywords": [
+      "perbincangan",
+      "pendapat",
+      "setuju",
+      "tidak setuju",
+      "hujah",
+      "peribahasa"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 72,
+    "bab": "Bab 1: Kemahiran Mendengar dan Bertutur",
+    "skip": false,
+    "subtopic": "Gurindam – Mendengar, Mendendang, dan Mencipta",
+    "concept_title": "Gurindam dan Sumbangan Peladang",
+    "concept_explanation": "Gurindam ialah puisi tradisional Melayu yang terdiri daripada dua baris serangkai dengan rima a-a dan mengandungi nasihat atau pengajaran. Dalam aktiviti ini, pelajar perlu mendengar dengan teliti, kemudian mendendangkan gurindam secara kreatif serta menjelaskan maksud setiap rangkap. Selepas itu, pelajar mencipta gurindam baharu bertemakan sumbangan peladang. Kemahiran bahasa yang dititikberatkan ialah kejelasan sebutan, nada yang sesuai, dan kefasihan ketika menyampaikan. Teks tentang Puan Hajah Zaiton binti Haji Mohd Yusof pula memberi contoh seorang wanita pekebun kecil yang berjaya dan aktif dalam pertubuhan peladang, sesuai dijadikan inspirasi untuk gurindam ciptaan pelajar.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering lupa menjaga kejelasan sebutan dan nada yang konsisten semasa mendendangkan gurindam. Ada juga yang tidak memahami isi gurindam lalu gagal menjelaskan maksud rangkap dengan tepat. Selain itu, apabila mencipta gurindam, pelajar cenderung mengabaikan pola rima dan jumlah suku kata yang tetap (biasanya 8–12 suku kata sebaris).",
+    "keywords": [
+      "gurindam",
+      "kejelasan",
+      "nada",
+      "kefasihan",
+      "peladang",
+      "wanita berjiwa perkasa",
+      "puisi tradisional"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 73,
+    "bab": "Bab 1",
+    "skip": false,
+    "subtopic": "Gurindam Hati Waja",
+    "concept_title": "Memahami Gurindam Moden",
+    "concept_explanation": "Gurindam merupakan sejenis puisi moden yang terdiri daripada dua baris serangkap, dengan rima akhir yang sama. Setiap rangkap mengandungi nasihat atau pengajaran, seperti yang ditunjukkan dalam 'Gurindam Hati Waja' di atas. Ciri tatabahasanya menggunakan ayat perintah dan ayat bersyarat (jika…, …) untuk menyampaikan mesej tentang ketabahan, kreativiti, dan kerjasama. Pelajar perlu memahami bahawa gurindam ini mengutamakan kejelasan penyampaian dan nada yang memotivasikan, selaras dengan kemahiran mendengar dan memberi respons (1.2.1) serta mengapresiasi puisi (4.1.2).",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara gurindam dengan pantun atau syair; gurindam tidak mempunyai pembayang dan hanya dua baris. Selain itu, ada yang gagal menangkap mesej tersirat dalam setiap rangkap, seperti menganggap 'Jika ilmu penuh di dada, idea terbaik sentiasa ada' hanya sebagai pernyataan biasa tanpa menekankan hubungan sebab-akibat.",
+    "keywords": [
+      "gurindam",
+      "puisi moden",
+      "azam",
+      "potensi",
+      "semangat",
+      "kreatif",
+      "muafakat"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 74,
+    "bab": "Bab 1",
+    "skip": false,
+    "subtopic": "Menulis Kertas Cadangan Projek Penternakan",
+    "concept_title": "Kertas Cadangan Penternakan",
+    "concept_explanation": "Kertas cadangan merupakan dokumen rasmi yang mengemukakan idea atau projek secara terperinci untuk mendapat kelulusan atau sokongan. Dalam konteks Program Pencarian Penternak Jaya Muda, kertas cadangan perlu mengandungi maklumat seperti latar belakang projek, objektif, kaedah pelaksanaan, bajet, dan jangkaan hasil. Ia hendaklah ditulis dalam bahasa Melayu yang formal, jelas, dan meyakinkan. Pelajar perlu menguasai struktur penulisan seperti pendahuluan, isi, dan penutup serta menggunakan ayat gramatis dan kosa kata yang tepat untuk mempengaruhi pembaca.",
+    "worked_example": "",
+    "common_mistakes": "Kesilapan biasa termasuk tidak mematuhi format kertas rasmi, penggunaan bahasa tidak formal, kurang jelas dalam menjelaskan objektif dan bajet, serta gagal merujuk syarat yang dinyatakan dalam iklan. Pelajar juga sering lupa menulis latar belakang projek atau mengabaikan aspek penilaian seperti keberkesanan dan kemampanan.",
+    "keywords": [
+      "kertas cadangan",
+      "penternakan",
+      "iklan",
+      "temu duga",
+      "syarat kelayakan",
+      "projek",
+      "penilaian",
+      "bajet"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 75,
+    "bab": "Bab 1: Kemahiran Menulis",
+    "skip": false,
+    "subtopic": "3.3.1 Menulis dan melengkapkan maklumat dalam kertas cadangan",
+    "concept_title": "Panduan Membuat Kertas Cadangan",
+    "concept_explanation": "Kertas cadangan merupakan dokumen rasmi yang menggariskan perancangan sesuatu projek. Ia perlu mengandungi elemen seperti tajuk yang jelas, latar belakang atau rasional, objektif, anggaran belanjawan, sasaran pasaran, dan jangka masa pelaksanaan. Kemahiran menulis kertas cadangan penting dalam SPM kerana pelajar perlu menyusun maklumat secara tersusun dan meyakinkan. Pastikan setiap bahagian diisi dengan lengkap dan selaras dengan tema projek.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering kali tidak menyatakan objektif secara spesifik, gagal memberikan anggaran kos yang realistik, atau tidak menyenaraikan kumpulan sasaran dengan tepat. Selain itu, susunan maklumat yang tidak mengikut panduan boleh menyebabkan kertas cadangan sukar difahami.",
+    "keywords": [
+      "kertas cadangan",
+      "anggaran belanjawan",
+      "objektif",
+      "sasaran pasaran",
+      "jangka masa",
+      "latar belakang",
+      "projek"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 76,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Halaman mengandungi aktiviti teka silang kata tanpa penerangan konsep yang boleh diajar."
+  },
+  {
+    "page": 77,
+    "bab": "Bab 1",
+    "skip": false,
+    "subtopic": "Maklumat Tersurat dan Tersirat",
+    "concept_title": "Maklumat Tersurat dan Tersirat dalam Teks Prosedur",
+    "concept_explanation": "Maklumat tersurat ialah maklumat yang dinyatakan secara jelas dalam teks, seperti bahan-bahan dan langkah penyediaan. Maklumat tersirat pula perlu diinferens daripada teks, misalnya tujuan penyediaan, nilai kesihatan, atau budaya masyarakat. Dalam teks 'Juadah Penambat Selera', pelajar perlu membezakan antara fakta yang tertulis dan maklumat yang tersembunyi, seperti kepentingan rumpai laut dalam masakan tradisional. Kemahiran ini melibatkan pemahaman konteks, penggunaan imbuhan, dan penaakulan berdasarkan pembacaan.",
+    "worked_example": "Soalan 1: Nyatakan maklumat tersurat dan tersirat berdasarkan bahan. \nJawapan: \n- Maklumat tersurat: Bahan-bahan yang digunakan termasuk rumpai laut, mangga muda, timun, cili padi, limau kasturi, dan lain-lain. Cara penyediaan: rendam rumpai laut semalaman, potong semua bahan, campurkan dengan sambal. \n- Maklumat tersirat: Resipi ini menunjukkan tradisi masyarakat Melayu menggunakan hasil laut dan tumbuhan tempatan. Ia juga menggambarkan nilai kesederhanaan dan kepelbagaian dalam masakan. \n\nSoalan 2: Bandingkan perbezaan kerabu rumpai laut dengan jenis-jenis kerabu yang lain. \nJawapan: Kerabu rumpai laut menggunakan rumpai laut sebagai bahan utama, manakala kerabu lain seperti kerabu kacang atau kerabu mangga menggunakan bahan asas yang berbeza. Dari segi rasa, kerabu rumpai laut lebih masin dan rangup, berbanding kerabu mangga yang lebih masam dan manis. Cara penyediaan juga mungkin berbeza, misalnya kerabu rumpai laut memerlukan rendaman semalaman.",
+    "common_mistakes": "Pelajar sering keliru antara maklumat tersurat dan tersirat, terutamanya apabila soalan memerlukan inferens. Contohnya, menyenaraikan bahan sebagai maklumat tersirat adalah salah. Kesilapan lain ialah tidak menyediakan perbandingan yang spesifik apabila menjawab soalan perbandingan, seperti hanya menyebut satu jenis kerabu sahaja.",
+    "keywords": [
+      "tersurat",
+      "tersirat",
+      "perbandingan",
+      "prosedur",
+      "resipi",
+      "inferens",
+      "teks"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 78,
+    "bab": "Bab 1: Kata Nama",
+    "skip": false,
+    "subtopic": "Kata Nama: Pengelasan dan Penggunaan dalam Ayat",
+    "concept_title": "Kata Nama: Pengelasan dan Penggunaan",
+    "concept_explanation": "Kata nama adalah perkataan yang merujuk kepada nama orang, haiwan, benda, tempat, atau konsep. Dalam teks 'Petua Nenek untuk Sihat', terdapat pelbagai kata nama seperti 'bunga raya', 'daun kaduk', dan 'minyak serai'. Pelajar perlu mengelaskan kata nama kepada kata nama am (contoh: 'herba', 'bisul') dan kata nama khas (contoh: 'Nurul Hayati'). Kemahiran ini penting untuk membina ayat yang gramatis dengan menggunakan kata nama mengikut konteks, seperti yang dinyatakan dalam aktiviti di halaman ini.",
+    "worked_example": "Contoh pengelasan kata nama daripada teks:\n- Kata nama am: bunga raya, ubat, bisul, daun kaduk, akar, senduduk, cirit-birit, serai, minyak, rambut, kelemumur, aromaterapi.\n- Kata nama khas: Noreen, Nurul Hayati.\nBina ayat: 'Nenek menggunakan bunga raya putih sebagai alat tuam untuk merawat bisul.' (kata nama am) dan 'Nurul Hayati berkongsi petua dengan sahabatnya Noreen.' (kata nama khas).",
+    "common_mistakes": "Pelajar sering keliru antara kata nama am dan kata nama khas, terutamanya apabila kata nama am digunakan sebagai gelaran atau nama panggilan. Contohnya, 'nenek' adalah kata nama am, tetapi jika ditulis sebagai 'Nenek' dalam konteks memanggil orang tertentu, ia boleh dianggap kata nama khas. Selain itu, pelajar mungkin gagal membezakan kata nama konkrit (benda fizikal) dengan kata nama abstrak (konsep) seperti 'kesihatan' atau 'kelemumur'.",
+    "keywords": [
+      "kata nama",
+      "kata nama am",
+      "kata nama khas",
+      "pengelasan",
+      "pembinaan ayat"
+    ],
+    "difficulty_level": 2
+  }
+]

@@ -1,0 +1,212 @@
+Processing: C:\Users\Yong\Downloads\Learnova A Levels\AL- FURTHER MATHEMATICS.pdf
+Subject: AL-FurtherMaths  Form: AS-A2  Pages: 10-211 of 211
+------------------------------------------------------------
+  p 10/211  SKIP  Page contains syllabus overview and exam structure, not teachable mathematical content.
+  p 11/211  SKIP  Page contains only prior knowledge prerequisites and command word definitions, not a teachable concept.
+  p 12/211  SKIP  Page contains only a general overview of key concepts (problem solving, communication, mathematical modelling) with no specific mathematical content to teach.
+  p 13/211  SKIP  Chapter opening page with introductory figure and questions, no formal mathematical content.
+  p 14/211  SAVED  Chapter 1: Matrices and Transformations | 1.1 Matrices
+  p 15/211  SAVED  Chapter 1: Matrices | Special matrices
+  p 16/211  SAVED  Chapter 1: Transformations and Matrices | Associativity and commutativity
+  p 17/211  SAVED  Chapter 1: Matrices | Matrix addition and scalar multiplication
+  p 18/211  SKIP  Page contains only exercises with garbled formatting, no clear teachable content or concept explanation.
+  p 19/211  SAVED  Bab 1: Matrices | 1.2 Multiplication of matrices
+  p 20/211  SAVED  Bab 1: Matrices and Transformations | Matrix Multiplication
+  p 21/211  SAVED  Chapter 1: Matrices | 1.2 Multiplication of matrices
+  p 22/211  SAVED  Chapter 1: Matrices | Properties of matrix multiplication
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(AL-FurtherMaths, AS-A2, Chapter 1: Matrices, Matrix Multiplication) already exists.","hint":null,"message":"duplicate key value vi
+  p 23/211  DB-ERR  Chapter 1: Matrices | Multiplication of matrices
+  p 24/211  SKIP  Page contains only exercises and no explanatory content for a teaching unit.
+  p 25/211  SAVED  Chapter 1: Matrices | Multiplication of matrices
+  p 26/211  SAVED  Bab 1: Matrices and Transformations | 1.3 Transformations
+  p 27/211  SAVED  Chapter 1: Vectors and Transformations | Finding the transformation represented by a given matrix
+  p 28/211  SAVED  Chapter 1: Transformations and Matrices | Linear Transformations Using Matrices
+  p 29/211  SAVED  Chapter 1: Transformations | 1.3 Finding the matrix that represents a given transformation
+  p 30/211  SAVED  Chapter 1: Transformations and Matrices | Representing Transformations with Matrices
+  p 31/211  SAVED  Chapter 1: Matrices and Transformations | Rotation about the origin
+  p 32/211  SAVED  Chapter 1: Matrices and Transformations | Shear Transformations
+  p 33/211  SAVED  Chapter 1: Transformations | 1.3 Transformations
+  p 34/211  SAVED  Chapter 1: Matrices and Transformations | Shear Transformations
+  p 35/211  SAVED  Chapter 1: Transformations | Shear transformations
+  p 36/211  SAVED  Chapter 1: Transformations and Matrices | Summary of transformations in two dimensions
+  p 37/211  SKIP  Page contains only exercises, no new concept explanation or worked example.
+  p 38/211  SKIP  The page contains only exercises (problems 5-9) without any conceptual explanation or worked example, so it does not provide teachable content.
+  p 39/211  SAVED  Chapter 1: Matrices and Transformations | 1.4 Successive transformations
+  p 40/211  SAVED  Chapter 1: Matrices and Transformations | Composite Transformations
+  p 41/211  SAVED  Chapter 1: Matrices and Transformations | Proving Compound Angle Formulas with Rotation Matrices
+  p 42/211  SAVED  Chapter 1: Transformations and Matrices | Combining Rotations
+  p 43/211  SAVED  Bab 1: Matrices and Transformations | 1.4 Successive Transformations
+  p 44/211  SAVED  Chapter 1: Matrices and Transformations | Solving Matrix Equations for Transformations
+  p 45/211  SAVED  Chapter 1: Matrices and Transformations | 1.5 Invariance
+  p 46/211  SAVED  Chapter 1: Transformations and Matrices | Invariant lines
+  p 47/211  SAVED  Bab 1: Matrices and Transformations | Invariant lines
+  p 48/211  SAVED  Bab 1: Transformations and Matrices | 
+  p 49/211  SAVED  Bab 1: Matrices and Transformations | Invariant Points
+  p 50/211  SAVED  Chapter 6: Matrices and Transformations | Matrix Multiplication and Properties
+  p 51/211  SKIP  Page contains only learning outcomes (chapter objectives) with no substantive mathematical content to teach.
+  p 52/211  SKIP  The page is a chapter opener with a motivational quote and an introductory question, lacking any mathematical definitions, proofs, or worked examples to teach.
+  p 53/211  SAVED  Chapter 2: Sequences and Series | 2.1 Sequences and series
+  p 54/211  SAVED  Chapter 6: Sequences and Series | Inductive and Deductive Definitions; Sum of an Arithmetic Series
+  p 55/211  SAVED  Chapter 2: Sequences and Series | Summation of series
+  p 56/211  SAVED  Chapter 6: Matrices and | 
+  p 57/211  SKIP  Page contains only exercise problems for sequences and series, with no explanatory content or concept teaching.
+  p 58/211  SKIP  Page contains only practice exercises (questions 7-11) and no new concept explanation or worked example.
+  p 59/211  SAVED  Chapter 2: Series | Using standard results
+  p 60/211  SAVED  Chapter 2: Induction and Series | Series and Sigma Notation
+  p 61/211  SKIP  The page contains only exercise problems (M9 and M10) without any new concept explanations, worked examples, or definitions. It is an exercise section, not a teaching unit.
+  p 62/211  SAVED  Chapter 2: Induction and Series | 2.3 The method of differences
+  p 63/211  SAVED  Chapter 6: Matrices and Invariant Lines | 2.3 The method of differences
+  p 64/211  SAVED  Chapter 2: Induction and Series | Method of Differences
+  p 65/211  SAVED  Chapter 6: Series | 
+  p 66/211  SAVED  Chapter 2: Series and Mathematical Induction | Summation of Series using Method of Differences
+  p 67/211  SAVED  Chapter 6: Series and Summation | Method of Differences
+  p 68/211  SKIP  Page contains only past exam questions and an introductory anecdote for proof by induction, lacking sufficient mathematical explanation or examples to form a teaching unit.
+  p 69/211  SAVED  Chapter 6: Matrices and Invariant Lines | Proof by Induction
+  p 70/211  SAVED  Chapter 6: Matrices and Induction | Proof by Mathematical Induction
+  p 71/211  SAVED  Chapter 6: Matrices and Invariant Lines | Proof by induction
+  p 72/211  SAVED  Chapter 6: Induction and Series | Proof by Induction
+  p 73/211  SAVED  Chapter 6: Matrices and ... | Proof by Mathematical Induction
+  p 74/211  SAVED  Chapter 6: Matrices and ... | Induction and Series
+  p 75/211  SAVED  Chapter 6: Matrices and ... | Proof by Induction
+  p 76/211  SAVED  Chapter 6: Matrices and Induction | 
+  p 77/211  SAVED  Chapter 6: Matrices and Invariant Lines | Proof by Induction
+  p 78/211  SKIP  Page contains only past paper questions and key points, lacking concept explanation or worked examples for a teaching unit.
+  p 79/211  SAVED  Chapter 6: Matrices and ... | Proof by Induction
+  p 80/211  SAVED  Chapter 3: Roots of Polynomials | 
+  p 81/211  SAVED  Chapter 3: Polynomials | 3.1 Polynomials
+  p 82/211  SAVED  Chapter 3: Polynomials | Roots of Polynomials
+  p 83/211  SAVED  Chapter 3: Quadratic Equations | 3.2 Quadratic equations
+  p 84/211  SAVED  Chapter 3: Polynomials | 3.1 Quadratic Roots
+  p 85/211  SAVED  Chapter 3: Quadratic Equations | Forming new equations
+  p 86/211  SAVED  Chapter 6: Matrices and | Symmetric functions of the roots of a quadratic equation
+  p 87/211  SAVED  Chapter 6: Matrices and ... | Roots of Quadratic Equations
+  p 88/211  SAVED  Chapter 6: Matrices | Polynomials of Roots
+  p 89/211  SAVED  Chapter 6: Matrices | Symmetric Functions of Roots: Cubic Equations
+  p 90/211  SAVED  Chapter 6: ?Matrices and? | 
+  p 91/211  SAVED  Chapter 6: ?Matrices and ...? | Forming new equations: the substitution method
+  p 92/211  SAVED  Chapter 6: Matrices | Transformation of Polynomial Roots
+  p 93/211  SAVED  Chapter 3: Roots of Polynomials | 3.3 Cubic Equations
+  p 94/211  SKIP  Page contains only exercises, no explanatory content.
+  p 95/211  SAVED  Chapter 6: Matrices | 3.4 Quartic equations
+  p 96/211  SAVED  Chapter 6: Matrices and Further Algebra | Relations between roots and coefficients of a quartic
+  p 97/211  SAVED  Chapter 6: Matrices and Polynomial Equations | Quartic equations
+  p 98/211  SAVED  Chapter 6: Matrices and ... | Polynomial Roots and Transformations
+  p 99/211  SAVED  Chapter 6: Matrices and ... | Quartic Equations and Sums of Powers of Roots
+  p100/211  SKIP  The page only lists learning outcomes for a chapter; no concept explanation, worked example, or teachable content.
+  p101/211  SKIP  Page contains only an introductory graph and question, no mathematical content to teach.
+  p102/211  SAVED  Chapter 4: Graphs of Rational Functions | 4.1 Graphs of rational functions
+  p103/211  SAVED  Chapter 6: Matrices and Their Applications | Asymptotes of Rational Functions
+  p104/211  SKIP  The page content covers sketching rational functions, which is a core Pure Mathematics topic, not specific to Further Mathematics. The chapter context indicates 'Matrices' and 'invariant lines', suggesting a mismatch, and the topic is too basic for Further Maths students.
+  p105/211  SAVED  Chapter 6: Matrices and ... | Behaviour of rational functions near asymptotes
+  p106/211  SAVED  Chapter 4: Graphs and Functions | Rational Functions
+  p107/211  SAVED  Chapter 6: Matrices and ... | 4.2 Using the discriminant to find the range of a function
+  p108/211  SAVED  Chapter 4: Graphs and Functions | Rational Functions
+  p109/211  SKIP  The extracted text is fragmented and contains content from different topics (e.g., rational functions with Figure 4.8 and stationary points, but chapter context given as Chapter 6 on matrices). The material lacks a coherent, teachable unit for Further Mathematics.
+  p110/211  SKIP  The extracted text is a garbled list of exercise numbers and incomplete equations from a section on graphs and functions, with no explanatory content or worked examples. The chapter context is about matrices, but the content is unrelated and unusable.
+  p111/211  SAVED  Chapter 4: Rational Functions and Asymptotes | 4.3 Oblique Asymptotes
+  p112/211  SAVED  Chapter 4: Rational Functions and Graphs | Stationary Points of Rational Functions
+  p113/211  SAVED  Chapter 6: Matrices and ... | 4.3 Oblique asymptotes
+  p114/211  SAVED  Chapter 6: Matrices and Transformations | The curve y = |f(x)|
+  p115/211  SAVED  Chapter 4: Sketching curves | 4.4 Sketching curves related to y = f(x)
+  p116/211  SAVED  Chapter 6: Matrices and | Graph transformations
+  p117/211  SAVED  Chapter 4: Sketching Curves | 4.4 Sketching curves related to 1/f(x)
+  p118/211  SAVED  Chapter 6: Matrices and Invariant Lines | Reciprocal Graphs
+  p119/211  SAVED  Chapter 6: Matrices and Transformations | Sketching curves related to f(x)
+  p120/211  SAVED  Chapter 6: Matrices and ... | The curve y? = f(x)
+  p121/211  SAVED  Chapter 6: Matrices and Transformations | 4.4 Sketching curves related to f(x)
+  p122/211  SAVED  Chapter 4: Graphs and Functions | Rational Functions
+  p123/211  SAVED  Chapter 4: Sketching Curves Related to f(x) | Curves of the form y = ?(f(x)) and y? = f(x)
+  p124/211  SKIP  The page contains only exercise problems and no concept explanations, definitions, or worked examples suitable for a teaching unit.
+  p125/211  SAVED  Chapter 6: Matrices and Transformations | 4.4 Sketching curves of y = f(x)/g(x)
+  p126/211  SAVED  Chapter 6: Matrices and Transformations | Graphs of Reciprocal Functions and y? = f(x)
+  p127/211  SKIP  The page contains only a list of learning outcomes for a different topic (rational functions and curve sketching) and an incomplete sentence about matrix invariant lines. No teachable content or instructional material is provided.
+  p128/211  SAVED  Chapter 5: Polar Coordinates | 5.1 Polar coordinates
+  p129/211  SAVED  Chapter 5: Polar Coordinates | 5.1 Polar Coordinates
+  p130/211  SAVED  Chapter 5: Polar Coordinates | Converting between polar and Cartesian coordinates
+  p131/211  SAVED  Chapter 6: Matrices | 5.1 Polar coordinates
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(AL-FurtherMaths, AS-A2, Chapter 5: Polar Coordinates, Polar and Cartesian Conversion) already exists.","hint":null,"message":"dupl
+  p132/211  DB-ERR  Chapter 5: Polar Coordinates | Converting equations between polar and Cartesian forms
+  p133/211  SAVED  Chapter 5: Polar Coordinates | Converting Polar to Cartesian Equations
+  p134/211  SAVED  Chapter 6: Matrices and Polar Coordinates | Plotting Points in Polar Coordinates
+  p135/211  SKIP  Page contains only exercises and a note on trigonometric identities, no explicit explanation or worked example.
+  p136/211  SAVED  Chapter 5: Polar Coordinates | 5.2  Sketching curves with polar equations
+  p137/211  SAVED  Chapter 5: Polar Equations | 5.2 Sketching curves with polar equations
+  p138/211  SAVED  Chapter 5: Polar Coordinates | Sketching Polar Curves
+  p139/211  SAVED  Chapter 5: Polar Curves | 5.2 Sketching curves with polar equations
+  p140/211  SAVED  Chapter 5: Polar Coordinates | Conventions for r and ?
+  p141/211  SAVED  Chapter 5: Sketching curves with polar equations | 5.2 Sketching curves with polar equations
+  p142/211  SAVED  Chapter 5: Polar Coordinates | Rhodonea (Rose) Curves
+  p143/211  SAVED  Chapter 6: Polar Coordinates | Limacons and Cardioids
+  p144/211  SAVED  Chapter 5: Polar Coordinates | Area Enclosed by Polar Curves
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(AL-FurtherMaths, AS-A2, Chapter 5: Polar Coordinates, Area in Polar Coordinates) already exists.","hint":null,"message":"duplicate
+  p145/211  DB-ERR  Chapter 5: Polar Coordinates | 5.3 Finding the area enclosed by a polar curve
+  p146/211  SAVED  Chapter 5: Polar Coordinates | Area in Polar Coordinates
+  p147/211  SKIP  The page is an introductory section with a Sierpinsky triangle diagram and general discussion, not containing specific teachable content on matrices.
+  p148/211  SAVED  Chapter 6: Matrices and their inverses | 6.1 The determinant of a 2 ? 2 matrix
+  p149/211  SAVED  Chapter 6: Matrices and Transformations | The determinant and area scale factor
+  p150/211  SAVED  Chapter 6: Matrices and Transformations | Determinants and Transformations
+  p151/211  SAVED  Chapter 6: Matrices and Transformations | Matrices with determinant zero
+  p152/211  SKIP  Page contains only exercises (Exercise 6A) with no new concept explanations or worked examples.
+  p153/211  SKIP  Page contains only exercises with no explanatory content.
+  p154/211  SAVED  Chapter 6: Matrices and Transformations | Inverses and Their Matrices
+  p155/211  SAVED  Chapter 6: Matrices and Transformations | Finding the inverse of a 2?2 matrix
+  p156/211  SAVED  Chapter 6: Matrices and Their Inverses | Matrix Inverses
+  p157/211  SAVED  Chapter 6: Matrices | The inverse of a product of matrices
+  p158/211  SAVED  Chapter 6: Matrices | Inverses of Matrices
+  p159/211  SAVED  Chapter 6: Matrices | 6.3 Finding the inverse of a 3 ? 3 matrix
+  p160/211  SAVED  Chapter 6: Matrices and Determinants | Expansion by Minors
+  p161/211  SAVED  Chapter 6: Matrices and Transformations | 6.3 Finding the inverse of a 3?3 matrix
+  p162/211  SAVED  Chapter 6: Matrices and their Inverses | Inverse of a 3?3 Matrix using the Adjugate Method
+  p163/211  SAVED  Chapter 6: Matrices | 6.3 Finding the Inverse of a Matrix
+  p164/211  SAVED  Chapter 6: Matrices and Invariant Lines | Inverses of 3?3 Matrices
+  p165/211  SAVED  Chapter 6: Matrices and Transformations | 6.3 Finding the inverse of a 3?3 matrix
+  p166/211  SAVED  Chapter 6: Matrices and Transformations | Key Points on Determinants and Inverses
+  p167/211  SAVED  Chapter 6: Matrices and Transformations | 6.3 Learning Outcomes
+  p168/211  SKIP  Page contains only a prerequisite note and a philosophical quote; no new teachable content for Further Maths.
+  p169/211  SAVED  Chapter 7: The vector equation of a plane | 7.1  The vector equation of a plane
+  p170/211  SAVED  Chapter 7: Vectors | Equation of a plane
+  p171/211  SAVED  Chapter 7: Vector Geometry | The vector equation of a plane
+  p172/211  SAVED  Chapter 7: Vectors | Equation of a Plane
+  p173/211  SAVED  Chapter 7: Vector Equations of Planes | 7.1 The vector equation of a plane
+  p174/211  SAVED  Chapter 7: Vectors | 7.2 The intersection of a line and a plane
+  p175/211  SAVED  Chapter 7: Lines and Planes | 7.2 The intersection of a line and a plane
+  p176/211  SAVED  Chapter 7: Vectors | 7.3 The distance of a point from a plane
+  p177/211  SAVED  Chapter 6: Matrices | 7.4 The angle between a line and a plane
+  p178/211  SAVED  Chapter 7: Vectors | Angle between a line and a plane
+  p179/211  SKIP  Page contains exercises only, no explanatory material for a new concept.
+  p180/211  SKIP  Page contains only exercise questions, no explanatory content or worked examples.
+  p181/211  SKIP  The page contains only exercise questions without explanatory content.
+  p182/211  SAVED  Chapter 6: Matrices and Vectors | 7.5 The intersection of two planes
+  p183/211  SAVED  Chapter 6: Matrices and Transformations | The intersection of two planes
+  p184/211  SAVED  Chapter 7: Vectors | 7.6 The angle between two planes
+  p185/211  SAVED  Chapter 7: Lines and Planes | 7.6 The angle between two planes
+  p186/211  SAVED  Chapter 6: Matrices and Vectors | Common Perpendicular to Two Lines
+  p187/211  SKIP  Page contains only exercises (questions 5-9) without concept explanation or worked examples. No teachable content.
+  p188/211  SKIP  Page contains only exercise problems, no concept explanation or worked example.
+  p189/211  SAVED  Chapter 7: Vectors | The vector product
+  p190/211  SAVED  Chapter 6: Matrices and Vectors | 7.7 The Vector Product as a Determinant
+  p191/211  SAVED  Chapter 7: Vectors | The vector product
+  p192/211  SAVED  Chapter 7: Vectors | The vector product and its applications
+  p193/211  SAVED  Chapter 6: Matrices and Vectors | 7.7 The Vector Product
+  p194/211  SAVED  Chapter 7: Vectors | Vector Product (Cross Product)
+  p195/211  SAVED  Chapter 7: Vectors | 7.8 Finding distances
+  p196/211  SAVED  Chapter 7: Vectors | Shortest distance from a point to a line
+  p197/211  SAVED  Chapter 6: Matrices and Vector Geometry | Finding distances
+  p198/211  SAVED  Chapter 6: Matrices and Vectors | Vectors
+  p199/211  SAVED  Chapter 7: Vectors and Planes | 7.8 Finding distances
+  p200/211  SAVED  Chapter 7: Vectors | Distance from a point to a plane
+  p201/211  SKIP  Page contains a fragmented worked solution without a clear, self-contained concept or explanation suitable for a teaching unit.
+  p202/211  SAVED  Chapter 7: Vectors | Distance Between Skew Lines
+  p203/211  SAVED  Chapter 6: Matrices | 7.8 Finding distances
+  p204/211  SAVED  Chapter 6: Vectors | Vectors
+  p205/211  SKIP  Page consists only of exercises (problems 9-11) with no explanatory content or worked examples.
+  p206/211  SAVED  Chapter 6: Matrices and Vectors | Key Points
+  p207/211  SAVED  Chapter 6: Matrices and Vector Geometry | Finding distances
+  p208/211  SKIP  Page contains only learning outcomes for Chapter 7: Vectors, no teachable content.
+  p209/211  SKIP  Page is an index, no teachable content.
+  p210/211  SKIP  Page is an index, no teachable content.
+  p211/211  SKIP  Page contains only book promotional material and an incomplete sentence; no teachable mathematical content.
+------------------------------------------------------------
+DONE: 160 saved, 39 skipped, 3 errors
+Backup: C:\Learnova\AL-FurtherMaths_FAS-A2_results.json
+DONE: 160 saved, 39 skipped, 3 errors

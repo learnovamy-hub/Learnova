@@ -1,0 +1,598 @@
+[
+  {
+    "page": 4,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Page is a table of contents, no teachable content."
+  },
+  {
+    "page": 5,
+    "bab": "Unit 1: Amazing Adventures",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Using Strong Adjectives in Descriptions",
+    "concept_explanation": "Strong adjectives make descriptions more vivid and engaging. Instead of using common adjectives like 'good' or 'bad', use more specific and powerful words such as 'incredible', 'terrifying', or 'magnificent'. This helps to capture the reader's attention and convey emotions effectively.",
+    "worked_example": "",
+    "common_mistakes": "Students often rely on weak adjectives like 'nice', 'big', or 'funny'. Encourage them to replace these with stronger alternatives such as 'delightful', 'enormous', or 'hilarious'.",
+    "keywords": [
+      "strong adjectives",
+      "descriptive writing",
+      "informal letter",
+      "reading comprehension",
+      "adventure"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 6,
+    "bab": "Unit 1: Let's Chat",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Describing Feelings about Activities",
+    "concept_explanation": "Use adjectives to express how you feel about different activities. For example, 'bungee jumping is terrifying but exciting.' Common adjectives include 'enjoyable,' 'tempting,' 'stressful,' 'monotonous,' 'terrifying,' 'risky,' and 'unforgettable.' These words help you describe your opinions and emotions clearly in speaking and writing.",
+    "worked_example": "Skydiving is terrifying but also unforgettable. I felt anxious before jumping but thrilled after.",
+    "common_mistakes": "Students often confuse 'terrifying' (causing fear) with 'terrified' (feeling fear). Use 'terrifying' to describe the activity, not the person's feeling.",
+    "keywords": [
+      "enjoyable",
+      "tempting",
+      "stressful",
+      "monotonous",
+      "terrifying",
+      "risky",
+      "unforgettable"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 7,
+    "bab": "Unit 1: Let's Chat",
+    "skip": false,
+    "subtopic": "Ways of Communicating",
+    "concept_title": "Means of Communication",
+    "concept_explanation": "We use different methods to communicate with others, such as sending emails, making phone calls, or using instant messaging. Each method has its own advantages and is suitable for different situations. Learning these terms helps you discuss communication effectively and use them in writing and speaking tasks.",
+    "worked_example": "Decoded list from the box: send emails, instant messaging, make a phone call, video calling, have access to the Internet, send text messages / MMS, send video clips. These are common ways people communicate today.",
+    "common_mistakes": "Students often confuse 'email' with 'text message' or misuse prepositions, e.g., saying 'send an email to someone' rather than just 'email someone'. Also, spelling errors like 'telephone' instead of 'telephone' can occur.",
+    "keywords": [
+      "communication",
+      "email",
+      "instant messaging",
+      "video call",
+      "telephone",
+      "text message",
+      "internet"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 8,
+    "bab": "Unit 1: Social Networking Sites",
+    "skip": false,
+    "subtopic": "Reading Skills: Dealing with Unknown Vocabulary",
+    "concept_title": "Guessing Meaning from Context",
+    "concept_explanation": "When reading, you don't need to know every word. Focus on understanding the main idea. Use context clues—words and sentences around an unknown word—to guess its meaning. Decide if the word is important for overall comprehension before looking it up.",
+    "worked_example": "Text: 'I spend a lot of my free time on social networking sites. They are great for keeping in touch with my mates.' Unknown word: 'mates'. Context: 'keeping in touch' suggests 'mates' means 'friends'.",
+    "common_mistakes": "Students often stop reading to check every unknown word, losing the flow. Instead, they should continue reading and use context to guess.",
+    "keywords": [
+      "unknown vocabulary",
+      "context clues",
+      "guessing meaning",
+      "reading strategy",
+      "opinion",
+      "social networking"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 9,
+    "bab": "Unit 1: Social Networking Sites",
+    "skip": false,
+    "subtopic": "Grammar: Present Simple vs Present Continuous",
+    "concept_title": "Present Simple vs Continuous",
+    "concept_explanation": "The Present Simple tense is used for habits, routines, and general truths, while the Present Continuous is used for actions happening now or around the moment of speaking. For example, 'Tanya enjoys using social networking sites and uses them every day' (habit) shows Present Simple, whereas 'She’s playing an online game at the moment' (current action) uses Present Continuous. Stative verbs (e.g., see, like, want) are not usually used in continuous forms.",
+    "worked_example": "Present Simple: 'I update my profile every week.' (habit)\nPresent Continuous: 'I am updating my profile right now.' (current action)",
+    "common_mistakes": "Students often use Present Continuous with stative verbs (e.g., 'I am liking this post' instead of 'I like this post') or apply Present Simple for actions happening at the moment.",
+    "keywords": [
+      "Present Simple",
+      "Present Continuous",
+      "stative verbs",
+      "habits",
+      "current actions"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 10,
+    "bab": "Unit 1: Let's Chat",
+    "skip": false,
+    "subtopic": "Vocabulary: Technology and Communication",
+    "concept_title": "Technology Verbs and Communication Phrases",
+    "concept_explanation": "This page focuses on common verbs used with technology (e.g., turn on, download, charge, install, press, attach) and phrases for communication (e.g., keep in touch, drop me a line, have a word with). Matching exercises help you build correct collocations (verb + noun) and understand meaning in context. Mastering these will improve your ability to describe tech actions and everyday interactions.",
+    "worked_example": "Example from Section A: 'turn on / shut down' matches with 'e. a computer / a laptop' because you turn on or shut down a computer or laptop. Similarly, 'download / upload' matches with 'c. software / an antivirus program'? Actually careful: download/upload can refer to software or files, but the given options: a. a battery / a mobile, b. the ON-OFF button / ENTER, c. software / an antivirus program, d. a document / image, etc. (to an email), e. a computer / a laptop, f. information (e.g. music, videos). So download/upload best matches f (information) or c? Typically download/upload software or files. But the textbook answer likely is f for download/upload, and c for install? We'll provide a generic example: 'To install a program, you often need to download it first.'",
+    "common_mistakes": "Students often mix up 'download' and 'upload' (direction relative to user), or confuse 'install' (set up software) with 'attach' (add file to email). Also, 'press' is for buttons, 'click' for mouse actions.",
+    "keywords": [
+      "technology verbs",
+      "communication phrases",
+      "collocations",
+      "matching exercise",
+      "vocabulary building"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 11,
+    "bab": "Unit 1: Grammar - Comparisons",
+    "skip": false,
+    "subtopic": "Comparisons",
+    "concept_title": "Comparisons in English",
+    "concept_explanation": "Comparisons are used to show differences or similarities between things.  In English, we form the comparative of short adjectives by adding '-er' (e.g., 'cheaper'), and the superlative by adding '-est' (e.g., 'cheapest').  For longer adjectives, we use 'more' (comparative) and 'most' (superlative).  Special patterns include 'as + adjective + as' to show equality, and 'the + comparative, the + comparative' to show a cause-effect relationship (e.g., 'The more you study, the better you do').",
+    "worked_example": "Young people have many ways to communicate with each other. Nowadays, it’s much (1) easier (easy) to chat and keep in touch with friends than in the past. Of course, young people hardly ever send letters. And even emails aren’t as (2) popular (popular) as the message services provided by social networking sites. However, the (3) most common (common) way for young people to communicate is by text messaging which is becoming (4) cheaper and cheaper (cheap). Over the last few years, smartphones have become (5) more popular (popular) because people can use them to instantly send videos and pictures to their friends or even share them on social media. All this communication has its disadvantages, though. The (6) more (much) young people use these ways to communicate with their friends, the (7) less (little) time they spend seeing them face-to-face.",
+    "common_mistakes": "Students often forget to use 'than' after a comparative adjective (e.g., 'This is cheaper *than* that') or use double comparatives like 'more cheaper'.  Another common error is mixing up 'as...as' with 'so...as' (the latter is usually used in negative sentences only).",
+    "keywords": [
+      "comparative",
+      "superlative",
+      "as...as",
+      "the more...the more",
+      "irregular adjectives"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 12,
+    "bab": "Unit 1",
+    "skip": false,
+    "subtopic": "Vocabulary: Expressing Likes and Dislikes",
+    "concept_title": "Phrases for Likes and Dislikes",
+    "concept_explanation": "The phrases in bold express either positive or negative feelings about something. For example, 'crazy about' and 'keen on' show strong liking, while 'tired of' and 'fed up with' indicate annoyance or boredom. Learning to use these phrases helps you describe your preferences accurately in speaking and writing.",
+    "worked_example": "Positive: She is crazy about reading, so she spends hours at the library. Negative: He is fed up with his old phone and wants a new one.",
+    "common_mistakes": "Students may confuse 'tired of' (negative) with 'keen on' (positive). Remember: 'tired of' means you have had enough, so it is negative; 'keen on' means you like it, so it is positive.",
+    "keywords": [
+      "phrases of interest",
+      "positive meaning",
+      "negative meaning",
+      "likes and dislikes",
+      "vocabulary"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 13,
+    "bab": "Unit 1: Personal Webpage Writing",
+    "skip": false,
+    "subtopic": "Reading and Responding to a Personal Webpage",
+    "concept_title": "Writing a Personal Webpage",
+    "concept_explanation": "A personal webpage introduces yourself to others. It typically includes sections like your name, interests, friends, and family. When writing one, use clear headings, simple language, and include personal details to make it engaging. For SPM, you may be asked to read a sample webpage and then create your own using similar categories.",
+    "worked_example": "Hi there. My name is Ahmad and this is my webpage. My mates and I: I have loads of friends but my best mate is Arjun. I find nothing more entertaining than hanging out with him. We spend almost all our free time together and when we are not together we are always chatting on the phone or online or even playing online games. Arjun is very sporty and he is crazy about badminton. He plays in the school badminton team. I am not a big sports fan but we do other things together like watching music videos and learning the dance moves. Arjun is a great dancer. I can't say that I am as good as he is but I am improving. My interests: Apart from music, I love watching films and even going to see plays. I am thinking of becoming an actor you see. At the moment I am working part time at a local pizza place because I want to earn money for acting classes. Another thing I am fond of doing is drawing. Unlike my friends, I am quite good at it and also creative.",
+    "common_mistakes": "Students often forget to use linking words (e.g., 'and', 'but', 'because') to connect ideas smoothly, or they write too generally without specific examples.",
+    "keywords": [
+      "personal webpage",
+      "categories",
+      "interests",
+      "linking words",
+      "self-introduction"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 14,
+    "bab": "Unit 1: Reading Skills",
+    "skip": false,
+    "subtopic": "Reading for Main Idea",
+    "concept_title": "Skimming for Summary",
+    "concept_explanation": "Skimming involves quickly reading a text to grasp the main idea. The best summary captures the overall message, not just specific details. Focus on the title, topic sentences, and key changes described to find the central point.",
+    "worked_example": "Correct summary: 'Mobile phones have changed a lot since the first one was invented.' This option (c) reflects the text’s focus on evolution, while other options emphasize quantity, importance, or usage.",
+    "common_mistakes": "Students may select a detail as the main idea, e.g., choosing 'There are more mobile phones now' instead of recognizing the theme of evolution.",
+    "keywords": [
+      "skimming",
+      "summary",
+      "main idea",
+      "reading comprehension"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 15,
+    "bab": "Unit 1: Talking About the Past",
+    "skip": false,
+    "subtopic": "Grammar",
+    "concept_title": "Past Simple vs. Used to vs. Be/Get Used to",
+    "concept_explanation": "The Past Simple describes completed actions or events in the past (e.g., 'I went to the shopping centre'). 'Used to' refers to past habits or states that no longer exist (e.g., 'They used to be big and heavy'). 'Be used to' means being accustomed to something (e.g., 'I am not used to using the menu'), while 'get used to' means becoming accustomed (e.g., 'You'll soon get used to using it'). Note the differences in structure: 'used to' is followed by a base verb, whereas 'be/get used to' takes a noun or gerund.",
+    "worked_example": "Choose the correct option: \"Eddie and Mike ___ be good friends, but they don’t talk to each other any more.\" Answer: b. used to (because it's a past habit that no longer continues).",
+    "common_mistakes": "Students often confuse 'used to' (past habit) with 'be used to' (accustomed). For example, saying 'I used to waking up early' instead of 'I am used to waking up early' to express being accustomed. Also, they may incorrectly write 'use to' instead of 'used to'.",
+    "keywords": [
+      "Past Simple",
+      "used to",
+      "be used to",
+      "get used to",
+      "habit",
+      "past state"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 16,
+    "bab": "Unit 1: Communication Skills",
+    "skip": false,
+    "subtopic": "Vocabulary – Verbs and Noun Formation",
+    "concept_title": "Verbs of Communication and Noun Suffixes",
+    "concept_explanation": "This page introduces a set of verbs that describe different ways of communicating, such as 'argue', 'mention', 'explain', 'yell', 'discuss', 'chat', 'complain', and 'gossip'. Each verb has a distinct meaning related to the manner or purpose of communication. Additionally, many of these verbs can be transformed into nouns by adding suffixes like -ion, -ation, or -ment, often with spelling changes (e.g., decide → decision, explain → explanation). Recognising these verb-noun pairs helps you expand your vocabulary and use more precise language in writing and speaking.",
+    "worked_example": "",
+    "common_mistakes": "Students often misspell the noun forms, for example writing 'explaination' instead of 'explanation' or 'decission' instead of 'decision'. Another common error is confusing the verb and noun forms in a sentence, such as using 'argue' when 'argument' is needed.",
+    "keywords": [
+      "argue",
+      "discuss",
+      "complain",
+      "gossip",
+      "suffix -ion",
+      "suffix -ation",
+      "suffix -ment",
+      "noun formation"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 17,
+    "bab": "Unit 1: Let's Talk About Technology",
+    "skip": false,
+    "subtopic": "Speaking - Comparing and Contrasting",
+    "concept_title": "Comparing Laptops and Desktops",
+    "concept_explanation": "When comparing two items, use specific vocabulary to describe advantages and disadvantages. Phrases like 'One of the advantages of ... is ...' and '... are more useful because ...' help structure your opinion. Focus on features such as portability, convenience, size, and power to make clear comparisons.",
+    "worked_example": "One of the advantages of having a laptop is that it is portable and convenient. A common problem with desktop computers is that they take up more room. Laptops are more useful because you can take them anywhere, but desktops are often more powerful.",
+    "common_mistakes": "Students may forget to use comparative structures (e.g., 'more useful' instead of 'useful') or misuse prepositions (e.g., 'advantage of' not 'advantage with').",
+    "keywords": [
+      "portable",
+      "convenient",
+      "advantages",
+      "disadvantages",
+      "compare",
+      "laptop",
+      "desktop"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 18,
+    "bab": "Unit 1: Writing an Informal Letter/Email",
+    "skip": false,
+    "subtopic": "Write an informal letter/email based on prompts",
+    "concept_title": "Writing Informal Emails/Letters",
+    "concept_explanation": "An informal email or letter is written to a friend or family member. It uses a friendly, conversational tone, includes greetings and closings such as 'Hello' and 'Yours', and may contain contractions, idioms, and exclamations. When replying to prompts, ensure you address all points: give news, express enthusiasm, accept or refuse an invitation, and add extra comments to make it natural.",
+    "worked_example": "Hi Simon,\n\nSorry I haven’t written for so long, but I’ve been quite busy with schoolwork. Thanks for the invitation, mate! You know I wouldn’t miss your party for the world, so count me in!\n\nI’m really glad you’re finally getting a laptop. Now it’ll be easier to keep in touch and we can maybe play some online games. Let me know if you need any more songs for the party.\n\nNow let me fill you in with my news. My new school is OK and I’m doing quite well. However, I haven’t made many new friends yet. There’s this one guy, though, from my Science class who seems quite interesting and is absolutely hilarious. He’s into hip hop like me and actually raps quite well so we’re thinking of creating a band together. By the way, do you mind if I bring him along to your party? We can perform if you like.\n\nSay hello to everyone.\n\nSee you soon,\nMark",
+    "common_mistakes": "Students often use too formal language, forget to include all required points, or fail to use appropriate greetings and closings.",
+    "keywords": [
+      "informal email",
+      "set phrases",
+      "tone",
+      "prompts",
+      "reply"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 19,
+    "bab": "Unit 1: Informal Correspondence",
+    "skip": false,
+    "subtopic": "Expressing Enthusiasm and Handling Invitations",
+    "concept_title": "Informal Letter/Email Phrases",
+    "concept_explanation": "In informal letters or emails, use friendly expressions to show enthusiasm, accept or refuse invitations, and give news. For enthusiasm, say 'Wow! That’s great/fantastic news!' To accept, use 'Sounds brilliant! Count me in.' To refuse politely, say 'I’m afraid I can’t make it because...' These phrases make your writing natural and engaging. Follow the plan: greeting, opening paragraph stating your reason, main body with details, and closing.",
+    "worked_example": "Situation: A friend invites you to a party. Reply: 'Hi John, Thanks for inviting me to your party. Sounds brilliant! Count me in. I’m really looking forward to it. See you there! Best, Alex.'",
+    "common_mistakes": "Students often mix formal and informal language, e.g., using 'I regret to inform you' in an informal email. Keep it friendly and use contractions like 'I’m' or 'can’t'.",
+    "keywords": [
+      "informal letter",
+      "enthusiasm",
+      "invitation",
+      "refusing politely",
+      "giving news",
+      "letter structure"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 20,
+    "bab": "Unit 1: Round-up",
+    "skip": false,
+    "subtopic": "Grammar and Vocabulary Review",
+    "concept_title": "Comparatives and Superlatives",
+    "concept_explanation": "Comparative adjectives compare two things, often formed by adding '-er' (e.g., longer) or using 'more' (e.g., more difficult). Superlative adjectives compare three or more things, formed by adding '-est' (e.g., tallest) or using 'most' (e.g., the most creative). The 'as...as' structure indicates equality (e.g., as popular as). Common rules include using 'the' before superlatives and avoiding double comparatives like 'more better'.",
+    "worked_example": "From Exercise D: 'Alice is ______ creative person I know.' Correct answer: 'the most' (superlative). 'The journey was ______ than expected.' Correct answer: 'longer' (comparative).",
+    "common_mistakes": "Students often forget to use 'the' before superlatives (e.g., 'She is tallest' instead of 'the tallest') or incorrectly use 'more' with short adjectives (e.g., 'more big' instead of 'bigger'). They may also misuse 'as...as' with comparative forms (e.g., 'as longer as').",
+    "keywords": [
+      "comparative",
+      "superlative",
+      "as...as",
+      "adjective degree",
+      "grammar"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 21,
+    "bab": "Unit 2: Ready for anything",
+    "skip": false,
+    "subtopic": "Vocabulary - Describing Activities and Feelings",
+    "concept_title": "Adjectives for Activities and Feelings",
+    "concept_explanation": "This page introduces adjectives to describe extreme activities and emotions. Words like 'risky', 'thrilling', 'stressful', and 'terrifying' describe the nature of activities. Feelings such as 'terrified', 'thrilled', 'anxious', 'fearless', and 'uneasy' describe how people might feel. Understanding these words helps you express opinions and emotions accurately in speaking and writing.",
+    "worked_example": "Example: 'Bungee jumping is thrilling but risky. I felt terrified before jumping, but after, I was thrilled.'",
+    "common_mistakes": "Students often confuse adjectives ending in -ed and -ing (e.g., 'I am terrifying' instead of 'I am terrified'). Remember: -ing describes the thing causing the feeling; -ed describes the person's feeling.",
+    "keywords": [
+      "thrilling",
+      "terrifying",
+      "risky",
+      "terrified",
+      "thrilled",
+      "anxious",
+      "fearless"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 22,
+    "bab": "Unit 1: Social Responsibility",
+    "skip": false,
+    "subtopic": "Reading: Identifying Common Points",
+    "concept_title": "Finding Common Themes in Texts",
+    "concept_explanation": "When reading multiple examples in a text, look for what they share. Here, all individuals performed unusual or extreme activities to raise money for charity. The main idea is that people do creative and daring things to support causes.",
+    "worked_example": "The people mentioned (David Hunt, Kay Matthews, Nick Le Souef) all did extreme challenges (living in a glass box, skydiving, staying with spiders) to raise money for charity. So they have in common that they used unusual methods to fundraise for charitable causes.",
+    "common_mistakes": "Students may list separate facts about each person instead of identifying the shared purpose or theme.",
+    "keywords": [
+      "main idea",
+      "common theme",
+      "charity",
+      "fundraising",
+      "extreme challenges"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 23,
+    "bab": "Unit 1: Charity and Community",
+    "skip": false,
+    "subtopic": "Grammar: Countable and Uncountable Nouns & Quantifiers",
+    "concept_title": "Countable/Uncountable Nouns & Quantifiers",
+    "concept_explanation": "Countable nouns can be counted (e.g., 'light' as a source of illumination - 'turn on the lights'), while uncountable nouns cannot be counted as separate units (e.g., 'light' meaning brightness - 'not enough light'). Quantifiers such as 'some' and 'any' are used with both types: 'some' usually in positive sentences and offers, 'any' in questions and negatives. For uncountable nouns, use 'some' or 'any' without a plural form.",
+    "worked_example": "There’s not enough light in this room. Turn on the lights, please.\nI haven’t got any money. I need to get some from the bank.",
+    "common_mistakes": "Students often use 'some' in negative sentences (e.g., 'I don't have some money') or forget that uncountable nouns take singular verbs (e.g., 'There is not enough light' not 'There are not enough light'). Also, confusing 'any' in positive statements when a specific quantity is implied.",
+    "keywords": [
+      "countable nouns",
+      "uncountable nouns",
+      "quantifiers",
+      "some",
+      "any"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 24,
+    "bab": "Unit 1: Vocabulary Development",
+    "skip": false,
+    "subtopic": "Vocabulary: Words as Verbs and Nouns",
+    "concept_title": "Words as Verbs and Nouns",
+    "concept_explanation": "In English, many words can function as both verbs and nouns. The meaning may be similar, like 'support' meaning to help or the help given, or different, like 'watch' meaning to look at or a timepiece. Understanding the context helps determine whether a word is used as a verb or a noun.",
+    "worked_example": "Example for pair 1: The correct word is 'support'. 1a. This organisation supports the homeless. (verb) 1b. My family have given me a lot of support. (noun)",
+    "common_mistakes": "Students often forget to change the form of the word to fit the sentence, e.g., using the base form 'support' in both sentences instead of using 'supports' for the verb form.",
+    "keywords": [
+      "verb",
+      "noun",
+      "part of speech",
+      "vocabulary",
+      "context"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 25,
+    "bab": "Unit 1: Relative Clauses",
+    "skip": false,
+    "subtopic": "Grammar",
+    "concept_title": "Defining vs Non-Defining Relative Clauses",
+    "concept_explanation": "Defining relative clauses give essential information to identify the noun, and commas are not used. Non-defining relative clauses add extra information and are set off with commas. Use 'who/that' for people, 'which/that' for things, 'where' for places, and 'whose' for possession. 'That' cannot be used in non-defining clauses.",
+    "worked_example": "Skydiving, which is an activity from New Zealand, is popular around the world nowadays. (Non-defining, commas needed) | The guy who I was just talking to is a ski instructor. (Defining, no commas)",
+    "common_mistakes": "Students often forget to add commas in non-defining relative clauses or incorrectly use 'that' in non-defining clauses. They may also confuse when a clause is essential (defining) vs extra (non-defining).",
+    "keywords": [
+      "defining relative clause",
+      "non-defining relative clause",
+      "relative pronoun",
+      "who",
+      "which",
+      "that",
+      "where",
+      "whose"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 26,
+    "bab": "Unit 1: Personality Adjectives",
+    "skip": false,
+    "subtopic": "Vocabulary: Matching Adjectives with Definitions",
+    "concept_title": "Personality Adjectives and Meanings",
+    "concept_explanation": "This activity teaches you common personality adjectives used to describe people's characteristics. You need to match each adjective (e.g., dedicated, ambitious) with its correct definition (a-j) to understand the precise meaning. Knowing these words helps you write and speak about people more accurately in both formal and informal contexts.",
+    "worked_example": "Example: 'dedicated' matches definition d: 'spending time doing something because it is important to you'.",
+    "common_mistakes": "Students often confuse 'reliable' (can be trusted for help or support) with 'responsible' (able to make good decisions and be trusted). Also, 'ambitious' may be mistakenly seen as negative, but it simply means strongly wanting to succeed.",
+    "keywords": [
+      "personality adjectives",
+      "vocabulary matching",
+      "character traits"
+    ],
+    "difficulty_level": 1
+  },
+  {
+    "page": 27,
+    "bab": "Unit 1: Writing a Description of a Person",
+    "skip": false,
+    "subtopic": "Writing Task and Model Answer",
+    "concept_title": "Writing a Description of a Person",
+    "concept_explanation": "When writing a description of a person you admire, focus on their qualities, actions, and the influence they have had on you. Use specific examples to support your points, and organize your paragraphs clearly: introduce the person, describe their admirable traits, explain how they have influenced you, and conclude with your overall feelings. This structure helps the reader understand why you admire them.",
+    "worked_example": "The person I admire the most is my uncle Tony. He is a firefighter and he has performed some extremely heroic acts. My uncle is the most courageous person I know. He risks his life every day to save others. He really loves his job and wouldn’t change it for anything. Few people are as kind and unselfish as he is. In fact, he always offers to help others even when he isn’t working. Another quality that really stands out is his great sense of humour. Whenever we’re together, he makes me laugh a lot. As for myself, my uncle Tony has been a huge influence on me. He’s shown me how important it is to help others who are in need. I believe he’s the reason why I’ve decided to become a doctor. I really like my uncle Tony and so does everyone in the community. Nobody ever has a bad word to say about him.",
+    "common_mistakes": "Students often list qualities without providing specific examples or explaining how the person has influenced them. They may also forget to organize their ideas into coherent paragraphs or use vague language instead of vivid details.",
+    "keywords": [
+      "description",
+      "admire",
+      "qualities",
+      "influence",
+      "paragraph structure"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 28,
+    "bab": "Unit 1: The Adventure of the Mazarin Stone",
+    "skip": false,
+    "subtopic": "Pre-Reading Discussion",
+    "concept_title": "Making Predictions Before Reading",
+    "concept_explanation": "Before reading a story, use pictures, titles, and your prior knowledge about the topic to predict what might happen. This reading strategy helps you engage with the text and improves comprehension. For example, looking at the picture of two people in a room suggests they might be involved in a detective case, especially given the setting of Baker Street and the scientific charts.",
+    "worked_example": "Example: Based on the picture and the title, we can predict that the two people are Sherlock Holmes and Dr. Watson, and a mystery is about to unfold. The narrator's description of the room as the starting point of many adventures gives clues that this story will involve solving a crime.",
+    "common_mistakes": "Students may ignore the pre-reading stage and start reading without forming any expectations, which can lead to passive reading and difficulty understanding the plot.",
+    "keywords": [
+      "prediction",
+      "prior knowledge",
+      "inference",
+      "pre-reading",
+      "setting"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 29,
+    "bab": "Unit 1: Sherlock Holmes",
+    "skip": false,
+    "subtopic": "Vocabulary: Guessing Meaning from Context",
+    "concept_title": "Guessing Word Meanings from Context",
+    "concept_explanation": "When you encounter an unfamiliar word in a text, you can often guess its meaning by looking at the surrounding words and sentences. These are called context clues. For example, the text may provide a definition, an example, or a synonym nearby. This skill helps you read more fluently and understand the story without stopping to look up every word.",
+    "worked_example": "In the text, the phrase 'the wax figure was so lifelike' gives a clue: 'lifelike' means looking exactly like a real person or thing (meaning 1). Similarly, 'He gave a quick glance around the room' suggests that 'glance' means to look quickly (meaning 6).",
+    "common_mistakes": "Students often rely only on word parts or the first meaning they know, ignoring the context. For instance, 'grave' can mean a burial place or something very serious; without context, students might choose the wrong meaning.",
+    "keywords": [
+      "context clues",
+      "guessing meaning",
+      "vocabulary",
+      "reading comprehension",
+      "synonyms"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 30,
+    "bab": "Unit 1: While Billy was talking, Watson turned to",
+    "skip": false,
+    "subtopic": "Vocabulary: Phrasal Verbs with Keep",
+    "concept_title": "Phrasal Verbs with Keep",
+    "concept_explanation": "A phrasal verb consists of a verb (e.g., keep) combined with a particle (preposition or adverb) to create a new meaning. For example, 'keep on' means continue, 'keep up with' means move at the same speed, and 'keep an eye on' means watch carefully. These expressions are commonly used in everyday English and are important for understanding spoken and written language.",
+    "worked_example": "1. Yesterday we stayed at my grandmother’s house and kept her company.\n2. Hey, you! Keep off the grass! You’re not allowed to play football here!\n3. Stop walking so fast! I can’t keep up with you.\n4. Keep an eye on the kids while I go shopping, will you?\n5. Don’t jump around. Keep still for a minute. I want to take your picture.\n6. I think we’re going to win this game. Keep your fingers crossed!\n7. Keep in mind that the train leaves at four. Don’t be late.\n8. Tina said she wouldn’t lie to me again, but she failed to keep her promise.\n9. Please keep this information to yourself. It’s top secret!\n10. If you keep on eating like that, you’ll gain weight.",
+    "common_mistakes": "Students often confuse 'keep up' (meaning to maintain pace) with 'keep up with' (meaning to move at the same speed as someone). Additionally, they may use the wrong particle, e.g., 'keep on the grass' instead of 'keep off the grass'.",
+    "keywords": [
+      "phrasal verbs",
+      "keep",
+      "particles",
+      "idioms",
+      "expressions"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 31,
+    "bab": "Unit 1: While Billy was talking, Watson turned to",
+    "skip": false,
+    "subtopic": "Role Play and Listening",
+    "concept_title": "Role Play and Listening Skills",
+    "concept_explanation": "In role plays, students use prompts to ask and answer questions, simulating real-life interviews. For listening tasks, students preview pictures to predict content, listen for specific details, and select the picture that correctly answers the question. Both activities build communication and comprehension skills.",
+    "worked_example": "",
+    "common_mistakes": "In role plays, students may form questions incorrectly or miss key details. In listening, they often choose a picture that is mentioned but does not directly answer the question; focus on the question word.",
+    "keywords": [
+      "role play",
+      "listening comprehension",
+      "interview",
+      "prompts",
+      "eye witness",
+      "news article"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 32,
+    "bab": "Unit 2: Writing a Story",
+    "skip": false,
+    "subtopic": "Story Writing Techniques",
+    "concept_title": "Narrative Writing: Endings, Tenses, Links & Speech",
+    "concept_explanation": "A good story needs an appropriate ending that resolves the conflict and matches the given final sentence. Use consistent past tenses (simple past, past continuous) to narrate events. Linking words and phrases (e.g., 'suddenly', 'a moment later', 'however') help connect ideas and create flow. Direct speech makes the story more vivid and shows characters' emotions or reactions.",
+    "worked_example": "",
+    "common_mistakes": "Students may switch tenses inconsistently (e.g., using present tense in a past narrative) or forget to include clear time expressions to link events. They might also write an ending that does not logically lead to the required final sentence.",
+    "keywords": [
+      "narrative tenses",
+      "direct speech",
+      "linking words",
+      "story ending",
+      "conflict resolution"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 33,
+    "bab": "Unit 1: While Billy was talking, Watson turned to",
+    "skip": false,
+    "subtopic": "Linking Words and Story Writing Structure",
+    "concept_title": "Linking Words for Narrative Cohesion",
+    "concept_explanation": "Linking words and phrases help connect ideas in a story, showing time sequence, cause and effect, or emphasis. For example, 'while' and 'during' indicate simultaneous actions, while 'as a result' shows consequence. A well-structured story includes an introduction (setting and characters), a main part (events and feelings), and a conclusion (ending and comment). Use past tenses consistently to narrate events.",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse 'while' (conjunction + clause) with 'during' (preposition + noun). For example, 'while the sun was shining' is correct, not 'during the sun'. Also, they may forget to sequence events logically or shift tenses unnecessarily.",
+    "keywords": [
+      "linking words",
+      "narrative structure",
+      "past tenses",
+      "introduction",
+      "conclusion"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 34,
+    "bab": "Unit 1: While Billy was talking, Watson turned to",
+    "skip": false,
+    "subtopic": "Let's Read 1",
+    "concept_title": "Predicting and Inferring",
+    "concept_explanation": "Before reading a text, use visual clues such as pictures and headings to predict what will happen. While reading, infer meaning by connecting the text to your predictions and prior knowledge. This helps improve comprehension and engagement with the story.",
+    "worked_example": "Before reading the extract from 'Twenty Thousand Leagues Under the Sea', look at the picture showing a giant squid attacking a submarine. Predict: 'The crew will fight the squid.' Then read: 'Suddenly, I saw a giant squid attacking the sides of the Nautilus. We fought with all our strength.' Your prediction matches the main event.",
+    "common_mistakes": "Students often ignore pictures or headings and jump straight into reading, missing clues that help understand the context and enhance comprehension.",
+    "keywords": [
+      "prediction",
+      "inference",
+      "visual clues",
+      "context"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 35,
+    "bab": "Unit 1: While Billy was talking, Watson turned to",
+    "skip": false,
+    "subtopic": "Reading Comprehension and Summary Writing",
+    "concept_title": "Summary Writing for a Story Extract",
+    "concept_explanation": "A summary paragraph of a story extract should be concise and focused. Start by describing the main characters and setting (the who, where, and when). Then, outline the main theme and key events (the what) in two to three sentences. Finally, discuss supporting details that show how characters react or deal with the situation. Avoid personal opinions and stick to the extract's facts.",
+    "worked_example": "",
+    "common_mistakes": "Students often include too many minor details or personal interpretations, which distracts from the main events. They may also forget to clearly state the characters and setting first.",
+    "keywords": [
+      "summary",
+      "main characters",
+      "setting",
+      "theme",
+      "key events"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 36,
+    "bab": "Unit 1: While Billy was talking, Watson turned to",
+    "skip": false,
+    "subtopic": "Round-up",
+    "concept_title": "Past Simple vs Past Continuous",
+    "concept_explanation": "The Past Simple is used for completed actions in the past, while the Past Continuous describes ongoing actions that were happening at a specific time or when another action occurred (often interrupted by a Past Simple action). For example, 'While the passengers were getting on the train (ongoing), a fire broke out (completed).' Use 'when' or 'while' to connect the two actions.",
+    "worked_example": "While the passengers were getting on the train, a fire broke out in one of the carriages.",
+    "common_mistakes": "Students often use the Past Simple for both actions (e.g., 'While the passengers got on the train, a fire broke out') or forget to use the Past Continuous for the ongoing action. The interrupting action should always be Past Simple.",
+    "keywords": [
+      "Past Simple",
+      "Past Continuous",
+      "interrupted action",
+      "while",
+      "when"
+    ],
+    "difficulty_level": 2
+  }
+]

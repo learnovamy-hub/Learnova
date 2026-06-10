@@ -191,90 +191,27 @@ export function cleanTextForTTS(text) {
     .trim();
 }
 
-// ── Subject prefix metadata ───────────────────────────────────────────────────
+// ── Teaching language config (replaces subject-prefix TTS routing) ────────────
 
-export const SUBJECT_PREFIXES = {
-  'MY-': 'SPM Malaysia (Bahasa Malaysia)',
-  'AL-': 'A-Level (English)',
-  'ID-': 'Indonesia SNBT (Bahasa Indonesia)',
-  'ZH-': 'SPM Malaysia (Mandarin)',
+export const TEACHING_LANGUAGES = {
+  'bm': { name: 'Bahasa Malaysia', nativeName: 'Bahasa Malaysia', novaPromptKey: 'bm', ttsEngine: 'openai', ttsVoice: 'nova' },
+  'en': { name: 'English',         nativeName: 'English',         novaPromptKey: 'en', ttsEngine: 'kokoro', ttsVoice: 'af_sarah' },
+  'zh': { name: 'Mandarin',        nativeName: '中文',             novaPromptKey: 'zh', ttsEngine: 'kokoro', ttsVoice: 'zf_xiaobei' },
+  'ta': { name: 'Tamil',           nativeName: 'தமிழ்',           novaPromptKey: 'ta', ttsEngine: 'kokoro', ttsVoice: 'af_sarah' },
+  'id': { name: 'Bahasa Indonesia', nativeName: 'Bahasa Indonesia', novaPromptKey: 'id', ttsEngine: 'openai', ttsVoice: 'nova' },
 };
 
-export const ZH_SUBJECTS = [
-  'ZH-Mathematics',
-  'ZH-AddMaths',
-  'ZH-Physics',
-  'ZH-Chemistry',
-  'ZH-Biology',
-  'ZH-Sejarah',
-  'ZH-BahasaMalaysia',
-  'ZH-English',
-];
-
-// TTS routing: which engine + voice to use per subject prefix
-export const TTS_ROUTING = {
-  // BM subjects — OpenAI nova (best Malay voice)
-  'MY-BahasaMalaysia': { engine: 'openai', voice: 'nova', lang: 'bm' },
-  'MY-English':        { engine: 'openai', voice: 'nova', lang: 'bm' },
-  'MY-Mathematics':    { engine: 'openai', voice: 'nova', lang: 'bm' },
-  'MY-AddMaths':       { engine: 'openai', voice: 'nova', lang: 'bm' },
-  'MY-Physics':        { engine: 'openai', voice: 'nova', lang: 'bm' },
-  'MY-Chemistry':      { engine: 'openai', voice: 'nova', lang: 'bm' },
-  'MY-Biology':        { engine: 'openai', voice: 'nova', lang: 'bm' },
-  'MY-Sejarah':        { engine: 'openai', voice: 'nova', lang: 'bm' },
-  // A-Level — pre-generated Kokoro (free)
-  'AL-Mathematics':    { engine: 'kokoro', voice: 'af_sarah', lang: 'en-us' },
-  'AL-Physics':        { engine: 'kokoro', voice: 'af_sarah', lang: 'en-us' },
-  'AL-Chemistry':      { engine: 'kokoro', voice: 'af_sarah', lang: 'en-us' },
-  'AL-Biology':        { engine: 'kokoro', voice: 'af_sarah', lang: 'en-us' },
-  'AL-FurtherMaths':   { engine: 'kokoro', voice: 'af_sarah', lang: 'en-us' },
-  // Mandarin — pre-generated Kokoro zh (future content)
-  'ZH-Mathematics':    { engine: 'kokoro', voice: 'zf_xiaobei', lang: 'zh' },
-  'ZH-Physics':        { engine: 'kokoro', voice: 'zf_xiaobei', lang: 'zh' },
-  'ZH-Chemistry':      { engine: 'kokoro', voice: 'zf_xiaobei', lang: 'zh' },
-  'ZH-Biology':        { engine: 'kokoro', voice: 'zf_xiaobei', lang: 'zh' },
-  'ZH-Sejarah':        { engine: 'kokoro', voice: 'zf_xiaobei', lang: 'zh' },
-  'ZH-AddMaths':       { engine: 'kokoro', voice: 'zf_xiaobei', lang: 'zh' },
-  'ZH-BahasaMalaysia': { engine: 'kokoro', voice: 'zf_xiaobei', lang: 'zh' },
-  'ZH-English':        { engine: 'kokoro', voice: 'zf_xiaobei', lang: 'zh' },
-  // Indonesian — OpenAI
-  'ID-BahasaIndonesia': { engine: 'openai', voice: 'nova', lang: 'id' },
-  'ID-Fisika':          { engine: 'openai', voice: 'nova', lang: 'id' },
-  'ID-Kimia':           { engine: 'openai', voice: 'nova', lang: 'id' },
-  'ID-Biologi':         { engine: 'openai', voice: 'nova', lang: 'id' },
-  'ID-Matematika':      { engine: 'openai', voice: 'nova', lang: 'id' },
+// audio_url column per teaching language
+export const AUDIO_COLUMN = {
+  'bm': 'audio_url',
+  'en': 'audio_url_en',
+  'zh': 'audio_url_zh',
+  'ta': 'audio_url_ta',
+  'id': 'audio_url',
 };
 
-export function getTtsConfig(subject) {
-  if (TTS_ROUTING[subject]) return TTS_ROUTING[subject];
-  // Fallback by prefix
-  for (const [prefix, config] of Object.entries(TTS_ROUTING)) {
-    if (subject && subject.startsWith(prefix.split('-')[0] + '-')) return config;
-  }
-  return { engine: 'openai', voice: 'nova', lang: 'bm' };
-}
+// ── Nova system prompts per teaching language ─────────────────────────────────
 
-// ── Mandarin Nova system prompt ───────────────────────────────────────────────
+export const NOVA_ZH_PROMPT = `你是 Nova，Learnova 的 AI 导师。你帮助马来西亚华裔中学生备考 SPM。重要规则：1. 永远不要直接给出答案 2. 用苏格拉底式提问引导学生 3. 联系马来西亚生活实际举例 4. 每次回复必须以开放式问题结尾 5. 用简单易懂的中文 6. 鼓励学生，保持积极 7. 专注 SPM 考试技巧。回复必须以开放式问题结尾。`;
 
-export const NOVA_ZH_SYSTEM_PROMPT = `你是 Nova，Learnova 的 AI 导师。
-你帮助马来西亚华裔中学生备考 SPM。
-
-教学语言：中文（可混合少量英语数学符号）
-学生背景：马来西亚华裔，母语或强势语为中文
-
-教学规则（不可违反）：
-1. 永远不要直接给出答案
-2. 用引导式问题帮助学生自己思考
-3. 每次回复必须以开放式问题结尾（不能用"明白吗？"这类是非题）
-4. 联系生活实际解释概念
-5. 用简单易懂的中文，数学公式可用英文符号
-6. 鼓励学生，保持积极态度
-7. 专注于 SPM 考试所需的内容和技巧
-8. 回答长度：3-4 句话，精简有力
-
-回复格式：
-- 简短确认学生的理解或回答
-- 解释或纠正，联系实际
-- 以开放式问题结尾（例如："你能用自己的话解释一遍吗？"、"如果这个值变成 X，会怎样？"）
-
-你是导师，不是答案机器。每个回答都应该让学生主动思考。`;
+export const NOVA_TA_PROMPT = `நீங்கள் Nova, Learnova இன் AI ஆசிரியர். மலேசிய தமிழ் மாணவர்களுக்கு SPM தேர்வுக்கு உதவுகிறீர்கள். விதிகள்: 1. நேரடியாக விடை சொல்லாதீர்கள் 2. கேள்விகள் கேட்டு வழிகாட்டுங்கள் 3. எப்போதும் திறந்த கேள்வியுடன் முடியுங்கள்.`;

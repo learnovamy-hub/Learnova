@@ -1,0 +1,315 @@
+Processing: C:\Users\Yong\Downloads\Learnova Malaysia\Form 5\MY-F5 Biology.pdf
+Subject: MY-Biology  Form: 5  Pages: 11-291 of 291
+------------------------------------------------------------
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 1: Organisasi Tisu Tumbuhan dan Pertumbuhan, Pertumbuhan Sekunder Batang) already exists.","hint":null,"message
+  p 11/291  DB-ERR  Bab 1: Organisasi Tisu Tumbuhan dan Pertumbuhan | Pertumbuhan Sekunder pada Batang
+  p 12/291  SAVED  Bab 1: Pertumbuhan dan Perkembangan | Pertumbuhan Sekunder pada Akar
+  p 13/291  SAVED  Bab 1: Organisasi Tisu Tumbuhan dan Pertumbuhan | Pertumbuhan Sekunder Tumbuhan Monokot
+  p 14/291  SKIP  Page contains only activity instructions (folio and field study) with no explanatory biology content.
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 1: Organisasi Tisu Tumbuhan dan Pertumbuhan, Perbandingan Pertumbuhan Primer dan Sekunder) already exists.","hi
+  p 15/291  DB-ERR  Bab 1: Organisasi Tisu Tumbuhan dan Pertumbuhan | Perbandingan antara Pertumbuhan Primer dengan Pertumbuhan Sekunder dalam Tumbuhan Eudikot
+  p 16/291  SAVED  Bab 1: Pertumbuhan dan Perkembangan | Kepentingan Tumbuhan yang Mengalami Pertumbuhan Sekunder dari Segi Ekonomi
+  p 17/291  SAVED  Bab 1: Organisasi Tisu Tumbuhan dan Pertumbuhan | 1.3 Jenis Tumbuhan Berdasarkan Kitar Hidup
+  p 18/291  SAVED  Bab 1 | Tumbuhan Dwimusim dan Tumbuhan Saka
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 1: Organisasi Tisu Tumbuhan dan Pertumbuhan, Lengkung Pertumbuhan Tumbuhan) already exists.","hint":null,"messa
+  p 19/291  DB-ERR  Bab 1: Organisasi Tisu Tumbuhan dan Pertumbuhan | Lengkung Pertumbuhan dalam Tumbuhan
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 1: Pertumbuhan, Lengkung Pertumbuhan Sigmoid) already exists.","hint":null,"message":"duplicate key value viola
+  p 20/291  DB-ERR  Bab 1: Pertumbuhan | 1.1 Bentuk Lengkung Pertumbuhan dalam Tumbuhan
+  p 21/291  SAVED  Bab 1: Organisasi Tisu Tumbuhan dan Pertumbuhan | 1.2 Kesan Bunyi terhadap Pertumbuhan dalam Tumbuhan
+  p 22/291  SAVED  Bab 1: Pertumbuhan Tumbuhan | Jenis Pertumbuhan dan Meristem
+  p 23/291  SAVED  Bab 1: Organisasi Tisu Tumbuhan dan Pertumbuhan | 
+  p 24/291  SAVED  Bab 1: Pertumbuhan | 
+  p 25/291  SAVED  Bab 1: Organisasi Tisu Tumbuhan dan Pertumbuhan | 
+  p 26/291  SKIP  This is a chapter introduction page with only learning standards and exploratory questions, no specific biological content to structure.
+  p 27/291  SAVED  Bab 1 | Struktur dan Fungsi Daun
+  p 28/291  SAVED  Bab 1: Struktur dan Fungsi Tumbuhan | Struktur Luar Daun
+  p 29/291  SAVED  Bab 1: Struktur dan Fungsi Daun | Struktur Dalaman Lamina Daun
+  p 30/291  SAVED  Bab 2: Struktur dan Fungsi Daun | 2.1.2 Tisu pada Daun
+  p 31/291  SAVED  Bab 1: Struktur dan Fungsi Daun | 2.2 Organ Utama Pertukaran Gas
+  p 32/291  SAVED  Bab 2: Nutrisi dalam Tumbuhan | Mekanisme Pembukaan dan Penutupan Stoma
+  p 33/291  SAVED  Bab 1: Pengangkutan dalam Tumbuhan | Struktur dan Fungsi Daun
+  p 34/291  SAVED  Bab 1 | 2.2.3
+  p 35/291  SAVED  Bab 1: Struktur dan Fungsi Daun | Kesan Kekurangan Air dalam Tumbuhan Terhadap Pembukaan dan Penutupan Stoma
+  p 36/291  SAVED  Bab 1: Pengangkutan dalam Tumbuhan | 2.3 Organ Utama Transpirasi dan Kepentingannya
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 1: Struktur dan Fungsi Daun, Faktor Persekitaran Transpirasi) already exists.","hint":null,"message":"duplicate
+  p 37/291  DB-ERR  Bab 1: Struktur dan Fungsi Daun | Faktor Persekitaran yang Mempengaruhi Kadar Transpirasi
+  p 38/291  SAVED  Bab 2: Struktur dan Fungsi Daun | 2.2 Kesan Faktor Persekitaran terhadap Kadar Transpirasi dengan Menggunakan Potometer
+  p 39/291  SAVED  Bab 1: Struktur dan Fungsi Daun | 2.3 Faktor yang Mempengaruhi Transpirasi
+  p 40/291  SAVED  Bab 1: Nutrisi | Sejarah Ringkas Penemuan Fotosintesis
+  p 41/291  SAVED  Bab 1: Struktur dan Fungsi Tumbuhan | Penyesuaian Struktur Dalaman Daun dengan Fotosintesis
+  p 42/291  SAVED  Bab 1: Pertumbuhan dan Perkembangan | Struktur Kloroplas
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 1: Struktur dan Fungsi Daun, Pemisahan Pigmen Fotosintesis) already exists.","hint":null,"message":"duplicate k
+  p 43/291  DB-ERR  Bab 1: Struktur dan Fungsi Daun | 2.3 Pemisahan Pigmen Fotosintesis dengan Kromatografi Kertas
+  p 44/291  SAVED  Bab 2: Nutrisi | Tindak Balas Bersandarkan Cahaya dan Tindak Balas Tidak Bersandarkan Cahaya
+  p 45/291  SAVED  Bab 2: Nutrisi | Persamaan dan Perbezaan antara Tindak Balas Bersandarkan Cahaya dengan Tindak Balas Tidak Bersandarkan Cahaya
+  p 46/291  SAVED  Bab 1: Fotosintesis | Faktor-faktor Persekitaran yang Mempengaruhi Kadar Fotosintesis
+  p 47/291  SAVED  Bab 1: Organisasi Tisu Tumbuhan dan Pertumbuhan | 2.3 Kesan Faktor Persekitaran terhadap Kadar Fotosintesis
+  p 48/291  SAVED  Bab 2: Nutrisi dan Teknologi Makanan | Kesan Suhu terhadap Kadar Fotosintesis
+  p 49/291  SAVED  Bab 1 | Struktur dan Fungsi Daun
+  p 50/291  SAVED  Bab 1: Nutrisi | Kesan Perubahan Keamatan Cahaya dan Warna Cahaya terhadap Kadar Fotosintesis
+  p 51/291  SAVED  Bab 1 | 2.4 Warna Cahaya yang Terbaik untuk Tumbuhan Akuatik
+  p 52/291  SAVED  Bab 2: Fotosintesis | Keamatan Cahaya dan Pencapaian Titik Pampasan
+  p 53/291  SAVED  Bab 1: Struktur dan Fungsi Daun | Struktur dan Fungsi Daun (sambungan)
+  p 54/291  SAVED  Bab 1: Struktur dan Fungsi Daun | Struktur Daun
+  p 55/291  SKIP  Halaman ini hanya mengandungi senarai semak refleksi kendiri, bukan kandungan pengajaran baharu.
+  p 56/291  SKIP  Page contains only practice questions (Praktis Sumatif 2), no new teaching content.
+  p 57/291  SAVED  Bab 1: Struktur dan Fungsi Daun | Titik Pampasan
+  p 58/291  SKIP  (only 8 words)
+  p 59/291  SKIP  (only 8 words)
+  p 60/291  SKIP  (only 8 words)
+  p 61/291  SKIP  (only 8 words)
+  p 62/291  SKIP  (only 8 words)
+  p 63/291  SKIP  (only 8 words)
+  p 64/291  SKIP  (only 8 words)
+  p 65/291  SKIP  (only 8 words)
+  p 66/291  SKIP  (only 8 words)
+  p 67/291  SKIP  (only 8 words)
+  p 68/291  SKIP  (only 8 words)
+  p 69/291  SKIP  (only 8 words)
+  p 70/291  SKIP  (only 8 words)
+  p 71/291  SKIP  (only 8 words)
+  p 72/291  SKIP  (only 8 words)
+  p 73/291  SKIP  (only 8 words)
+  p 74/291  SKIP  Page contains only chapter introduction with headings and questions, no teachable biology content.
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 1: Pengangkutan dalam Tumbuhan, Sistem Pengangkutan Tumbuhan) already exists.","hint":null,"message":"duplicate
+  p 75/291  DB-ERR  Bab 1: Pengangkutan dalam Tumbuhan | Keajaiban Pengangkutan dalam Tumbuhan
+  p 76/291  SAVED  Bab 4: Pengangkutan dalam Tumbuhan | 4.1 Keperluan Pengangkutan dalam Tumbuhan
+  p 77/291  SAVED  Bab 4: Pengangkutan dalam Tumbuhan | Penyesuaian Struktur Salur Xilem dan Trakeid dengan Pengangkutan Air dan Garam Mineral
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 4: Pengangkutan dalam Tumbuhan, Adaptasi Tiub Tapis dan Sel Rakan) already exists.","hint":null,"message":"dupl
+  p 78/291  DB-ERR  Bab 4: Pengangkutan dalam Tumbuhan | 4.1 Penyesuaian Struktur Tiub Tapis dan Sel Rakan dengan Pengangkutan Bahan Organik
+  p 79/291  SAVED  Bab 1: Pengangkutan dalam Tumbuhan | 4.2 Pengangkutan Air dan Garam Mineral
+  p 80/291  SAVED  Bab 1 | Bagaimanakah Air Bergerak dari dalam Tanah ke Salur Xilem?
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 1: Pengangkutan dalam Tumbuhan, Pergerakan Air dalam Xilem) already exists.","hint":null,"message":"duplicate k
+  p 81/291  DB-ERR  Bab 1: Pengangkutan dalam Tumbuhan | Bagaimanakah Pergerakan Air di dalam Salur Xilem?
+  p 82/291  SAVED  Bab 4: Pengangkutan dalam Tumbuhan | 4.1 Kesan Tekanan Akar terhadap Pengangkutan Air
+  p 83/291  SAVED  Bab 4: Pengangkutan dalam Tumbuhan | 4.2 Kesan Tarikan Transpirasi terhadap Pengangkutan Air
+  p 84/291  SAVED  Bab 1: Pengangkutan dalam Tumbuhan | Gutasi dalam Tumbuhan
+  p 85/291  SAVED  Bab 4: Pengangkutan dalam Tumbuhan | Perbandingan antara Gutasi dengan Transpirasi
+  p 86/291  SAVED  Bab 1 | Translokasi
+  p 87/291  SAVED  Bab 1: Pertumbuhan dan Perkembangan Tumbuhan | Laluan Translokasi dalam Tumbuhan
+  p 88/291  SAVED  Bab 1: Pengangkutan | 4.3 Peranan Tisu Floem dalam Pengangkutan Bahan Organik
+  p 89/291  SAVED  Bab 4: Pengangkutan dalam Tumbuhan | 4.4 Fitoremediasi
+  p 90/291  SAVED  Bab 4: Ekosistem | Penggunaan Fitoremediasi dalam Kehidupan
+  p 91/291  SAVED  Bab 4: Pengangkutan dalam Tumbuhan | 4.4 Keberkesanan Tumbuhan Fitoremediasi dalam Pengawalan Pencemaran Air
+  p 92/291  SAVED  Bab 1: Pengangkutan dan Peredaran Bahan dalam Tumbuhan | 4.5 Keberkesanan Tumbuhan Fitoremediasi dalam Pengawalan Pencemaran Tanih
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 4: Pengangkutan dalam Tumbuhan, Fitoremediasi) already exists.","hint":null,"message":"duplicate key value viol
+  p 93/291  DB-ERR  Bab 4: Pengangkutan dalam Tumbuhan | Fitoremediasi
+  p 94/291  SKIP  Halaman ini hanya mengandungi senarai semak refleksi kendiri dan soalan praktis sumatif, tanpa kandungan pengajaran atau penerangan konsep baru.
+  p 95/291  SAVED  Bab 1: Pengangkutan | Pengangkutan dalam Tumbuhan
+  p 96/291  SKIP  Page is a chapter introduction with only headings and questions, no teachable content.
+  p 97/291  SAVED  Bab 1: Gerak Balas Tumbuhan | Teknologi Effective Microorganisms (EM)
+  p 98/291  SAVED  Bab 5: Gerak Balas Tumbuhan | Gerak Balas Tropisme
+  p 99/291  SAVED  Bab 5: Gerak Balas dalam Tumbuhan | Ciri-ciri Gerak Balas Tropisme
+  p100/291  SAVED  Bab 1: Gerak Balas Tumbuhan | Hidrotropisme, Fototropisme, dan Kemotropisme
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 1, Gerak Balas Nasti) already exists.","hint":null,"message":"duplicate key value violates unique constraint \"
+  p101/291  DB-ERR  Bab 1 | Gerak Balas Nasti
+  p102/291  SAVED  Bab 1: Gerak Balas Tumbuhan | Gerak Balas Nasti
+  p103/291  SAVED  Bab 5: Gerak Balas dalam Tumbuhan | Fitohormon
+  p104/291  SAVED  Bab 5: Gerak Balas Tumbuhan | Kesan Auksin terhadap Gerak Balas Pertumbuhan
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 1: Gerak Balas dalam Tumbuhan, Auksin dalam Fototropisme & Geotropisme) already exists.","hint":null,"message":
+  p105/291  DB-ERR  Bab 1: Gerak Balas dalam Tumbuhan | Peranan Auksin dalam Gerak Balas Tumbuhan
+  p106/291  SAVED  Bab 5: Gerak Balas Tumbuhan | 5.1 Gerak Balas Radikal dan Pucuk Anak Benih terhadap Tarikan Graviti
+  p107/291  SAVED  Bab 5: Gerak Balas dalam Tumbuhan | 5.3 Aplikasi Fitohormon dalam Pertanian
+  p108/291  SAVED  Bab 5: Fitohormon | 5.2 Kesan Pemasakan Buah dengan Kehadiran Fitohormon
+  p109/291  SAVED  Bab 1: Gerak Balas dalam Tumbuhan | 
+  p110/291  SAVED  Bab 1: Gerak Balas Tumbuhan | 
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 1: Gerak Balas dalam Tumbuhan, Penghasilan Buah Tanpa Biji (Parthenokarpi)) already exists.","hint":null,"messa
+  p111/291  DB-ERR  Bab 1: Gerak Balas dalam Tumbuhan | Fitohormon dan Aplikasinya
+  p112/291  SKIP  Page contains only chapter introduction, subtopic list, and general questions; no specific biology content to teach.
+  p113/291  SAVED  Bab 1: Plant Reproduction | Pembiakan Tumbuhan
+  p114/291  SAVED  Bab 1 | Struktur Bunga
+  p115/291  SAVED  Bab 6: Pembiakan Seks dalam Tumbuhan Berbunga | Perbandingan Bahagian Jantan dan Betina Bunga
+  p116/291  SAVED  Bab 6: Pembiakan dan Perkembangan | 6.2 Pembentukan Debunga dan Pundi Embrio
+  p117/291  SAVED  Bab 6: Pembiakan Seks dalam Tumbuhan Berbunga | Pembentukan Debunga
+  p118/291  SAVED  Bab 6: Pembiakan | 6.2 Pemerhatian Debunga dan Pendebungaan
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 1: Pembiakan Seks dalam Tumbuhan Berbunga, Pembentukan Pundi Embrio) already exists.","hint":null,"message":"du
+  p119/291  DB-ERR  Bab 1: Pembiakan Seks dalam Tumbuhan Berbunga | Pembentukan Pundi Embrio dalam Ovul
+  p120/291  SAVED  Bab 6: Pembiakan Seks Tumbuhan Berbunga | 6.3 Pendebungaan dan Persenyawaan
+  p121/291  SAVED  Bab 6: Pembiakan Seks dalam Tumbuhan Berbunga | 6.3.2 Pembentukan Tiub Debunga dan Gamet Jantan
+  p122/291  SAVED  Bab 6: Pembiakan Seksual Tumbuhan Berbunga | 6.4 Percambahan Debunga dan Pembentukan Tiub Debunga
+  p123/291  SAVED  Bab 1: Pembiakan Seks dalam Tumbuhan Berbunga | Persenyawaan Ganda Dua dalam Pembentukan Zigot Diploid dan Pembentukan Nukleus Triploid
+  p124/291  SAVED  Bab 1 | Kepentingan Persenyawaan Ganda Dua dalam Kemandirian Tumbuhan Berbunga
+  p125/291  SAVED  Bab 1: Pembiakan Seks dalam Tumbuhan Berbunga | 6.4 Persenyawaan Ganda Dua dengan Perkembangan Biji Benih dan Buah
+  p126/291  SAVED  Bab 6: Bunga, Buah, dan Biji Benih | 6.4.2 dan 6.4.3: Struktur Buah dan Jenis Buah
+  p127/291  SAVED  Bab 6: Pembiakan Seks dalam Tumbuhan Berbunga | 6.5 Kepentingan Biji Benih untuk Kemandirian
+  p128/291  SAVED  Bab 1 | Kepentingan Biji Benih untuk Kemandirian Tumbuhan
+  p129/291  SAVED  Bab 1 | 
+  p130/291  SKIP  Halaman ini adalah refleksi kendiri dan praktis sumatif, tiada kandungan pengajaran baharu.
+  p131/291  SKIP  Page contains only review questions, no new biology content.
+  p132/291  SKIP  This is an introductory exploration page with only general questions and learning standards, no specific biology content to teach.
+  p133/291  SAVED  Bab 7: Adaptasi Tumbuhan | Ekosistem Mini: Terarium
+  p134/291  SAVED  Bab 1: Pengenalan kepada Biologi | Penyesuaian Tumbuhan
+  p135/291  SAVED  Bab 7: Penyesuaian Tumbuhan pada Habitat | Penyesuaian Tumbuhan pada Habitat
+  p136/291  SAVED  Bab 1 | Ciri Penyesuaian Tumbuhan Halofit
+  p137/291  SAVED  Bab 7: Penyesuaian Tumbuhan pada Habitat | Ciri Penyesuaian Tumbuhan Hidrofit dan Xerofit
+  p138/291  SAVED  Bab 7: Adaptasi Tumbuhan | 7.1
+  p139/291  SAVED  Bab 1: Organisasi Tisu Tumbuhan dan Pertumbuhan | Penyesuaian Tumbuhan pada Habitat
+  p140/291  SKIP  Page contains only practice questions (Praktis Sumatif 7) with no concept explanation, worked example, or new biology content.
+  p141/291  SKIP  Theme introduction page, no specific teachable biology content.
+  p142/291  SKIP  (only 36 words)
+  p143/291  SAVED  Bab 1: Biodiversiti | 
+  p144/291  SAVED  Bab 1: Sistem Pengelasan dan Penamaan Organisma | 8.1 Sistem Pengelasan dan Penamaan Organisma
+  p145/291  SAVED  Bab 8: Biodiversiti | 8.1.2 Pengelasan Organisma (Sistem Enam Alam)
+  p146/291  SAVED  Bab 1: Biodiversiti | Ciri Utama Organisma dalam Setiap Alam: Archaebacteria dan Eubacteria
+  p147/291  SAVED  Bab 1: Biodiversiti | 8.1.2 & 8.1.3 Perbandingan Kingdom
+  p148/291  SAVED  Bab 8: Biodiversiti dan Pengelasan Organisma | Hierarki Taksonomi
+  p149/291  SAVED  Bab 1: Biodiversiti | Sistem Tatanama Binomial
+  p150/291  SAVED  Bab 8: Biodiversiti | 8.1.4 Sistem Tatanama Binomial dan 8.1.5 Kekunci Dikotomi
+  p151/291  SAVED  Bab 8: Biodiversiti | Kekunci Dikotomi
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 8: Biodiversiti, Jenis Biodiversiti) already exists.","hint":null,"message":"duplicate key value violates uniqu
+  p152/291  DB-ERR  Bab 8: Biodiversiti | 8.2 Konsep Biodiversiti
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 8: Biodiversiti, Pokok Filogeni dan Struktur Homolog) already exists.","hint":null,"message":"duplicate key val
+  p153/291  DB-ERR  Bab 8: Biodiversiti | 8.2 Pokok Filogeni
+  p154/291  SAVED  Bab 8: Biodiversiti | Kepentingan Biodiversiti terhadap Alam Sekitar dan Manusia
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 8: Biodiversiti, Ciri Utama Bakteria) already exists.","hint":null,"message":"duplicate key value violates uniq
+  p155/291  DB-ERR  Bab 8: Biodiversiti | 8.3 Mikroorganisma dan Virus: Ciri Utama Bakteria
+  p156/291  SAVED  Bab 8: Mikroorganisma | Bakteria dan Protozoa
+  p157/291  SAVED  Bab 1: Biodiversiti | Alga dan Kulat
+  p158/291  SAVED  Bab 1: Virus | Virus
+  p159/291  SAVED  Bab 8: Biodiversiti | Peranan Mikroorganisma dalam Kitar Nitrogen
+  p160/291  SAVED  Bab 1: Mikroorganisma | Peranan Mikroorganisma
+  p161/291  SAVED  Bab 8: Biodiversiti | Mikroorganisma sebagai parasit dan simbion
+  p162/291  SAVED  Bab 8: Kesihatan Manusia | Definisi Patogen dan Vektor
+  p163/291  SAVED  Bab 1: Biodiversiti | Vektor
+  p164/291  SAVED  Bab 8: Mikroorganisma dan Kesihatan Manusia | Simptom-simptom Penyakit yang Disebabkan oleh Patogen
+  p165/291  SKIP  Page is a self-reflection checklist summarising concepts already taught, not new teaching material.
+  p166/291  SAVED  Bab 1: Kepelbagaian Organisma | 
+  p167/291  SKIP  Page contains a list of discussion questions without a single teachable biology concept.
+  p168/291  SKIP  Page contains only introductory questions and learning standards for Chapter 9 (Ekosistem), with no teachable biology content such as explanations or examples.
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 1: Ekosistem, Rizab Biosfera Tasik Chini) already exists.","hint":null,"message":"duplicate key value violates 
+  p169/291  DB-ERR  Bab 1: Ekosistem | Rizab Biosfera Tasik Chini
+  p170/291  SAVED  Bab 9: Ekosistem | 9.1 Komuniti dan Ekosistem
+  p171/291  SAVED  Bab 9: Ekosistem | 9.1.1
+  p172/291  SAVED  Bab 1 | Komponen Biosis dan Abiosis dalam Ekosistem
+  p173/291  SAVED  Bab 9: Ekosistem | Faktor Abiotik: Suhu dan Keamatan Cahaya
+  p174/291  SAVED  Bab 9: Ekosistem | Topografi dan Iklim Mikro
+  p175/291  SAVED  Bab 3: Ekosistem | Kelembapan Udara
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 3: Nutrisi, Autotrof dan Heterotrof) already exists.","hint":null,"message":"duplicate key value violates uniqu
+  p176/291  DB-ERR  Bab 3: Nutrisi | 9.1.3 Pengelasan Organisma Berdasarkan Tabiat Nutrisi
+  p177/291  SAVED  Bab 9: Ekosistem | Komponen Biosis Mengikut Aras Trof
+  p178/291  SAVED  Bab 3: Ekologi | Pengaliran Tenaga dalam Rantai Makanan
+  p179/291  SAVED  Bab 9: Ekosistem | 9.1 Rantai Makanan dan Siratan Makanan
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 3: Ekologi, Piramid Bilangan dan Biojisim) already exists.","hint":null,"message":"duplicate key value violates
+  p180/291  DB-ERR  Bab 3: Ekologi | Piramid Ekologi
+  p181/291  SAVED  Bab 3: Ekosistem | Piramid Tenaga
+  p182/291  SAVED  Bab 3: Interaksi antara Komponen Biosis | Jenis Interaksi antara Komponen Biosis
+  p183/291  SAVED  Bab 3: Ekosistem | Interaksi antara Komponen Biosis
+  p184/291  SAVED  Bab 9: Ekosistem dan Dinamika Populasi | 9.1 Kesan Persaingan Intraspesies dan Persaingan Interspesies terhadap Organisma
+  p185/291  SAVED  Bab 3: Ekologi | Persaingan dalam Ekosistem
+  p186/291  SAVED  Bab 3: Ekosistem dan Kelestarian Alam Sekitar | Komponen Biosis
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 3: Ekosistem, Penyesuaian Pokok Bakau) already exists.","hint":null,"message":"duplicate key value violates uni
+  p187/291  DB-ERR  Bab 3: Ekosistem | Ciri Penyesuaian Pokok Bakau
+  p188/291  SAVED  Bab 3: Ekologi dan Alam Sekitar | Pengkolonian dan Sesaran
+  p189/291  SAVED  Bab 3: Ekosistem | Kepentingan Ekosistem Paya Bakau
+  p190/291  SAVED  Bab 9: Ekologi | 9.2 Ekologi Populasi
+  p191/291  SAVED  Bab 3: Ekosistem | Faktor Ekosistem dan Corak Taburan Populasi
+  p192/291  SAVED  Bab 3: Ekologi Populasi | Anggaran Saiz Populasi Organisma
+  p193/291  SAVED  Bab 3: Ekosistem | Teknik Persampelan Kuadrat
+  p194/291  SAVED  Bab 3: Ekologi dan Perubahan Alam Sekitar | Kaedah Tangkap-Tanda-Lepas-Tangkap Semula
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 3: Ekosistem, Kaedah Tangkap-Tanda-Tangkap Semula) already exists.","hint":null,"message":"duplicate key value 
+  p195/291  DB-ERR  Bab 3: Ekosistem | 9.4 Kajian Lapangan untuk Menganggarkan Saiz Populasi Haiwan
+  p196/291  SAVED  Bab 3: Ekologi | 9.3.4 Persampelan Kuadrat
+  p197/291  SAVED  Bab 3: Ekosistem | Ekosistem dan Populasi
+  p198/291  SKIP  This page contains only a self-reflection checklist and a practice question; no new teaching content.
+  p199/291  SAVED  Bab 3: Ekosistem | 
+  p200/291  SKIP  This page is a chapter introduction with only headings and exploration questions. No detailed teachable biology content to extract.
+  p201/291  SAVED  Bab 3: Pencemaran Alam Sekitar | Agen Kawalan Biologi
+  p202/291  SAVED  Bab 10: Alam Sekitar dan Kelestarian | 10.1 Kelestarian Alam Sekitar
+  p203/291  SAVED  Bab 3: Kelestarian Alam Sekitar | Perubahan Iklim dan Pemanasan Global
+  p204/291  SAVED  Bab 3 | Penyahhutanan dan Kehilangan Biodiversiti
+  p205/291  SAVED  Bab 3: Kelestarian Alam Sekitar | Eutrofikasi
+  p206/291  SAVED  Bab 10: Ekosistem | 10.1.2 Eutrofikasi
+  p207/291  SAVED  Bab 10: Kelestarian Alam Sekitar | 10.1 Tahap Keperluan Oksigen Biokimia (BOD) dalam Sampel Air yang Berbeza
+  p208/291  SAVED  Bab 3: Pencemaran Udara | Sumber Pencemaran Udara dan Bahan Pencemar
+  p209/291  SAVED  Bab 3: Kelestarian Alam Sekitar | 10.1.2 Pencemaran Udara dan Hujan Asid
+  p210/291  SAVED  Bab 3 | Pencemaran Bunyi
+  p211/291  SAVED  Bab 10: Kelestarian Alam Sekitar | 10.2 Pemeliharaan, Pemuliharaan dan Pemulihan Ekosistem
+  p212/291  SAVED  Bab 3: Ekologi | Keperluan Pemeliharaan, Pemuliharaan dan Pemulihan Ekosistem
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 10: Kelestarian Alam Sekitar, Amalan Melestarikan Alam Sekitar) already exists.","hint":null,"message":"duplica
+  p213/291  DB-ERR  Bab 10: Kelestarian Alam Sekitar | 10.3 Amalan dalam Melestarikan Alam Sekitar
+  p214/291  SAVED  Bab 10: Amalan yang Menyumbang kepada Kelestarian Alam | 10.3.1 Amalan Kelestarian Alam
+  p215/291  SAVED  Bab 3: Kelestarian Alam Sekitar | Pengurusan Sisa Domestik dan Toksik
+  p216/291  SAVED  Bab 3: Kelestarian Alam | Inisiatif Menangani Isu Kelestarian Alam
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 3: Kelestarian Alam Sekitar, Komponen Sekuriti Makanan) already exists.","hint":null,"message":"duplicate key v
+  p217/291  DB-ERR  Bab 3: Kelestarian Alam Sekitar | Status Sekuriti Makanan di Malaysia
+  p218/291  SAVED  Bab 10: Teknologi Hijau dan Sekuriti Makanan | 10.4 Teknologi Hijau
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 10: Kelestarian Alam Sekitar, Kriteria dan Tonggak Teknologi Hijau) already exists.","hint":null,"message":"dup
+  p219/291  DB-ERR  Bab 10: Kelestarian Alam Sekitar | Penggunaan Teknologi Hijau dalam Melestarikan Alam
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 10: Teknologi Hijau, Konsep Bangunan Hijau) already exists.","hint":null,"message":"duplicate key value violate
+  p220/291  DB-ERR  Bab 10: Teknologi Hijau | 10.4.1 Green Building
+        Supabase error 409: {"code":"23505","details":"Key (subject, form, topic, concept_title)=(MY-Biology, 5, Bab 10: Kelestarian Alam Sekitar, Amalan Teknologi Hijau) already exists.","hint":null,"message":"duplicate key val
+  p221/291  DB-ERR  Bab 10: Kelestarian Alam Sekitar | 10.8
+  p222/291  SAVED  Bab 3: Pergerakan Bahan Merentasi Membran Plasma (contextual assumption, but actual content from later chapters; based on user input, bab is 3) | Aplikasi Ekoenzim
+  p223/291  SKIP  The page focuses on environmental communication and a field study activity, which are not specific to SPM Biology content.
+  p224/291  SAVED  Bab 3: Kelestarian Alam Sekitar | 
+  p225/291  SAVED  Bab 3: Kelestarian Alam Sekitar | Refleksi Kendiri dan Praktis Sumatif 10
+  p226/291  SAVED  Bab 3: Ekosistem dan Kelestarian | 
+  p227/291  SKIP  (only 8 words)
+  p228/291  SKIP  (only 8 words)
+  p229/291  SKIP  (only 8 words)
+  p230/291  SKIP  (only 8 words)
+  p231/291  SKIP  (only 8 words)
+  p232/291  SKIP  (only 8 words)
+  p233/291  SKIP  (only 8 words)
+  p234/291  SKIP  (only 8 words)
+  p235/291  SKIP  (only 8 words)
+  p236/291  SKIP  (only 8 words)
+  p237/291  SKIP  (only 8 words)
+  p238/291  SKIP  (only 8 words)
+  p239/291  SKIP  (only 8 words)
+  p240/291  SKIP  (only 8 words)
+  p241/291  SKIP  (only 8 words)
+  p242/291  SKIP  (only 8 words)
+  p243/291  SKIP  (only 8 words)
+  p244/291  SKIP  (only 8 words)
+  p245/291  SKIP  (only 8 words)
+  p246/291  SKIP  (only 8 words)
+  p247/291  SKIP  (only 8 words)
+  p248/291  SKIP  (only 8 words)
+  p249/291  SKIP  (only 8 words)
+  p250/291  SKIP  (only 8 words)
+  p251/291  SKIP  (only 8 words)
+  p252/291  SKIP  (only 8 words)
+  p253/291  SKIP  (only 8 words)
+  p254/291  SKIP  (only 8 words)
+  p255/291  SKIP  (only 8 words)
+  p256/291  SKIP  (only 8 words)
+  p257/291  SKIP  (only 8 words)
+  p258/291  SKIP  (only 8 words)
+  p259/291  SKIP  (only 8 words)
+  p260/291  SKIP  (only 8 words)
+  p261/291  SKIP  (only 8 words)
+  p262/291  SKIP  (only 8 words)
+  p263/291  SKIP  (only 8 words)
+  p264/291  SKIP  (only 8 words)
+  p265/291  SKIP  (only 8 words)
+  p266/291  SKIP  (only 8 words)
+  p267/291  SKIP  (only 8 words)
+  p268/291  SKIP  (only 8 words)
+  p269/291  SKIP  (only 8 words)
+  p270/291  SKIP  (only 8 words)
+  p271/291  SKIP  (only 8 words)
+  p272/291  SKIP  (only 8 words)
+  p273/291  SKIP  (only 8 words)
+  p274/291  SKIP  (only 8 words)
+  p275/291  SKIP  (only 8 words)
+  p276/291  SKIP  (only 8 words)
+  p277/291  SKIP  (only 8 words)
+  p278/291  SKIP  (only 8 words)
+  p279/291  SKIP  (only 8 words)
+  p280/291  SKIP  (only 8 words)
+  p281/291  SKIP  (only 8 words)
+  p282/291  SKIP  (only 8 words)
+  p283/291  SKIP  (only 8 words)
+  p284/291  SKIP  (only 8 words)
+  p285/291  SKIP  (only 8 words)
+  p286/291  SKIP  (only 8 words)
+  p287/291  SKIP  (only 8 words)
+  p288/291  SKIP  (only 8 words)
+  p289/291  SKIP  (only 8 words)
+  p290/291  SKIP  (only 8 words)
+  p291/291  SKIP  (only 8 words)
+------------------------------------------------------------
+DONE: 153 saved, 101 skipped, 27 errors
+Backup: C:\Learnova\MY-Biology_F5_results.json
+DONE: 153 saved, 101 skipped, 27 errors

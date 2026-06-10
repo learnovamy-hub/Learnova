@@ -1,0 +1,3223 @@
+[
+  {
+    "page": 8,
+    "bab": "Bab 8: Respiratory Systems in Humans and Animals",
+    "skip": false,
+    "subtopic": "Mechanisms of Breathing",
+    "concept_title": "Breathing mechanisms of insects and frogs",
+    "concept_explanation": "Insects breathe through spiracles and tracheae. During inhalation, abdominal muscles relax, reducing air pressure in the trachea to draw air in; during exhalation, these muscles contract, increasing pressure and forcing air out. Frogs use a buccopharyngeal cavity and lungs. Inhalation involves lowering the buccopharyngeal floor to draw air in, then closing nostrils and raising the floor to force air into the lungs; exhalation occurs when lungs contract, expelling air with help from abdominal pressure and lung elasticity.",
+    "worked_example": "",
+    "common_mistakes": "Students may incorrectly think insects have lungs or breathe through their mouths like humans. The actual mechanism involves spiracles and tracheae controlled by abdominal muscle movement.",
+    "keywords": [
+      "breathing mechanisms",
+      "insects",
+      "frogs",
+      "spiracles",
+      "trachea",
+      "buccopharyngeal cavity",
+      "glottis",
+      "abdominal muscles"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 9,
+    "bab": "Bab 1: Introduction to Biology and Laboratory Rules",
+    "skip": false,
+    "subtopic": "Breathing mechanism of fish",
+    "concept_title": "Fish Breathing Mechanism",
+    "concept_explanation": "Fish use coordinated movements of the mouth, buccal cavity, and operculum to ventilate their gills. During inhalation, the mouth opens and the buccal cavity floor lowers, reducing pressure and drawing water in. During exhalation, the mouth closes and the buccal cavity floor raises, forcing water over the gill lamellae where oxygen diffuses into the blood.",
+    "worked_example": "",
+    "common_mistakes": "Students may think fish actively inhale air like mammals, but they actually use a one-way flow of water over the gills driven by pressure changes in the buccal and opercular cavities.",
+    "keywords": [
+      "breathing mechanism",
+      "fish",
+      "mouth",
+      "operculum",
+      "gills",
+      "buccal cavity",
+      "ventilation"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 10,
+    "bab": "Bab 8: Respiration",
+    "skip": false,
+    "subtopic": "Breathing Mechanism of Humans",
+    "concept_title": "Inhalation and Exhalation",
+    "concept_explanation": "Inhalation occurs when the external intercostal muscles contract and the internal intercostal muscles relax, lifting the ribcage upwards and outwards. Simultaneously, the diaphragm contracts and flattens, increasing the volume of the thoracic cavity and decreasing pressure. Atmospheric pressure then forces air into the lungs. Exhalation is the reverse: external intercostals relax, internal intercostals contract, ribcage moves down and in, diaphragm relaxes and domes upward, reducing thoracic volume and increasing pressure, pushing air out.",
+    "worked_example": "",
+    "common_mistakes": "Students often mistakenly think exhalation requires active muscle contraction; actually, it is mainly passive relaxation of the diaphragm and external intercostals, with internal intercostals assisting.",
+    "keywords": [
+      "external intercostal muscles",
+      "internal intercostal muscles",
+      "diaphragm",
+      "thoracic cavity",
+      "inhalation",
+      "exhalation",
+      "atmospheric pressure"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 11,
+    "bab": "Bab 8: Respiratory Systems",
+    "skip": false,
+    "subtopic": "Comparison of Breathing Mechanisms",
+    "concept_title": "Comparison of Breathing Mechanisms",
+    "concept_explanation": "Breathing mechanisms in humans and animals share similarities: both use special muscles to expand and contract the respiratory cavity, causing changes in volume and pressure. However, differences exist in respiratory apertures (spiracles in insects, operculum in fish, nostrils in frogs and humans) and structures aiding breathing (thorax/abdomen in insects, operculum and buccal floor in fish, buccopharyngeal wall in frogs, diaphragm and rib cage in humans). These adaptations suit each organism's environment.",
+    "worked_example": "Table 8.2 compares breathing mechanisms across insects, fish, frogs, and humans, highlighting similarities and differences in respiratory aperture, structures, and mechanism.",
+    "common_mistakes": "Students often think spiracles function like nostrils for gas exchange, but they are openings for air entry; the actual gas exchange occurs in tracheae.",
+    "keywords": [
+      "spiracle",
+      "operculum",
+      "buccal cavity",
+      "diaphragm",
+      "intercostal muscles"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 12,
+    "bab": "Bab 8: Respiratory System",
+    "skip": false,
+    "subtopic": "8.3 Gaseous Exchange in Humans - Partial Pressure of Oxygen and Carbon Dioxide",
+    "concept_title": "Gas Diffusion and Exchange",
+    "concept_explanation": "Gas diffusion occurs due to differences in partial pressure. Gases move from areas of higher partial pressure to lower partial pressure. In the lungs, oxygen diffuses from alveoli (high partial pressure) into lung capillaries (low partial pressure) and combines with haemoglobin to form oxyhaemoglobin. Carbon dioxide diffuses from lung capillaries (high partial pressure) into alveoli (low partial pressure) to be expelled. In body tissues, carbon dioxide from cellular respiration diffuses into tissue capillaries (high partial pressure) and is transported to lungs, while oxygen diffuses from capillaries into cells.",
+    "worked_example": "",
+    "common_mistakes": "Students may think oxygen diffuses from blood into alveoli, but actually oxygen diffuses from alveoli into blood because partial pressure of oxygen is higher in alveoli. Similarly, carbon dioxide diffuses from blood into alveoli.",
+    "keywords": [
+      "partial pressure",
+      "diffusion",
+      "oxygen",
+      "carbon dioxide",
+      "haemoglobin",
+      "alveolus",
+      "pulmonary artery"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 13,
+    "bab": "Bab 1: Introduction to Biology and Laboratory Rules",
+    "skip": false,
+    "subtopic": "Transport of carbon dioxide in the blood",
+    "concept_title": "CO2 Transport in Blood",
+    "concept_explanation": "Carbon dioxide is transported in the blood in three forms: about 70% as bicarbonate ions (HCO3-), 23% bound to haemoglobin as carbaminohaemoglobin, and 7% dissolved as carbonic acid (H2CO3). In tissue capillaries, CO2 from cells diffuses into erythrocytes where carbonic anhydrase catalyses its conversion to carbonic acid, which then dissociates into HCO3- and H+. The bicarbonate ions diffuse into plasma for transport to the lungs. In lung capillaries, HCO3- re-enters erythrocytes, combines with H+ to reform carbonic acid, which breaks down into CO2 and water; CO2 then diffuses into alveoli for exhalation.",
+    "worked_example": "",
+    "common_mistakes": "Students often think that most carbon dioxide is transported simply as dissolved gas, forgetting the predominant bicarbonate pathway and the role of carbonic anhydrase.",
+    "keywords": [
+      "bicarbonate ion",
+      "carbaminohaemoglobin",
+      "carbonic acid",
+      "carbonic anhydrase",
+      "erythrocyte",
+      "partial pressure"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 14,
+    "bab": "Bab 1: Human Respiratory System",
+    "skip": false,
+    "subtopic": "Health Issues Related to the Human Respiratory System",
+    "concept_title": "Chronic Obstructive Pulmonary Disease",
+    "concept_explanation": "Chronic Obstructive Pulmonary Disease (COPD) includes asthma, chronic bronchitis, and emphysema. In emphysema, the alveoli lose elasticity and enlarge, reducing surface area for gas exchange and causing inefficiency. Chronic bronchitis involves inflamed, swollen, and blocked bronchioles, with excessive mucus production and damaged cilia, hindering mucus expulsion. Asthma attacks cause bronchiole walls to swell and thicken, narrowing air passages and leading to breathing difficulties.",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse the specific mechanisms of each COPD condition: e.g., emphysema primarily affects alveoli, chronic bronchitis affects bronchioles with mucus, and asthma involves bronchospasm. They may also think asthma is not a chronic disease.",
+    "keywords": [
+      "COPD",
+      "emphysema",
+      "chronic bronchitis",
+      "asthma",
+      "alveolus",
+      "bronchiole"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 15,
+    "bab": "Bab 1: RESPIRATORY SYSTEMS IN HUMANS AND ANIMALS",
+    "skip": false,
+    "subtopic": "Summary",
+    "concept_title": "Respiratory Systems Summary",
+    "concept_explanation": "This summary reviews the types of respiratory systems in animals (insects, fish, amphibians, humans), the mechanisms of breathing (inhalation and exhalation), the process of gaseous exchange influenced by partial pressure gradients, and health issues like COPD. It also outlines the transport of oxygen as oxyhaemoglobin and carbon dioxide as bicarbonate ions, carbaminohaemoglobin, and carbonic acid.",
+    "worked_example": "",
+    "common_mistakes": "",
+    "keywords": [
+      "respiratory system",
+      "breathing",
+      "gaseous exchange",
+      "COPD",
+      "oxyhaemoglobin",
+      "bicarbonate ion"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 16,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "This page contains only summative practice questions, no new teachable Biology content."
+  },
+  {
+    "page": 17,
+    "bab": "Bab 9: Human and Animal Respiratory Systems",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Inhalation and CO2 Transport",
+    "concept_explanation": "Inhalation occurs when the diaphragm contracts and flattens, and the external intercostal muscles contract to lift the rib cage upward and outward. This increases the volume of the thoracic cavity, decreasing the pressure inside relative to the atmosphere, causing air to flow into the lungs. Carbon dioxide produced in body cells diffuses into the blood, where it is transported mainly as bicarbonate ions (HCO3-) in the plasma, with some dissolved in plasma or bound to hemoglobin. At the alveoli, carbon dioxide diffuses across the respiratory membrane and is expelled during exhalation.",
+    "worked_example": "",
+    "common_mistakes": "Students often believe that air is actively pushed into the lungs by the nose or mouth, rather than being pulled in by negative pressure. They may also think that all carbon dioxide is transported as gas in the blood, ignoring the bicarbonate buffer system.",
+    "keywords": [
+      "inhalation",
+      "diaphragm",
+      "intercostal muscles",
+      "carbon dioxide transport",
+      "bicarbonate ion",
+      "alveolus"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 18,
+    "bab": "Bab 9: Nutrition and the Human Digestive System",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Introduction to Human Digestive System",
+    "concept_explanation": "This chapter explores the structure and function of the human digestive system, including the processes of digestion, absorption, assimilation, and defaecation. It also addresses how a balanced diet meets nutritional needs and the role of modern technology like 3D food printing in customizing nutrition. Key questions guide the learning objectives for understanding how food is processed and utilized by the body.",
+    "worked_example": "",
+    "common_mistakes": "",
+    "keywords": [
+      "nutrition",
+      "digestive system",
+      "balanced diet",
+      "digestion",
+      "absorption",
+      "assimilation",
+      "defaecation"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 19,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Page contains only a chapter outline and learning standards (syllabus content), not explanatory text suitable for a teaching unit."
+  },
+  {
+    "page": 20,
+    "bab": "Bab 9: Digestion",
+    "skip": false,
+    "subtopic": "Structure of the human digestive system & Types of digestion",
+    "concept_title": "Human Digestive System Overview",
+    "concept_explanation": "The human digestive system consists of the alimentary canal (from mouth to anus) and accessory organs (liver, gallbladder, pancreas, salivary glands). Digestion involves two processes: physical digestion (mechanical breakdown, e.g., chewing and peristalsis) and chemical digestion (enzymatic breakdown of complex molecules into simple ones). In the mouth, food stimulates saliva secretion, initiating carbohydrate digestion.",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse physical digestion with chemical digestion. Physical digestion only breaks food into smaller pieces without changing chemical composition, whereas chemical digestion involves enzymes breaking bonds to form simpler molecules.",
+    "keywords": [
+      "alimentary canal",
+      "physical digestion",
+      "chemical digestion",
+      "peristalsis",
+      "saliva",
+      "enzymes"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 21,
+    "bab": "Bab 9: Human Digestive System",
+    "skip": false,
+    "subtopic": "Digestion in Mouth and Stomach",
+    "concept_title": "Digestion in Mouth and Stomach",
+    "concept_explanation": "Saliva contains salivary amylase which hydrolyses starch to maltose at an optimum pH of 6.5–7.5. Saliva helps form a bolus that is moved through the oesophagus by peristalsis, rhythmic muscle contractions. In the stomach, gastric glands contain chief cells secreting pepsinogen, parietal cells secreting hydrochloric acid, and mucous cells secreting mucus. Hydrochloric acid activates pepsinogen to pepsin, which begins protein digestion.",
+    "worked_example": "Brainstorm activity: Chew a piece of bread slowly. Observe the taste when you first started chewing and after a few minutes. Is there any difference in the taste of the bread? This demonstrates the action of salivary amylase breaking down starch into maltose, which tastes slightly sweet.",
+    "common_mistakes": "Students often confuse the roles of gastric glands: chief cells secrete pepsinogen (an inactive enzyme), not active pepsin directly.",
+    "keywords": [
+      "salivary amylase",
+      "maltose",
+      "peristalsis",
+      "bolus",
+      "pepsinogen",
+      "hydrochloric acid",
+      "gastric glands"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 22,
+    "bab": "Bab 1: The Digestive System",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Functions of Hydrochloric Acid",
+    "concept_explanation": "Hydrochloric acid in the stomach creates an acidic environment (pH 1.5–2.0) that is optimal for the action of pepsin, an enzyme that digests proteins. It also stops the enzymatic action of salivary amylase and kills bacteria present in food. The mucus lining protects the stomach wall from the corrosive effects of acid and digestive enzymes. The stomach churns food with gastric juice to form a semifluid mixture called chyme, which then passes into the duodenum.",
+    "worked_example": "",
+    "common_mistakes": "Students often think that hydrochloric acid directly digests food, but its main role is to provide the correct pH for pepsin and to kill bacteria, not to break down food itself.",
+    "keywords": [
+      "hydrochloric acid",
+      "pepsin",
+      "pH",
+      "mucus",
+      "chyme",
+      "gastric juice"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 23,
+    "bab": "Bab 1: Digestion of Food",
+    "skip": false,
+    "subtopic": "Chemical Digestion in the Ileum",
+    "concept_title": "Enzymatic Digestion in Ileum",
+    "concept_explanation": "The ileum secretes intestinal juice containing enzymes that digest carbohydrates, lipids, and proteins. Maltase hydrolyses maltose into glucose, sucrase converts sucrose into glucose and fructose, and lactase breaks down lactose into glucose and galactose. Lipase hydrolyses lipids into fatty acids and glycerol, while erepsin hydrolyses peptides into amino acids. The alkaline medium in the ileum provides an optimal pH for these enzymes to function efficiently.",
+    "worked_example": "An experiment to study the effect of amylase on starch: Two test tubes are set up: A contains 3 ml of 1% starch suspension and 3 ml of 0.5% amylase solution, while B (control) contains 3 ml of 1% starch suspension and 3 ml of distilled water. Both are incubated at 37°C and then tested for the presence of reducing sugar. The hypothesis is that amylase hydrolyses starch to a reducing sugar.",
+    "common_mistakes": "Students often confuse the roles of different digestive enzymes (e.g., maltase vs. amylase) and incorrectly believe that starch digestion is completed entirely in the mouth, not understanding that the small intestine continues the process with specific disaccharidases.",
+    "keywords": [
+      "maltase",
+      "sucrase",
+      "lactase",
+      "lipase",
+      "erepsin",
+      "amino acids"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 24,
+    "bab": "Bab 9: Nutrition",
+    "skip": false,
+    "subtopic": "9.2.5 Studying digestion of protein in a food sample",
+    "concept_title": "Enzymatic Digestion of Starch and Protein",
+    "concept_explanation": "Enzymes such as amylase and pepsin are specific biological catalysts that break down macromolecules into simpler substances through hydrolysis. Amylase catalyses the breakdown of starch into maltose, which can be detected using iodine (starch present) and Benedict's test (reducing sugars). Pepsin, in the presence of dilute hydrochloric acid, hydrolyses proteins into polypeptides, causing a change in turbidity of the albumen suspension. These experiments demonstrate the specificity and conditions required for enzyme activity.",
+    "worked_example": "Procedure: Two test tubes (A and B) each contain 3 ml of 1% starch suspension. Test tube A receives 3 ml of 0.5% amylase solution; test tube B receives 3 ml of distilled water as a control. Both are incubated at 37°C for 10 minutes. Then, samples are tested with iodine and Benedict's solution. Expected results: Test tube A – iodine test negative (no starch), Benedict's test positive (orange/red precipitate indicating maltose); Test tube B – iodine test positive (blue-black starch), Benedict's test negative (no reducing sugar). Discussion: Test tube A shows starch hydrolysis by amylase; test tube B confirms that no spontaneous breakdown occurs without enzyme.",
+    "common_mistakes": "Students often mistakenly believe that Benedict's test can be performed without heating or that iodine detects sugars. They may also overlook the importance of the control (test tube B) in confirming that the reaction is enzyme-driven.",
+    "keywords": [
+      "amylase",
+      "starch",
+      "pepsin",
+      "protein",
+      "digestion",
+      "Benedict's test",
+      "iodine test"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 25,
+    "bab": "Bab 9: Digestion and Absorption",
+    "skip": false,
+    "subtopic": "9.2.5 Studying the Digestion of Proteins",
+    "concept_title": "Pepsin Digests Protein in Acidic Medium",
+    "concept_explanation": "Pepsin is a proteolytic enzyme that breaks down proteins into peptides. It requires an acidic environment (pH around 2) provided by hydrochloric acid in the stomach. In the experiment, test tube A containing pepsin and acid digests the albumen (egg white) suspension, turning it clear as proteins are broken down. Test tube B without pepsin remains cloudy because no digestion occurs.",
+    "worked_example": "Experiment setup: Two test tubes with 5 ml albumen suspension, 1 ml 0.1 M HCl. Test tube A added 1 ml 1% pepsin, test tube B added 1 ml distilled water. Both placed in 37 °C water bath. After 20 minutes, tube A becomes clear (digestion), tube B remains turbid (no digestion). Discussion: Explain results, purpose of HCl is to provide optimum pH for pepsin activity.",
+    "common_mistakes": "Students often think pepsin works at neutral pH or that hydrochloric acid itself digests protein. Remind that acid only provides optimal pH; pepsin is required for hydrolysis.",
+    "keywords": [
+      "pepsin",
+      "hydrochloric acid",
+      "albumen",
+      "protein digestion",
+      "enzyme",
+      "acidic pH"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 26,
+    "bab": "Bab 9: Digestion and Absorption",
+    "skip": false,
+    "subtopic": "9.2.5",
+    "concept_title": "Lipase Digestion of Fats Experiment",
+    "concept_explanation": "This experiment investigates the action of lipase on fats. Lipase breaks down fats into fatty acids and glycerol. The fatty acids lower the pH of the solution, causing the pink phenolphthalein indicator to become colourless. Dishwashing liquid emulsifies the fat, increasing the surface area for lipase action. The water bath at 37°C provides an optimal temperature for enzyme activity.",
+    "worked_example": "Experiment: Two test tubes (A and B) contain cooking oil, sodium carbonate, and dishwashing liquid. Phenolphthalein is added, turning the solution pink. Lipase is added to test tube A, and distilled water (control) to test tube B. Both are placed in a 37°C water bath. The time taken for the pink colour to disappear in test tube A indicates the rate of fat digestion, while test tube B remains pink because no digestion occurs.",
+    "common_mistakes": "Students often think dishwashing liquid digests fat, but it only emulsifies. They may also believe that phenolphthalein turns colourless due to lipase directly, rather than the fatty acids produced. Another misconception is that lipase digests all types of food, but lipase specifically breaks down fats.",
+    "keywords": [
+      "lipase",
+      "phenolphthalein",
+      "emulsification",
+      "fat digestion",
+      "fatty acids",
+      "sodium carbonate"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 27,
+    "bab": "Bab 9: Nutrition",
+    "skip": false,
+    "subtopic": "Absorption",
+    "concept_title": "Adaptations of Ileum and Villus",
+    "concept_explanation": "The ileum is adapted for nutrient absorption through its folded internal lining covered with villi (finger-like projections) and microvilli (tiny projections on epithelial cells). Villi have a one-cell-thick epithelium to speed up absorption, a network of blood capillaries to transport digested nutrients, and a lacteal to carry fatty acids and glycerol. Goblet cells secrete mucus, and intestinal glands produce digestive enzymes, all enhancing absorption.",
+    "worked_example": "",
+    "common_mistakes": "Students may think that only villi increase surface area, forgetting the role of microvilli. They might also confuse the functions of lacteals (lipid transport) and blood capillaries (water-soluble nutrients).",
+    "keywords": [
+      "ileum",
+      "villus",
+      "microvillus",
+      "lacteal",
+      "goblet cells",
+      "blood capillaries"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 28,
+    "bab": "Bab 9: Digestion and Absorption",
+    "skip": false,
+    "subtopic": "Absorption of Digested Food",
+    "concept_title": "Absorption in the Ileum",
+    "concept_explanation": "The ileum is the main site for absorption of digested food. Different nutrients are absorbed through different mechanisms: simple diffusion for fatty acids, glycerol, and fat-soluble vitamins; facilitated diffusion for fructose; active transport for glucose, galactose, amino acids, and water-soluble vitamins; and osmosis for water. Fatty acids and glycerol are recombined into lipids within epithelial cells and then absorbed into lacteals, while most other nutrients enter blood capillaries.",
+    "worked_example": "Table 9.1 provides a summary of the methods of absorption for each type of digested food in the ileum. For instance, glucose and galactose are absorbed by active transport into blood capillaries, whereas fatty acids and glycerol are absorbed by simple diffusion into lacteals.",
+    "common_mistakes": "Students may incorrectly think that all nutrients are absorbed into blood capillaries, but fatty acids and glycerol enter lacteals. They may also confuse the absorption methods, e.g., thinking fructose uses active transport instead of facilitated diffusion.",
+    "keywords": [
+      "absorption",
+      "ileum",
+      "active transport",
+      "simple diffusion",
+      "facilitated diffusion",
+      "lacteal",
+      "villus"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 29,
+    "bab": "Bab 9: Nutrisi dan Pencernaan",
+    "skip": false,
+    "subtopic": "Asimilasi",
+    "concept_title": "Fungsi Hati dalam Asimilasi",
+    "concept_explanation": "Asimilasi adalah proses penggunaan nutrien yang telah diserap untuk membina sebatian kompleks dan struktur sel. Sistem peredaran darah dan sistem limfa membantu mengangkut nutrien ke sel-sel. Hati memainkan peranan penting sebagai pengawal jumlah nutrien yang memasuki sistem peredaran darah. Fungsi hati termasuk metabolisme glukosa dan asid amino, penyimpanan glikogen, detoksifikasi bahan toksik, dan deaminasi asid amino berlebihan kepada urea untuk perkumuhan.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menyangka bahawa semua nutrien yang diserap terus ke jantung tanpa melalui hati. Sebenarnya, darah dari usus kecil mengalir ke hati melalui vena portal hepatik untuk pemprosesan terlebih dahulu.",
+    "keywords": [
+      "asimilasi",
+      "hati",
+      "vena portal hepatik",
+      "deaminasi",
+      "detoksifikasi",
+      "glikogen",
+      "urea",
+      "lakteal"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 30,
+    "bab": "Bab 1",
+    "skip": false,
+    "subtopic": "Assimilation Process in the Liver and Cells",
+    "concept_title": "Assimilation in Liver and Cells",
+    "concept_explanation": "The liver plays a central role in assimilation by processing nutrients absorbed from the small intestine. Excess amino acids cannot be stored and are deaminated to form urea, which is excreted. The liver also converts glucose to glycogen for storage and, when needed, breaks glycogen back to glucose. In cells, amino acids are used to synthesise new protoplasm and repair tissues; glucose is oxidised for energy via cellular respiration; and lipids are used to build plasma membranes.",
+    "worked_example": "",
+    "common_mistakes": "Students often think that excess amino acids can be stored in the body like glycogen or fat, but in fact they must be deaminated and converted to urea.",
+    "keywords": [
+      "assimilation",
+      "deamination",
+      "urea",
+      "glycogen",
+      "plasma protein",
+      "cellular respiration"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 31,
+    "bab": "Bab 1",
+    "skip": false,
+    "subtopic": "Functions of the Large Intestine and Defaecation",
+    "concept_title": "Defaecation and Large Intestine Functions",
+    "concept_explanation": "The large intestine has two main functions: absorption of water and vitamins, and formation of faeces. After the ileum absorbs nutrients, undigested food, fibre, dead cells, and water move into the large intestine. Water and vitamins (including those produced by bacteria, such as vitamin B, K, and folic acid) are absorbed. The remaining semisolid waste, faeces, contains dead cells, bile pigments, bacteria, and toxins. Mucus is secreted to ease movement, and faeces accumulate in the rectum until pressure triggers defaecation—the expulsion of faeces through the anus.",
+    "worked_example": "",
+    "common_mistakes": "Students may mistakenly think the large intestine absorbs nutrients like the small intestine, but it primarily absorbs water and vitamins, not major nutrients like glucose or amino acids.",
+    "keywords": [
+      "large intestine",
+      "defaecation",
+      "absorption",
+      "faeces",
+      "rectum",
+      "anus",
+      "bacteria"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 32,
+    "bab": "Bab 1: Introduction to Biology",
+    "skip": false,
+    "subtopic": "Balanced Diet",
+    "concept_title": "Energy Value of Food",
+    "concept_explanation": "Energy value refers to the total energy released when one gram of food is completely oxidised. It is measured in kilojoules per gram (kJ g⁻¹) or calories, where 1 calorie equals 4.2 joules. The energy value is calculated using the formula: (mass of water × specific heat capacity of water × temperature increase) / (mass of food sample × 1000).",
+    "worked_example": "Experiment to compare energy value of groundnuts and cashew nuts: manipulated variable = type of food sample; responding variable = energy value; fixed variable = water mass. Procedure: place food sample under a boiling tube containing a known mass of distilled water, ignite the food, measure the temperature change, and calculate energy value using the formula.",
+    "common_mistakes": "Students often confuse the units calorie and joule, or forget to convert mass to grams and temperature to Celsius. They may also think energy value refers to the total energy per serving rather than per gram.",
+    "keywords": [
+      "balanced diet",
+      "energy value",
+      "calorie",
+      "joule",
+      "specific heat capacity",
+      "kilojoule"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 33,
+    "bab": "Bab 1: Nutrient Content in Food",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Energy Value of Food",
+    "concept_explanation": "The energy value of food can be determined through calorimetry by burning a food sample and measuring the temperature increase of a known volume of water. The energy released during combustion is absorbed by the water, and its amount is calculated using the formula: Energy value (kJ/g) = (Water mass (g) × 4.2 J g⁻¹ °C⁻¹ × Temperature increase (°C)) / (Food sample mass (g) × 1000). Different foods have different energy values due to variations in their nutrient composition, such as fats, carbohydrates, and proteins.",
+    "worked_example": "This experiment determines the energy value of cashew nuts and groundnuts. Steps: mass the food sample, measure 20 ml of distilled water in a boiling tube, set up with a thermometer, record initial water temperature, mount the food on a needle, light it with a Bunsen burner and place under the boiling tube, stir water and record the highest temperature after complete burning. Repeat with groundnuts. Calculate energy value for each sample using the formula. Results are recorded in a table and compared.",
+    "common_mistakes": "Students may forget to account for heat loss to the environment, leading to lower experimental energy values than theoretical values. Incorrect unit conversion (e.g., from J to kJ) is another common error. Additionally, not stirring the water evenly can give inaccurate maximum temperature readings.",
+    "keywords": [
+      "energy value",
+      "calorimetry",
+      "combustion",
+      "cashew nut",
+      "groundnut",
+      "temperature increase",
+      "specific heat capacity"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 34,
+    "bab": "Bab 9: Nutrition",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Determining Vitamin C Content in Juices",
+    "concept_explanation": "Vitamin C (ascorbic acid) is a reducing agent that decolourises the blue DCPIP solution. In this experiment, the volume of fruit or vegetable juice needed to decolourise a fixed volume of DCPIP solution is measured. A smaller volume of juice required indicates a higher concentration of vitamin C, as more ascorbic acid is present per drop. The concentration is calculated by comparing the volume of juice to the volume of a standard ascorbic acid solution needed for decolourisation.",
+    "worked_example": "Procedure: 1. Place 1 ml of 1% DCPIP solution in a specimen tube. 2. Fill a 5 ml syringe with 0.1% ascorbic acid solution. 3. Add the ascorbic acid drop by drop into the DCPIP solution while stirring until the blue colour disappears. Record the volume used. 4. Repeat with orange juice, lime juice, and carrot juice. 5. Calculate the percentage of vitamin C using the formula: (volume of ascorbic acid solution / volume of juice) × 0.1%.",
+    "common_mistakes": "Students often think that the juice that causes the fastest colour change has the highest vitamin C content, but the key is the volume required. Another mistake is not controlling the concentration of DCPIP solution, which must be constant for valid comparisons.",
+    "keywords": [
+      "vitamin C",
+      "ascorbic acid",
+      "DCPIP",
+      "decolourisation",
+      "fruit juice",
+      "titration"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 35,
+    "bab": "Bab 1: Introduction to Biology",
+    "skip": false,
+    "subtopic": "Studying the Effect of Temperature on Vitamin C",
+    "concept_title": "Temperature Effect on Vitamin C",
+    "concept_explanation": "Vitamin C is sensitive to heat and oxidation; exposure to high temperatures accelerates its degradation. Storing fruits or vegetables at low ambient temperatures helps preserve vitamin C content by slowing down chemical reactions. The experiment uses DCPIP titration to measure the remaining vitamin C after different temperature treatments, where a smaller volume of juice required to decolourise DCPIP indicates higher vitamin C concentration.",
+    "worked_example": "Orange juice is stored at three temperatures: ice (low), room temperature (moderate), and boiling water (high) for 30 minutes. After treatment, vitamin C content is determined by titrating the juice with DCPIP solution until decolourisation. The volume of juice needed to decolourise a fixed volume of DCPIP is recorded and compared across temperatures.",
+    "common_mistakes": "Students may think that boiling completely destroys all vitamin C, but some may remain. They might also believe room temperature is optimal, whereas cold temperature actually preserves more vitamin C.",
+    "keywords": [
+      "vitamin C",
+      "ascorbic acid",
+      "temperature",
+      "DCPIP",
+      "oxidation",
+      "preservation"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 36,
+    "bab": "Bab 9: Nutrisi",
+    "skip": false,
+    "subtopic": "Diet Modifications for Specific Individuals",
+    "concept_title": "Diet Changes for Specific Needs",
+    "concept_explanation": "Each individual has different dietary needs based on lifestyle, health conditions, and nutritional requirements. The Pinggan Sihat Malaysia guide illustrates the recommended proportions of various food groups for a balanced diet. Excessive intake of saturated fats can lead to obesity and increase the risk of cardiovascular diseases such as atherosclerosis and hypertension.",
+    "worked_example": "Experiment on vitamin C content in orange juice at different temperatures. Discussion questions: 1. Is there a difference in vitamin C content for juice at different temperatures? 2. What is the effect of temperature on vitamin C? 3. Based on results, suggest the best way to ensure high vitamin C intake from fruit/vegetable juice. Conclusion: Is the hypothesis accepted? Suggest a suitable conclusion.",
+    "common_mistakes": "Students may think obesity is solely caused by eating too much fat, but it results from an imbalance between energy intake and usage. Also, saturated fats and cholesterol are distinct; high cholesterol is a risk factor for heart disease, not the direct cause from dietary fats alone.",
+    "keywords": [
+      "Pinggan Sihat Malaysia",
+      "balanced diet",
+      "obesity",
+      "saturated fats",
+      "cardiovascular disease",
+      "nutritionist"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 37,
+    "bab": "Bab 1: Introduction to Biology and Laboratory Rules",
+    "skip": false,
+    "subtopic": "9.7 Health Issues Related to the Digestive System and Eating Habits",
+    "concept_title": "Health Issues: Obesity and Defaecation",
+    "concept_explanation": "Obesity is a global health issue that can be managed through diet and exercise, but sometimes requires medical intervention like gastric bypass surgery, which reduces stomach size. However, this surgery carries short-term side effects (e.g., acid reflux, nausea) and long-term risks (e.g., malnutrition, stomach ulcer). Dietary fibre, found in fruits and vegetables, is essential for proper defaecation. It stimulates peristalsis, absorbs toxic substances, regulates glucose absorption, and supports beneficial gut bacteria, thereby preventing constipation, colon cancer, rectum cancer, and haemorrhoids.",
+    "worked_example": "",
+    "common_mistakes": "Students may mistakenly believe that gastric bypass is a risk-free solution for obesity, ignoring its potential side effects like malnutrition and infection. They might also overlook the role of fibre beyond bowel movement, such as regulating blood sugar and promoting gut health.",
+    "keywords": [
+      "obesity",
+      "gastric bypass",
+      "fibre",
+      "peristalsis",
+      "constipation",
+      "colon cancer",
+      "haemorrhoid"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 38,
+    "bab": "Bab 2: Nutrisi",
+    "skip": false,
+    "subtopic": "Health issues related to eating habits",
+    "concept_title": "Health issues from eating habits",
+    "concept_explanation": "Poor eating habits, such as irregular meal times or extreme dieting, can lead to various health problems. Gastritis is the inflammation of the stomach lining due to irregular eating or excessive alcohol/painkiller intake. Anorexia nervosa involves self-starvation due to a distorted body image, leading to nutritional deficiencies. Bulimia nervosa is characterized by binge eating followed by purging, causing dehydration and cardiovascular issues. Muscle dysmorphia is an obsession with being underdeveloped, leading to excessive weightlifting and possible harm.",
+    "worked_example": "",
+    "common_mistakes": "Students may think that eating disorders like anorexia and bulimia only affect teenage girls, but they can occur in males and adults. Gastritis is often incorrectly attributed only to spicy food, whereas it is commonly caused by irregular eating or overuse of painkillers.",
+    "keywords": [
+      "gastritis",
+      "anorexia nervosa",
+      "bulimia nervosa",
+      "muscle dysmorphia",
+      "eating habits",
+      "nutritional deficiency"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 39,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Page is a summary and self-reflection, not new teaching content."
+  },
+  {
+    "page": 40,
+    "bab": "Bab 9: Nutrition and the Human Digestive System",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Digestive System: Enzymes & Processes",
+    "concept_explanation": "The human digestive system involves a series of organs that break down food mechanically and chemically. Enzymes such as amylase, proteases, and lipases catalyze the digestion of carbohydrates, proteins, and fats in specific pH environments. For example, the stomach secretes pepsin for protein digestion in an acidic medium, while the small intestine provides an alkaline environment for pancreatic enzymes. Lactose intolerance occurs when the body lacks lactase, the enzyme that breaks down lactose in milk, leading to undigested lactose causing diarrhoea and bloating.",
+    "worked_example": "",
+    "common_mistakes": "Students often think that all digestion occurs in the stomach, but most chemical digestion and absorption happen in the small intestine. Another misconception is that lactose intolerance is an allergy rather than a deficiency of the enzyme lactase.",
+    "keywords": [
+      "digestion",
+      "enzymes",
+      "lactase",
+      "protease",
+      "amylase",
+      "small intestine",
+      "stomach"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 41,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Page contains only essay and enrichment questions, no teaching content."
+  },
+  {
+    "page": 42,
+    "bab": "Bab 10: Transport in Humans and Animals",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Introduction to Circulatory System",
+    "concept_explanation": "This chapter introduces the transport systems in humans and animals, focusing on the blood circulatory system and lymphatic system. The circulatory system consists of the heart, blood vessels, and blood, working together to transport oxygen, nutrients, and waste products. Key questions include how the heart pumps blood and how the lymphatic system returns tissue fluids to the blood.",
+    "worked_example": "",
+    "common_mistakes": "Students may think the circulatory system only involves the heart and blood vessels, neglecting the role of the lymphatic system in fluid balance and immunity.",
+    "keywords": [
+      "circulatory system",
+      "heart",
+      "blood",
+      "lymphatic system",
+      "transport"
+    ],
+    "difficulty_level": 1
+  },
+  {
+    "page": 43,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Page contains only a table of contents for Chapter 10, not teachable content."
+  },
+  {
+    "page": 44,
+    "bab": "Bab 10: Transport",
+    "skip": false,
+    "subtopic": "10.1 The Necessity for Transport Systems in Complex Multicellular Organisms",
+    "concept_title": "Need for Transport System",
+    "concept_explanation": "Unicellular organisms like Amoeba sp. have a large surface area to volume ratio (TSA/V), allowing them to exchange essential substances and wastes directly with the environment via diffusion. In contrast, complex multicellular organisms have a small TSA/V, and their cells are located far from the external environment, making diffusion insufficient. Therefore, they require a specialised transport system to deliver oxygen and nutrients and remove carbon dioxide and nitrogenous wastes efficiently.",
+    "worked_example": "",
+    "common_mistakes": "Students often think that large multicellular organisms can rely on diffusion alone for substance exchange. They forget that the small surface area to volume ratio and increased distance between cells and the environment make diffusion too slow to meet metabolic demands.",
+    "keywords": [
+      "surface area to volume ratio",
+      "diffusion",
+      "transport system",
+      "unicellular",
+      "multicellular"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 45,
+    "bab": "Bab 10: Sistem Peredaran Darah",
+    "skip": false,
+    "subtopic": "Jenis Sistem Peredaran dalam Organisma Multisel",
+    "concept_title": "Sistem Peredaran Terbuka dan Tertutup",
+    "concept_explanation": "Dalam sistem peredaran terbuka, hemolimfa mengalir terus ke dalam rongga badan (hemocoel) dan membasahi sel-sel secara langsung, manakala dalam sistem peredaran tertutup, darah sentiasa berada di dalam salur darah yang berterusan dan diedarkan ke seluruh badan. Pertukaran bahan seperti oksigen dan nutrien berlaku melalui dinding kapilari darah dalam sistem tertutup. Hemolimfa adalah cecair berkhasiat seperti darah yang terdapat pada kebanyakan invertebrat seperti serangga dan moluska.",
+    "worked_example": "Aktiviti: Mengkaji kesan perubahan nisbah jumlah luas permukaan kepada isi padu (TSA/V) terhadap kadar resapan.",
+    "common_mistakes": "Pelajar mungkin keliru bahawa sistem peredaran terbuka bermaksud darah tidak terkandung langsung, sedangkan ia terkandung dalam hemocoel. Juga, hemolimfa dan darah sering disalah anggap sebagai sama.",
+    "keywords": [
+      "sistem peredaran terbuka",
+      "sistem peredaran tertutup",
+      "hemolimfa",
+      "hemocoel",
+      "salur darah",
+      "kapilari darah"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 46,
+    "bab": "Bab 10: Transport in Humans and Animals",
+    "skip": false,
+    "subtopic": "OPEN CIRCULATORY SYSTEM",
+    "concept_title": "Open Circulatory System in Insects",
+    "concept_explanation": "Insects possess an open circulatory system where haemolymph (a fluid similar to blood) is pumped by the heart into the haemocoel, a body cavity. Haemolymph directly bathes the tissues, allowing diffusion of substances. The heart relaxes and draws haemolymph back through tiny openings called ostia. This system contrasts with the closed circulatory system in fish, which have a two-chambered heart and blood confined to vessels.",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse open and closed circulatory systems; some incorrectly think fish have an open system. Note: Fish have a closed single circulatory system with a two-chambered heart, not an open system.",
+    "keywords": [
+      "open circulatory system",
+      "haemolymph",
+      "haemocoel",
+      "ostium",
+      "single circulatory system",
+      "fish circulatory system",
+      "two-chambered heart"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 47,
+    "bab": "Bab 1: Introduction to Biology",
+    "skip": false,
+    "subtopic": "Closed Circulatory System",
+    "concept_title": "Double Circulatory System",
+    "concept_explanation": "Humans have a four-chambered heart that completely separates oxygenated and deoxygenated blood, forming a complete double circulatory system. In contrast, amphibians have a three-chambered heart (two atria, one ventricle) leading to some mixing of blood, resulting in an incomplete double circulatory system. Amphibian circulation includes pulmocutaneous circulation to the lungs and skin for gas exchange, and systemic circulation to supply oxygen to body tissues.",
+    "worked_example": "",
+    "common_mistakes": "Students often assume that all double circulatory systems are complete with no mixing of blood, but in amphibians, the single ventricle allows oxygenated and deoxygenated blood to mix, making it an incomplete system.",
+    "keywords": [
+      "closed circulatory system",
+      "double circulatory system",
+      "pulmocutaneous circulation",
+      "systemic circulation",
+      "pulmonary circulation",
+      "three-chambered heart",
+      "four-chambered heart"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 48,
+    "bab": "Bab 10: Transport in Humans and Animals",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Comparison of Circulatory Systems",
+    "concept_explanation": "The table compares the circulatory systems of insects, fish, amphibians, and humans. All multicellular organisms have a circulatory system with a heart that pumps blood or haemolymph to transport nutrients and wastes. Key differences include open versus closed systems, number of circulations (single or double), number of heart chambers, and whether oxygenated and deoxygenated blood are separated. Amphibians have incomplete double circulation because some mixing occurs in the ventricle.",
+    "worked_example": "",
+    "common_mistakes": "Students often assume all animals have closed circulatory systems or that double circulation always means complete separation of oxygenated and deoxygenated blood. They may also think fish have double circulation, whereas fish have single circulation with blood passing through the heart only once per complete circuit.",
+    "keywords": [
+      "circulatory system",
+      "open circulatory system",
+      "closed circulatory system",
+      "single circulation",
+      "double circulation",
+      "heart chambers"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 49,
+    "bab": "Bab 10: Circulatory System",
+    "skip": false,
+    "subtopic": "10.2 Circulatory System of Humans",
+    "concept_title": "Human Circulatory System Components",
+    "concept_explanation": "The human circulatory system consists of three main components: blood, heart, and blood vessels. Blood is a connective tissue that transports substances. The heart is a muscular pump with four chambers: left and right atria (receive blood) and left and right ventricles (pump blood out). The septum separates the left and right sides. The left ventricle has a thicker wall because it must generate higher pressure to pump blood to the entire body, while the right ventricle only pumps to the lungs. Coronary arteries supply oxygenated blood to heart tissues, and coronary veins remove deoxygenated blood.",
+    "worked_example": "",
+    "common_mistakes": "Students often think the right ventricle has a thicker wall than the left because it pumps to the lungs, but actually the left ventricle is thicker due to the need to pump blood to the whole body at higher pressure.",
+    "keywords": [
+      "blood",
+      "heart",
+      "blood vessels",
+      "atrium",
+      "ventricle",
+      "septum",
+      "coronary arteries"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 50,
+    "bab": "Bab 1: Pengenalan kepada Biologi",
+    "skip": false,
+    "subtopic": "Struktur Jantung dan Salur Darah Utama",
+    "concept_title": "Jantung dan Salur Darah Utama",
+    "concept_explanation": "Jantung mempunyai empat ruang: dua atrium dan dua ventrikel. Darah beroksigen diangkut dari jantung ke seluruh badan melalui aorta, manakala darah terdeoksigen kembali ke jantung melalui vena kava. Arteri pulmonari membawa darah terdeoksigen dari jantung ke paru-paru, dan vena pulmonari membawa darah beroksigen dari paru-paru ke jantung. Injap semilunar di pangkal arteri pulmonari dan aorta menghalang darah daripada mengalir kembali ke ventrikel apabila ventrikel mengendur. Injap bikuspida (antara atrium kiri dan ventrikel kiri) dan injap trikuspida (antara atrium kanan dan ventrikel kanan) memastikan darah hanya mengalir satu arah melalui jantung. Septum memisahkan bahagian kiri dan kanan jantung.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara fungsi arteri pulmonari dan vena pulmonari: arteri pulmonari membawa darah terdeoksigen, manakala vena pulmonari membawa darah beroksigen. Mereka juga mungkin menyangka bahawa semua arteri membawa darah beroksigen dan semua vena membawa darah terdeoksigen, sedangkan ini tidak benar dalam peredaran pulmonari.",
+    "keywords": [
+      "aorta",
+      "vena kava",
+      "arteri pulmonari",
+      "vena pulmonari",
+      "injap semilunar",
+      "injap bikuspida",
+      "injap trikuspida",
+      "septum"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 51,
+    "bab": "Bab 10: Human Blood and Circulation",
+    "skip": false,
+    "subtopic": "Composition of Human Blood",
+    "concept_title": "Blood Composition",
+    "concept_explanation": "Human blood is composed of about 55% plasma and 45% cellular components. Plasma, which is 90% water, serves as a transport medium for nutrients, gases, and waste products. The cellular components include red blood cells (erythrocytes), white blood cells (leucocytes), and platelets, each with specific functions. Plasma proteins such as fibrinogen, albumin, and globulin play roles in clotting, osmotic pressure, and immunity.",
+    "worked_example": "",
+    "common_mistakes": "Students often think blood is mostly red blood cells, but actually plasma makes up the majority. They may also confuse plasma with serum, forgetting that plasma contains clotting factors.",
+    "keywords": [
+      "plasma",
+      "erythrocytes",
+      "leucocytes",
+      "platelets",
+      "fibrinogen",
+      "albumin",
+      "globulin"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 52,
+    "bab": "Bab 10: Transport in Humans and Animals",
+    "skip": false,
+    "subtopic": "10.2.2 Blood Cells and Their Functions",
+    "concept_title": "Erythrocytes and Platelets",
+    "concept_explanation": "Erythrocytes (red blood cells) are biconcave discs without a nucleus, allowing more haemoglobin to be packed inside. Haemoglobin contains iron that binds oxygen to form oxyhaemoglobin in high oxygen conditions and releases oxygen in tissues with low oxygen. Platelets are cell fragments from bone marrow that are essential for blood clotting, with a lifespan of less than a week.",
+    "worked_example": "Brainstorm! The red blood cell of frogs has a nucleus and is larger than the red blood cell of humans. What are the advantages and disadvantages of nucleated red blood cells? Consider how the presence of a nucleus affects oxygen-carrying capacity and cell flexibility.",
+    "common_mistakes": "Students often think that all blood cells have a nucleus, or that platelets are complete cells. In fact, mature erythrocytes lack a nucleus to maximize oxygen transport, and platelets are membrane-bound fragments of megakaryocyte cytoplasm.",
+    "keywords": [
+      "erythrocyte",
+      "platelet",
+      "haemoglobin",
+      "biconcave disc",
+      "oxyhaemoglobin",
+      "blood clotting"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 53,
+    "bab": "Bab 10: Pengangkutan dalam Manusia dan Haiwan",
+    "skip": false,
+    "subtopic": "10.2.2 Leucocytes (White Blood Cells)",
+    "concept_title": "Leukocytes: Types and Functions",
+    "concept_explanation": "Leucocytes, or white blood cells, are irregularly shaped cells with a nucleus, lacking haemoglobin. They are produced in the bone marrow and have a lifespan of less than five days. Leucocytes can diffuse out of capillary pores to fight pathogens in tissue fluids. They are divided into two main types: granulocytes (containing granules) and agranulocytes (without granules). Granulocytes include neutrophils, eosinophils, and basophils. Neutrophils ingest bacteria and dead cells by phagocytosis; eosinophils release enzymes to combat inflammation and allergies; basophils release heparin to prevent blood clotting. Agranulocytes include lymphocytes and monocytes. Lymphocytes produce antibodies and antitoxins to destroy bacteria and viruses, while monocytes are the largest leucocytes and ingest bacteria and debris by phagocytosis.",
+    "worked_example": "",
+    "common_mistakes": "Students often think all white blood cells function the same way, but different types have specific roles: e.g., neutrophils and monocytes perform phagocytosis, while lymphocytes produce antibodies. Another mistake is assuming leucocytes always remain in the blood; in fact, they can leave capillaries to reach infected tissues.",
+    "keywords": [
+      "leucocyte",
+      "white blood cell",
+      "granulocyte",
+      "agranulocyte",
+      "neutrophil",
+      "eosinophil",
+      "basophil",
+      "lymphocyte",
+      "monocyte",
+      "phagocytosis",
+      "antibody"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 54,
+    "bab": "Bab 10: Transport in Humans and Animals",
+    "skip": false,
+    "subtopic": "10.2.3 Human blood vessels",
+    "concept_title": "Structure and Function of Blood Vessels",
+    "concept_explanation": "Blood vessels include arteries, capillaries, and veins. Arteries transport blood away from the heart at high pressure; they have thick, elastic walls to withstand pressure. Capillaries are one-cell thick and allow diffusion of gases, nutrients, and wastes between blood and cells. Veins carry blood back to the heart at lower pressure; they have thinner walls and are formed by venules. The main artery is the aorta and the main vein is the vena cava.",
+    "worked_example": "",
+    "common_mistakes": "Students often think all arteries carry oxygenated blood and all veins carry deoxygenated blood, but the pulmonary artery carries deoxygenated blood and the pulmonary vein carries oxygenated blood.",
+    "keywords": [
+      "artery",
+      "vein",
+      "capillary",
+      "arteriole",
+      "venule",
+      "endothelium",
+      "smooth muscle"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 55,
+    "bab": "Bab 10: Pengangkutan dalam Manusia",
+    "skip": false,
+    "subtopic": "10.2.3 Perbandingan antara arteri, kapilari dan vena",
+    "concept_title": "Perbezaan Salur Darah",
+    "concept_explanation": "Arteri memiliki dinding tebal, berotot dan anjal untuk menahan tekanan darah tinggi. Kapilari mempunyai dinding setebal satu sel untuk memudahkan pertukaran bahan antara darah dengan tisu. Vena mempunyai dinding nipis, kurang otot dan anjal, serta dilengkapi injap untuk memastikan aliran darah sehala ke jantung.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menyangka arteri tidak mempunyai injap langsung, tetapi sebenarnya arteri mempunyai injap semilunar di pangkal aorta dan arteri pulmonari.",
+    "keywords": [
+      "arteri",
+      "kapilari",
+      "vena",
+      "injap",
+      "lumen",
+      "tekanan darah"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 56,
+    "bab": "Bab 10: Pengangkutan dalam Manusia dan Haiwan",
+    "skip": false,
+    "subtopic": "10.3 Mekanisme Denyutan Jantung",
+    "concept_title": "Mekanisme Denyutan Jantung",
+    "concept_explanation": "Jantung terdiri daripada otot kardium yang bersambung antara satu sama lain, membolehkan impuls elektrik merebak dengan pantas melalui jantung dan merangsang sel otot kardium mengecut secara serentak dan seragam. Otot kardium bersifat miogenik, bermaksud ia boleh mengecut dan mengendur tanpa menerima isyarat impuls daripada sistem saraf. Jika otot kardium disimpan dalam larutan yang hangat, beroksigen dan mengandungi nutrien, otot tersebut akan mengecut dan mengendur secara berirama dengan sendirinya.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering tersalah anggap bahawa denyutan jantung dikawal sepenuhnya oleh sistem saraf, tetapi sebenarnya otot kardium bersifat miogenik dan boleh berdegup sendiri tanpa impuls saraf.",
+    "keywords": [
+      "otot kardium",
+      "miogenik",
+      "nod sinoatrium",
+      "nod atrioventrikel",
+      "berkas His",
+      "serabut Purkinje",
+      "perentak jantung tiruan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 57,
+    "bab": "Bab 1: Pengangkutan",
+    "skip": false,
+    "subtopic": "Pumping of the heart",
+    "concept_title": "Heart Pumping: Pacemaker Role",
+    "concept_explanation": "The heart's pumping is initiated by the pacemaker, the sinoatrial (SA) node, located in the right atrium wall. It generates electrical impulses that spread across both atria, causing them to contract simultaneously and pump blood into the ventricles. The impulses then reach the atrioventricular (AV) node, which delays them before passing through the bundle of His and Purkinje fibres to stimulate the ventricles to contract from the apex upward, pumping blood to the lungs and body.",
+    "worked_example": "",
+    "common_mistakes": "Students often think that the heart muscle contracts without any initiating signal, or they confuse the sinoatrial node with the atrioventricular node. It is important to remember that the SA node generates the initial impulse that sets the rhythm.",
+    "keywords": [
+      "pacemaker",
+      "sinoatrial node",
+      "atrioventricular node",
+      "bundle of His",
+      "Purkinje fibres",
+      "electrical impulses"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 58,
+    "bab": "Bab 10: Transport dalam Haiwan dan Tumbuhan",
+    "skip": false,
+    "subtopic": "10.3 Mekanisme Pengepaman Jantung",
+    "concept_title": "Heart Sounds & Venous Return",
+    "concept_explanation": "The 'lub-dub' heart sounds are produced by the closing of heart valves. The first 'lub' sound occurs when the tricuspid and bicuspid (mitral) valves close at the start of ventricular systole, while the second 'dub' sound occurs when the semilunar valves (aortic and pulmonary) close at the start of ventricular diastole. Blood flow through veins back to the heart is assisted by the contraction of skeletal muscles, which compress the veins and push blood forward, aided by one-way valves that prevent backflow.",
+    "worked_example": "",
+    "common_mistakes": "Students often think the 'lub-dub' sounds are caused by the heart's contraction rather than the closing of valves.",
+    "keywords": [
+      "lub-dub sound",
+      "tricuspid valve",
+      "bicuspid valve",
+      "semilunar valves",
+      "skeletal muscle contraction",
+      "venous return",
+      "valves in veins"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 59,
+    "bab": "Bab 10: Sistem Pengangkutan",
+    "skip": false,
+    "subtopic": "Mekanisme Pembekuan Darah",
+    "concept_title": "Mekanisme Pembekuan Darah",
+    "concept_explanation": "Pembekuan darah adalah proses penting yang menghentikan kehilangan darah, mencegah kemasukan mikroorganisma, dan mengekalkan tekanan darah. Proses ini melibatkan siri tindak balas kimia: platelet dan tisu yang rosak membentuk trombokinase, yang dengan bantuan ion kalsium dan vitamin K menukarkan protrombin kepada trombin. Trombin kemudian menukarkan fibrinogen (larut) kepada fibrin (tidak larut) yang membentuk jaringan untuk memerangkap sel darah merah dan menutup luka.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara protrombin (tidak aktif) dan trombin (aktif), serta peranan ion kalsium dan vitamin K sebagai kofaktor yang diperlukan untuk pengaktifan protrombin.",
+    "keywords": [
+      "pembekuan darah",
+      "trombokinase",
+      "protrombin",
+      "trombin",
+      "fibrinogen",
+      "fibrin",
+      "ion kalsium",
+      "vitamin K"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 60,
+    "bab": "Bab 10: Transport in Humans",
+    "skip": false,
+    "subtopic": "Health Issues Related to Blood Clotting",
+    "concept_title": "Blood Clotting Disorders",
+    "concept_explanation": "Under normal conditions, blood does not clot in undamaged blood vessels due to anticoagulants like heparin. However, disorders can disrupt this mechanism. Haemophilia is a hereditary illness caused by a lack of clotting factors, leading to excessive bleeding from minor wounds. Thrombosis is the formation of a blood clot (thrombus) inside a vessel, often due to vessel damage or sluggish blood flow. If a clot dislodges and travels as an embolus, it can cause an embolism, blocking blood flow and potentially leading to heart attack or stroke.",
+    "worked_example": "Activity Zone: Work in groups to collect and interpret information about thrombosis, embolism, and haemophilia, then present findings to the class.",
+    "common_mistakes": "Students may think blood clots only form when there is an external wound, but clots can also form inside undamaged vessels due to slow blood flow or other factors, leading to thrombosis.",
+    "keywords": [
+      "haemophilia",
+      "thrombosis",
+      "embolism",
+      "thrombus",
+      "embolus",
+      "heparin"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 61,
+    "bab": "Bab 10: Transport in Humans",
+    "skip": false,
+    "subtopic": "Blood Groups of Humans",
+    "concept_title": "ABO Blood Groups and Rhesus Factor",
+    "concept_explanation": "Human blood is classified into four ABO groups (A, B, AB, O) based on antigens on red blood cells. The blood serum contains antibodies that react against antigens not present in the individual's own blood. Blood transfusion compatibility requires matching donor antigens with recipient antibodies to prevent agglutination. Additionally, the Rhesus factor (Rh factor) is another antigen; Rh-positive individuals have it, while Rh-negative individuals lack it. Rh-negative recipients may produce anti-D antibodies if exposed to Rh-positive blood.",
+    "worked_example": "Table 10.6 shows compatibility: Blood group A can donate to A and AB, receive from A and O; group B donates to B and AB, receives from B and O; group AB only receives from A, B, AB, O but donates only to AB; group O donates to all but receives only from O. This illustrates the need to avoid antibody-antigen reactions.",
+    "common_mistakes": "Students often mistakenly think a person with blood type A has anti-A antibodies, but actually they have anti-B antibodies. Another common error is assuming O is a universal donor without considering Rh factor.",
+    "keywords": [
+      "blood group",
+      "antigen",
+      "antibody",
+      "agglutination",
+      "Rhesus factor",
+      "Rh-positive",
+      "Rh-negative",
+      "donor",
+      "recipient"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 62,
+    "bab": "Bab 1",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Rhesus Factor in Pregnancy",
+    "concept_explanation": "The Rhesus (Rh) factor is an antigen found on red blood cells. When an Rh-negative mother carries an Rh-positive foetus, foetal blood cells carrying antigen D may cross the placenta and stimulate the mother's immune system to produce anti-D antibodies. These antibodies can cross the placenta in a subsequent Rh-positive pregnancy, attacking the foetal red blood cells, leading to erythroblastosis fetalis, which may cause anaemia, mental retardation, or death unless treated with Rh-negative blood transfusion.",
+    "worked_example": "",
+    "common_mistakes": "Students often think the first Rh-positive baby is affected, but the mother typically produces insufficient antibodies to harm the first child; problems arise mainly in later pregnancies.",
+    "keywords": [
+      "Rhesus factor",
+      "Rh-positive",
+      "Rh-negative",
+      "anti-D antibodies",
+      "erythroblastosis fetalis",
+      "blood transfusion"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 63,
+    "bab": "Bab 10: Sistem Peredaran Manusia",
+    "skip": false,
+    "subtopic": "Kesihatan Berkaitan dengan Sistem Peredaran Manusia",
+    "concept_title": "Kepentingan Sistem Peredaran Sihat",
+    "concept_explanation": "Sistem peredaran yang sihat penting untuk memastikan kesihatan optimum. Amalan seperti pengambilan makanan seimbang rendah lemak, senaman berkala, dan tidak merokok atau minum alkohol dapat mengekalkan kesihatan sistem peredaran. Penyakit kardiovaskular seperti aterosklerosis, arteriosklerosis, angina, hipertensi, infarksi miokardium (serangan jantung), dan strok adalah punca utama kematian di negara kita.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering mengelirukan aterosklerosis dengan arteriosklerosis, atau menyangka penyakit kardiovaskular hanya melibatkan jantung, sedangkan ia juga melibatkan salur darah dan boleh menyebabkan strok.",
+    "keywords": [
+      "sistem peredaran sihat",
+      "penyakit kardiovaskular",
+      "aterosklerosis",
+      "plak",
+      "hipertensi",
+      "strok"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 64,
+    "bab": "Bab 10: Sistem Kardiovaskular",
+    "skip": false,
+    "subtopic": "Kesihatan Sistem Kardiovaskular",
+    "concept_title": "Aterosklerosis dan Infarksi Miokardium",
+    "concept_explanation": "Aterosklerosis adalah pembentukan plak (terdiri daripada kolesterol, lemak, dan kalsium) pada dinding arteri yang menyebabkan lumen menjadi sempit. Keadaan ini boleh membawa kepada pembentukan bekuan darah yang menyekat aliran darah. Jika berlaku pada arteri koronari, ia menyebabkan infarksi miokardium (serangan jantung) kerana otot jantung kekurangan oksigen. Sekiranya pada arteri yang membekalkan otak, ia boleh menyebabkan strok.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menyangka bahawa plak adalah bekuan darah atau infarksi miokardium dan strok adalah penyakit yang sama. Mereka juga mungkin tidak memahami bahawa aterosklerosis adalah proses berperingkat yang berlaku dalam jangka masa panjang.",
+    "keywords": [
+      "aterosklerosis",
+      "plak",
+      "infarksi miokardium",
+      "strok",
+      "arteri koronari",
+      "bekuan darah"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 65,
+    "bab": "Bab 10: Human Lymphatic System",
+    "skip": false,
+    "subtopic": "Formation of Tissue Fluid",
+    "concept_title": "Formation of Tissue Fluid",
+    "concept_explanation": "At the arterial end of blood capillaries, high blood pressure due to heart pumping forces blood plasma through the capillary walls into the intercellular space, forming tissue fluid. This fluid bathes body cells, allowing exchange of nutrients and oxygen from the blood to the cells, and removal of carbon dioxide and other waste products. Plasma proteins are too large to diffuse out, so they remain in the capillaries, maintaining osmotic pressure.",
+    "worked_example": "Figure 10.20 illustrates the exchange of substances between blood capillaries and body cells, showing how oxygenated blood at high pressure at the arterial end leads to formation of tissue fluid, while deoxygenated blood at low pressure at the venous end facilitates reabsorption.",
+    "common_mistakes": "Students often mistakenly think that tissue fluid contains red blood cells and platelets, but in reality, these cells are too large to pass through capillary walls; tissue fluid is essentially blood plasma without these cells and without large plasma proteins.",
+    "keywords": [
+      "tissue fluid",
+      "lymphatic system",
+      "blood capillary",
+      "intercellular space",
+      "arteriole",
+      "plasma"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 66,
+    "bab": "Bab 10: Sistem Peredaran Darah dan Limfa",
+    "skip": false,
+    "subtopic": "10.7.2 dan 10.7.3: Limfa dan Kapilari Limfa",
+    "concept_title": "Perbandingan Limfa, Cecair Tisu dan Darah",
+    "concept_explanation": "Limfa adalah cecair yang terbentuk daripada cecair tisu yang tidak diserap semula ke dalam kapilari darah. Ia mengandungi plasma tanpa protein plasma, eritrosit dan platelet, tetapi mempunyai kandungan lemak dan bahan larut lemak yang tinggi serta banyak limfosit. Berbeza dengan darah, limfa tidak mengandungi protein plasma, eritrosit dan platelet. Kapilari limfa mempunyai satu lapisan sel dan hujungnya tertutup, berbeza dengan kapilari darah yang terbuka. Cecair tisu pula mempunyai kandungan lemak rendah dan kurang limfosit berbanding limfa.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru bahawa limfa dan cecair tisu adalah sama. Sebenarnya, limfa mengandungi lebih lemak dan limfosit berbanding cecair tisu. Selain itu, ada yang menyangka limfa mengandungi eritrosit seperti darah, tetapi sebenarnya tidak.",
+    "keywords": [
+      "limfa",
+      "cecair tisu",
+      "kapilari limfa",
+      "darah",
+      "plasma",
+      "limfosit",
+      "lemak"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 67,
+    "bab": "Bab 10: Sistem Limfa",
+    "skip": false,
+    "subtopic": "Sistem Limfa dan Hubungannya dengan Sistem Peredaran Darah",
+    "concept_title": "Sistem Limfa: Organ dan Pergerakan",
+    "concept_explanation": "Sistem limfa terdiri daripada organ seperti nodus limfa, limpa, kelenjar timus, sumsum tulang, tonsil dan apendiks. Sistem ini tidak mempunyai pam sendiri untuk mengalirkan limfa; sebaliknya, pergerakan limfa dibantu oleh denyutan jantung, pengecutan otot rangka, peristalsis dalam saluran pencernaan, dan perubahan tekanan semasa penyedutan dan penghembusan nafas. Injap sehala dalam saluran limfa memastikan limfa mengalir secara berterusan ke arah jantung dan menghalang pengaliran balik. Semua saluran limfa akhirnya bergabung dengan dua saluran utama, iaitu duktus toraks dan duktus limfa kanan, yang mengembalikan limfa ke sistem peredaran darah melalui vena subklavia.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menyangka sistem limfa mempunyai pam sendiri, atau keliru tentang fungsi duktus toraks dan duktus limfa kanan. Injap sehala juga sering disalah anggap hanya terdapat dalam urat.",
+    "keywords": [
+      "nodus limfa",
+      "limpa",
+      "kelenjar timus",
+      "sumsum tulang",
+      "tonsil",
+      "apendiks",
+      "saluran limfa",
+      "duktus toraks",
+      "duktus limfa kanan",
+      "limfa",
+      "injap sehala"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 68,
+    "bab": "Bab 10: Pengangkutan dalam Manusia dan Haiwan",
+    "skip": false,
+    "subtopic": "Sistem Limfa",
+    "concept_title": "Keperluan Sistem Limfa",
+    "concept_explanation": "Sistem limfa melengkapi sistem peredaran darah dengan memulangkan cecair tisu berlebihan dari ruang antara sel ke dalam aliran darah, mengekalkan komposisi, tekanan, dan isipadu darah. Ia juga mengangkut lemak dan bahan larut lemak melalui lakteal dalam vili usus kecil ke dalam sistem limfa. Selain itu, nodus limfa menghasilkan dan menyimpan limfosit yang terlibat dalam penghasilan antibodi untuk pertahanan badan.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru bahawa sistem limfa adalah sistem yang terasing sepenuhnya daripada peredaran darah, sedangkan ia saling melengkapi dengan mengembalikan cecair tisu ke dalam darah melalui saluran toraks dan duktus limfa kanan.",
+    "keywords": [
+      "limfa",
+      "sistem limfa",
+      "saluran toraks",
+      "lakteal",
+      "limfosit"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 69,
+    "bab": "Bab 10: Sistem Limfa",
+    "skip": false,
+    "subtopic": "Isu Kesihatan Berkaitan Sistem Limfa Manusia",
+    "concept_title": "Oedema dan Penyebabnya",
+    "concept_explanation": "Oedema adalah keadaan bengkak pada tisu badan akibat pengumpulan cecair tisu yang berlebihan di ruang antara sel. Ini berlaku apabila sistem limfa tidak berfungsi dengan baik, misalnya disebabkan oleh faktor seperti kehamilan (peningkatan cecair badan untuk janin), kekurangan protein plasma (misalnya albumin), jangkitan parasit (Brugia sp. yang menyumbat salur limfa), atau pesakit yang terbaring lama dan kurang pergerakan. Keadaan ini boleh menyebabkan ketidakselesaan dan masalah kesihatan yang lebih serius jika tidak dirawat.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar mungkin salah anggap bahawa oedema hanya disebabkan oleh jangkitan parasit, sedangkan ia juga boleh berpunca daripada faktor lain seperti kekurangan protein plasma atau imobilisasi yang lama.",
+    "keywords": [
+      "oedema",
+      "cecair tisu",
+      "sistem limfa",
+      "Brugia sp.",
+      "filariasis limfa",
+      "protein plasma"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 70,
+    "bab": "Bab 1: Transport in Humans and Animals",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Overview of Transport Systems",
+    "concept_explanation": "Humans and animals have two main transport systems: the circulatory system and the lymphatic system. The human circulatory system is a closed system where blood is contained within vessels, pumped by a four-chambered heart (two atria and two ventricles). The lymphatic system complements the circulatory system by transporting fat-soluble substances and providing body defence. Both systems work together to maintain homeostasis.",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse open and closed circulatory systems. In open systems, haemolymph flows into body cavities, while in closed systems, blood remains in vessels.",
+    "keywords": [
+      "circulatory system",
+      "lymphatic system",
+      "heart chambers",
+      "blood clotting",
+      "blood groups"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 71,
+    "bab": "Bab 10: Sistem Peredaran Darah",
+    "skip": false,
+    "subtopic": "Self Reflection",
+    "concept_title": "Mechanism of Blood Clotting",
+    "concept_explanation": "Blood clotting is a vital process that prevents excessive bleeding when a blood vessel is injured. Platelets aggregate at the site and release thromboplastin, which, with calcium ions, converts prothrombin to thrombin. Thrombin then converts soluble fibrinogen into insoluble fibrin threads, forming a mesh that traps blood cells and creates a stable clot. This process requires vitamin K for the synthesis of clotting factors.",
+    "worked_example": "Question 1: An accident victim with blood group B needs an immediate blood transfusion. Is it safe for the patient to receive blood from individuals with blood group O? Explain why. Answer: Yes, it is safe because blood group O is considered the universal donor. Red blood cells of group O have no A or B antigens, so they will not be agglutinated by the recipient's anti-A or anti-B antibodies. However, cross-matching is still recommended to check for other incompatibilities such as the Rh factor.",
+    "common_mistakes": "Students often assume that blood group O can be given to any recipient without any precautions, forgetting that the Rh factor and other minor antigens can still cause reactions. Additionally, they may overlook that while O red cells are safe, O plasma contains anti-A and anti-B antibodies that could cause issues in large transfusions.",
+    "keywords": [
+      "blood clotting",
+      "platelets",
+      "thrombin",
+      "fibrin",
+      "blood group O",
+      "ABO system"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 72,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Page contains only exercise questions, no new explanatory content."
+  },
+  {
+    "page": 73,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Page contains only enrichment questions, no new teaching content."
+  },
+  {
+    "page": 75,
+    "bab": "Bab 11: Body Defence and Immunity",
+    "skip": false,
+    "subtopic": "11.1 Body Defence",
+    "concept_title": "Three Lines of Body Defence",
+    "concept_explanation": "The human body has three lines of defence against pathogens. The first line consists of physical and chemical barriers such as skin and mucus. The second line includes non-specific responses like fever, inflammation, and phagocytosis. The third line is specific immunity involving antibodies and memory cells that target specific antigens.",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse the first line (physical/chemical barriers) with the second line (internal non-specific responses). They may also think that fever is always harmful, whereas it is a beneficial defence mechanism.",
+    "keywords": [
+      "immunity",
+      "antigen",
+      "antibody",
+      "phagocytosis",
+      "fever",
+      "inflammation",
+      "memory cell"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 76,
+    "bab": "Bab 11: Body Defence",
+    "skip": false,
+    "subtopic": "The First Line of Defence",
+    "concept_title": "First Line of Defence",
+    "concept_explanation": "The first line of defence consists of physical and chemical barriers that prevent pathogens from entering the body. Physical barriers include skin and mucous membranes, while chemical barriers include stomach acid and lysozyme in tears. This defence is non-specific, meaning it acts against any pathogen, and it does not involve an immune response.",
+    "worked_example": "",
+    "common_mistakes": "Students often think the first line of defence is a specific immune response, but it is actually non-specific and acts as a general barrier.",
+    "keywords": [
+      "antigen",
+      "antibody",
+      "pathogen",
+      "immunity",
+      "first line of defence"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 77,
+    "bab": "Bab 11: Immunity in Humans",
+    "skip": false,
+    "subtopic": "11.1.2 First Line of Defence",
+    "concept_title": "First Line of Defence",
+    "concept_explanation": "The first line of defence consists of physical and chemical barriers that prevent pathogen entry. The skin acts as a tough physical barrier, while its sebum and sweat (containing lysozyme) provide chemical protection. Mucous membranes trap pathogens, and lysozyme in tears, mucus, and saliva destroys certain bacteria. Hydrochloric acid in the stomach kills bacteria in food and drink, and blood clotting seals wounds to block infection.",
+    "worked_example": "",
+    "common_mistakes": "Students often think lysozyme kills all bacteria, but it only destroys some types. They may also confuse the first line of defence (physical/chemical barriers) with the second line of defence (phagocytosis and inflammation).",
+    "keywords": [
+      "lysozyme",
+      "mucous membrane",
+      "sebum",
+      "hydrochloric acid",
+      "first line of defence",
+      "skin"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 78,
+    "bab": "Bab 11: Pertahanan Badan",
+    "skip": false,
+    "subtopic": "The Second Line of Defence",
+    "concept_title": "Second Line of Defence",
+    "concept_explanation": "The second line of defence is a non-specific immune response that includes fever, phagocytosis, and inflammation. Fever increases body temperature, which enhances phagocyte activity and inhibits the growth of pathogens. Phagocytosis is performed by phagocytes such as neutrophils and monocytes, which engulf and digest pathogens using lysozyme. These mechanisms work together to fight infections without targeting specific pathogens.",
+    "worked_example": "",
+    "common_mistakes": "Students often mistakenly think that the second line of defence is specific, when in fact it is non-specific and does not provide long-term immunity.",
+    "keywords": [
+      "second line of defence",
+      "fever",
+      "phagocytosis",
+      "phagocyte",
+      "lysozyme",
+      "inflammation"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 79,
+    "bab": "Bab 11: Defence and Immunity",
+    "skip": false,
+    "subtopic": "Inflammation",
+    "concept_title": "Inflammatory Response",
+    "concept_explanation": "Inflammation is the body's immediate response to tissue damage or infection. Damaged tissues release histamine, which triggers vasodilation and increased capillary permeability, allowing more blood and phagocytes to reach the infected area. Phagocytes then perform phagocytosis to destroy pathogens, and blood clotting factors accumulate to seal the wound. The resulting pus consists of dead microorganisms, tissue fragments, and white blood cells.",
+    "worked_example": "",
+    "common_mistakes": "Students often think inflammation is the same as infection, but inflammation is a protective response triggered by infection or injury. Also, they may believe pus is only dead bacteria, whereas it also includes dead tissue and white blood cells.",
+    "keywords": [
+      "inflammation",
+      "histamine",
+      "phagocytosis",
+      "blood clotting",
+      "antibody",
+      "lymphocyte"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 80,
+    "bab": "Bab 11: Immunity",
+    "skip": false,
+    "subtopic": "Actions of Antibodies",
+    "concept_title": "Actions of Antibodies",
+    "concept_explanation": "Antibodies are proteins produced by the immune system to neutralize pathogens. They destroy antigens through three main mechanisms: agglutination, where antibodies cause pathogens to clump together for easier phagocytosis; neutralisation, where antibodies bind to toxins from bacteria to render them harmless; and precipitation, where antibodies react with dissolved antigens to form insoluble complexes that are easily destroyed by phagocytes. These actions enhance the body's ability to eliminate threats.",
+    "worked_example": "",
+    "common_mistakes": "Students often think antibodies directly kill pathogens, but they primarily mark them for destruction or neutralise toxins. Another common mistake is confusing antigens (foreign molecules) with antibodies (produced by the body).",
+    "keywords": [
+      "antibodies",
+      "antigens",
+      "agglutination",
+      "neutralisation",
+      "precipitation",
+      "phagocytes"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 81,
+    "bab": "Bab 1: Immunity",
+    "skip": false,
+    "subtopic": "Types of Immunity",
+    "concept_title": "Antibody action and immunity types",
+    "concept_explanation": "Antibodies bind to antigens on pathogens and can mark them for destruction by phagocytes (opsonisation) or cause the pathogen to lyse. Immunity is either active (body produces its own antibodies, naturally after infection or artificially via vaccination) or passive (receiving antibodies from an external source, naturally from mother or artificially via injection).",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse active and passive immunity, thinking that active immunity only comes from vaccinations, while passive immunity is temporary and does not involve memory cells.",
+    "keywords": [
+      "antigen",
+      "antibody",
+      "opsonisation",
+      "lysis",
+      "active immunity",
+      "passive immunity",
+      "phagocyte"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 82,
+    "bab": "Bab 1: Introduction to Biology and Laboratory Rules",
+    "skip": false,
+    "subtopic": "Active immunity and passive immunity",
+    "concept_title": "Active Immunity",
+    "concept_explanation": "Active immunity is a type of immunity where antibodies are produced naturally by lymphocytes in response to antigens. It provides long-lasting protection because memory cells are formed, allowing rapid antibody production upon re-exposure to the same pathogen. Active immunity can be acquired naturally through infection or artificially through vaccination with weakened or dead pathogens.",
+    "worked_example": "",
+    "common_mistakes": "Students often think that natural active immunity provides immediate protection, but it actually takes time for the body to produce antibodies after infection. Similarly, they may believe vaccination gives instant immunity, whereas a booster dose is needed for full protection.",
+    "keywords": [
+      "active immunity",
+      "natural active immunity",
+      "artificial active immunity",
+      "immunisation",
+      "vaccine",
+      "memory cells"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 83,
+    "bab": "Bab 1: Introduction to Biology and Laboratory Rules",
+    "skip": false,
+    "subtopic": "PASSIVE IMMUNITY",
+    "concept_title": "Passive Immunity: Natural and Artificial",
+    "concept_explanation": "Passive immunity is a type of immunity where the body does not produce its own antibodies; instead, antibodies are obtained from an external source. It provides immediate, short-term, and temporary protection. Natural passive immunity occurs when a foetus receives antibodies from the mother via the placenta or through breast milk (colostrum) after birth. Artificial passive immunity is acquired through an injection of antiserum, which contains specific antibodies, such as antitetanus or anti-rabies serum.",
+    "worked_example": "",
+    "common_mistakes": "Students often think passive immunity is long-lasting or that the body produces its own antibodies. In reality, passive immunity is temporary and relies on external antibodies.",
+    "keywords": [
+      "passive immunity",
+      "natural passive immunity",
+      "artificial passive immunity",
+      "antibody",
+      "antiserum",
+      "colostrum"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 84,
+    "bab": "Bab 11: Human Immunity",
+    "skip": false,
+    "subtopic": "Comparison between Artificial Active Immunity and Artificial Passive Immunity",
+    "concept_title": "Artificial Active vs Passive Immunity",
+    "concept_explanation": "Artificial active immunity is acquired through vaccination, where the body produces its own antibodies after exposure to weakened or dead pathogens, providing long-term protection. In contrast, artificial passive immunity is acquired through antiserum injection, which contains pre-formed antibodies, giving immediate but temporary protection. The key difference lies in the source of antibodies and the duration of immunity.",
+    "worked_example": "The graphs show antibody levels over time after vaccination (active) versus antiserum injection (passive). In active immunity, antibody levels rise slowly after vaccination, remain above the immunity level for a long period, and a booster dose can elevate them again. In passive immunity, antibody levels rise rapidly after injection but then decline quickly, dropping below the immunity level after a short time.",
+    "common_mistakes": "Students often think that vaccines provide immediate protection, but they actually require time for antibody production. They also confuse the roles: vaccines are for prevention, while antiserum is for treatment or urgent protection.",
+    "keywords": [
+      "artificial active immunity",
+      "artificial passive immunity",
+      "vaccine",
+      "antiserum",
+      "antibodies",
+      "lymphocytes",
+      "booster dose"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 85,
+    "bab": "Bab 11: Human Immunity",
+    "skip": false,
+    "subtopic": "11.4 Health Issues Related to Human Immunity: Acquired Immunodeficiency Syndrome (AIDS)",
+    "concept_title": "HIV and AIDS",
+    "concept_explanation": "HIV (human immunodeficiency virus) attacks and destroys lymphocytes, weakening the immune system. This leads to AIDS (Acquired Immunodeficiency Syndrome), where the body becomes susceptible to opportunistic infections. HIV can be transmitted through body fluids like blood and semen, or from mother to child during pregnancy, birth, or breastfeeding. Symptoms may not appear for years, but the immune system is progressively damaged.",
+    "worked_example": "",
+    "common_mistakes": "Many students think that HIV and AIDS are the same. HIV is the virus that causes AIDS, and a person can be HIV-positive for years without showing AIDS symptoms.",
+    "keywords": [
+      "HIV",
+      "AIDS",
+      "lymphocyte",
+      "immune system",
+      "transmission"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 86,
+    "bab": "Bab 11: Sistem Imun Manusia",
+    "skip": false,
+    "subtopic": "HIV/AIDS dan Pencegahan",
+    "concept_title": "Penularan HIV dan AIDS",
+    "concept_explanation": "HIV (Human Immunodeficiency Virus) menyerang sel limfosit T dalam sistem imun, menyebabkan penurunan daya tahan badan. AIDS (Acquired Immunodeficiency Syndrome) adalah peringkat akhir jangkitan HIV apabila sistem imun menjadi sangat lemah. Penularan HIV berlaku melalui hubungan seks tanpa perlindungan, perkongsian jarum tercemar, pemindahan darah yang dijangkiti, dan dari ibu yang dijangkiti kepada bayi semasa hamil atau bersalin. Namun, rawatan perubatan yang sesuai semasa kehamilan dapat mengurangkan risiko penularan kepada bayi.",
+    "worked_example": "Aktiviti Penyelidikan: Kaji tentang Systemic Lupus Erythematosus (SLE) dan alergi menggunakan majalah perubatan dan Internet. Bincang dapatan dengan rakan dari kumpulan lain dan bentangkan hasil.",
+    "common_mistakes": "Pelajar sering menyangka bahawa semua individu yang dijangkiti HIV akan serta-merta menghidap AIDS, padahal AIDS hanya berlaku pada peringkat lanjut jangkitan HIV selepas sistem imun rosak teruk.",
+    "keywords": [
+      "HIV",
+      "AIDS",
+      "penularan",
+      "pencegahan",
+      "sistem imun"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 87,
+    "bab": "Bab 1: Immunity in Humans",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Summary of Human Immunity",
+    "concept_explanation": "Immunity is the body's ability to resist infections by detecting and eliminating pathogens. It involves three lines of defence: physical and chemical barriers (first line), inflammation and phagocytosis (second line), and specific responses via antibodies and memory cells (third line). Antibodies act by neutralisation, agglutination, precipitation, opsonisation, or lysis. Immunity is classified as active (natural or artificial) or passive (natural or artificial). Health issues related to immunity include AIDS, SLE, and allergies.",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse active and passive immunity, thinking that passive natural immunity (e.g., from mother) provides lifelong protection. In fact, passive immunity is temporary because no memory cells are formed.",
+    "keywords": [
+      "immunity",
+      "antigen",
+      "antibody",
+      "active immunity",
+      "passive immunity",
+      "AIDS"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 88,
+    "bab": "Bab 11: Immunity in Humans",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Passive and active immunity",
+    "concept_explanation": "Passive immunity occurs when a foetus receives antibodies from the mother via the placenta, providing immediate but short-term protection without producing its own antibodies. Active immunity develops when an individual's immune system produces antibodies after exposure to an antigen, such as through vaccination or infection, resulting in long-term memory.",
+    "worked_example": "Figure 1 shows antibody levels in individuals X and Y after injections. Individual X (active immunity) shows a slow primary response after the first injection, then a rapid, higher secondary response after the second injection due to memory cells. Individual Y (passive immunity) shows a high antibody level immediately after each injection, but the level decays quickly, and the second injection produces a similar response without enhancement.",
+    "common_mistakes": "Students often confuse passive and active immunity, thinking that passive immunity provides long-lasting protection or that active immunity works instantly. They may also fail to recognize that the placenta only transfers antibodies, not memory cells.",
+    "keywords": [
+      "passive immunity",
+      "active immunity",
+      "antibody",
+      "placenta",
+      "secondary response",
+      "vaccination"
+    ],
+    "difficulty_level": 3
+  },
+  {
+    "page": 89,
+    "bab": "Bab 1: Introduction to Biology and Laboratory Rules",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Active and Passive Immunity",
+    "concept_explanation": "Individual X acquired active natural immunity by recovering from chickenpox, meaning their immune system produced memory cells after infection. Individual Y acquired passive artificial immunity through injection of antibodies, providing immediate but temporary protection.",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse active and passive immunity, thinking both involve the body producing antibodies. Active immunity involves the body's own production of antibodies, while passive immunity involves receiving antibodies from an external source.",
+    "keywords": [
+      "active immunity",
+      "passive immunity",
+      "vaccination",
+      "antibody",
+      "memory cell"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 90,
+    "bab": "Bab 12: Coordination and Response in Humans",
+    "skip": false,
+    "subtopic": "12.1 Coordination and Response",
+    "concept_title": "Human Coordination Overview",
+    "concept_explanation": "Human coordination involves a sequence of components: stimulus, receptor, integration centre, effector, and response. The stimulus is detected by receptors (e.g., sensory cells) and sent to the integration centre (brain or spinal cord) for processing. The centre then signals an effector (muscles or glands) to produce a response. This system helps the body react to both external and internal stimuli to maintain homeostasis.",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse the roles of receptors (detect stimuli) and effectors (carry out responses). For example, thinking the eye itself is an effector instead of a receptor.",
+    "keywords": [
+      "stimulus",
+      "receptor",
+      "integration centre",
+      "effector",
+      "response",
+      "chemoreceptor",
+      "mechanoreceptor",
+      "photoreceptor",
+      "thermoreceptor",
+      "baroreceptor",
+      "nociceptor"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 91,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "The page contains only learning standards and a list of terms without any explanatory content or worked examples; it is not suitable for a teaching unit."
+  },
+  {
+    "page": 92,
+    "bab": "Bab 12: Coordination and Response",
+    "skip": false,
+    "subtopic": "12.1 Stimulus and Response",
+    "concept_title": "Coordination and Response Pathway",
+    "concept_explanation": "Sensitivity is the ability to detect changes in the environment, called stimuli. Stimuli can be external (e.g., light, sound) or internal (e.g., blood osmotic pressure changes). Receptors detect stimuli and convert them into nerve impulses, which travel via neurones to the brain (integration centre). The brain interprets impulses and coordinates a response via effectors such as muscles or glands.",
+    "worked_example": "",
+    "common_mistakes": "Students often think only external stimuli trigger responses, forgetting internal stimuli like blood sugar level changes. They may also confuse the roles of receptors and effectors.",
+    "keywords": [
+      "stimulus",
+      "response",
+      "receptor",
+      "effector",
+      "integration centre",
+      "nerve impulse"
+    ],
+    "difficulty_level": 1
+  },
+  {
+    "page": 93,
+    "bab": "Bab 1: Coordination and Response",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Coordination by Receptors and Effectors",
+    "concept_explanation": "Coordination is the process where receptors detect stimuli and effectors produce appropriate responses to maintain homeostasis. The nervous system and endocrine system work together to ensure that all body activities are synchronized. For example, when blood pressure rises during running, baroreceptors in the aortic arch and carotid artery detect the change and send nerve impulses to the medulla oblongata, which then sends impulses to effectors such as cardiac muscles and blood vessels to lower pressure.",
+    "worked_example": "The diagram illustrates a reflex arc for blood pressure regulation: Stimulus (increase in blood pressure) → detected by baroreceptors → nerve impulses via sensory neurone to the medulla oblongata (integration centre) → impulses via motor neurone to effectors (weakening contraction of cardiac muscles and expansion of blood vessel diameter) → response (reduction in blood pressure to normal range).",
+    "common_mistakes": "Students often think that coordination only involves the nervous system, but the endocrine system also plays a crucial role through hormone secretion. Additionally, they may confuse receptors (which detect stimuli) with effectors (which carry out responses).",
+    "keywords": [
+      "receptors",
+      "effectors",
+      "coordination",
+      "nervous system",
+      "endocrine system",
+      "baroreceptors",
+      "medulla oblongata"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 94,
+    "bab": "Bab 12: Coordination and Response",
+    "skip": false,
+    "subtopic": "Types of Receptors",
+    "concept_title": "Receptors and Stimuli",
+    "concept_explanation": "Sensory receptors are structures at the end of nerve fibres that detect stimuli from external and internal environments. Each receptor is sensitive to a specific stimulus, such as photoreceptors for light, thermoreceptors for temperature, chemoreceptors for chemicals, baroreceptors for pressure, mechanoreceptors for touch and pressure, and nociceptors for pain. Receptors convert stimulus energy into electrical signals (nerve impulses) for processing by the nervous system.",
+    "worked_example": "",
+    "common_mistakes": "Students often think sensory receptors are only in external sense organs, but internal receptors (e.g., chemoreceptors in blood vessels) detect internal stimuli.",
+    "keywords": [
+      "photoreceptor",
+      "thermoreceptor",
+      "chemoreceptor",
+      "baroreceptor",
+      "mechanoreceptor",
+      "nociceptor",
+      "stimulus"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 95,
+    "bab": "Bab 12: Coordination and Response",
+    "skip": false,
+    "subtopic": "Necessity of response",
+    "concept_title": "Why organisms respond to stimuli",
+    "concept_explanation": "Organisms must detect and respond to changes in both external and internal environments to survive. External stimuli, such as climate changes, trigger responses like migration to find shelter. Internal changes, like a rise in body temperature, are detected by receptors, which send information to an integration centre. The integration centre then directs effectors to restore normal conditions, ensuring homeostasis.",
+    "worked_example": "",
+    "common_mistakes": "",
+    "keywords": [
+      "response",
+      "stimuli",
+      "internal stimuli",
+      "integration centre",
+      "effectors",
+      "receptor",
+      "coordination"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 96,
+    "bab": "Bab 12: Nervous System",
+    "skip": false,
+    "subtopic": "12.2 Nervous System",
+    "concept_title": "Organisation of Nervous System",
+    "concept_explanation": "The human nervous system is divided into two main subsystems: the central nervous system (CNS) and the peripheral nervous system (PNS). The CNS consists of the brain and spinal cord, which process and coordinate information. The PNS is made up of 12 pairs of cranial nerves and 31 pairs of spinal nerves that transmit nerve impulses between the CNS and the rest of the body.",
+    "worked_example": "",
+    "common_mistakes": "Students often mistakenly think the peripheral nervous system includes only spinal nerves, forgetting the cranial nerves. They may also confuse the roles of the brain and spinal cord, thinking the spinal cord only sends signals without processing.",
+    "keywords": [
+      "central nervous system",
+      "peripheral nervous system",
+      "brain",
+      "spinal cord",
+      "cranial nerves",
+      "spinal nerves",
+      "neurones"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 97,
+    "bab": "Bab 12: Koordinasi dan Gerak Balas",
+    "skip": false,
+    "subtopic": "Otak Manusia",
+    "concept_title": "Komponen Utama Otak",
+    "concept_explanation": "Otak manusia terdiri daripada lebih 100 bilion neuron dan merupakan pusat koordinasi serta kawalan badan. Komponen utama otak termasuk serebrum (kawalan emosi, penglihatan, pendengaran, dan kebolehan mental tinggi), hipotalamus (kawal atur homeostasis, suhu badan, dan hubungan sistem saraf dengan endokrin), serebelum (keseimbangan dan koordinasi pergerakan otot), medula oblongata (kawalan tindakan luar kawal seperti degupan jantung dan pernafasan), serta kelenjar pituitari (kelenjar utama sistem endokrin yang merembeskan hormon). Setiap bahagian ini menjalankan fungsi spesifik untuk memastikan badan berfungsi secara harmoni.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru fungsi antara serebrum dan serebelum: serebrum mengawal tindakan sedar dan kebolehan mental, manakala serebelum mengawal keseimbangan dan koordinasi pergerakan otot. Juga, hipotalamus sering disalah anggap hanya mengawal suhu, padahal ia juga mengawal keseimbangan air, tekanan darah, dan rasa lapar.",
+    "keywords": [
+      "serebrum",
+      "hipotalamus",
+      "serebelum",
+      "medula oblongata",
+      "kelenjar pituitari",
+      "neuron"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 98,
+    "bab": "Bab 12: Sistem Saraf Manusia",
+    "skip": false,
+    "subtopic": "Spinal cord",
+    "concept_title": "Structure and Function of Spinal Cord",
+    "concept_explanation": "The spinal cord is protected by the vertebral column and surrounded by cerebrospinal fluid, which supplies nutrients and cushions it. It consists of white matter (myelinated axons) surrounding grey matter (cell bodies) in a butterfly or 'H' shape. Its main functions include processing sensory information, controlling reflex actions, and connecting the brain to the peripheral nervous system.",
+    "worked_example": "Brainstorm! In a newly operated section of the spinal cord, the white matter appears white and the grey matter appears grey. Can you explain why? Answer: White matter contains axons covered in myelin sheath, which gives it a white appearance, while grey matter consists mainly of cell bodies and appears grey.",
+    "common_mistakes": "Students often confuse the functions of the dorsal and ventral roots: the dorsal root carries sensory information into the spinal cord, while the ventral root carries motor commands out to effectors.",
+    "keywords": [
+      "spinal cord",
+      "white matter",
+      "grey matter",
+      "dorsal root",
+      "ventral root",
+      "dorsal root ganglion"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 99,
+    "bab": "Bab 12: Koordinasi Badan",
+    "skip": false,
+    "subtopic": "12.3 Neurones and Synapse",
+    "concept_title": "Structure of Neurones",
+    "concept_explanation": "A neurone consists of a cell body, dendrites, axon, myelin sheath, nodes of Ranvier, and synaptic knobs. Dendrites receive impulses and transmit them to the cell body, while the axon carries impulses away to other neurones or effectors. The myelin sheath insulates and protects the axon, speeding up impulse transmission. Three types of neurones exist: sensory, relay, and motor, each with specific roles in transmitting signals.",
+    "worked_example": "",
+    "common_mistakes": "Students often think dendrites carry impulses away from the cell body, but they actually receive impulses from other neurones or stimuli and send them toward the cell body.",
+    "keywords": [
+      "neurone",
+      "dendrite",
+      "axon",
+      "myelin sheath",
+      "node of Ranvier",
+      "synaptic knob",
+      "sensory neurone",
+      "relay neurone",
+      "motor neurone"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 100,
+    "bab": "Bab 1: Introduction to Biology and Laboratory Rules",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Types of Neurones",
+    "concept_explanation": "There are three main types of neurones: motor, sensory, and relay. Motor neurones carry impulses from the central nervous system (CNS) to effectors like muscles or glands. Sensory neurones transmit impulses from sensory receptors to the CNS. Relay neurones connect sensory and motor neurones within the CNS. Each has distinct locations in the spinal cord: motor neurone cell bodies in the ventral root, sensory in the dorsal root ganglion, relay in the grey matter.",
+    "worked_example": "",
+    "common_mistakes": "Students often misidentify the direction of impulse flow. Remember: sensory neurones carry impulses towards the CNS, motor neurones away from the CNS, and relay neurones connect within the CNS.",
+    "keywords": [
+      "neurone",
+      "motor neurone",
+      "sensory neurone",
+      "relay neurone",
+      "dendrite",
+      "axon",
+      "synaptic knob"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 101,
+    "bab": "Bab 1: Cell Biology and Organisation",
+    "skip": false,
+    "subtopic": "Transmission of impulse across a synapse",
+    "concept_title": "Synaptic Transmission of Nerve Impulses",
+    "concept_explanation": "Impulses are transmitted across synapses chemically using neurotransmitters stored in synaptic vesicles. The electrical signal in the presynaptic neurone is converted into a chemical signal (neurotransmitter release), which then diffuses across the synapse and binds to receptors on the postsynaptic neurone, converting back into an electrical signal. This process ensures one-way transmission and allows integration of impulses.",
+    "worked_example": "Cobra venom prevents the action of acetylcholine (a neurotransmitter) at neuromuscular junctions, causing paralysis by blocking signal transmission to muscles.",
+    "common_mistakes": "Students often think nerve impulses travel electrically across the entire pathway, ignoring the chemical conversion at synapses. Another mistake is assuming neurotransmitters are released from the postsynaptic neurone.",
+    "keywords": [
+      "synapse",
+      "neurotransmitter",
+      "synaptic vesicle",
+      "acetylcholine",
+      "receptor protein",
+      "electrical impulse",
+      "chemical signal"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 102,
+    "bab": "Bab 12: Koordinasi dan Gerak Balas",
+    "skip": false,
+    "subtopic": "Voluntary and Involuntary Actions",
+    "concept_title": "Perbandingan Tindakan Voluntari dan Involuntari",
+    "concept_explanation": "Tindakan voluntari ialah tindakan yang dilakukan secara sedar dan mengikut kehendak kita, melibatkan sistem saraf somatik dan dikawal oleh korteks serebrum, serta menggunakan otot rangka sebagai efektor. Tindakan involuntari pula berlaku secara automatik tanpa kita sedar, melibatkan sistem saraf autonomi, dikawal oleh medula oblongata dan hipotalamus, serta menggunakan otot licin dan kelenjar. Walaupun berbeza, kedua-dua tindakan melibatkan rangsangan, impuls, neuron dan organ efektor.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menyamakan semua tindakan involuntari dengan refleks sahaja, sedangkan tindakan involuntari juga merangkumi fungsi autonomi seperti denyutan jantung dan penghadaman yang tidak memerlukan kesedaran.",
+    "keywords": [
+      "tindakan voluntari",
+      "tindakan involuntari",
+      "sistem saraf somatik",
+      "sistem saraf autonomi",
+      "korteks serebrum",
+      "medula oblongata"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 103,
+    "bab": "Bab 12: Coordination and Response",
+    "skip": false,
+    "subtopic": "Involuntary Actions Involving Skeletal Muscles: Reflex Action",
+    "concept_title": "Reflex Arc (Three-Neurone)",
+    "concept_explanation": "A reflex action is a fast, automatic response to a stimulus that does not involve conscious control by the brain. The nerve pathway for a reflex action is called a reflex arc, which typically involves three neurones: sensory neurone, relay neurone (in the spinal cord), and motor neurone. For example, when you prick your finger on a sharp pin, the sensory neurone transmits the impulse to the spinal cord, the relay neurone connects to the motor neurone, and the motor neurone causes the finger muscles to contract and withdraw the hand. This rapid, involuntary response helps protect the body from harm.",
+    "worked_example": "Example: Accidentally pricking a finger on a sharp pin. The stimulus (pain) is detected by receptors in the skin, the sensory neurone carries the impulse to the spinal cord, a relay neurone processes the information and passes it to a motor neurone, which stimulates the skeletal muscles (effector) to move the finger away from the pin. This entire reflex occurs without the brain's conscious involvement.",
+    "common_mistakes": "Students often think that reflex actions are controlled by the brain, but in a reflex arc, the signal only reaches the spinal cord and does not involve the brain until after the response is executed. This misconception can lead to confusion about the speed and automatic nature of reflexes.",
+    "keywords": [
+      "reflex action",
+      "reflex arc",
+      "sensory neurone",
+      "motor neurone",
+      "relay neurone",
+      "effector"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 104,
+    "bab": "Bab 12: Sistem Saraf Manusia",
+    "skip": false,
+    "subtopic": "Refleks dan Arka Refleks",
+    "concept_title": "Reflex Arc with Three Neurones",
+    "concept_explanation": "A reflex arc is the neural pathway that mediates a reflex action, involving a sensory neurone, a relay neurone in the spinal cord, and a motor neurone. When a sensory receptor like a pain receptor is stimulated, it generates a nerve impulse that travels along the sensory neurone to the spinal cord. There, the impulse passes across a synapse to a relay neurone, which then synapses with a motor neurone. The motor neurone carries the impulse to an effector (e.g., muscle), causing an automatic, rapid withdrawal response without initial brain involvement.",
+    "worked_example": "Figure 12.11 illustrates a reflex arc when a finger is pricked by a sharp pin. Step 1: The sensory receptor detects the stimulus and triggers a nerve impulse. Step 2: The impulse travels along the sensory neurone to the spinal cord. Step 3: In the spinal cord, the impulse is transferred from the sensory neurone to the relay neurone via a synapse. Step 4: From the relay neurone, the impulse is transferred to the motor neurone. Step 5: The motor neurone transfers the impulse from the spinal cord to the effector (muscle tissue), causing the finger to be moved quickly.",
+    "common_mistakes": "Students often think that reflex actions require the brain to process the stimulus, but in reality, the spinal cord handles the reflex arc, allowing a faster response. Another mistake is confusing the order of neurones: sensory first, then relay, then motor.",
+    "keywords": [
+      "reflex arc",
+      "sensory neurone",
+      "relay neurone",
+      "motor neurone",
+      "spinal cord",
+      "effector"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 105,
+    "bab": "Bab 1: Pengenalan kepada Biologi dan Peraturan Makmal",
+    "skip": false,
+    "subtopic": "Dwi-neuron Arka Refleks",
+    "concept_title": "Arka Refleks Dua Neuron",
+    "concept_explanation": "Arka refleks dua neuron hanya melibatkan neuron deria dan neuron motor, tanpa neuron perantaraan. Contohnya ialah refleks patela (lutut), di mana ketukan pada tendon bawah tempurung lutut meregangkan otot kuadrisep dan merangsang reseptor regangan. Impuls saraf dihantar melalui neuron deria ke saraf tunjang, terus ke neuron motor yang mengecutkan otot kuadrisep, menyebabkan kaki menjengut ke depan.",
+    "worked_example": "Ujian refleks lutut oleh doktor menggunakan penukul getah untuk mengetuk tendon di bawah tempurung lutut. Tindak balas biasa ialah kaki menjengut ke depan, menunjukkan sistem saraf berfungsi dengan baik.",
+    "common_mistakes": "Pelajar sering menyangka semua arka refleks melibatkan neuron perantaraan, tetapi arka refleks dua neuron seperti refleks lutut tidak memerlukannya.",
+    "keywords": [
+      "refleks lutut",
+      "arka refleks",
+      "neuron deria",
+      "neuron motor",
+      "saraf tunjang",
+      "reseptor regangan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 106,
+    "bab": "Bab 12: Nervous System",
+    "skip": false,
+    "subtopic": "12.5 Nervous system disease",
+    "concept_title": "Nervous System Diseases & Disorders",
+    "concept_explanation": "The central nervous system (brain and spinal cord) can be damaged by various diseases, leading to loss of function. Examples include multiple sclerosis (autoimmune attack on myelin), Alzheimer's disease (progressive loss of cognitive abilities), Parkinson's disease (tremors and movement difficulties), epilepsy (abnormal brain activity causing seizures), cerebral palsy (brain damage before or after birth), ALS (motor neurone deterioration), ADHD (hyperactivity and inattention), and autism (developmental brain disorder). Each disease has distinct causes and symptoms affecting nerve transmission or brain regions.",
+    "worked_example": "",
+    "common_mistakes": "Students often think all nervous system diseases are infectious, but many are autoimmune (e.g., multiple sclerosis), degenerative (e.g., Alzheimer's, Parkinson's), or developmental (e.g., ADHD, autism). Additionally, they may confuse symptoms, e.g., thinking epilepsy involves only muscle spasms without loss of consciousness.",
+    "keywords": [
+      "multiple sclerosis",
+      "Alzheimer's disease",
+      "Parkinson's disease",
+      "epilepsy",
+      "cerebral palsy",
+      "amyotrophic lateral sclerosis",
+      "ADHD",
+      "autism"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 107,
+    "bab": "Bab 12: Sistem Saraf Manusia",
+    "skip": false,
+    "subtopic": "The effects of drug and alcohol abuse on human coordination and response",
+    "concept_title": "Drug Abuse Effects on Coordination",
+    "concept_explanation": "Drug and alcohol abuse disrupts the normal functioning of the nervous system, impairing coordination and response. Addiction leads to withdrawal symptoms such as shivering, sweating, and vomiting when the substance is not taken. These effects are due to alterations in neurotransmitter activity and neural pathways essential for motor control and sensory processing.",
+    "worked_example": "",
+    "common_mistakes": "Students may think that only illegal drugs affect coordination, but even medically used drugs like marijuana can impair coordination when abused. Additionally, they might assume the effects are limited to the brain, whereas the entire nervous system, including peripheral nerves, is involved.",
+    "keywords": [
+      "drug abuse",
+      "alcohol",
+      "coordination",
+      "nervous system",
+      "addiction",
+      "withdrawal symptoms"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 108,
+    "bab": "Bab 12: Koordinasi dan Gerak Balas",
+    "skip": false,
+    "subtopic": "12.5 Kesan Dadah dan Alkohol terhadap Sistem Saraf",
+    "concept_title": "Kesan Dadah & Alkohol pada Saraf",
+    "concept_explanation": "Dadah dan alkohol mempengaruhi sistem saraf dengan mengubah transmisi impuls saraf. Perangsang meningkatkan aktiviti sistem saraf pusat dan menyebabkan euforia sementara, manakala sedatif melambatkan penghantaran impuls dan menenangkan minda. Dadah halusinogen menyebabkan halusinasi, dan narkotik melambatkan fungsi normal otak. Alkohol mengganggu koordinasi dan melambatkan penghantaran impuls saraf, menyebabkan penurunan kawalan motor dan pemikiran.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar mungkin menganggap semua dadah adalah haram dan tidak menyedari bahawa alkohol juga merupakan depresan. Mereka juga mungkin keliru antara kesan perangsang dan sedatif, serta mengabaikan bahawa kesan dadah bergantung kepada dos dan individu.",
+    "keywords": [
+      "dadah perangsang",
+      "dadah sedatif",
+      "dadah halusinogen",
+      "dadah narkotik",
+      "alkohol",
+      "sistem saraf pusat",
+      "impuls saraf"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 109,
+    "bab": "Bab 12: Coordination and Response",
+    "skip": false,
+    "subtopic": "Endocrine System",
+    "concept_title": "Human Endocrine System",
+    "concept_explanation": "The endocrine system is made up of ductless glands that secrete hormones directly into the bloodstream. Hormones are transported throughout the body but only affect specific target cells that have matching receptors on their membrane. The main functions of hormones are reproduction, growth, and homeostasis.",
+    "worked_example": "",
+    "common_mistakes": "Students often think hormones affect all cells in the body, but hormones only influence specific target cells that have the correct receptors.",
+    "keywords": [
+      "endocrine system",
+      "hormones",
+      "ductless glands",
+      "target cells",
+      "homeostasis"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 110,
+    "bab": "Bab 12: Sistem Endokrin",
+    "skip": false,
+    "subtopic": "Kelenjar Pituitari dan Hormonnya",
+    "concept_title": "Fungsi hormon kelenjar pituitari",
+    "concept_explanation": "Kelenjar pituitari merupakan kelenjar utama dalam sistem endokrin yang terletak di bawah hipotalamus. Ia terdiri daripada dua lobus: anterior dan posterior, yang masing-masing merembeskan hormon tertentu. Hormon dari lobus posterior seperti ADH dan oksitosin bertindak secara langsung pada organ sasaran, manakala hormon dari lobus anterior seperti TSH dan ACTH merangsang kelenjar lain. Hormon seperti GH pula bertindak terus pada tisu lembut dan tulang.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru bahawa semua hormon pituitari adalah hormon perangsang. Sebenarnya, hormon seperti ADH, oksitosin, dan GH bertindak secara langsung pada organ sasaran.",
+    "keywords": [
+      "kelenjar pituitari",
+      "lobus anterior",
+      "lobus posterior",
+      "ADH",
+      "oksitosin",
+      "GH",
+      "TSH",
+      "ACTH"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 111,
+    "bab": "Bab 1",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Endocrine Glands and Hormones",
+    "concept_explanation": "This page summarises key endocrine glands in the human body, including the thyroid, adrenal glands, pancreas, testes, and ovaries. Each gland secretes specific hormones (e.g., thyroxine, adrenaline, insulin) that travel to target tissues to regulate processes such as metabolism, blood glucose levels, and growth. The table format helps students compare the functions of different hormones.",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse the effects of insulin and glucagon: insulin lowers blood glucose by promoting glycogen storage, while glucagon raises blood glucose by stimulating glycogen breakdown. Another misconception is that adrenaline only affects the heart, but it also increases blood sugar and fatty acids.",
+    "keywords": [
+      "thyroid",
+      "adrenaline",
+      "insulin",
+      "glucagon",
+      "testosterone",
+      "oestrogen",
+      "aldosterone"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 112,
+    "bab": "Bab 12: Sistem Endokrin dan Sistem Saraf",
+    "skip": false,
+    "subtopic": "12.6.4",
+    "concept_title": "Tindak Balas 'Lawan atau Lari'",
+    "concept_explanation": "Dalam situasi kecemasan atau 'lawan atau lari', hipotalamus menghantar impuls saraf terus ke medula adrenal. Medula adrenal kemudian merembeskan hormon adrenalin dan noradrenalin. Hormon-hormon ini bertindak pantas untuk meningkatkan kadar denyutan jantung, kadar pernafasan, tekanan darah, paras glukosa darah, dan aktiviti metabolisme. Ini membekalkan lebih banyak oksigen dan glukosa ke otak dan otot rangka untuk membolehkan tindak balas cepat seperti melawan atau berlari.",
+    "worked_example": "",
+    "common_mistakes": "Sesetengah pelajar mungkin menyangka hanya sistem saraf atau hanya sistem endokrin yang terlibat dalam tindak balas 'lawan atau lari', padahal kedua-duanya bekerjasama.",
+    "keywords": [
+      "lawan atau lari",
+      "hipotalamus",
+      "medula adrenal",
+      "adrenalin",
+      "noradrenalin"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 113,
+    "bab": "Bab 12: Hormon dan Sistem Endokrin",
+    "skip": false,
+    "subtopic": "Perbandingan antara Sistem Saraf dan Sistem Endokrin",
+    "concept_title": "Sistem Saraf dan Endokrin",
+    "concept_explanation": "Sistem saraf dan sistem endokrin bekerjasama mengawal atur aktiviti badan. Sistem saraf menghantar isyarat dalam bentuk impuls elektrik melalui neuron, menghasilkan tindak balas yang cepat dan singkat. Sistem endokrin menggunakan hormon sebagai bahan kimia organik yang diangkut melalui darah, menghasilkan tindak balas yang perlahan tetapi berpanjangan. Sistem endokrin melibatkan kelenjar tanpa duktus dan menyasarkan tisu atau organ tertentu.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru bahawa sistem endokrin memberikan tindak balas yang cepat, sedangkan ia sebenarnya perlahan tetapi berpanjangan.",
+    "keywords": [
+      "sistem saraf",
+      "sistem endokrin",
+      "hormon",
+      "impuls elektrik",
+      "neuron",
+      "homeostasis"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 114,
+    "bab": "Bab 12: Sistem Endokrin",
+    "skip": false,
+    "subtopic": "12.7 Health Issues Related to the Human Endocrine System",
+    "concept_title": "Endocrine System Health Issues",
+    "concept_explanation": "This page covers four endocrine disorders: diabetes mellitus (insulin deficiency or resistance causes high blood glucose), diabetes insipidus (ADH deficiency causes excessive urination), hypothyroidism (low thyroxine causes slow metabolism), and hyperthyroidism (excess thyroxine causes overactive metabolism). Each disorder results from hormone imbalance and has distinct symptoms.",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse diabetes mellitus (insulin-related) with diabetes insipidus (ADH-related) because both involve frequent urination, but the underlying hormones and treatments differ. Also, they may think hypothyroidism and hyperthyroidism are simply opposites without understanding the specific hormone effects.",
+    "keywords": [
+      "diabetes mellitus",
+      "diabetes insipidus",
+      "insulin",
+      "ADH",
+      "thyroxine",
+      "hypothyroidism",
+      "hyperthyroidism"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 115,
+    "bab": "Bab 12: Koordinasi dan Gerak Balas",
+    "skip": false,
+    "subtopic": "12.7.1 Gigantism dan Dwarfism",
+    "concept_title": "Gigantism and Dwarfism",
+    "concept_explanation": "Gigantism disebabkan oleh rembesan hormon pertumbuhan (GH) yang berlebihan semasa kanak-kanak, menyebabkan pemanjangan tulang yang abnormal dan perawakan yang sangat tinggi. Dwarfism pula berlaku akibat rembesan GH yang rendah semasa tempoh pertumbuhan, melambatkan pertumbuhan tulang dan menyebabkan perawakan pendek dengan nisbah badan seperti kanak-kanak. Kedua-dua keadaan ini menunjukkan kepentingan keseimbangan hormon pertumbuhan dalam perkembangan normal.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara gigantism (berlaku pada kanak-kanak) dengan akromegali (berlaku pada dewasa) kerana kedua-duanya melibatkan lebihan GH. Dwarfism juga mungkin disalah anggap hanya disebabkan kekurangan GH, sedangkan terdapat punca lain seperti kelainan genetik.",
+    "keywords": [
+      "gigantism",
+      "dwarfism",
+      "growth hormone",
+      "GH",
+      "pituitary gland"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 116,
+    "bab": "Bab 1: Coordination and Response in Humans",
+    "skip": false,
+    "subtopic": "Summary",
+    "concept_title": "Summary: Coordination & Response",
+    "concept_explanation": "This summary page recaps the key components of the human coordination system. The nervous system includes sensory, relay, and motor neurones, and involves voluntary actions (conscious) and involuntary actions (automatic, controlled by medulla oblongata). The endocrine system releases hormones to regulate body functions. Receptors like chemoreceptors and photoreceptors detect stimuli, while effectors produce responses. Health issues such as dwarfism, gigantism, and diabetes mellitus relate to the endocrine system, while multiple sclerosis and Alzheimer's affect the nervous system.",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse voluntary and involuntary actions: voluntary actions are conscious and controlled by the brain, while involuntary actions are automatic and controlled by the autonomic nervous system.",
+    "keywords": [
+      "coordination",
+      "nervous system",
+      "endocrine system",
+      "neurones",
+      "synapse",
+      "hormone",
+      "receptor",
+      "effector"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 117,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Page contains only self-reflection prompts and practice questions, no new teachable Biology content."
+  },
+  {
+    "page": 118,
+    "bab": "Bab 1: Sistem Saraf Manusia",
+    "skip": false,
+    "subtopic": "Struktur Neuron dan Sinaps",
+    "concept_title": "Penghantaran Impuls Melalui Sinaps",
+    "concept_explanation": "When an action potential reaches the synaptic knob, it triggers the influx of calcium ions, causing synaptic vesicles containing neurotransmitters to fuse with the presynaptic membrane. The neurotransmitters are released into the synaptic cleft, diffuse across, and bind to receptors on the postsynaptic membrane. This binding stimulates the opening of ion channels, generating a new action potential in the postsynaptic neuron. Transmission is one-way because neurotransmitters are only released from the presynaptic knob and receptors are only present on the postsynaptic membrane.",
+    "worked_example": "Based on Figure 2(a) and (b): (e)(i) Impulse passes through T (dendrite) because the synaptic knob of the previous neuron releases neurotransmitters that bind to receptors on the dendrite. (ii) Transmission across the synapse involves release, diffusion, and binding of neurotransmitters. (f) One-way transmission is due to the presence of synaptic vesicles on the presynaptic side and receptors only on the postsynaptic side, and the absence of vesicles in the postsynaptic membrane.",
+    "common_mistakes": "Students may think that the impulse can travel backwards through the synapse. Actually, the synaptic knob lacks receptors, so impulse cannot reverse.",
+    "keywords": [
+      "motor neurone",
+      "synaptic knob",
+      "neurotransmitter",
+      "synaptic cleft",
+      "receptor",
+      "impulse transmission"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 119,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Page contains only essay and enrichment questions, no teachable content."
+  },
+  {
+    "page": 120,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Chapter opener page with only learning objectives, no teachable content."
+  },
+  {
+    "page": 121,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "The page contains only learning objectives for the chapter, not teachable biology content."
+  },
+  {
+    "page": 122,
+    "bab": "Bab 13: Homeostasis and the Human Urinary System",
+    "skip": false,
+    "subtopic": "13.1 Homeostasis",
+    "concept_title": "Homeostasis and Internal Environment",
+    "concept_explanation": "Homeostasis is the regulation of physical and chemical factors of the internal environment within normal ranges for cells to function optimally. Physical factors include temperature, osmotic pressure, and blood pressure; chemical factors include pH value, concentration of minerals, and blood sugar levels. Any deviation from the normal range triggers a homeostatic mechanism involving negative feedback, which restores the factor to its normal range, ensuring cell activities continue at optimum levels despite external changes.",
+    "worked_example": "",
+    "common_mistakes": "Students often think homeostasis means keeping conditions perfectly constant, but it actually involves maintaining dynamic equilibrium within a normal range through regulatory mechanisms.",
+    "keywords": [
+      "Homeostasis",
+      "internal environment",
+      "negative feedback",
+      "normal range",
+      "physical factors",
+      "chemical factors"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 123,
+    "bab": "Bab 1",
+    "skip": false,
+    "subtopic": "Regulating body temperature",
+    "concept_title": "Body Temperature Regulation",
+    "concept_explanation": "Body temperature must be maintained within a narrow range for optimal enzyme activity. Thermoreceptors in the skin and hypothalamus detect temperature changes, and the hypothalamus coordinates responses. When body temperature rises, effectors such as arterioles (vasodilation), sweat glands, and erector muscles promote heat loss. Conversely, when temperature falls, opposite responses like vasoconstriction and shivering conserve heat.",
+    "worked_example": "",
+    "common_mistakes": "Students often think sweating directly cools the body; in reality, it is the evaporation of sweat that absorbs heat. They may also confuse vasodilation with vasoconstriction.",
+    "keywords": [
+      "thermoreceptors",
+      "hypothalamus",
+      "vasodilation",
+      "sweat glands",
+      "erector muscles",
+      "homeostasis"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 124,
+    "bab": "Bab 1",
+    "skip": false,
+    "subtopic": "Regulation of Body Temperature by Effectors through Physical Methods",
+    "concept_title": "Body Temperature Regulation by Effectors",
+    "concept_explanation": "When body temperature drops below normal, thermoreceptors in the hypothalamus and skin detect the change. The hypothalamus activates effectors: blood vessels in the skin constrict (vasoconstriction) to reduce heat loss, erector muscles contract to raise hairs and trap insulating air, and skeletal muscles shiver to generate heat. Sweating is suppressed to conserve heat.",
+    "worked_example": "",
+    "common_mistakes": "Students often think vasoconstriction increases blood flow to the skin, but it actually decreases it to reduce heat loss.",
+    "keywords": [
+      "thermoreceptors",
+      "hypothalamus",
+      "vasoconstriction",
+      "erector muscles",
+      "shivering",
+      "sweat gland"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 125,
+    "bab": "Bab 13: Endokrin dan Homeostasis",
+    "skip": false,
+    "subtopic": "Regulation of Blood Sugar Levels",
+    "concept_title": "Regulation of Blood Sugar Levels",
+    "concept_explanation": "The pancreas maintains blood sugar (glucose) levels within a normal range of 75–110 mg/100 ml through the actions of insulin and glucagon. Insulin, secreted by beta cells in the pancreatic islets (Langerhans cells), lowers blood glucose by stimulating cells to use glucose, converting excess glucose to glycogen in the liver and muscles, and storing fat in adipose tissue. Glucagon, secreted by alpha cells, raises blood glucose by promoting glycogen breakdown in the liver and fat breakdown for energy. This negative feedback mechanism ensures homeostasis.",
+    "worked_example": "",
+    "common_mistakes": "Students often think that insulin and glucagon are secreted by the same cells or that they act independently. In reality, beta cells secrete insulin and alpha cells secrete glucagon, and both hormones work antagonistically to maintain blood glucose balance.",
+    "keywords": [
+      "pancreas",
+      "insulin",
+      "glucagon",
+      "blood glucose",
+      "homeostasis",
+      "Langerhans cells",
+      "glycogen"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 126,
+    "bab": "Bab 1: Homeostasis and the Human Respiratory System",
+    "skip": false,
+    "subtopic": "Regulation of partial pressure of carbon dioxide in the blood",
+    "concept_title": "CO2 Regulation in Blood",
+    "concept_explanation": "The partial pressure of carbon dioxide in the blood is regulated by the respiratory control centre in the medulla oblongata. During vigorous activity, increased cellular respiration raises CO2 levels, which dissolves in blood plasma to form carbonic acid, releasing hydrogen ions and bicarbonate ions. This lowers the pH of blood and cerebrospinal fluid, detected by central chemoreceptors in the medulla and peripheral chemoreceptors in the carotid and aortic bodies. Nerve impulses are sent to the respiratory control centre to adjust breathing rate and depth, maintaining homeostasis.",
+    "worked_example": "",
+    "common_mistakes": "Students often think breathing is a voluntary action only, but it is primarily involuntary, regulated by the medulla oblongata. Also, they may confuse the roles of central and peripheral chemoreceptors.",
+    "keywords": [
+      "respiratory control centre",
+      "medulla oblongata",
+      "chemoreceptor",
+      "partial pressure of carbon dioxide",
+      "pH",
+      "homeostasis",
+      "carbonic acid"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 127,
+    "bab": "Bab 13: Sistem Peredaran Darah",
+    "skip": false,
+    "subtopic": "Mekanisme Pengawalan Tekanan Darah",
+    "concept_title": "Regulasi Tekanan Darah oleh Baroreseptor",
+    "concept_explanation": "Baroreseptor di lengkung aorta dan arteri karotid mengesan perubahan tekanan darah. Mereka menghantar impuls ke pusat kawalan kardiovaskular di medula oblongata. Pusat ini mengawal diameter arteri (vasokonstriksi/vasodilasi) dan kekuatan kontraksi otot jantung untuk menstabilkan tekanan darah. Apabila tekanan darah rendah, vasokonstriksi dan denyutan jantung yang lebih kuat meningkatkan tekanan; apabila tekanan darah tinggi, vasodilasi dan denyutan yang lebih lemah menurunkan tekanan.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar mungkin menyangka baroreseptor hanya bertindak balas terhadap tekanan darah tinggi, sedangkan ia mengesan kedua-dua peningkatan dan penurunan tekanan darah.",
+    "keywords": [
+      "baroreseptor",
+      "lengkung aorta",
+      "arteri karotid",
+      "medula oblongata",
+      "pusat kawalan kardiovaskular",
+      "vasokonstriksi",
+      "vasodilasi"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 128,
+    "bab": "Bab 13: Homeostasis and the Human Urinary System",
+    "skip": false,
+    "subtopic": "13.2 Urinary System",
+    "concept_title": "Urinary System and Kidney Functions",
+    "concept_explanation": "The human urinary system consists of the kidneys, ureters, bladder, and urethra. It plays a vital role in homeostasis by excreting nitrogenous wastes (urea, uric acid, ammonia, creatinine) and performing osmoregulation: regulating water volume, ion concentration, blood osmotic pressure, electrolyte content, and blood pH. The kidneys, composed of cortex and medulla, produce urine that flows into the pelvis.",
+    "worked_example": "",
+    "common_mistakes": "Students may think kidneys only excrete waste, ignoring their crucial osmoregulatory functions such as controlling water balance and ion concentration. Another mistake is confusing urea with urine or thinking all nitrogenous wastes are the same.",
+    "keywords": [
+      "homeostasis",
+      "urinary system",
+      "kidneys",
+      "excretion",
+      "osmoregulation",
+      "urea",
+      "blood osmotic pressure"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 129,
+    "bab": "Bab 13: Sistem Perkumuhan",
+    "skip": false,
+    "subtopic": "13.2.1",
+    "concept_title": "Sistem Urinari dan Struktur Ginjal",
+    "concept_explanation": "Sistem urinari terdiri daripada ginjal, ureter, pundi kencing, dan uretra. Darah beroksigen dibawa ke ginjal melalui arteri renal, manakala darah terdeoksigen dibawa keluar melalui vena renal. Urin yang dihasilkan di dalam ginjal mengalir melalui ureter ke pundi kencing untuk disimpan sebelum dikeluarkan melalui uretra. Keratan rentas ginjal menunjukkan korteks di luar, medula di dalam, dan pelvis yang mengumpul urin.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru fungsi arteri renal dan vena renal; arteri renal membawa darah beroksigen ke ginjal, manakala vena renal membawa darah terdeoksigen keluar dari ginjal.",
+    "keywords": [
+      "arteri renal",
+      "vena renal",
+      "ureter",
+      "pundi kencing",
+      "uretra",
+      "korteks",
+      "medula",
+      "pelvis"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 130,
+    "bab": "Bab 13: Sistem Perkumuhan",
+    "skip": false,
+    "subtopic": "Struktur Nefron dan Pembentukan Urin",
+    "concept_title": "Struktur dan Fungsi Nefron",
+    "concept_explanation": "Nefron adalah unit fungsi ginjal yang terdiri daripada kapsul Bowman, glomerulus, dan tubul renal. Proses pembentukan urin melibatkan ultrafiltrasi di glomerulus, penyerapan semula di tubul proksimal, gelung Henle, dan tubul distal, serta rembesan untuk menyingkirkan bahan buangan. Urin kemudian dikumpulkan di duktus pengumpul dan dialirkan ke ureter.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru bahawa glomerulus adalah sebahagian daripada tubul renal, sedangkan ia adalah rangkaian kapilari darah dalam kapsul Bowman. Juga, ada yang menyangka semua bahan dalam filtrat diserap semula, tetapi hanya bahan berguna seperti glukosa dan asid amino yang diserap secara aktif.",
+    "keywords": [
+      "nephron",
+      "glomerulus",
+      "Bowman's capsule",
+      "renal tubule",
+      "loop of Henle",
+      "collecting duct"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 131,
+    "bab": "Bab 1: Proses dalam Nefron",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Ultrafiltration and Reabsorption",
+    "concept_explanation": "Ultrafiltration occurs in the glomerulus due to high hydrostatic pressure from the difference in diameter between afferent and efferent arterioles. This forces fluid containing small molecules into Bowman's capsule, forming glomerular filtrate. Reabsorption then takes place along the renal tubule, where glucose, amino acids, ions, and water are selectively reabsorbed into the blood via active transport and osmosis.",
+    "worked_example": "",
+    "common_mistakes": "Students often think that red blood cells and plasma proteins are also filtered. In fact, they are too large and remain in the blood. Another mistake is confusing reabsorption (from filtrate to blood) with secretion (from blood to filtrate).",
+    "keywords": [
+      "ultrafiltration",
+      "glomerulus",
+      "Bowman's capsule",
+      "reabsorption",
+      "proximal convoluted tubule",
+      "loop of Henle",
+      "secretion"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 132,
+    "bab": "Bab 13: Homeostasis and Osmoregulation",
+    "skip": false,
+    "subtopic": "Mechanism of homeostasis and osmoregulation",
+    "concept_title": "Osmoregulation by ADH",
+    "concept_explanation": "Osmoregulation is the process of regulating water and salt balance to maintain normal blood osmotic pressure. The hypothalamus detects changes in osmotic pressure and signals the pituitary gland to release antidiuretic hormone (ADH). ADH controls the permeability of the distal convoluted tubule and collecting duct in the kidney, affecting water reabsorption and urine concentration. When osmotic pressure rises, more ADH is secreted, increasing water reabsorption to produce concentrated urine; when osmotic pressure falls, less ADH is secreted, reducing water reabsorption to produce dilute urine.",
+    "worked_example": "Figure 13.10 illustrates the feedback mechanism: when drinking too much water, blood osmotic pressure drops, osmoreceptors are less stimulated, less ADH is secreted, making tubules less permeable, less water reabsorbed, and large volumes of dilute urine are produced. Conversely, when water is insufficient, osmotic pressure rises, osmoreceptors are stimulated, more ADH is released, tubules become more permeable, more water is reabsorbed, and small volumes of concentrated urine are formed, returning osmotic pressure to normal.",
+    "common_mistakes": "Students often think ADH secretion is directly controlled by blood water volume or concentration, but it is actually regulated by blood osmotic pressure. Another mistake is confusing the roles of the hypothalamus and pituitary gland in ADH release.",
+    "keywords": [
+      "osmoregulation",
+      "ADH",
+      "blood osmotic pressure",
+      "hypothalamus",
+      "pituitary gland",
+      "distal convoluted tubule",
+      "collecting duct"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 133,
+    "bab": "Bab 13: Homeostasis and Excretion",
+    "skip": false,
+    "subtopic": "13.2 Urine Production and Osmoregulation",
+    "concept_title": "Effect of Water Intake on Urine Volume",
+    "concept_explanation": "The human body maintains water balance through osmoregulation, primarily by adjusting urine volume. When a person consumes more water, the kidneys reduce water reabsorption, leading to a higher volume of dilute urine. Conversely, low water intake triggers increased water reabsorption, producing less concentrated urine. This process is regulated by the antidiuretic hormone (ADH), whose secretion decreases when blood water content rises.",
+    "worked_example": "In this experiment, four groups of pupils drink 250 ml, 500 ml, 750 ml, and 1000 ml of water respectively. Urine is collected at 20, 40, and 60 minutes intervals. The average urine volume for each group is recorded, and the total urine produced is calculated. The results are expected to show that the group consuming the highest volume of water produces the largest total urine volume, supporting the hypothesis that higher water intake leads to increased urine production.",
+    "common_mistakes": "Students often assume that urine volume increases proportionally with water intake immediately, but the effect takes time due to the body's regulatory mechanisms. They may also overlook the role of ADH and think that the kidneys simply filter all water without reabsorption.",
+    "keywords": [
+      "water intake",
+      "urine volume",
+      "osmoregulation",
+      "kidney",
+      "homeostasis"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 134,
+    "bab": "Bab 13: Urinary System",
+    "skip": false,
+    "subtopic": "Haemodialysis",
+    "concept_title": "Principles of Haemodialysis",
+    "concept_explanation": "Haemodialysis is a medical procedure that replaces the function of failed kidneys. It filters waste products like urea, excess salts, and water from the blood using a dialysis machine. The patient's blood flows through a dialyzer, where it contacts dialysate fluid across a semi-permeable membrane. Diffusion and ultrafiltration remove toxins, and the cleaned blood is returned to the body. This process is typically repeated several times per week.",
+    "worked_example": "",
+    "common_mistakes": "Students often think haemodialysis permanently cures kidney failure or completely restores all kidney functions. In reality, it only temporarily replaces filtration and does not treat the underlying cause; patients still require dietary restrictions and medication.",
+    "keywords": [
+      "haemodialysis",
+      "kidney failure",
+      "dialyzer",
+      "semi-permeable membrane",
+      "diffusion",
+      "ultrafiltration"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 135,
+    "bab": "Bab 13: Sistem Urinari",
+    "skip": false,
+    "subtopic": "Health Issues Related to the Urinary System",
+    "concept_title": "Kidney Stones Formation and Effects",
+    "concept_explanation": "Kidney stones are hard masses formed from uric acid, calcium oxalate, or crystalline calcium phosphate. They can block the ureter, reducing urine production and causing pain and potential kidney damage. Drinking plenty of water helps prevent stone formation by diluting urine and reducing the concentration of stone-forming substances.",
+    "worked_example": "The text includes a prompt: 'Kidney stones can block the ureter and reduce the production of urine. To reduce the likelihood of kidney stone formation, you should drink a lot of water every day. Why?' This question requires students to explain that water dilutes urine, reducing the concentration of minerals that form stones, and helps flush out small crystals before they aggregate.",
+    "common_mistakes": "Students may mistakenly think that kidney stones are only caused by calcium intake, ignoring other factors like uric acid or that dehydration is a major risk factor. They might also think that once a stone forms, drinking water can dissolve it, whereas water only helps prevent new formation.",
+    "keywords": [
+      "kidney stones",
+      "kidney failure",
+      "diabetes mellitus",
+      "high blood pressure",
+      "glomerulus",
+      "ureter",
+      "uric acid",
+      "calcium oxalate"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 136,
+    "bab": "Bab 6: Homeostasis and the Human Urinary System",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Summary of Homeostasis & Urinary System",
+    "concept_explanation": "This summary page provides an overview of homeostasis and the human urinary system. Homeostasis involves regulating internal physical and chemical factors such as body temperature, blood sugar, carbon dioxide partial pressure, and blood pressure, involving multiple body systems. The urinary system, specifically the kidney and nephron, plays a key role in osmoregulation through ultrafiltration, reabsorption, and secretion to form urine and maintain blood osmotic pressure.",
+    "worked_example": "",
+    "common_mistakes": "",
+    "keywords": [
+      "Homeostasis",
+      "Urinary System",
+      "Kidney",
+      "Nephron",
+      "Ultrafiltration",
+      "Reabsorption",
+      "Secretion",
+      "Osmoregulation"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 137,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Page contains only self-reflection and summative practice, no new teachable biology concepts."
+  },
+  {
+    "page": 138,
+    "bab": "Bab 1: Perkumuhan dan Pengekalan Homeostasis",
+    "skip": false,
+    "subtopic": "7. Struktur Nefron dan Lengkung Henle",
+    "concept_title": "Fungsi Lengkung Henle dalam Kepekatan Urin",
+    "concept_explanation": "Lengkung Henle (loop of Henle) berperanan dalam mekanisme penumpuan berlawanan arah (countercurrent multiplier) untuk menghasilkan urin yang lebih pekat. Bahagian menurun lengkung Henle telap kepada air tetapi tidak telap kepada garam, menyebabkan air meresap keluar ke tisu interstisium. Bahagian menaik pula telap kepada garam tetapi tidak telap kepada air, menyebabkan garam meresap keluar ke tisu interstisium. Proses ini mewujudkan kecerunan kepekatan garam yang tinggi di tisu interstisium, membolehkan air diserap semula daripada tubul distal dan duktus pengumpul, menghasilkan urin yang pekat.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menyalahtafsir bahawa semakin panjang lengkung Henle, semakin cair urin yang dihasilkan. Sebenarnya, semakin panjang lengkung Henle, semakin tinggi kepekatan garam di tisu interstisium, menyebabkan lebih banyak air diserap semula dan urin menjadi lebih pekat.",
+    "keywords": [
+      "nefron",
+      "lengkung Henle",
+      "penumpuan berlawanan arah",
+      "kepekatan urin",
+      "osmosis"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 139,
+    "bab": "Bab 13: Homeostasis and the Human Body",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Homeostasis: Body Temperature and Breathing",
+    "concept_explanation": "Homeostasis is the maintenance of a stable internal environment. Body temperature is regulated by the hypothalamus through negative feedback mechanisms involving vasodilation, vasoconstriction, sweating, and shivering. Breathing rate is controlled by the respiratory centre in the medulla oblongata, which responds to changes in carbon dioxide and oxygen levels. The kidneys also play a key role in regulating blood osmotic pressure and waste excretion.",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse vasodilation and vasoconstriction in temperature regulation. They may also think that sweating cools the body by losing water rather than by evaporative cooling. Another misconception is that negative feedback amplifies changes instead of correcting them.",
+    "keywords": [
+      "body temperature regulation",
+      "negative feedback",
+      "vasodilation",
+      "vasoconstriction",
+      "respiratory centre",
+      "medulla oblongata",
+      "osmoregulation"
+    ],
+    "difficulty_level": 3
+  },
+  {
+    "page": 140,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Page is an introductory chapter opener with no specific teachable concept."
+  },
+  {
+    "page": 141,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Page contains only learning objectives and subtopic headings, no explanatory biology content."
+  },
+  {
+    "page": 142,
+    "bab": "Bab 14: Support and Movement in Humans and Animals",
+    "skip": false,
+    "subtopic": "Types of Skeletons",
+    "concept_title": "Types of Skeletons",
+    "concept_explanation": "The skeletal system provides support, protection, and enables movement. There are three types of skeletons: exoskeleton (external, e.g., insects), endoskeleton (internal, e.g., humans), and hydrostatic skeleton (fluid-filled, e.g., earthworms). Each type maintains body shape and supports soft tissues.",
+    "worked_example": "",
+    "common_mistakes": "Students may confuse exoskeleton and endoskeleton, or think hydrostatic skeleton is not a true skeleton because it lacks hard parts.",
+    "keywords": [
+      "exoskeleton",
+      "endoskeleton",
+      "hydrostatic skeleton",
+      "support",
+      "movement"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 143,
+    "bab": "Bab 14: Musculoskeletal System of Humans",
+    "skip": false,
+    "subtopic": "Skeletal system",
+    "concept_title": "Axial and Appendicular Skeleton",
+    "concept_explanation": "The human skeletal system is divided into the axial skeleton and appendicular skeleton. The axial skeleton consists of the skull, vertebral column, ribs, and sternum, providing central support and protection for vital organs. The appendicular skeleton includes the pectoral girdle, pelvic girdle, and the bones of the upper and lower limbs, facilitating movement and attachment of muscles.",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse which bones belong to the axial skeleton versus the appendicular skeleton; for example, the pectoral girdle is part of the appendicular skeleton, not the axial skeleton.",
+    "keywords": [
+      "axial skeleton",
+      "appendicular skeleton",
+      "skull",
+      "vertebral column",
+      "ribs",
+      "sternum",
+      "pectoral girdle",
+      "pelvic girdle"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 144,
+    "bab": "Bab 1",
+    "skip": false,
+    "subtopic": "14.2.2 Human Vertebral Column",
+    "concept_title": "Structure and Function of Vertebrae",
+    "concept_explanation": "The human vertebral column consists of vertebrae that vary in size and shape along its length. Each vertebra has a neural canal that houses the spinal cord. Thoracic vertebrae have long spinous processes and facets for rib articulation, while lumbar vertebrae are large and strong to support lower back weight. Sacral and caudal vertebrae are fused to form the sacrum and coccyx.",
+    "worked_example": "",
+    "common_mistakes": "Students often think all vertebrae are identical in shape and function, but each region is specialized for different roles such as rib attachment, weight bearing, and fusion for pelvic support.",
+    "keywords": [
+      "vertebrae",
+      "neural canal",
+      "spinal cord",
+      "spinous process",
+      "transverse process",
+      "centrum",
+      "facets"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 145,
+    "bab": "Bab 14: Sokongan dan Pergerakan",
+    "skip": false,
+    "subtopic": "Struktur Tulang Belakang",
+    "concept_title": "Jenis Vertebra: Atlas, Aksis, Servikal",
+    "concept_explanation": "Vertebra atlas adalah vertebra servikal pertama yang mempunyai foramen transversarium yang besar, tiada centrum, dan bersendi dengan tengkorak. Vertebra aksis adalah vertebra servikal kedua yang mempunyai prosesus odontoid yang bersendi dengan atlas. Kedua-duanya membolehkan pergerakan kepala. Vertebra servikal yang lain (C3-C7) mempunyai prosesus spinosus pendek, centrum kecil, dan foramen transversarium yang membolehkan laluan arteri vertebra.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara vertebra atlas dan aksis. Atlas tidak mempunyai centrum dan bersendi dengan tengkorak, manakala aksis mempunyai prosesus odontoid yang bersendi dengan atlas.",
+    "keywords": [
+      "atlas vertebra",
+      "axial vertebra",
+      "cervical vertebra",
+      "spinous process",
+      "transverse foramen",
+      "odontoid process"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 146,
+    "bab": "Bab 14: Movement and Locomotion",
+    "skip": false,
+    "subtopic": "Joints",
+    "concept_title": "Types of Joints",
+    "concept_explanation": "Joints are points where two or more bones meet, or where cartilage meets bones. They provide flexibility and allow movement. There are three types: immovable joints (e.g., sutures in the cranium), slightly moveable joints (e.g., cartilage discs between vertebrae), and freely moveable joints (e.g., hinge joint at elbow, ball-and-socket joint at shoulder).",
+    "worked_example": "Activity Zone: Dissect a chicken wing to observe the joint’s structure. This hands-on activity helps identify the different types of joints and their components.",
+    "common_mistakes": "Students often think all joints allow movement, but immovable joints like skull sutures do not. They may also confuse slightly moveable joints (e.g., between vertebrae) with immovable ones, or think cartilage discs are a type of freely movable joint.",
+    "keywords": [
+      "joints",
+      "immovable joint",
+      "slightly moveable joint",
+      "freely moveable joint",
+      "hinge joint",
+      "ball-and-socket joint",
+      "suture",
+      "cartilage disc"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 147,
+    "bab": "Bab 14: Gerakan dan Sokongan",
+    "skip": false,
+    "subtopic": "Sendi Boleh Bergerak Bebas",
+    "concept_title": "Struktur dan Fungsi Sendi Boleh Bergerak Bebas",
+    "concept_explanation": "Sendi boleh bergerak bebas terdiri daripada beberapa struktur penting. Kapsul sendi adalah tisu fibros yang melindungi sendi. Rawan bertindak sebagai kusyen untuk menyerap hentakan dan mengurangkan geseran antara hujung tulang. Membran sinovial merembeskan cecair sinovial yang bertindak sebagai pelincir bagi mengurangkan geseran. Contoh sendi boleh bergerak bebas termasuk sendi bebola dan soket serta sendi engsel.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar mungkin menyangka rawan hanya mengurangkan geseran, padahal ia juga menyerap hentakan dan melindungi tulang daripada haus.",
+    "keywords": [
+      "sendi boleh bergerak bebas",
+      "kapsul sendi",
+      "rawan",
+      "membran sinovial",
+      "cecair sinovial",
+      "sendi bebola dan soket",
+      "sendi engsel"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 148,
+    "bab": "Bab 1: Support and Movement in Humans and Animals",
+    "skip": false,
+    "subtopic": "Skeletal Muscle, Tendon and Ligament",
+    "concept_title": "Support and Movement Structures",
+    "concept_explanation": "Skeletal muscles, tendons, and ligaments work together to enable movement. Skeletal muscles are composed of muscle fibre bundles and act in antagonistic pairs, such as biceps (flexor) and triceps (extensor). Tendons are strong, non-elastic fibres that connect muscle to bone, while ligaments are strong, elastic fibres that connect bone to bone, providing joint stability and allowing bending.",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse tendons and ligaments: tendons connect muscle to bone and are non-elastic, while ligaments connect bone to bone and are elastic to allow joint movement.",
+    "keywords": [
+      "skeletal muscle",
+      "tendon",
+      "ligament",
+      "antagonistic muscles",
+      "flexor",
+      "extensor"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 149,
+    "bab": "Bab 1: Introduction to Biology",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Antagonistic muscle action in limbs",
+    "concept_explanation": "Arm bending and straightening are controlled by an antagonistic pair of muscles: the biceps and triceps. When the biceps contracts, it pulls on the radius via a tendon to bend the arm, while the triceps relaxes. To straighten the arm, the triceps contracts and pulls on the ulna, and the biceps relaxes. Leg movement involves a similar mechanism: the biceps femoris acts as a flexor to bend the knee, and the quadriceps femoris acts as an extensor to straighten the leg, with coordinated contractions of calf and tibialis muscles for walking.",
+    "worked_example": "Figure 14.14 shows the action of biceps and triceps during arm movement. The 'Brainstorm!' question asks: (a) What would happen if you only have the quadriceps femoris? (b) What if the muscle is attached directly to the bone? Students should consider the consequences of lacking the antagonistic partner or direct bone attachment (e.g., inability to pull effectively or lack of leverage).",
+    "common_mistakes": "Students often think muscles can push bones, but muscles only contract to pull. They may also assume both muscles in an antagonistic pair contract at the same time; in reality, one contracts while the other relaxes.",
+    "keywords": [
+      "biceps",
+      "triceps",
+      "flexor",
+      "extensor",
+      "antagonistic muscles",
+      "tendon",
+      "biceps femoris",
+      "quadriceps femoris"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 150,
+    "bab": "Bab 1: Mechanism of Locomotion in Animals",
+    "skip": false,
+    "subtopic": "Mechanism of locomotion in animals - Fish",
+    "concept_title": "Fish Locomotion: Myotome Action",
+    "concept_explanation": "Fish move forward by the alternating contraction and relaxation of myotome muscles on opposite sides of the body. When the right myotome contracts and the left relaxes, the tail whips to the right, pushing water backwards and sideways. This rhythmic wave of muscle activity along the body propels the fish forward, while fins are used for steering and stability.",
+    "worked_example": "",
+    "common_mistakes": "Students may think fish use only their fins for movement, overlooking the key role of myotome muscles in generating propulsion through side-to-side tail movements.",
+    "keywords": [
+      "myotome",
+      "antagonistic muscles",
+      "locomotion",
+      "vertebral column",
+      "fins"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 151,
+    "bab": "Bab 14: Sokongan dan Pergerakan",
+    "skip": false,
+    "subtopic": "Pergerakan Burung dan Cacing Tanah",
+    "concept_title": "Antagonistic Muscles in Locomotion",
+    "concept_explanation": "Birds use antagonistic muscles (pectoralis major and pectoralis minor) for wing movement. Contraction of pectoralis major pulls wings down, while pectoralis minor pulls wings up. Earthworms use circular and longitudinal muscles for peristalsis, enabling movement through soil.",
+    "worked_example": "Figure 14.18 shows the mechanism of bird wing movement: when pectoralis major contracts and pectoralis minor relaxes, wings move down; when pectoralis minor contracts and pectoralis major relaxes, wings move up.",
+    "common_mistakes": "Students may think that both muscles contract simultaneously, but they work antagonistically: one contracts while the other relaxes.",
+    "keywords": [
+      "antagonistic muscles",
+      "pectoralis major",
+      "pectoralis minor",
+      "peristalsis",
+      "longitudinal muscle",
+      "circular muscle"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 152,
+    "bab": "Bab 1: Support and Locomotion",
+    "skip": false,
+    "subtopic": "Locomotion of Earthworm and Grasshopper",
+    "concept_title": "Antagonistic Muscles in Locomotion",
+    "concept_explanation": "Antagonistic muscles, such as flexor and extensor, work in pairs to produce movement. In earthworms, circular and longitudinal muscles contract and relax alternately to allow peristaltic locomotion. In grasshoppers, the flexor bends the hind leg joint while the extensor straightens it, enabling jumping.",
+    "worked_example": "",
+    "common_mistakes": "Students often think that both antagonistic muscles can contract simultaneously. In reality, one contracts while the other relaxes.",
+    "keywords": [
+      "antagonistic muscles",
+      "flexor",
+      "extensor",
+      "earthworm locomotion",
+      "grasshopper jumping",
+      "circular muscle",
+      "longitudinal muscle"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 153,
+    "bab": "Bab 14: Sistem Muskuloskeletal dan Pergerakan",
+    "skip": false,
+    "subtopic": "14.4 Health Issues Related to the Human Musculoskeletal System",
+    "concept_title": "Osteoporosis dan Kesihatan Tulang",
+    "concept_explanation": "Osteoporosis adalah gangguan tulang yang dicirikan oleh tulang rapuh dan mudah patah akibat kehilangan jisim atau ketumpatan tulang. Keadaan ini berlaku apabila kadar kehilangan kalsium lebih tinggi daripada kadar penyerapan kalsium, terutamanya dengan peningkatan usia. Faktor penyumbang termasuk kurang bersenam, pengambilan kalsium, fosforus, dan vitamin D yang rendah. Pada wanita menopause, penurunan hormon estrogen mengurangkan penyerapan kalsium dan meningkatkan kehilangan kalsium dari tulang, seterusnya mengurangkan ketumpatan tulang.",
+    "worked_example": "",
+    "common_mistakes": "Ramai pelajar beranggapan osteoporosis hanya menyerang orang tua, tetapi ia juga boleh berlaku pada usia muda disebabkan oleh faktor seperti kekurangan kalsium, kurang senaman, atau ketidakseimbangan hormon. Selain itu, ada yang menyangka osteoporosis disebabkan oleh kekurangan kalsium semata-mata, padahal peranan vitamin D dan fosforus juga penting.",
+    "keywords": [
+      "osteoporosis",
+      "kalsium",
+      "estrogen",
+      "ketumpatan tulang",
+      "menopaus",
+      "vitamin D"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 154,
+    "bab": "Bab 1",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Skeletal System Disorders",
+    "concept_explanation": "Osteomalacia is a softening of bones due to lack of calcium, phosphorus, and vitamin D, occurring in adults and as rickets in children. Arthritis, specifically osteoarthritis in the elderly, involves cartilage wear and reduced synovial fluid. Scoliosis is a lateral curvature of the spine, often from genetic factors or abnormal growth during puberty.",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse osteomalacia (soft bones from deficiency) with osteoporosis (brittle bones from loss of bone mass).",
+    "keywords": [
+      "osteomalacia",
+      "rickets",
+      "arthritis",
+      "osteoarthritis",
+      "scoliosis",
+      "vitamin D",
+      "calcium",
+      "phosphorus"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 155,
+    "bab": "Bab 14: Sokongan dan Pergerakan",
+    "skip": false,
+    "subtopic": "14.4.2",
+    "concept_title": "Menjaga Sistem Muskuloskeletal",
+    "concept_explanation": "Amalan penjagaan sistem muskuloskeletal merangkumi postur badan yang baik, pemakaian pakaian dan kasut yang sesuai, senaman yang kerap, dan pemakanan seimbang. Postur yang buruk seperti membongkok boleh menyebabkan ketidaksejajaran tulang belakang dan menekan saraf. Senaman menguatkan sendi, otot, dan tulang serta mencegah osteoporosis. Diet yang kaya dengan kalsium, fosfat, vitamin C, dan D membantu kesihatan tulang.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menganggap bahawa hanya senaman mencukupi untuk kesihatan sistem muskuloskeletal, padahal postur badan dan pemakanan seimbang juga sama penting.",
+    "keywords": [
+      "postur",
+      "tulang belakang",
+      "osteoporosis",
+      "ortopedik",
+      "kalsium",
+      "vitamin D",
+      "vitamin C"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 156,
+    "bab": "Bab 14: Sokongan dan Pergerakan",
+    "skip": false,
+    "subtopic": "14.4.2 Menjaga Sistem Muskuloskeletal",
+    "concept_title": "Kesan Postur Badan yang Salah",
+    "concept_explanation": "Postur badan yang salah seperti memakai kasut bertumit tinggi, duduk dengan dompet di poket belakang, membawa beg berat, atau menggunakan telefon pintar dan komputer dengan postur yang tidak betul boleh menyebabkan sakit kepala, sakit leher dan bahu, kesukaran bernafas, serta sakit belakang. Postur yang betul penting untuk mengurangkan tekanan pada tulang, otot, dan sendi, serta mencegah masalah muskuloskeletal jangka panjang. Penjagaan sistem muskuloskeletal boleh dilakukan melalui senaman yang sesuai, pemakanan dengan kalsium dan vitamin D, serta mengamalkan postur yang ergonomik.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering beranggapan bahawa hanya memakai kasut tumit tinggi menyebabkan masalah muskuloskeletal, tetapi sebenarnya tabiat seperti duduk dalam tempoh lama dengan postur yang salah atau membawa beg berat secara tidak seimbang juga memberi kesan buruk yang sama. Selain itu, ramai menganggap sakit belakang hanya berpunca daripada angkat berat, sedangkan postur duduk yang salah di hadapan komputer juga boleh menyebabkan masalah tersebut.",
+    "keywords": [
+      "sistem muskuloskeletal",
+      "postur badan",
+      "kasut tumit tinggi",
+      "sakit belakang",
+      "osteoporosis",
+      "skoliosis"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 157,
+    "bab": "Bab 1: Support and Movement in Humans and Animals",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Chapter 1 Summary",
+    "concept_explanation": "This chapter summarizes the types of skeletons (hydrostatic, exoskeleton, endoskeleton), the human musculoskeletal system (axial and appendicular skeletons, joints), and the mechanisms of movement in humans and animals. It also covers locomotion in fish, birds, earthworms, and grasshoppers, as well as health issues like osteoporosis and rickets. Practices to maintain a healthy musculoskeletal system include regular exercise, balanced diet, good posture, and proper clothing and shoes.",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse axial and appendicular skeletons or mistakenly think all joints are freely movable.",
+    "keywords": [
+      "skeleton",
+      "exoskeleton",
+      "endoskeleton",
+      "axial skeleton",
+      "appendicular skeleton",
+      "joint",
+      "locomotion",
+      "musculoskeletal system"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 158,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Page contains only practice questions, no new teachable content."
+  },
+  {
+    "page": 159,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Page contains only essay and enrichment questions; no new concept explanation or worked example."
+  },
+  {
+    "page": 160,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "This is a chapter introduction page with only learning objectives and no specific biological content to teach."
+  },
+  {
+    "page": 161,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Page contains only learning objectives and subtopic headings, no explanatory content."
+  },
+  {
+    "page": 162,
+    "bab": "Bab 15: Reproductive System of Humans",
+    "skip": false,
+    "subtopic": "Female Reproductive System",
+    "concept_title": "Female Reproductive System",
+    "concept_explanation": "The female reproductive system produces ova (female gametes) and sex hormones (oestrogen and progesterone). Key organs include ovaries (produce ova and hormones), fallopian tubes (transport ova/embryo to uterus via cilia and peristalsis), uterus (houses embryo, lined with endometrium rich in blood vessels), cervix (secretes mucus to aid sperm), and vagina (receives sperm and serves as birth canal).",
+    "worked_example": "",
+    "common_mistakes": "",
+    "keywords": [
+      "ovary",
+      "fallopian tube",
+      "uterus",
+      "cervix",
+      "vagina",
+      "endometrium",
+      "ovum",
+      "oestrogen",
+      "progesterone"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 163,
+    "bab": "Bab 15: Reproduction",
+    "skip": false,
+    "subtopic": "15.1 Male Reproductive System",
+    "concept_title": "Male Reproductive Structures & Functions",
+    "concept_explanation": "The male reproductive system consists of several organs that work together to produce, store, and deliver sperm. The testes produce sperm and the male hormone testosterone, while the scrotum protects the testes. The seminal vesicles and prostate gland secrete fluids that nourish and aid sperm movement. Sperm travel through the sperm duct (vas deferens) and urethra, and the penis releases them into the female vagina during copulation.",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse the functions of the seminal vesicle and prostate gland; the seminal vesicle provides nutrients, while the prostate gland secretes fluid that helps sperm movement. Also, some may think the urethra only carries urine, but it also carries sperm.",
+    "keywords": [
+      "seminal vesicle",
+      "sperm duct (vas deferens)",
+      "prostate gland",
+      "scrotum",
+      "testis",
+      "penis",
+      "urethra",
+      "sperm"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 164,
+    "bab": "Bab 15: Reproduction",
+    "skip": false,
+    "subtopic": "15.2 Gametogenesis",
+    "concept_title": "Spermatogenesis in human males",
+    "concept_explanation": "Gametogenesis is the production of haploid gametes (sperm and ova) in the gonads. In males, spermatogenesis occurs in the seminiferous tubules of the testes, where primordial germ cells undergo meiosis to form sperm. This process is stimulated by FSH and testosterone, with LH promoting testosterone secretion. Sertoli cells provide nutrients to developing sperm, which then travel through the epididymis and vas deferens.",
+    "worked_example": "",
+    "common_mistakes": "Students often think gametogenesis begins only at puberty, but it actually starts before birth with primordial germ cells. Another mistake is confusing haploid (n) and diploid (2n) cells: spermatogenesis produces haploid sperm, but the zygote formed after fertilization is diploid.",
+    "keywords": [
+      "gametogenesis",
+      "spermatogenesis",
+      "seminiferous tubules",
+      "Sertoli cells",
+      "FSH",
+      "testosterone",
+      "haploid"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 165,
+    "bab": "Bab 1",
+    "skip": false,
+    "subtopic": "Spermatogenesis",
+    "concept_title": "Spermatogenesis phases",
+    "concept_explanation": "Spermatogenesis occurs in three main phases: multiplication, growth, and maturation. In the multiplication phase, primordial germ cells divide mitotically to form diploid spermatogonia. The growth phase involves enlargement of spermatogonia into primary spermatocytes. During the maturation phase, each primary spermatocyte undergoes meiosis I to form two haploid secondary spermatocytes, which then undergo meiosis II to produce four haploid spermatids. Finally, spermatids differentiate into mature sperm.",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse the ploidy levels: spermatogonia are diploid (2n), not haploid. They may also think the growth phase involves mitosis instead of cell enlargement, or that meiosis occurs before the growth phase.",
+    "keywords": [
+      "spermatogenesis",
+      "primordial germ cell",
+      "spermatogonium",
+      "primary spermatocyte",
+      "secondary spermatocyte",
+      "spermatid",
+      "sperm"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 166,
+    "bab": "Bab 15: Reproduction",
+    "skip": false,
+    "subtopic": "Oogenesis",
+    "concept_title": "Oogenesis Process",
+    "concept_explanation": "Oogenesis is the production of female gametes (secondary oocytes) in the ovaries. It begins before birth with mitotic divisions of primordial germ cells to form oogonium, which develop into primary oocytes that arrest at prophase I until puberty. After puberty, each month one primary oocyte completes meiosis I to form a secondary oocyte and a polar body. The secondary oocyte is released during ovulation and only completes meiosis II if fertilized.",
+    "worked_example": "",
+    "common_mistakes": "Students often think oogenesis starts at puberty, but it actually begins before birth and pauses until puberty.",
+    "keywords": [
+      "oogenesis",
+      "oogonium",
+      "primary oocyte",
+      "secondary oocyte",
+      "follicle",
+      "ovulation",
+      "polar body"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 167,
+    "bab": "Bab 15: Reproduction",
+    "skip": false,
+    "subtopic": "15.2.2 Oogenesis",
+    "concept_title": "Oogenesis in the Ovaries",
+    "concept_explanation": "Oogenesis is the process of female gamete formation. At birth, a female has millions of primary oocytes arrested in prophase I. At puberty, primary oocytes complete meiosis I, producing a secondary oocyte and a first polar body. The secondary oocyte begins meiosis II but halts at metaphase II. A layer of follicular cells forms the secondary follicle, which develops into the Graafian follicle that secretes estrogen. Ovulation releases the secondary oocyte into the fallopian tube. Meiosis II completes only if a sperm penetrates the secondary oocyte, forming an ovum and a second polar body. After ovulation, the Graafian follicle becomes the corpus luteum, which secretes oestrogen and progesterone; if no fertilisation occurs, the corpus luteum degenerates.",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse the primary oocyte with the secondary oocyte, or think that meiosis II completes without fertilisation. They may also assume that the corpus luteum forms immediately after ovulation, but it develops from the Graafian follicle after release of the secondary oocyte.",
+    "keywords": [
+      "primary oocyte",
+      "secondary oocyte",
+      "Graafian follicle",
+      "corpus luteum",
+      "ovulation",
+      "polar body",
+      "oogenesis",
+      "fertilisation"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 168,
+    "bab": "Bab 15: Reproduction",
+    "skip": false,
+    "subtopic": "Structure of Sperm and Graafian Follicle",
+    "concept_title": "Sperm & Graafian Follicle Structure",
+    "concept_explanation": "A sperm consists of three parts: head (containing nucleus), midpiece (packed with mitochondria for energy), and tail (for movement). A Graafian follicle contains a secondary oocyte surrounded by a gel-like substance and follicular cells. The secondary oocyte and follicular cells together form the Graafian follicle, which is the mature ovarian follicle ready for ovulation.",
+    "worked_example": "",
+    "common_mistakes": "Students often think oogenesis produces four functional eggs, but it actually produces one secondary oocyte and three polar bodies. They may also confuse the energy source for sperm movement—mitochondria in the midpiece provide ATP, not the tail itself.",
+    "keywords": [
+      "sperm",
+      "midpiece",
+      "mitochondria",
+      "Graafian follicle",
+      "secondary oocyte",
+      "spermatogenesis",
+      "oogenesis"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 169,
+    "bab": "Bab 15: Pembiakan",
+    "skip": false,
+    "subtopic": "15.3 Menstrual Cycle",
+    "concept_title": "Menstrual Cycle and Hormonal Control",
+    "concept_explanation": "The menstrual cycle involves the production of a secondary oocyte and thickening of the endometrial wall to prepare for embryo implantation. If fertilisation does not occur, the endometrium sheds, causing menstruation. Hormones from the pituitary (FSH, LH) and ovary (oestrogen, progesterone) regulate this cycle: FSH stimulates follicle growth and oestrogen release, LH triggers ovulation and corpus luteum formation; oestrogen repairs and thickens endometrium and stimulates FSH/LH release before ovulation; progesterone maintains endometrial thickness for implantation.",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse the roles of FSH and LH. FSH stimulates follicle growth and oestrogen release, while LH triggers ovulation and corpus luteum formation. Additionally, oestrogen is not only produced by the ovary but also influences pituitary hormone release during the cycle.",
+    "keywords": [
+      "menstrual cycle",
+      "FSH",
+      "LH",
+      "oestrogen",
+      "progesterone",
+      "endometrium",
+      "ovulation",
+      "corpus luteum"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 170,
+    "bab": "Bab 15: Pembiakan",
+    "skip": false,
+    "subtopic": "15.3.1 Kitar Haid",
+    "concept_title": "Kawalan Hormon Kitar Haid",
+    "concept_explanation": "Kitar haid dikawal oleh interaksi hormon FSH, LH, estrogen, dan progesteron. FSH merangsang perkembangan folikel yang menghasilkan estrogen. Peningkatan estrogen mencetuskan lonjakan LH yang menyebabkan ovulasi. Selepas ovulasi, korpus luteum merembes progesteron untuk mengekalkan ketebalan endometrium.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru bahawa progesteron kekal tinggi sepanjang kitaran, sedangkan ia menurun jika tiada persenyawaan. Juga, lonjakan LH sering disalah anggap sebagai puncak estrogen.",
+    "keywords": [
+      "FSH",
+      "LH",
+      "estrogen",
+      "progesteron",
+      "ovulasi",
+      "korpus luteum",
+      "kitar haid"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 171,
+    "bab": "Bab 15: Reproduction",
+    "skip": false,
+    "subtopic": "Menstrual Cycle",
+    "concept_title": "Phases of Menstrual Cycle",
+    "concept_explanation": "The menstrual cycle is divided into four phases based on hormonal changes. Days 0–5 involve menstruation and low hormone levels, with GnRH stimulating FSH and LH release. Days 6–14 feature rising oestrogen leading to an LH surge triggering ovulation. Days 15–21 see the corpus luteum secreting oestrogen and progesterone, which thicken the endometrium. Days 22–28: if fertilisation fails, corpus luteum degenerates, hormone levels drop, and menstruation begins. If fertilisation occurs, the corpus luteum continues hormone secretion to support pregnancy.",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse negative and positive feedback loops: for example, low oestrogen inhibits FSH/LH via negative feedback, but high oestrogen stimulates GnRH via positive feedback.",
+    "keywords": [
+      "menstruation",
+      "GnRH",
+      "FSH",
+      "LH",
+      "oestrogen",
+      "progesterone",
+      "corpus luteum",
+      "ovulation"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 172,
+    "bab": "Bab 15: Reproduction and Growth",
+    "skip": false,
+    "subtopic": "Role of Hormone in Pregnancy and Miscarriage",
+    "concept_title": "Hormonal Regulation in Pregnancy and Menstrual Disorders",
+    "concept_explanation": "During pregnancy, the corpus luteum continues to secrete oestrogen and progesterone for about 3-4 months before the placenta takes over. Progesterone inhibits FSH and LH secretion, preventing menstrual cycles and ovulation. Imbalance of progesterone and oestrogen, especially a drop in progesterone, can cause the uterus to shrink and lead to miscarriage. Premenstrual syndrome (PMS) and menopause are also linked to hormonal imbalances: PMS results from oestrogen-progesterone imbalance in the menstrual cycle, while menopause occurs when ageing reduces progesterone and oestrogen secretion, stopping ovulation and menstruation.",
+    "worked_example": "",
+    "common_mistakes": "Students may think the placenta produces hormones from the start of pregnancy, but the corpus luteum is the main source for the first 3-4 months.",
+    "keywords": [
+      "corpus luteum",
+      "oestrogen",
+      "progesterone",
+      "placenta",
+      "miscarriage",
+      "premenstrual syndrome",
+      "menopause"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 173,
+    "bab": "Bab 15: Reproduksi dan Pertumbuhan",
+    "skip": false,
+    "subtopic": "15.4 Development of a Human Foetus",
+    "concept_title": "Zygote to Blastocyst Development",
+    "concept_explanation": "Fertilisation occurs when a sperm nucleus fuses with the ovum nucleus in the Fallopian tube, forming a diploid zygote. The zygote undergoes mitosis while travelling to the uterus, dividing into a 2-cell, 4-cell, and 8-cell embryo, then a morula, and finally a blastocyst. The blastocyst implants in the endometrium, continuing development into an embryo.",
+    "worked_example": "",
+    "common_mistakes": "Students may think multiple sperm can fertilise the egg, but the membrane changes prevent polyspermy. Others confuse morula (solid ball) with blastocyst (hollow with inner cell mass).",
+    "keywords": [
+      "fertilisation",
+      "zygote",
+      "morula",
+      "blastocyst",
+      "implantation",
+      "mitosis",
+      "endometrium"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 174,
+    "bab": "Bab 15: Perkembangan Embrio dan Janin",
+    "skip": false,
+    "subtopic": "Role of human chorionic gonadotropin (HCG) hormone",
+    "concept_title": "HCG and Placenta Functions",
+    "concept_explanation": "Human chorionic gonadotropin (HCG) is a hormone produced by the placenta during early pregnancy. Its main function is to maintain the corpus luteum, ensuring continued secretion of oestrogen and progesterone, which are essential for sustaining the uterine lining. HCG levels double every two to three days in the first four weeks and can be detected in urine, forming the basis of pregnancy tests. The placenta and umbilical cord facilitate nutrient and waste exchange between mother and foetus; the umbilical vein carries oxygenated blood and nutrients to the foetus, while umbilical arteries carry deoxygenated blood and wastes back to the placenta.",
+    "worked_example": "",
+    "common_mistakes": "Students often think all arteries carry oxygenated blood, but in the umbilical cord, the umbilical arteries carry deoxygenated blood and wastes from the foetus to the placenta.",
+    "keywords": [
+      "HCG",
+      "corpus luteum",
+      "oestrogen",
+      "progesterone",
+      "placenta",
+      "umbilical cord",
+      "umbilical vein",
+      "umbilical arteries"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 175,
+    "bab": "Bab 15: Reproduction, Growth and Development",
+    "skip": false,
+    "subtopic": "Placenta and Foetal-Maternal Blood Circulation",
+    "concept_title": "Placenta: Exchange and Endocrine Function",
+    "concept_explanation": "The placenta is the site of exchange between mother and foetus, allowing glucose, amino acids, hormones, antibodies, and oxygen to pass from mother to foetus, while carbon dioxide and nitrogenous wastes move from foetus to mother. It also acts as an endocrine organ, producing progesterone and oestrogen after the corpus luteum degenerates to maintain the endometrium. The maternal and foetal blood do not mix; they are separated by a thin membrane that prevents toxins, bacteria, and high blood pressure damage, but cannot block all harmful substances like drugs, alcohol, and certain viruses.",
+    "worked_example": "",
+    "common_mistakes": "Students often think that the placenta completely prevents all harmful substances from reaching the foetus. In reality, some drugs, alcohol, and viruses (e.g., HIV, rubella) can cross the placental barrier.",
+    "keywords": [
+      "placenta",
+      "foetus",
+      "maternal blood",
+      "exchange",
+      "progesterone",
+      "oestrogen",
+      "barrier"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 176,
+    "bab": "Bab 15: Reproduction",
+    "skip": false,
+    "subtopic": "Formation of Twins",
+    "concept_title": "Identical and Fraternal Twins",
+    "concept_explanation": "Twins are two offspring born from a single pregnancy. Identical (monozygotic) twins form when one fertilised ovum splits into two embryos, resulting in genetically identical individuals. They often share a placenta but may have separate placentas depending on the timing of the split. Fraternal (dizygotic) twins develop from two separate ova fertilised by two different sperm, producing genetically distinct siblings with separate placentas and amniotic sacs.",
+    "worked_example": "",
+    "common_mistakes": "Students may think that all identical twins share a single placenta. In reality, if the embryo splits early (within 3 days), two separate placentas can form. Also, some confuse the genetic basis: identical twins are always the same sex, while fraternal twins may be of the same or different sexes.",
+    "keywords": [
+      "identical twins",
+      "fraternal twins",
+      "monozygotic",
+      "dizygotic",
+      "placenta"
+    ],
+    "difficulty_level": 1
+  },
+  {
+    "page": 177,
+    "bab": "Bab 15: Pembiakan",
+    "skip": false,
+    "subtopic": "Jenis-jenis Kembar",
+    "concept_title": "Kembar Identik, Tidak Identik & Kembar Siam",
+    "concept_explanation": "Kembar seiras (monozigot) terbentuk apabila satu ovum dan satu sperma menghasilkan satu zigot yang kemudian membahagi kepada dua embrio, berkongsi satu plasenta, dan mempunyai jantina serta genetik yang sama. Kembar tidak seiras (dizigot) terbentuk daripada dua ovum dan dua sperma berasingan, menghasilkan dua zigot dengan plasenta masing-masing, dan boleh berlainan jantina serta rupa. Kembar siam berlaku apabila pembahagian embrio kembar seiras tidak lengkap, menyebabkan beberapa bahagian badan kekal bersatu dan mungkin berkongsi organ dalaman.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menyangka semua kembar seiras berkongsi satu plasenta (sebenarnya ada pengecualian) atau menganggap kembar siam adalah jenis kembar yang berasingan daripada kembar seiras.",
+    "keywords": [
+      "kembar seiras",
+      "kembar tidak seiras",
+      "kembar siam",
+      "zigot",
+      "plasenta",
+      "embrio"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 178,
+    "bab": "Bab 15: Human Reproductive System",
+    "skip": false,
+    "subtopic": "15.6 Impotency",
+    "concept_title": "Impotency: Causes and Treatments",
+    "concept_explanation": "Impotency refers to the inability of a couple to conceive a child, with causes originating from either partner. Male causes include erectile dysfunction, low sperm count, abnormal sperm, and hormonal imbalance, while female causes include blocked Fallopian tubes, hormonal imbalance, and uterine abnormalities. Treatments range from hormonal therapy and surgery to in vitro fertilisation (IVF) for severe cases.",
+    "worked_example": "",
+    "common_mistakes": "Students often assume impotency only affects males, but it can also stem from female factors such as blocked Fallopian tubes or hormonal issues.",
+    "keywords": [
+      "impotency",
+      "erectile dysfunction",
+      "hormonal imbalance",
+      "in vitro fertilisation",
+      "blocked Fallopian tubes"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 179,
+    "bab": "Bab 15: Growth",
+    "skip": false,
+    "subtopic": "15.7 Growth in organisms",
+    "concept_title": "Growth Parameters & Metamorphosis",
+    "concept_explanation": "Growth is an irreversible process involving increase in cell number, size, volume, and weight, as well as differentiation. It is measured using parameters such as height, length, fresh weight (taken without killing, but less accurate due to fluid intake variations) and dry weight (after oven drying, accurate but requires killing the organism). Insects with exoskeletons undergo either complete metamorphosis (egg, larva, pupa, adult) or incomplete metamorphosis (egg, nymph, adult) to grow.",
+    "worked_example": "",
+    "common_mistakes": "Students often think growth only involves increase in size, overlooking differentiation and specialization. They may also confuse dry weight (requires killing) with fresh weight (does not require killing) and the different stages of insect metamorphosis.",
+    "keywords": [
+      "growth",
+      "irreversible",
+      "dry weight",
+      "fresh weight",
+      "metamorphosis",
+      "complete metamorphosis",
+      "incomplete metamorphosis"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 180,
+    "bab": "Bab 1: Metamorphosis in Insects",
+    "skip": false,
+    "subtopic": "Complete and Incomplete Metamorphosis",
+    "concept_title": "Types of Insect Metamorphosis",
+    "concept_explanation": "Insects like butterflies undergo complete metamorphosis, which includes four distinct stages: egg, larva (caterpillar), pupa, and adult. In contrast, grasshoppers undergo incomplete metamorphosis, where the insect hatches as a nymph and gradually develops into an adult through several molts (ecdysis). The key difference is the presence of a pupal stage in complete metamorphosis, which allows for dramatic transformation between larval and adult forms.",
+    "worked_example": "",
+    "common_mistakes": "Students often think that all insects undergo the same type of metamorphosis or confuse the stages (e.g., thinking that a nymph is a larva). They may also believe that ecdysis only occurs in incomplete metamorphosis, forgetting that larvae also molt in complete metamorphosis before pupation.",
+    "keywords": [
+      "complete metamorphosis",
+      "incomplete metamorphosis",
+      "egg",
+      "larva",
+      "pupa",
+      "nymph",
+      "ecdysis",
+      "adult"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 181,
+    "bab": "Bab 15: Growth",
+    "skip": false,
+    "subtopic": "Growth phases in sigmoid growth curves of humans and animals",
+    "concept_title": "Sigmoid Growth Curve Phases",
+    "concept_explanation": "The sigmoid growth curve, which is S-shaped, describes the gradual and continuous growth of most organisms over time. It consists of six phases: lag phase (slow growth due to adjustment), exponential phase (rapid growth), stationary phase (slowing growth and cell differentiation), maturity phase (zero growth rate), senescence phase (negative growth rate due to ageing), and death phase (organism death from ageing, illness, or lack of resources).",
+    "worked_example": "",
+    "common_mistakes": "Students often confuse the stationary phase with zero growth, thinking that no cell division occurs. In reality, cell division continues at a rate equal to cell death, resulting in no net size increase.",
+    "keywords": [
+      "sigmoid growth curve",
+      "lag phase",
+      "exponential phase",
+      "stationary phase",
+      "maturity phase",
+      "senescence phase",
+      "death phase"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 182,
+    "bab": "Bab 15: Growth",
+    "skip": false,
+    "subtopic": "Intermittent Growth Curve of Animals with Exoskeletons",
+    "concept_title": "Ecdysis and Intermittent Growth",
+    "concept_explanation": "Animals with exoskeletons, such as insects, undergo a periodic moulting process called ecdysis to allow growth. The exoskeleton does not grow proportionately with the insect, so it must be shed. The growth curve of such animals is intermittent, with periods of rapid growth (during ecdysis) followed by instar stages where no growth occurs. This process is controlled by hormones and continues until the insect reaches adulthood.",
+    "worked_example": "The process of ecdysis: 1. A new exoskeleton forms underneath the old one. 2. Before the new exoskeleton hardens, the insect sucks in air to expand its body, breaking the old exoskeleton. 3. The insect emerges with the new exoskeleton. 4. The insect expands its body one more time before the new exoskeleton hardens. The stages between ecdysis are called instar, during which the insect (nymph) does not increase in length.",
+    "common_mistakes": "Students may mistakenly think that the exoskeleton grows continuously with the insect, or that growth is a steady, continuous process. In reality, growth in insects is intermittent, occurring only during ecdysis, with no growth during instar stages.",
+    "keywords": [
+      "ecdysis",
+      "exoskeleton",
+      "instar",
+      "intermittent growth",
+      "moulting",
+      "nymph"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 183,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Page contains only practice questions and a summary concept map; no explanatory content to teach as a unit."
+  },
+  {
+    "page": 184,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Page contains only self-reflection and summative practice questions; no new biology content to teach."
+  },
+  {
+    "page": 185,
+    "bab": "Bab 13: Reproduction and Growth",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Hormonal Regulation of Menstrual Cycle",
+    "concept_explanation": "The menstrual cycle is regulated by hormones from the pituitary gland (FSH and LH) and the ovaries (oestrogen and progesterone). FSH stimulates follicle development, while LH triggers ovulation. Oestrogen (hormone P) promotes endometrial thickening, and progesterone (hormone Q) maintains the endometrium. Negative feedback by oestrogen and progesterone on FSH and LH secretion controls the cycle. This hormonal interplay ensures proper ovulation and preparation for implantation.",
+    "worked_example": "",
+    "common_mistakes": "Students often think contraceptive pills prevent pregnancy by killing sperm or blocking the fallopian tubes. In reality, they inhibit FSH secretion, preventing follicle development and ovulation. Another mistake is confusing positive and negative feedback in the menstrual cycle; for example, oestrogen initially has positive feedback on LH before ovulation, but later negative feedback.",
+    "keywords": [
+      "zygote",
+      "contraceptive pills",
+      "FSH",
+      "menstrual cycle",
+      "ovulation",
+      "foetus",
+      "placenta"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 186,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Page contains only essay and enrichment questions, no explanatory content to structure into a teaching unit."
+  },
+  {
+    "page": 187,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "Page is a glossary of terms, not a teaching unit."
+  },
+  {
+    "page": 188,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "The page contains a glossary of terms with definitions only, lacking a coherent subtopic or teachable concept."
+  },
+  {
+    "page": 189,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "The page is a glossary of biology terms with definitions, not a coherent teaching unit or subtopic."
+  },
+  {
+    "page": 190,
+    "bab": "Bab 1",
+    "skip": true,
+    "reason": "The page contains only a list of references, with no teachable biology content."
+  }
+]

@@ -1,0 +1,2315 @@
+[
+  {
+    "page": 171,
+    "bab": "Bab 1",
+    "skip": false,
+    "subtopic": "Haba Pendam Tentu",
+    "concept_title": "Haba Pendam Tentu Pengewapan",
+    "concept_explanation": "Haba pendam tentu pengewapan ditakrifkan sebagai kuantiti haba yang diperlukan untuk menukarkan 1 kg cecair kepada wap pada takat didih tanpa perubahan suhu. Formula yang digunakan ialah Q = ml, dengan m ialah jisim dan l ialah haba pendam tentu. Dalam soalan, haba pendam tentu pengewapan air diberi sebagai 2.26 × 10⁶ J kg⁻¹, dan pengiraan melibatkan jisim air yang mendidih menjadi stim.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering lupa menukar unit jisim daripada gram kepada kilogram sebelum mengira. Kekeliruan antara haba pendam tentu pelakuran (pepejal→cecair) dan pengewapan (cecair→gas) juga biasa berlaku.",
+    "keywords": [
+      "haba pendam tentu",
+      "pengewapan",
+      "pelakuran",
+      "muatan haba tentu",
+      "jisim",
+      "suhu",
+      "takat didih"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 172,
+    "bab": "Bab 4: Haba",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Haba Pendam Tentu Pelakuran",
+    "concept_explanation": "Haba pendam tentu pelakuran ialah kuantiti haba yang diperlukan untuk menukarkan 1 kg bahan pepejal kepada cecair pada takat leburnya tanpa perubahan suhu. Konsep ini digunakan dalam pengiraan tenaga yang diserap semasa peleburan, seperti yang ditunjukkan dalam soalan 10.",
+    "worked_example": "Soalan 10(c): Pemanas rendam 500 W digunakan selama 80 saat. Tenaga yang diserap oleh ais = kuasa × masa = 500 W × 80 s = 40 000 J. Jisim ais yang melebur = tenaga / haba pendam tentu = 40 000 J / (3.34 × 10⁵ J kg⁻¹) = 0.1198 kg ≈ 0.12 kg.",
+    "common_mistakes": "Pelajar sering lupa menukar masa kepada unit saat (s) atau menggunakan unit yang salah. Ada juga yang tersilap menganggap suhu berubah semasa peleburan, sedangkan suhu kekal tetap pada takat lebur.",
+    "keywords": [
+      "haba pendam tentu",
+      "pelakuran",
+      "peleburan",
+      "tenaga",
+      "jisim",
+      "pemanas rendam"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 173,
+    "bab": "Bab 4: Haba",
+    "skip": false,
+    "subtopic": "Muatan Haba Tentu dan Aplikasinya",
+    "concept_title": "Muatan Haba Tentu",
+    "concept_explanation": "Muatan haba tentu, c, ialah kuantiti haba yang diperlukan untuk menaikkan suhu 1 kg bahan sebanyak 1°C. Hubungan antara haba yang diserap atau dibebaskan (Q), jisim (m), muatan haba tentu (c), dan perubahan suhu (Δθ) diberikan oleh formula Q = mcΔθ. Bahan dengan muatan haba tentu yang tinggi memerlukan lebih banyak haba untuk perubahan suhu yang sama, menjadikannya sesuai sebagai bahan penyejuk atau penyimpan haba.",
+    "worked_example": "Soalan 12: Satu bahan berjisim 250 g = 0.25 kg kehilangan 5 625 J haba apabila disejukkan dengan penurunan suhu 25°C. (a) Hitung muatan haba tentu: c = Q / (mΔθ) = 5625 / (0.25 × 25) = 5625 / 6.25 = 900 J kg⁻¹ °C⁻¹. Bandingkan dengan Jadual 4.2 untuk kenal pasti bahan.",
+    "common_mistakes": "Pelajar sering lupa menukar jisim daripada gram kepada kilogram sebelum menggunakan formula Q = mcΔθ. Juga, pastikan perubahan suhu diambil sebagai nilai positif tanpa tanda negatif.",
+    "keywords": [
+      "muatan haba tentu",
+      "haba",
+      "jisim",
+      "perubahan suhu",
+      "Q = mcΔθ",
+      "aplikasi"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 174,
+    "bab": "Bab 4: Haba",
+    "skip": true,
+    "reason": "Page is a chapter introduction with no teachable physics content."
+  },
+  {
+    "page": 175,
+    "bab": "Bab 4: Haba",
+    "skip": true,
+    "reason": "Cover page for Bab 5: Gelombang. No detailed physics content to teach."
+  },
+  {
+    "page": 176,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Aplikasi Gelombang Bunyi dalam Akustik Dewan Konsert",
+    "concept_title": "Reka Bentuk Akustik Dewan Filharmonik Petronas",
+    "concept_explanation": "Dewan Filharmonik Petronas menggunakan reka bentuk akustik khas seperti siling logam yang memantulkan gelombang bunyi, panel mudah alih untuk mengubah kelantangan, dan dinding serta lantai konkrit yang mencegah gangguan bunyi luar. Ini membolehkan persembahan orkestra menghasilkan bunyi berkualiti tinggi dan persekitaran akustik yang boleh disesuaikan.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar mungkin menyangka hanya satu jenis permukaan (contohnya penyerap) diperlukan untuk akustik baik, sedangkan gabungan pantulan dan penyerapan diperlukan.",
+    "keywords": [
+      "gelombang bunyi",
+      "pantulan",
+      "akustik",
+      "kelantangan bunyi",
+      "panel mudah alih",
+      "gangguan bunyi"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 177,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "5.1 Asas Gelombang",
+    "concept_title": "Penghasilan Gelombang oleh Ayunan dan Getaran",
+    "concept_explanation": "Gelombang terhasil apabila tenaga dipindahkan melalui suatu medium akibat ayunan atau getaran. Contohnya, tali kompang yang dipalu menghasilkan gelombang bunyi, manakala objek yang jatuh ke dalam air menghasilkan gelombang air. Aktiviti 5.1 menunjukkan bahawa ayunan ladung pada spring menghasilkan riak pada permukaan air, manakala getaran tala bunyi menyebabkan bola pingpong bergetar, menunjukkan bahawa bunyi adalah hasil getaran.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menyangka bahawa gelombang terhasil hanya dengan satu tolakan atau hentakan, sedangkan gelombang memerlukan ayunan atau getaran yang berterusan untuk merambat. Contohnya, ladung yang ditarik dan dilepaskan perlu berayun untuk menghasilkan riak air yang berterusan.",
+    "keywords": [
+      "gelombang",
+      "ayunan",
+      "getaran",
+      "spring",
+      "tala bunyi",
+      "gelombang air",
+      "gelombang bunyi"
+    ],
+    "difficulty_level": 1
+  },
+  {
+    "page": 178,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "5.1.1 Penghasilan Gelombang",
+    "concept_title": "Penghasilan dan Perambatan Gelombang",
+    "concept_explanation": "Gelombang dihasilkan apabila suatu sistem berayun atau bergetar di dalam suatu medium. Getaran dan ayunan ialah gerakan ulang-alik pada kedudukan keseimbangan. Perambatan gelombang memindahkan tenaga dari satu tempat ke tempat lain tanpa memindahkan jirim medium.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menyangka bahawa gelombang memindahkan jirim, tetapi sebenarnya hanya tenaga yang dipindahkan. Contohnya, reben pada spring slinki hanya berayun, tidak bergerak bersama gelombang.",
+    "keywords": [
+      "gelombang",
+      "tenaga",
+      "jirim",
+      "getaran",
+      "ayunan",
+      "medium",
+      "perambatan"
+    ],
+    "difficulty_level": 1
+  },
+  {
+    "page": 179,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Gelombang Progresif dan Pemindahan Tenaga",
+    "concept_explanation": "Gelombang memindahkan tenaga dari satu titik ke titik lain tanpa memindahkan jirim. Contohnya, dalam Rajah 5.4, reben hanya bergetar pada kedudukan tetap manakala tenaga dipindahkan dari A ke B. Gelombang yang profilnya merambat dengan masa dikenali sebagai gelombang progresif. Gelombang progresif boleh dikelaskan kepada gelombang melintang dan gelombang membujur berdasarkan arah getaran zarah medium berbanding arah perambatan gelombang.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering tersalah anggap bahawa medium (seperti reben atau air) bergerak bersama gelombang, padahal medium hanya bergetar di tempat dan tidak bergerak dalam arah perambatan tenaga.",
+    "keywords": [
+      "gelombang",
+      "tenaga",
+      "pemindahan tenaga",
+      "gelombang progresif",
+      "gelombang melintang",
+      "gelombang membujur",
+      "profil gelombang"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 180,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "5.1.2 Gelombang Pegun dan Klasifikasi Gelombang",
+    "concept_title": "Gelombang Mekanik dan Elektromagnet",
+    "concept_explanation": "Gelombang mekanik memerlukan medium untuk memindahkan tenaga dan terdiri daripada getaran zarah-zarah medium. Contoh gelombang mekanik adalah gelombang air, gelombang bunyi dan gelombang seismik. Gelombang elektromagnet tidak memerlukan medium dan terdiri daripada ayunan medan elektrik dan medan magnet yang berserenjang antara satu sama lain. Contoh gelombang elektromagnet adalah gelombang radio, cahaya dan sinar gama.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menyangka gelombang elektromagnet memerlukan medium untuk perambatan. Sebenarnya, gelombang elektromagnet boleh merambat dalam vakum.",
+    "keywords": [
+      "gelombang mekanik",
+      "gelombang elektromagnet",
+      "medium",
+      "ayunan medan elektrik",
+      "medan magnet",
+      "gelombang air",
+      "gelombang bunyi",
+      "gelombang radio"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 181,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Perbandingan antara Gelombang Melintang dengan Gelombang Membujur",
+    "concept_title": "Perbandingan Gelombang Melintang dan Membujur",
+    "concept_explanation": "Terdapat dua jenis gelombang progresif: gelombang melintang dan gelombang membujur. Dalam gelombang melintang, arah getaran zarah adalah berserenjang dengan arah perambatan gelombang. Dalam gelombang membujur, arah getaran zarah adalah selari dengan arah perambatan gelombang. Aktiviti menggunakan spring slinki menunjukkan perbezaan ini melalui pergerakan reben yang diikat pada spring.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru dengan arah getaran zarah. Mereka mungkin menyangka dalam gelombang membujur, zarah bergerak bersama gelombang, sedangkan sebenarnya zarah hanya bergetar pada kedudukan tetap.",
+    "keywords": [
+      "gelombang melintang",
+      "gelombang membujur",
+      "arah getaran",
+      "arah perambatan",
+      "gelombang progresif"
+    ],
+    "difficulty_level": 1
+  },
+  {
+    "page": 182,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Gelombang Melintang dan Gelombang Membujur",
+    "concept_title": "Jenis-jenis Gelombang",
+    "concept_explanation": "Gelombang melintang ialah gelombang di mana zarah-zarah medium bergetar pada arah yang berserenjang dengan arah perambatan gelombang. Ia terdiri daripada puncak dan lembangan yang berturutan, seperti gelombang radio, cahaya, dan air. Gelombang membujur pula ialah gelombang di mana zarah-zarah medium bergetar pada arah yang selari dengan arah perambatan gelombang, terdiri daripada mampatan dan renggangan yang berturutan, contohnya gelombang bunyi.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru arah getaran zarah berbanding arah perambatan – untuk gelombang melintang, getaran berserenjang; untuk membujur, getaran selari.",
+    "keywords": [
+      "gelombang melintang",
+      "gelombang membujur",
+      "puncak",
+      "lembangan",
+      "mampatan",
+      "renggangan",
+      "arah perambatan",
+      "getaran zarah"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 183,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Ciri-ciri Gelombang",
+    "concept_title": "Ciri-ciri Asas Gelombang",
+    "concept_explanation": "Gelombang mempunyai ciri-ciri seperti amplitud, tempoh, frekuensi, panjang gelombang, dan laju. Amplitud adalah sesaran maksimum suatu zarah dari kedudukan keseimbangan. Tempoh adalah masa yang diambil untuk satu ayunan lengkap. Frekuensi adalah bilangan ayunan lengkap per saat, dengan hubungan f = 1/T. Panjang gelombang adalah jarak antara dua titik sefasa yang berturutan. Laju gelombang adalah jarak yang dilalui oleh profil gelombang dalam satu saat.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara amplitud dengan panjang gelombang, atau menganggap tempoh dan frekuensi adalah sama. Juga, konsep sesaran dan kedudukan keseimbangan sering disalah anggap.",
+    "keywords": [
+      "amplitud",
+      "tempoh",
+      "frekuensi",
+      "panjang gelombang",
+      "laju gelombang",
+      "sesaran",
+      "kedudukan keseimbangan"
+    ],
+    "difficulty_level": 1
+  },
+  {
+    "page": 184,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Panjang Gelombang dan Laju Gelombang",
+    "concept_title": "Panjang Gelombang dan Laju Gelombang",
+    "concept_explanation": "Amplitud ialah sesaran maksimum dari kedudukan keseimbangan. Titik-titik sefasa mempunyai sesaran dan arah gerakan yang sama. Panjang gelombang (λ) ialah jarak antara dua titik sefasa berturutan, seperti antara dua puncak atau dua lembangan bagi gelombang melintang, atau antara dua mampatan atau dua renggangan berturutan bagi gelombang membujur. Laju gelombang (v) berkait dengan panjang gelombang dan tempoh melalui v = λ/T, dan kerana frekuensi f = 1/T, maka v = fλ.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menyangka panjang gelombang hanya untuk gelombang melintang (jarak puncak ke puncak) dan gagal mengaitkannya dengan mampatan/renggangan dalam gelombang membujur. Juga, ada yang keliru bahawa titik-titik sefasa hanya pada kedudukan yang sama pada gelombang.",
+    "keywords": [
+      "gelombang melintang",
+      "gelombang membujur",
+      "amplitud",
+      "panjang gelombang",
+      "titik sefasa",
+      "mampatan",
+      "renggangan",
+      "laju gelombang",
+      "frekuensi",
+      "tempoh"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 185,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Melakar dan Mentafsir Graf Gelombang",
+    "concept_title": "Graf Sesaran-Masa dan Jarak",
+    "concept_explanation": "Graf sesaran-masa menunjukkan perubahan sesaran satu zarah terhadap masa, manakala graf sesaran-jarak menunjukkan bentuk gelombang pada suatu ketika. Amplitud adalah sesaran maksimum dari kedudukan keseimbangan, tempoh adalah masa untuk satu ayunan lengkap, dan panjang gelombang adalah jarak antara dua titik yang sama fasa.",
+    "worked_example": "Lakarkan graf sesaran-masa untuk gelombang dengan amplitud 5 cm dan tempoh 0.4 s: paksi-x masa (s), paksi-y sesaran (cm); graf sinusoidal dengan puncak 5 cm dan lembah -5 cm, satu kitaran lengkap pada 0.4 s. Lakarkan graf sesaran-jarak untuk gelombang dengan amplitud 5 cm dan panjang gelombang 4 cm: paksi-x jarak (cm), paksi-y sesaran (cm); satu kitaran lengkap sepanjang 4 cm.",
+    "common_mistakes": "Pelajar sering keliru antara graf sesaran-masa dan graf sesaran-jarak, contohnya meletakkan masa pada paksi-x graf jarak atau sebaliknya.",
+    "keywords": [
+      "gelombang melintang",
+      "sesaran",
+      "amplitud",
+      "tempoh",
+      "panjang gelombang",
+      "graf sesaran-masa",
+      "graf sesaran-jarak"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 186,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "5.1.5 Menganalisis Graf Gelombang",
+    "concept_title": "Mentafsir Ciri Gelombang daripada Graf",
+    "concept_explanation": "Graf sesaran melawan masa memberikan maklumat tentang amplitud (A), tempoh (T), dan frekuensi (f = 1/T). Graf sesaran melawan jarak memberikan maklumat tentang amplitud (A) dan panjang gelombang (λ). Laju gelombang boleh dihitung menggunakan rumus v = fλ.",
+    "worked_example": "Aktiviti 5.6: Diberi graf sesaran melawan masa dengan amplitud 3 cm dan tempoh 0.25 s, serta graf sesaran melawan jarak dengan amplitud 3 cm dan panjang gelombang 8 cm. Frekuensi, f = 1/0.25 = 4 Hz. Laju gelombang, v = (4)(8) = 32 cm/s.",
+    "common_mistakes": "Pelajar sering keliru antara graf sesaran melawan masa dengan graf sesaran melawan jarak. Pada graf sesaran melawan masa, paksi-x ialah masa; pada graf sesaran melawan jarak, paksi-x ialah jarak. Pastikan unit yang betul digunakan semasa mengira frekuensi dan laju gelombang.",
+    "keywords": [
+      "amplitud",
+      "tempoh",
+      "frekuensi",
+      "panjang gelombang",
+      "laju gelombang",
+      "graf sesaran",
+      "masa",
+      "jarak"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 187,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Menentukan Panjang Gelombang, λ, Frekuensi, f dan Laju Gelombang, v",
+    "concept_title": "Tangki Riak untuk Kajian Gelombang",
+    "concept_explanation": "Tangki riak digunakan di dalam makmal untuk mengkaji gelombang air. Ia terdiri daripada takung air yang diperbuat daripada perspek atau kaca, penjana gelombang, stroboskop digital xenon, cermin, skrin kaca dan penggetar. Terdapat dua jenis penggetar: penggetar satah menghasilkan gelombang satah, manakala penggetar sfera menghasilkan gelombang membulat. Tangki riak membolehkan penentuan panjang gelombang, frekuensi dan laju gelombang.",
+    "worked_example": "",
+    "common_mistakes": "Mengelirukan penggetar satah menghasilkan gelombang membulat dan penggetar sfera menghasilkan gelombang satah.",
+    "keywords": [
+      "tangki riak",
+      "gelombang satah",
+      "gelombang membulat",
+      "penggetar satah",
+      "penggetar sfera",
+      "panjang gelombang",
+      "frekuensi",
+      "laju gelombang"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 188,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Aktiviti 5.7",
+    "concept_title": "Mengukur Sifat Gelombang Air",
+    "concept_explanation": "Melalui aktiviti ini, anda akan belajar cara menentukan panjang gelombang, frekuensi, dan laju gelombang air menggunakan tangki riak dan stroboskop digital xenon. Penggetar satah menghasilkan gelombang satah di atas permukaan air. Dengan melaraskan frekuensi stroboskop sehingga imej gelombang kelihatan pegun, anda boleh mengukur jarak antara dua jalur cerah berturutan sebagai panjang gelombang (λ). Frekuensi gelombang (f) adalah sama dengan frekuensi stroboskop yang menghasilkan imej pegun. Laju gelombang (v) kemudian dikira menggunakan formula v = fλ.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering tersalah anggap bahawa frekuensi stroboskop adalah berbeza daripada frekuensi gelombang, padahal apabila imej kelihatan pegun, frekuensi stroboskop adalah sama dengan frekuensi gelombang. Selain itu, ralat pengukuran panjang gelombang boleh berlaku jika jarak diukur dari puncak ke puncak yang tidak betul atau jika pembaris tidak diletakkan selari dengan arah perambatan gelombang.",
+    "keywords": [
+      "gelombang air",
+      "panjang gelombang",
+      "frekuensi",
+      "laju gelombang",
+      "tangkai riak",
+      "stroboskop",
+      "penggetar satah"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 189,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "5.2 Pelembapan dan Resonans",
+    "concept_title": "Pelembapan dalam Sistem Ayunan",
+    "concept_explanation": "Pelembapan berlaku apabila tenaga dalam sistem ayunan hilang disebabkan oleh daya rintangan seperti geseran udara. Akibatnya, amplitud ayunan berkurangan secara beransur-ansur sehingga sistem berhenti berayun. Sistem yang berayun tanpa daya luar akan berayun pada frekuensi asli. Aktiviti 5.8 menunjukkan kesan pelembapan dengan menggunakan bandul ringkas yang berisi gula pasir; corak gula pasir menunjukkan amplitud yang semakin mengecil.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menyangka amplitud ayunan kekal malar tanpa pelembapan, atau pelembapan menjejaskan frekuensi ayunan.",
+    "keywords": [
+      "pelembapan",
+      "amplitud",
+      "frekuensi asli",
+      "ayunan",
+      "geseran",
+      "tenaga"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 190,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Pelembapan dan Ayunan Paksa",
+    "concept_title": "Pelembapan dalam Ayunan",
+    "concept_explanation": "Pelembapan merujuk kepada pengurangan amplitud suatu sistem ayunan secara beransur-ansur akibat kehilangan tenaga. Kehilangan tenaga ini boleh berlaku melalui pelembapan luaran (daya geseran atau rintangan udara) atau pelembapan dalaman (renggangan dan mampatan zarah dalam sistem). Semasa pelembapan, frekuensi ayunan kekal malar manakala amplitud berkurang. Kesan pelembapan boleh diatasi dengan mengenakan daya luar berkala ke atas sistem, yang dikenali sebagai ayunan paksa.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menyangka bahawa frekuensi ayunan berubah semasa pelembapan berlaku. Sebenarnya, frekuensi kekal malar, hanya amplitud yang berkurang.",
+    "keywords": [
+      "pelembapan",
+      "amplitud",
+      "ayunan paksa",
+      "daya berkala",
+      "tenaga"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 191,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Resonans",
+    "concept_title": "Resonans dan Amplitud Maksimum",
+    "concept_explanation": "Resonans berlaku apabila suatu sistem ayunan dikenakan daya luar yang mempunyai frekuensi yang sama dengan frekuensi asli sistem ayunan tersebut. Semasa resonans, sistem berayun dengan frekuensi aslinya dan mencapai amplitud maksimum. Fenomena ini dapat diperhatikan melalui eksperimen seperti Kit Tala Bunyi dan bandul Barton.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menganggap resonans hanya berlaku pada sistem bunyi atau hanya untuk tala bunyi, padahal ia berlaku pada semua sistem ayunan. Juga, ada yang keliru bahawa resonans memerlukan amplitud yang sama, sedangkan syarat utamanya adalah kekerapan yang sama.",
+    "keywords": [
+      "resonans",
+      "frekuensi asli",
+      "frekuensi daya luar",
+      "amplitud",
+      "ayunan",
+      "tala bunyi",
+      "bandul Barton"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 192,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "5.2.2 Resonans",
+    "concept_title": "Resonans dan Kesannya",
+    "concept_explanation": "Resonans berlaku apabila suatu sistem berayun pada frekuensi aslinya akibat menerima tenaga daripada sumber luar yang berfrekuensi sama. Ini menyebabkan amplitud ayunan menjadi maksimum. Contohnya, bandul C berayun dengan amplitud paling besar kerana frekuensi aslinya sama dengan bandul X. Resonans dapat memindahkan tenaga dengan cekap tetapi boleh membawa kesan buruk, seperti runtuhnya Jambatan Tacoma Narrows akibat tiupan angin yang menyebabkan resonans.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menyangka resonans berlaku pada sebarang frekuensi paksaan, padahal resonans hanya terjadi apabila frekuensi paksaan sama dengan frekuensi asli sistem. Selain itu, ada yang mengelirukan resonans dengan ayunan paksaan biasa tanpa memahami syarat amplitud maksimum.",
+    "keywords": [
+      "resonans",
+      "amplitud",
+      "frekuensi asli",
+      "ayunan paksaan",
+      "tenaga",
+      "jambatan Tacoma Narrows",
+      "London Millennium Footbridge"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 193,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "5.3 Pantulan Gelombang",
+    "concept_title": "Pantulan Gelombang dan Muka Gelombang",
+    "concept_explanation": "Semua gelombang, termasuk cahaya dan bunyi, boleh dipantulkan. Fenomena pantulan gelombang boleh dikaji menggunakan tangki riak. Muka gelombang ialah garis yang menyambungkan titik-titik sefasa pada suatu gelombang, iaitu titik-titik yang berada pada jarak yang sama dari sumber getaran dan mempunyai sesaran yang sama. Contohnya, garis AB dan CD dalam Rajah 5.27 adalah muka gelombang. Apabila sinar cahaya melalui air di dalam tangki riak, satu siri jalur cerah dan gelap terbentuk di atas skrin yang menunjukkan pola gelombang.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara muka gelombang dengan arah perambatan gelombang. Muka gelombang adalah garis yang menghubungkan titik-titik sefasa dan biasanya berserenjang dengan arah perambatan gelombang.",
+    "keywords": [
+      "Pantulan gelombang",
+      "Muka gelombang",
+      "Tangki riak",
+      "Titik sefasa",
+      "Jalur cerah",
+      "Jalur gelap"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 194,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Pantulan Gelombang",
+    "concept_title": "Muka Gelombang dan Pantulan",
+    "concept_explanation": "Muka gelombang satah adalah garis lurus selari, manakala muka gelombang bulat adalah bulatan sepusat. Arah perambatan gelombang adalah serenjang dengan muka gelombang. Panjang gelombang, λ, adalah jarak antara dua muka gelombang yang berturutan. Apabila gelombang dipantulkan, sudut tuju sama dengan sudut pantulan, dan panjang gelombang serta frekuensi tidak berubah.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menyangka panjang gelombang berubah semasa pantulan, padahal ia kekal sama. Juga, arah perambatan gelombang pantulan adalah serenjang dengan muka gelombang pantulan, bukan selari.",
+    "keywords": [
+      "muka gelombang",
+      "gelombang satah",
+      "gelombang bulat",
+      "panjang gelombang",
+      "pantulan",
+      "sudut tuju",
+      "sudut pantulan",
+      "garis normal"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 195,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Pantulan Gelombang",
+    "concept_title": "Pantulan Gelombang Air Satah",
+    "concept_explanation": "Pantulan gelombang air satah hanya mengubah arah perambatan gelombang, manakala ciri-ciri lain seperti panjang gelombang, frekuensi, dan laju gelombang tidak berubah. Hukum pantulan menyatakan bahawa sudut tuju sama dengan sudut pantulan, dan garis normal digunakan sebagai rujukan. Stroboskop boleh membekukan pergerakan gelombang tuju dan pantulan pada masa yang sama jika frekuensi gelombang tersebut sama, yang membuktikan frekuensi tidak berubah.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menyangka bahawa panjang gelombang atau frekuensi berubah semasa pantulan, padahal hanya arah sahaja yang berubah. Ada juga yang keliru dengan konsep sudut tuju dan sudut pantulan, terutamanya dalam menentukan garis normal.",
+    "keywords": [
+      "pantulan gelombang",
+      "sudut tuju",
+      "sudut pantulan",
+      "panjang gelombang",
+      "frekuensi",
+      "laju gelombang",
+      "gelombang air satah"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 196,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Melukis Gambar Rajah Pantulan Gelombang Air",
+    "concept_title": "Melukis Rajah Pantulan Gelombang Air",
+    "concept_explanation": "Untuk melukis rajah pantulan gelombang air, ikuti empat langkah. Pertama, lukis anak panah AB berserenjang dengan muka gelombang tuju untuk mewakili arah perambatan gelombang tuju. Kedua, lukis garis normal BN yang serenjang dengan pemantul satah. Ketiga, lukis anak panah BC dengan keadaan sudut CBN sama dengan sudut ABN untuk mewakili arah perambatan gelombang pantulan. Keempat, lukis garis-garis berserenjang dengan BC untuk mewakili muka gelombang pantulan, dengan panjang gelombang yang sama dengan gelombang tuju. Hukum pantulan digunakan: sudut tuju sama dengan sudut pantulan.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering tersilap melukis garis normal tidak tegak lurus dengan pemantul, atau tidak memastikan sudut tuju dan sudut pantulan sama. Selain itu, ada yang menganggap panjang gelombang berubah selepas pantulan, padahal ia kekal sama.",
+    "keywords": [
+      "pantulan gelombang",
+      "muka gelombang",
+      "pemantul satah",
+      "garis normal",
+      "sudut tuju",
+      "sudut pantulan",
+      "panjang gelombang"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 197,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Aplikasi Pantulan Gelombang dalam Kehidupan Harian",
+    "concept_title": "Aplikasi Pantulan Gelombang",
+    "concept_explanation": "Pantulan gelombang diaplikasikan dalam pelbagai bidang kehidupan harian. Gelombang ultrasonik dipantulkan oleh organ dalaman atau fetus untuk pemeriksaan perubatan. Gelombang radio dari satelit dipantulkan oleh antena parabola ke hon suapan. Teknologi SONAR menggunakan pantulan ultrasonik untuk mengesan ikan di dalam air. Perbezaan corak pantulan gelombang bunyi oleh batu-batuan membantu mengenal pasti lokasi, kedalaman, dan struktur dasar laut yang mengandungi sumber gas asli.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar mungkin menganggap hanya gelombang bunyi atau cahaya yang boleh dipantulkan, sedangkan semua jenis gelombang mengalami pantulan. Selain itu, pelajar mungkin keliru antara pantulan dan pembiasan gelombang.",
+    "keywords": [
+      "pantulan gelombang",
+      "ultrasonik",
+      "SONAR",
+      "antena parabola",
+      "transduser",
+      "gelombang radio",
+      "pengimejan diagnostik"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 198,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Penyelesaian Masalah Melibatkan Pantulan Gelombang",
+    "concept_title": "Pantulan Gelombang Ulrasonik untuk Mengukur Kedalaman",
+    "concept_explanation": "Gelombang ultrasonik dipancarkan dari kapal ke dasar laut dan dipantulkan kembali. Sela masa antara penghantaran dan penerimaan semula adalah masa untuk gelombang bergerak pergi dan balik (jarak 2d). Kedalaman laut dihitung menggunakan formula d = (v × t)/2, dengan v adalah laju gelombang dalam air. Panjang gelombang pula dihitung dari formula v = fλ.",
+    "worked_example": "Contoh: Gelombang ultrasonik frekuensi 25 kHz, laju 1500 m/s, sela masa 120 ms. (a) Kedalaman: d = (1500 × 120×10⁻³)/2 = 90 m. (b) Panjang gelombang: λ = v/f = 1500/(25×10³) = 0.06 m.",
+    "common_mistakes": "Murid sering menggunakan sela masa sebagai masa satu hala dan tidak membahagi jarak dengan 2. Ingat bahawa sela masa adalah untuk perjalanan pergi dan balik, jadi kedalaman = (laju × masa)/2.",
+    "keywords": [
+      "gelombang ultrasonik",
+      "pantulan",
+      "kedalaman",
+      "panjang gelombang",
+      "frekuensi",
+      "laju",
+      "gema"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 199,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "5.4 Pembiasan Gelombang",
+    "concept_title": "Pembiasan Gelombang",
+    "concept_explanation": "Pembiasan gelombang ialah perubahan arah perambatan gelombang yang disebabkan oleh perubahan halaju gelombang apabila gelombang itu merambat dari satu medium ke medium yang lain. Laju gelombang air dipengaruhi oleh kedalaman air, laju gelombang bunyi oleh ketumpatan udara, dan laju gelombang cahaya oleh ketumpatan optik medium.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara pembiasan dan pantulan gelombang, atau menganggap frekuensi gelombang berubah semasa pembiasan (sebenarnya frekuensi tetap, panjang gelombang dan halaju berubah).",
+    "keywords": [
+      "pembiasan gelombang",
+      "gelombang satah",
+      "halaju gelombang",
+      "kedalaman air",
+      "tangki riak",
+      "muka gelombang",
+      "perubahan arah"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 200,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Pembiasan Gelombang",
+    "concept_title": "Pembiasan Gelombang Air",
+    "concept_explanation": "Apabila gelombang air merambat dari kawasan dalam ke kawasan cetek, laju gelombang berkurang dan panjang gelombang menjadi lebih pendek, tetapi frekuensi gelombang kekal sama. Gelombang akan membengkok ke arah garis normal (sudut biasan lebih kecil daripada sudut tuju). Sebaliknya, apabila gelombang merambat dari kawasan cetek ke dalam, laju dan panjang gelombang bertambah, dan gelombang membengkok menjauhi normal. Prinsip ini dikenali sebagai pembiasan gelombang.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menyangka frekuensi gelombang berubah apabila melalui sempadan antara kedalaman air berbeza. Sebenarnya, frekuensi ditentukan oleh sumber dan tidak berubah; laju dan panjang gelombang sahaja yang berubah akibat perubahan kedalaman.",
+    "keywords": [
+      "gelombang",
+      "pembiasan",
+      "panjang gelombang",
+      "frekuensi",
+      "laju gelombang",
+      "sudut tuju",
+      "sudut biasan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 201,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Pembiasan Gelombang Air Satah",
+    "concept_title": "Pembiasan Gelombang Air Satah",
+    "concept_explanation": "Pembiasan gelombang air satah berlaku apabila gelombang bergerak dari satu kawasan ke kawasan yang berlainan kedalaman. Apabila gelombang bergerak dari kawasan air dalam ke kawasan air cetek, laju gelombang dan panjang gelombang berkurang, manakala frekuensi kekal tidak berubah. Arah perambatan gelombang dibias mendekati garis normal. Sebaliknya, dari kawasan cetek ke dalam, laju dan panjang gelombang bertambah, dan arah perambatan dibias menjauhi garis normal.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru bahawa frekuensi gelombang berubah semasa pembiasan, padahal frekuensi tetap tidak berubah kerana ia ditentukan oleh sumber gelombang.",
+    "keywords": [
+      "gelombang",
+      "pembiasan",
+      "panjang gelombang",
+      "frekuensi",
+      "laju gelombang",
+      "sudut tuju",
+      "sudut biasan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 202,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Melukis Gambar Rajah Pembiasan Gelombang Air Satah",
+    "concept_title": "Pembiasan Gelombang Air Satah",
+    "concept_explanation": "Pembiasan gelombang air satah berlaku apabila gelombang bergerak dari kawasan air dalam ke kawasan air cetek. Arah perambatan gelombang akan membengkok ke arah garis normal, dan muka gelombang menjadi lebih rapat di kawasan cetek. Langkah-langkah melukis gambar rajah termasuk: lukis anak panah AB berserenjang dengan muka gelombang tuju, lukis garis normal di titik B, lukis anak panah BC lebih mendekati garis normal, dan akhirnya lukis tiga muka gelombang biasan yang lebih rapat. Jika gelombang bergerak dari cetek ke dalam, arah perambatan menjauhi garis normal.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering tersalah melukis arah pembengkokan gelombang, misalnya melukis arah menjauhi normal apabila gelombang menuju ke kawasan cetek, atau melukis jarak muka gelombang yang sama di kedua-dua kawasan.",
+    "keywords": [
+      "gelombang",
+      "pembiasan",
+      "muka gelombang",
+      "garis normal",
+      "air cetek",
+      "air dalam",
+      "arah perambatan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 203,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Pembiasan Gelombang",
+    "concept_title": "Pembiasan Gelombang Air",
+    "concept_explanation": "Pembiasan gelombang air berlaku apabila gelombang merambat dari kawasan dalam ke kawasan cetek atau sebaliknya. Di kawasan cetek, laju gelombang berkurang dan panjang gelombang menjadi lebih pendek. Jika gelombang tuju pada sudut tertentu, arah rambatan akan berubah: apabila memasuki kawasan cetek, gelombang dibiaskan ke arah garis normal; apabila memasuki kawasan dalam, gelombang dibiaskan menjauhi garis normal.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering tersalah anggap bahawa gelombang bergerak lebih laju di kawasan cetek atau membengkok menjauhi normal apabila memasuki kawasan cetek.",
+    "keywords": [
+      "gelombang air",
+      "pembiasan",
+      "kedalaman",
+      "panjang gelombang",
+      "laju gelombang",
+      "normal",
+      "sudut tuju"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 204,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Pembiasan Gelombang",
+    "concept_title": "Pembiasan Gelombang Bunyi dan Air",
+    "concept_explanation": "Pada waktu siang, udara panas berhampiran permukaan Bumi menyebabkan gelombang bunyi bergerak lebih laju dan dibiaskan menjauhi permukaan, menghasilkan bunyi yang lebih lemah. Pada waktu malam, udara sejuk berhampiran permukaan menyebabkan gelombang bunyi dibiaskan mendekati permukaan, menghasilkan bunyi yang lebih kuat. Bagi gelombang air laut, apabila menghampiri tanjung (kawasan cetek), laju berkurang dan panjang gelombang mengecil, manakala di teluk (kawasan dalam), laju lebih tinggi dan panjang gelombang lebih besar. Ini menyebabkan muka gelombang membengkok mengikut bentuk pantai, menumpukan tenaga di tanjung dengan amplitud lebih tinggi.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru bahawa bunyi bergerak lebih laju dalam udara sejuk; sebaliknya, bunyi bergerak lebih laju dalam udara panas. Mereka juga mungkin salah memahami arah pembiasan gelombang air: apabila memasuki kawasan cetek, gelombang dibiaskan mendekati garis normal, tetapi dalam konteks pantai, ini menyebabkan gelombang membengkok ke arah tanjung.",
+    "keywords": [
+      "pembiasan",
+      "gelombang bunyi",
+      "gelombang air",
+      "suhu",
+      "tanjung",
+      "teluk",
+      "panjang gelombang",
+      "amplitud"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 205,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Menyelesaikan Masalah Melibatkan Pembiasan Gelombang",
+    "concept_title": "Pembiasan Gelombang dan Perubahan Panjang Gelombang",
+    "concept_explanation": "Pembiasan gelombang disebabkan oleh perubahan laju gelombang apabila melalui medium yang berbeza, seperti perubahan kedalaman air. Laju gelombang berubah, menyebabkan panjang gelombang turut berubah, tetapi frekuensi gelombang tetap kerana ia ditentukan oleh sumber getaran. Hubungan antara laju dan panjang gelombang diberikan oleh v = fλ, dan dalam pembiasan, persamaan v₁/λ₁ = v₂/λ₂ digunakan untuk menyelesaikan masalah.",
+    "worked_example": "Contoh 1: Satu gelombang satah mempunyai panjang gelombang 2 cm dan laju 8 cm s⁻¹ merambat merentasi kawasan cetek. Apabila gelombang tersebut memasuki ke kawasan dalam, laju gelombang menjadi 12 cm s⁻¹, tentukan nilai panjang gelombang di kawasan dalam. Penyelesaian: Guna rumus v₁/λ₁ = v₂/λ₂ → 8/2 = 12/λ₂ → λ₂ = (12 × 2)/8 = 3 cm.",
+    "common_mistakes": "Pelajar sering terlupa bahawa frekuensi adalah malar semasa pembiasan, atau tersalah menggunakan rumus v = fλ tanpa memastikan f sama. Ada juga yang tersilap menggantikan nilai laju dan panjang gelombang.",
+    "keywords": [
+      "gelombang",
+      "pembiasan",
+      "panjang gelombang",
+      "laju gelombang",
+      "frekuensi",
+      "gelombang air"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 206,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "5.4 Pembiasan Gelombang",
+    "concept_title": "Pembiasan Gelombang Air",
+    "concept_explanation": "Apabila gelombang air merambat dari satu kawasan ke kawasan lain yang berbeza kedalaman, laju gelombang berubah, menyebabkan pembiasan. Frekuensi gelombang adalah malar, jadi panjang gelombang berubah secara berkadar langsung dengan laju. Hubungan ini digunakan dalam Contoh 2 untuk menghitung laju gelombang di kawasan Q.",
+    "worked_example": "Contoh 2: Rajah 5.43 menunjukkan perambatan gelombang air dari kawasan P ke Q. Laju di P = 18 cm s⁻¹, λ di P = 3 cm, λ di Q = 1.5 cm. Hitung laju di Q. Penyelesaian: v₁/λ₁ = v₂/λ₂ → 18/3 = v₂/1.5 → v₂ = (18 × 1.5)/3 = 9 cm s⁻¹.",
+    "common_mistakes": "Pelajar sering tersalah anggap bahawa frekuensi berubah apabila gelombang melalui sempadan kedalaman, sedangkan frekuensi adalah malar. Kesilapan lain ialah menggunakan formula yang salah atau terbalik dalam pengiraan.",
+    "keywords": [
+      "gelombang",
+      "pembiasan",
+      "frekuensi",
+      "panjang gelombang",
+      "laju gelombang",
+      "kedalaman",
+      "pemalar"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 207,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "5.5 Pembelauan Gelombang",
+    "concept_title": "Pembelauan Gelombang",
+    "concept_explanation": "Pembelauan gelombang ialah perambatan gelombang melalui celah atau halangan yang menyebabkan muka gelombang berubah bentuk. Contohnya, gelombang air satah melalui celah pada benteng menjadi muka gelombang membulat di kawasan B. Fenomena ini berlaku pada gelombang air, cahaya, dan bunyi.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menganggap pembelauan hanya berlaku untuk gelombang air, padahal ia juga berlaku untuk gelombang cahaya dan bunyi. Selain itu, saiz celah mestilah hampir sama dengan panjang gelombang untuk kesan pembelauan yang jelas.",
+    "keywords": [
+      "pembelauan",
+      "gelombang",
+      "muka gelombang",
+      "celah",
+      "panjang gelombang",
+      "tangki riak",
+      "difraksi"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 208,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Pembelauan Gelombang",
+    "concept_title": "Pembelauan Gelombang melalui Celah",
+    "concept_explanation": "Pembelauan gelombang berlaku apabila gelombang melalui celah atau halangan dan merebak ke kawasan belakang celah. Ciri-ciri gelombang seperti panjang gelombang, frekuensi, dan laju gelombang tidak berubah selepas melalui celah. Walau bagaimanapun, amplitud gelombang berkurang dan arah perambatan gelombang berubah, iaitu gelombang merebak. Saiz celah yang lebih kecil berbanding panjang gelombang menghasilkan pembelauan yang lebih ketara.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar mungkin menyangka bahawa panjang gelombang berubah selepas melalui celah. Sebenarnya, panjang gelombang adalah tetap kerana frekuensi dan laju gelombang tidak berubah dalam medium yang sama.",
+    "keywords": [
+      "pembelauan",
+      "gelombang",
+      "cahaya",
+      "celah",
+      "panjang gelombang",
+      "frekuensi",
+      "amplitud",
+      "arah perambatan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 209,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "5.5 Pembelauan",
+    "concept_title": "Pembelauan Gelombang",
+    "concept_explanation": "Pembelauan ialah fenomena lenturan gelombang apabila melalui celah atau halangan. Saiz celah yang lebih kecil berbanding panjang gelombang menghasilkan pembelauan yang lebih ketara. Untuk gelombang cahaya, celah sempit menghasilkan corak pembelauan yang lebih jelas pada skrin, manakala celah lebar menghasilkan imej yang lebih tajam. Bagi gelombang bunyi, walaupun pembesar suara tidak kelihatan di belakang halangan, bunyi masih boleh didengar akibat pembelauan gelombang bunyi di sekeliling halangan.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menyangka bahawa pembelauan hanya berlaku untuk gelombang cahaya, sedangkan ia berlaku untuk semua jenis gelombang termasuk bunyi. Juga, ada yang menyangka celah lebih besar menghasilkan pembelauan lebih banyak, padahal sebaliknya.",
+    "keywords": [
+      "pembelauan",
+      "gelombang bunyi",
+      "gelombang cahaya",
+      "celah tunggal",
+      "lubang jarum",
+      "frekuensi",
+      "panjang gelombang"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 210,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Pembelauan Gelombang",
+    "concept_title": "Pembelauan Gelombang",
+    "concept_explanation": "Pembelauan gelombang ialah penyebaran gelombang apabila gelombang merambat melalui suatu celah atau tepi suatu penghalang. Semasa pembelauan, panjang gelombang, frekuensi, dan laju gelombang tidak berubah. Amplitud berkurang kerana tenaga tersebar ke kawasan yang lebih luas. Arah perambatan gelombang berubah dari satu arah kepada banyak arah.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering tersilap menganggap bahawa pembelauan mengubah panjang gelombang atau frekuensi gelombang, tetapi sebenarnya kedua-duanya tidak berubah.",
+    "keywords": [
+      "pembelauan",
+      "gelombang",
+      "panjang gelombang",
+      "frekuensi",
+      "laju",
+      "amplitud",
+      "arah perambatan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 211,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Faktor-faktor yang Mempengaruhi Pembelauan Gelombang",
+    "concept_title": "Faktor yang Mempengaruhi Pembelauan",
+    "concept_explanation": "Pembelauan gelombang dipengaruhi oleh saiz celah dan panjang gelombang. Apabila saiz celah lebih besar daripada panjang gelombang, pembelauan kurang ketara. Apabila saiz celah hampir sama dengan panjang gelombang, pembelauan lebih ketara. Panjang gelombang yang lebih panjang menghasilkan pembelauan yang lebih meluas.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering tersalah anggap bahawa pembelauan hanya bergantung pada saiz celah, tanpa mengambil kira panjang gelombang. Mereka juga mungkin mengelirukan pembelauan dengan pembiasan atau gangguan.",
+    "keywords": [
+      "pembelauan",
+      "gelombang air",
+      "saiz celah",
+      "panjang gelombang",
+      "tangki riak",
+      "stroboskop"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 212,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Melukis Gambar Rajah untuk Menunjukkan Corak Pembelauan Gelombang Air",
+    "concept_title": "Corak Pembelauan Gelombang Air",
+    "concept_explanation": "Pembelauan gelombang air merujuk kepada penyebaran gelombang apabila melalui celah atau halangan. Darjah pembelauan bergantung kepada saiz celah dan panjang gelombang. Celah sempit menghasilkan pembelauan yang lebih ketara berbanding celah lebar, manakala panjang gelombang yang lebih panjang menyebabkan pembelauan yang lebih besar. Muka gelombang yang melalui celah akan melengkung dan membentuk corak pembelauan.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menyangka pembelauan hanya berlaku pada celah kecil, tetapi sebenarnya pembelauan berlaku pada semua celah; cuma darjahnya berbeza. Selain itu, pelajar mungkin keliru antara pembelauan dan pembiasan gelombang.",
+    "keywords": [
+      "pembelauan",
+      "gelombang air",
+      "celah",
+      "panjang gelombang",
+      "muka gelombang",
+      "corak pembelauan",
+      "tangki riak"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 213,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Pembelauan Gelombang dalam Kehidupan Harian",
+    "concept_title": "Faktor yang Mempengaruhi Pembelauan Gelombang",
+    "concept_explanation": "Pembelauan gelombang dipengaruhi oleh saiz celah dan panjang gelombang. Saiz celah yang lebih sempit dan panjang gelombang yang lebih panjang menghasilkan penyebaran gelombang yang lebih ketara. Contoh dalam kehidupan harian termasuk pembelauan gelombang air di pelabuhan, pembelauan cahaya pada hologram kad bank, dan gelombang infrasonik gajah untuk komunikasi jarak jauh.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menganggap pembelauan hanya bergantung pada saiz celah, tetapi panjang gelombang juga memainkan peranan penting. Mereka juga mungkin tidak menyedari bahawa gelombang bunyi dan cahaya juga mengalami pembelauan.",
+    "keywords": [
+      "pembelauan",
+      "gelombang",
+      "saiz celah",
+      "panjang gelombang",
+      "hologram",
+      "infrasonik",
+      "penyebaran gelombang"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 214,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "5.5 Pembelauan Gelombang",
+    "concept_title": "Pembelauan Gelombang",
+    "concept_explanation": "Pembelauan gelombang ialah perambatan gelombang yang melentur di sekeliling halangan atau melalui bukaan. Gelombang bunyi, cahaya, dan air semuanya boleh mengalami pembelauan. Dalam kehidupan harian, contohnya bunyi televisyen dapat didengar walaupun tidak berada dalam garis lurus dengan TV kerana gelombang bunyi membelau di sekitar pintu terbuka atau halangan.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar mungkin menyangka bahawa pembelauan hanya berlaku untuk gelombang air, atau bahawa bunyi hanya merambat secara lurus tanpa membelau. Kesilapan lain ialah menganggap pembelauan tidak bergantung pada saiz halangan atau bukaan berbanding panjang gelombang.",
+    "keywords": [
+      "pembelauan",
+      "gelombang bunyi",
+      "gelombang cahaya",
+      "gelombang air",
+      "halangan",
+      "bukaan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 215,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "5.6 Interferens Gelombang",
+    "concept_title": "Prinsip Superposisi Gelombang",
+    "concept_explanation": "Prinsip superposisi menyatakan bahawa apabila dua gelombang bertindih atau bersuperposisi, sesaran paduan pada suatu titik adalah hasil tambah sesaran individu bagi dua gelombang tersebut. Jika puncak bertemu dengan puncak atau lembangan dengan lembangan, sesaran paduan adalah maksimum (interferens membina). Jika puncak bertemu dengan lembangan, sesaran paduan adalah minimum atau sifar (interferens memusnah). Prinsip ini adalah asas kepada fenomena interferens gelombang.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering tersalah anggap bahawa interferens memusnah selalu menghasilkan sesaran sifar pada semua titik sepanjang masa, sedangkan ia hanya berlaku pada titik dan saat tertentu apabila dua gelombang bertemu.",
+    "keywords": [
+      "superposisi",
+      "interferens",
+      "gelombang",
+      "sesaran",
+      "puncak",
+      "lembangan",
+      "prinsip superposisi"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 216,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Interferens dengan Sumber Gelombang Koheren",
+    "concept_title": "Interferens Gelombang Koheren",
+    "concept_explanation": "Interferens gelombang ialah superposisi dua atau lebih gelombang daripada sumber yang koheren, iaitu mempunyai frekuensi sama dan beza fasa tetap. Interferens membina berlaku apabila dua puncak atau dua lembangan bersuperposisi, menghasilkan sesaran paduan yang lebih besar. Interferens memusnah berlaku apabila satu puncak dan satu lembangan bersuperposisi, menghasilkan sesaran paduan sifar.",
+    "worked_example": "Sesaran paduan untuk interferens membina: A + A = 2A (puncak dengan puncak) atau (–A) + (–A) = –2A (lembangan dengan lembangan). Sesaran paduan untuk interferens memusnah: A + (–A) = 0 (puncak dengan lembangan).",
+    "common_mistakes": "Pelajar sering menyangka sebarang superposisi gelombang menghasilkan interferens, tetapi interferens hanya berlaku jika sumber adalah koheren (frekuensi sama, beza fasa tetap). Selain itu, mudah keliru antara keadaan untuk interferens membina dan memusnah.",
+    "keywords": [
+      "interferens",
+      "gelombang koheren",
+      "superposisi",
+      "interferens membina",
+      "interferens memusnah",
+      "sesaran paduan",
+      "frekuensi sama",
+      "beza fasa tetap"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 217,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "5.6.1 Interferens Gelombang",
+    "concept_title": "Interferens Dua Sumber Koheren",
+    "concept_explanation": "Interferens gelombang berlaku apabila dua gelombang koheren (sama frekuensi dan fasa tetap) bertindih. Untuk gelombang air, corak interferens menunjukkan kawasan cerah (puncak bertemu puncak atau lembangan bertemu lembangan – interferens membina) dan kawasan gelap (puncak bertemu lembangan – interferens memusnah). Untuk gelombang cahaya, dwicelah menghasilkan corak jalur cerah dan gelap di atas skrin akibat superposisi gelombang cahaya koheren.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru bahawa interferens hanya berlaku untuk cahaya, padahal ia juga berlaku untuk gelombang air dan gelombang mekanik lain. Selain itu, ada yang tidak faham keperluan sumber koheren (sama frekuensi dan beza fasa tetap) untuk menghasilkan corak interferens yang stabil.",
+    "keywords": [
+      "interferens",
+      "gelombang koheren",
+      "dwicelah",
+      "tangki riak",
+      "corak interferens",
+      "jalur cerah",
+      "jalur gelap",
+      "superposisi"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 218,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Corak interferens gelombang bunyi",
+    "concept_title": "Interference Pattern of Sound Waves",
+    "concept_explanation": "Interference of sound waves occurs when two coherent sources produce overlapping waves, creating regions of constructive (loud) and destructive (soft) interference. In the experiment, two identical loudspeakers connected to an audio signal generator act as coherent sources. A microphone moved along a line between them detects varying sound intensity, displayed as amplitude changes on an oscilloscope. This pattern can also be demonstrated using two tuning forks of the same frequency rotated slowly.",
+    "worked_example": "",
+    "common_mistakes": "Students might assume interference only applies to light waves, or forget that a stable interference pattern requires coherent sources (same frequency and constant phase difference). They may also confuse the interference pattern with beats, which arise from slightly different frequencies.",
+    "keywords": [
+      "interference",
+      "sound waves",
+      "constructive interference",
+      "destructive interference",
+      "coherent sources",
+      "oscilloscope",
+      "audio generator",
+      "tuning fork"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 219,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Interferens Gelombang",
+    "concept_title": "Interferens Membina dan Memusnah",
+    "concept_explanation": "Interferens gelombang berlaku apabila dua gelombang koheren mengalami superposisi. Interferens membina (penguatan) menghasilkan amplitud yang lebih besar, manakala interferens memusnah (pelemahan) menghasilkan amplitud yang lebih kecil. Contoh interferens pada gelombang air menghasilkan kawasan cerah dan gelap, pada cahaya menghasilkan pinggir cerah dan gelap, dan pada bunyi menghasilkan bunyi kuat dan lemah.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru bahawa interferens hanya berlaku untuk cahaya, sedangkan ia juga berlaku untuk gelombang air dan bunyi. Selain itu, pelajar mungkin tersilap mengenal pasti kawasan interferens membina dan memusnah pada corak interferens.",
+    "keywords": [
+      "interferens",
+      "gelombang koheren",
+      "superposisi",
+      "interferens membina",
+      "interferens memusnah",
+      "pinggir cerah",
+      "pinggir gelap"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 220,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Melukis Corak Gelombang Interferens",
+    "concept_title": "Corak Interferens Gelombang",
+    "concept_explanation": "Interferens gelombang air, cahaya dan bunyi boleh dianalisis dengan melukis corak interferens. Titik antinod (seperti P dan Q) adalah titik di mana interferens membina berlaku, menghasilkan amplitud yang lebih besar. Titik nod (seperti R) adalah titik di mana interferens memusnah berlaku, menghasilkan amplitud sifar atau minimum. Corak interferens terdiri daripada garis antinod dan garis nod yang berselang-seli.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru bahawa antinod dan nod adalah titik tetap, padahal ia adalah garis. Mereka juga mungkin menyangka bahawa interferens membina hanya berlaku apabila dua puncak bertemu, sedangkan ia juga berlaku apabila dua lembangan bertemu.",
+    "keywords": [
+      "interferens",
+      "gelombang",
+      "antinod",
+      "nod",
+      "garis antinod",
+      "garis nod",
+      "interferens membina",
+      "interferens memusnah",
+      "sumber koheren"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 221,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Hubung Kait antara Pemboleh Ubah dalam Corak Interferens Gelombang",
+    "concept_title": "Pemboleh Ubah Interferens Gelombang",
+    "concept_explanation": "Dalam corak interferens gelombang, terdapat empat pemboleh ubah utama: panjang gelombang (λ), jarak pemisahan antara dua sumber koheren (a), jarak pemisahan antara dua garis antinod atau garis nod yang bersebelahan (x), dan jarak tegak dari sumber koheren ke kedudukan x (D). Secara amnya, x berkadar terus dengan λ dan D, serta berkadar songsang dengan a. Hubungan ini menerangkan bagaimana perubahan pada λ, a, atau D mempengaruhi corak interferens yang terhasil.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara x (jarak antara garis antinod/nod yang bersebelahan) dengan jarak dari sumber. Perlu diingat bahawa x adalah jarak antara dua garisan interferens, bukan jarak dari sumber. Selain itu, ada yang terlupa bahawa hubungan ini hanya sah untuk sudut kecil.",
+    "keywords": [
+      "interferens gelombang",
+      "panjang gelombang (λ)",
+      "jarak pemisahan sumber (a)",
+      "jarak antara garis antinod (x)",
+      "jarak tegak (D)"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 222,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Menyelesaikan Masalah yang Melibatkan Interferens Gelombang",
+    "concept_title": "Interferens Gelombang dan Rumus λ",
+    "concept_explanation": "Dalam corak interferens gelombang (air, bunyi, atau cahaya), pemboleh ubah λ (panjang gelombang), a (pemisahan celah), x (jarak antara pinggir cerah bersebelahan), dan D (jarak skrin ke celah) saling bergantung. Hubungan keempat-empat pemboleh ubah ini dirumuskan sebagai x = λD / a, yang boleh diungkap semula sebagai λ = ax / D.",
+    "worked_example": "Contoh 1: Dalam eksperimen dwicelah Young, pemisahan celah a = 0.4 mm = 0.4 × 10⁻³ m, jarak antara pinggir cerah bersebelahan x = 4.5 mm = 4.5 × 10⁻³ m, dan jarak skrin ke dwicelah D = 3.0 m. Panjang gelombang λ = ax/D = (0.4 × 10⁻³)(4.5 × 10⁻³) / 3.0 = 6.0 × 10⁻⁷ m.",
+    "common_mistakes": "Pelajar sering lupa menukarkan unit milimeter kepada meter sebelum menggunakan rumus, atau tersalah kenal pasti pemboleh ubah a dan x.",
+    "keywords": [
+      "interferens",
+      "gelombang",
+      "panjang gelombang",
+      "dwicelah Young",
+      "λ",
+      "pinggir cerah"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 223,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Aplikasi Interferens Gelombang dalam Kehidupan Harian",
+    "concept_title": "Interferens Gelombang dalam Kehidupan",
+    "concept_explanation": "Pengetahuan tentang interferens gelombang digunakan dalam pelbagai aplikasi harian. Contohnya, luan bebuli pada kapal menjana gelombang air yang berinterferens secara memusnah dengan gelombang dari haluan kapal, mengurangkan seretan air. Salutan anti-pantulan pada kanta menyebabkan cahaya terpantul berinterferens secara memusnah, menjadikan penglihatan lebih jelas. Fon kepala pembatal hingar di kapal terbang menghasilkan gelombang bunyi yang berinterferens secara memusnah dengan bunyi sekeliling yang hingar.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar mungkin keliru antara interferens membina dan memusnah. Mereka juga mungkin tidak menyedari bahawa interferens gelombang berlaku untuk semua jenis gelombang, termasuk air, cahaya, dan bunyi.",
+    "keywords": [
+      "interferens gelombang",
+      "interferens memusnah",
+      "luan bebuli",
+      "salutan anti-pantulan",
+      "pembatal hingar",
+      "gelombang air",
+      "gelombang cahaya",
+      "gelombang bunyi"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 224,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Latihan Formatif 5.6",
+    "concept_title": "Young's Double-Slit Experiment",
+    "concept_explanation": "In Young's double-slit experiment, coherent light passes through two narrow slits, producing an interference pattern of bright and dark fringes on a screen. Bright fringes occur when the path difference between the two waves is an integer multiple of the wavelength (constructive interference), while dark fringes occur when the path difference is a half-integer multiple (destructive interference). The fringe separation x, slit separation a, screen distance D, and wavelength λ are related by the equation x = λD / a.",
+    "worked_example": "Given: a = 0.30 mm = 3.0 × 10⁻⁴ m, D = 2.5 m, x = 4.6 mm = 4.6 × 10⁻³ m. Calculate wavelength. Using λ = ax / D: λ = (3.0 × 10⁻⁴)(4.6 × 10⁻³) / 2.5 = 1.38 × 10⁻⁶ / 2.5 = 5.52 × 10⁻⁷ m = 552 nm.",
+    "common_mistakes": "Students often forget to convert units (e.g., mm to m) or confuse the slit separation a with fringe spacing x. They may also incorrectly use the formula for path difference instead of the fringe separation equation.",
+    "keywords": [
+      "interference",
+      "Young's double-slit",
+      "constructive interference",
+      "destructive interference",
+      "wavelength",
+      "fringe separation",
+      "coherent light"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 225,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "5.7 Gelombang Elektromagnet",
+    "concept_title": "Ciri-Ciri Gelombang Elektromagnet",
+    "concept_explanation": "Gelombang elektromagnet terdiri daripada medan elektrik dan medan magnet yang berayun secara serenjang antara satu sama lain dan serenjang dengan arah perambatan. Gelombang ini adalah gelombang melintang yang tidak memerlukan medium untuk merambat dan boleh merambat dalam vakum dengan laju 3.0 × 10⁸ m/s. Gelombang elektromagnet mempamerkan fenomena seperti pantulan, pembiasan, pembelauan dan interferens.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering tersilap menyangka gelombang elektromagnet memerlukan medium untuk merambat, sedangkan ia boleh merambat dalam vakum. Ada juga yang keliru antara gelombang elektromagnet dengan gelombang mekanik.",
+    "keywords": [
+      "gelombang elektromagnet",
+      "medan elektrik",
+      "medan magnet",
+      "gelombang melintang",
+      "vakum",
+      "laju cahaya",
+      "pantulan",
+      "pembiasan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 226,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Spektrum Elektromagnet",
+    "concept_title": "Gelombang Elektromagnet dan Spektrum",
+    "concept_explanation": "Gelombang elektromagnet ialah gelombang melintang yang tidak memerlukan medium perambatan dan boleh merambat melalui vakum dengan laju 3.00 × 10^8 m s⁻¹. Ia menunjukkan fenomena pantulan, pembiasan, pembelauan dan interferens jika keadaannya sesuai. Tujuh jenis gelombang elektromagnet membentuk spektrum selanjar yang dikenali sebagai spektrum elektromagnet, dengan susunan daripada sinar gama (frekuensi tertinggi, panjang gelombang terpendek) hingga gelombang radio (frekuensi terendah, panjang gelombang terpanjang). Tenaga yang dibawa oleh gelombang elektromagnet berkadar terus dengan frekuensinya, menjadikan sinar gama dan sinar-X sebagai pembawa tenaga besar yang perlu diurus dengan betul.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru bahawa gelombang elektromagnet memerlukan medium untuk merambat, atau tersilap susunan spektrum elektromagnet. Ada juga yang menyangka tenaga gelombang berkadar terus dengan panjang gelombang, sedangkan ia berkadar terus dengan frekuensi.",
+    "keywords": [
+      "gelombang elektromagnet",
+      "spektrum elektromagnet",
+      "frekuensi",
+      "panjang gelombang",
+      "sinar gama",
+      "gelombang radio",
+      "cahaya nampak"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 227,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Aplikasi Spektrum Elektromagnet",
+    "concept_title": "Aplikasi Gelombang Elektromagnet",
+    "concept_explanation": "Setiap komponen dalam spektrum elektromagnet mempunyai aplikasi yang berbeza berdasarkan sifat gelombangnya seperti panjang gelombang, frekuensi, dan tenaga. Gelombang radio digunakan untuk komunikasi jarak jauh dan penyiaran, gelombang mikro untuk komunikasi satelit dan memasak, sinaran inframerah untuk pemanasan dan kawalan jauh, cahaya nampak untuk penglihatan dan fotografi, sinaran ultraungu untuk pensterilan dan pengesahan wang kertas, sinar-X untuk pengimejan perubatan dan pemeriksaan keselamatan, serta sinar gama untuk radioterapi dan pensterilan.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru tentang aplikasi khusus bagi setiap jenis gelombang, misalnya menyangka gelombang mikro digunakan untuk memasak sahaja tetapi ia juga penting dalam komunikasi satelit dan radar.",
+    "keywords": [
+      "gelombang radio",
+      "gelombang mikro",
+      "inframerah",
+      "cahaya nampak",
+      "ultraungu",
+      "sinar-X",
+      "sinar gama",
+      "spektrum elektromagnet"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 228,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "5.7 Spektrum Elektromagnet",
+    "concept_title": "Spektrum Elektromagnet: Pengenalpastian dan Pengiraan",
+    "concept_explanation": "Spektrum elektromagnet terdiri daripada pelbagai jenis gelombang yang disusun mengikut frekuensi atau panjang gelombang. Susunan frekuensi menaik adalah gelombang radio, gelombang mikro, sinaran inframerah, cahaya nampak, sinaran ultraungu, sinar-X, dan sinar gama. Apabila gelombang elektromagnet bergerak dari satu medium ke medium lain, frekuensinya kekal malar manakala laju dan panjang gelombang berubah mengikut hubungan v = fλ.",
+    "worked_example": "Soalan 3: Dalam udara, cahaya biru dengan panjang gelombang 420 nm bergerak dengan laju 3.00 × 10^8 m s⁻¹. Laju cahaya biru ini berkurang kepada 2.25 × 10^8 m s⁻¹ apabila melalui suatu medium cecair. Berapakah panjang gelombang cahaya biru itu dalam medium cecair tersebut?\n\nPenyelesaian:\nFrekuensi adalah malar: f = v/λ = (3.00 × 10^8 m s⁻¹) / (420 × 10⁻⁹ m) = 7.14 × 10^14 Hz.\nDalam medium cecair: λ = v/f = (2.25 × 10^8 m s⁻¹) / (7.14 × 10^14 Hz) = 315 × 10⁻⁹ m = 315 nm.",
+    "common_mistakes": "Pelajar sering tersalah susunan frekuensi gelombang elektromagnet atau menganggap frekuensi berubah apabila gelombang memasuki medium lain. Ingat: hanya laju dan panjang gelombang berubah, frekuensi kekal malar.",
+    "keywords": [
+      "spektrum elektromagnet",
+      "gelombang radio",
+      "sinar-X",
+      "sinar gama",
+      "gelombang mikro",
+      "inframerah",
+      "cahaya nampak",
+      "frekuensi",
+      "panjang gelombang",
+      "laju cahaya"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 229,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Interferens dan Pembelauan",
+    "concept_title": "Prinsip Superposisi dan Interferens",
+    "concept_explanation": "Prinsip superposisi menyatakan bahawa apabila dua gelombang bertemu pada satu titik, sesaran paduan pada titik itu adalah jumlah vektor sesaran individu setiap gelombang. Apabila gelombang koheren (frekuensi dan fasa sama) mengalami superposisi, interferens berlaku: interferens membina (amplitud bertambah) dan interferens memusnah (amplitud berkurang atau sifar). Fenomena ini penting dalam gelombang cahaya, bunyi, dan air, serta diaplikasikan dalam teknologi seperti kanta dan antena.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara interferens dan pembelauan. Pembelauan adalah pembelauan gelombang melalui celah atau halangan, manakala interferens adalah hasil superposisi dua atau lebih gelombang. Selain itu, ada yang menyangka interferens memusnah menghilangkan tenaga, padahal tenaga hanya diagihkan semula.",
+    "keywords": [
+      "gelombang",
+      "interferens",
+      "prinsip superposisi",
+      "pembelauan",
+      "gelombang elektromagnet",
+      "cahaya",
+      "bunyi"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 230,
+    "bab": "Bab 5: Gelombang",
+    "skip": true,
+    "reason": "Page contains end-of-chapter self-reflection and assessment questions, no new teaching content."
+  },
+  {
+    "page": 231,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Interferens Gelombang",
+    "concept_title": "Interferens Gelombang Koheren dan Dwicelah Young",
+    "concept_explanation": "Gelombang koheren bermaksud dua gelombang yang mempunyai frekuensi sama dan beza fasa malar. Superposisi dua gelombang koheren menghasilkan corak interferens yang terdiri daripada interferens membina (puncak bertemu puncak) dan interferens memusnah (puncak bertemu lembangan). Dalam eksperimen dwicelah Young, pinggir cerah terbentuk apabila beza laluan antara dua gelombang adalah nλ (0, λ, 2λ,...), manakala pinggir gelap terbentuk apabila beza laluan adalah (n+½)λ. Panjang gelombang boleh dihitung menggunakan formula λ = ax/D, dengan a = jarak antara celah, x = jarak antara pinggir cerah, D = jarak celah ke skrin.",
+    "worked_example": "Soalan 4(c): Diberi a = 0.30 mm = 0.30×10⁻³ m, D = 2.70 m, x = 4.0 mm = 4.0×10⁻³ m. Hitung λ. λ = (a x)/D = (0.30×10⁻³ × 4.0×10⁻³)/2.70 = (1.2×10⁻⁶)/2.70 = 4.44×10⁻⁷ m = 444 nm.",
+    "common_mistakes": "Pelajar sering keliru antara interferens membina dan memusnah. Ingat: membina = puncak + puncak atau lembangan + lembangan (amplitud maksimum), memusnah = puncak + lembangan (amplitud sifar). Selain itu, dalam eksperimen dwicelah Young, pastikan semua unit ditukar kepada meter (m) sebelum pengiraan panjang gelombang.",
+    "keywords": [
+      "gelombang koheren",
+      "superposisi",
+      "interferens membina",
+      "interferens memusnah",
+      "eksperimen dwicelah Young",
+      "panjang gelombang"
+    ],
+    "difficulty_level": 3
+  },
+  {
+    "page": 232,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Ciri-ciri Gelombang dan Fenomena",
+    "concept_explanation": "Halaman ini mengandungi soalan-soalan yang menguji pemahaman tentang ciri-ciri gelombang seperti amplitud, panjang gelombang, dan laju gelombang, serta fenomena pembiasan dan pelembapan. Amplitud adalah sesaran maksimum dari kedudukan keseimbangan. Panjang gelombang adalah jarak antara dua titik yang sefasa. Laju gelombang dihitung dengan v = f λ. Dalam pembiasan, frekuensi gelombang tetap tetapi laju dan panjang gelombang berubah apabila memasuki medium berbeza. Pelembapan (damping) menyebabkan amplitud ayunan berkurang secara beransur-ansur akibat kehilangan tenaga.",
+    "worked_example": "Soalan 8(b): Diberi laju gelombang di kawasan air cetek v_c = 4.0 m s⁻¹, di kawasan air dalam v_d = 9.0 m s⁻¹, dan panjang gelombang di air cetek λ_c = 2 m. Hitung panjang gelombang di air dalam λ_d. Penyelesaian: Oleh kerana frekuensi tetap, v ∝ λ, maka λ_d = (v_d / v_c) × λ_c = (9.0 / 4.0) × 2 = 4.5 m.",
+    "common_mistakes": "Keliru antara amplitud dengan panjang gelombang, misalnya menyamakan nilai yang ditanda pada rajah (0.5 cm) terus sebagai panjang gelombang tanpa mengenal pasti amplitud. Dalam pembiasan, tersalah anggap bahawa frekuensi berubah apabila gelombang memasuki medium berbeza.",
+    "keywords": [
+      "gelombang",
+      "amplitud",
+      "panjang gelombang",
+      "laju gelombang",
+      "frekuensi",
+      "pembiasan",
+      "pelembapan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 233,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Interferens Cahaya",
+    "concept_title": "Corak Interferens dan Panjang Gelombang",
+    "concept_explanation": "Corak interferens cahaya yang terhasil bergantung kepada panjang gelombang cahaya yang digunakan. Cahaya dengan panjang gelombang yang lebih panjang (seperti merah, 700 nm) menghasilkan jalur pinggir yang lebih lebar, manakala cahaya dengan panjang gelombang yang lebih pendek (seperti biru, 400 nm) menghasilkan jalur pinggir yang lebih sempit. Oleh itu, padanan corak interferens dengan warna adalah berdasarkan saiz jarak antara pinggir terang.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar mungkin menyangka bahawa panjang gelombang yang lebih panjang menghasilkan jalur pinggir yang lebih sempit, sedangkan yang sebaliknya adalah benar.",
+    "keywords": [
+      "interferens",
+      "cahaya",
+      "panjang gelombang",
+      "corak interferens",
+      "warna",
+      "jalur pinggir",
+      "pinggir terang"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 234,
+    "bab": "Bab 5: Gelombang",
+    "skip": false,
+    "subtopic": "Sudut Pengayaan",
+    "concept_title": "Aplikasi Pantulan, Pembiasan, Pembelauan",
+    "concept_explanation": "Halaman ini mengandungi dua soalan pengayaan yang mengaplikasikan konsep pantulan, pembiasan, dan pembelauan gelombang. Soalan pertama meminta cadangan reka bentuk struktur di muara sungai untuk mengurangkan ketinggian ombak menggunakan pembelauan dan pantulan gelombang. Soalan kedua meminta cadangan pemasangan sistem siar raya berdasarkan pembelauan bunyi untuk memastikan suara dapat didengar dengan jelas.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar mungkin keliru antara pembelauan dengan pembiasan. Pembelauan berlaku apabila gelombang melalui celah atau halangan, manakala pembiasan berlaku apabila gelombang merambat melalui medium berbeza.",
+    "keywords": [
+      "gelombang",
+      "pantulan",
+      "pembiasan",
+      "pembelauan",
+      "muara sungai",
+      "sistem siar raya"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 235,
+    "bab": "Bab 5: Gelombang",
+    "skip": true,
+    "reason": "This page is the chapter introduction and table of contents for Bab 6: Cahaya dan Optik, containing no teachable physics content."
+  },
+  {
+    "page": 236,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Kanta Cecair dan Pelarasan Fokus",
+    "concept_explanation": "Titisan embun pada rumput bertindak sebagai kanta pembesar cecair yang membentuk imej objek sekeliling melalui pembiasan cahaya. Saiz dan bentuk titisan mempengaruhi pembiasan. Selain itu, otot silia pada mata manusia melaraskan ketebalan kanta mata untuk mengubah panjang fokus, membolehkan objek pada pelbagai jarak dilihat dengan jelas. Konsep ini diaplikasikan dalam kanta kamera cecair telefon pintar, di mana medan elektrik digunakan untuk melaraskan panjang fokus, membolehkan satu kanta menggantikan satu set kanta dan menjimatkan ruang.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menganggap bahawa hanya kanta pepejal boleh membiaskan cahaya, sedangkan titisan cecair juga boleh berfungsi sebagai kanta. Selain itu, ada yang keliru bahawa panjang fokus kanta mata tidak boleh berubah, padahal ia dilaraskan oleh otot silia.",
+    "keywords": [
+      "pembiasan cahaya",
+      "kanta cecair",
+      "panjang fokus",
+      "otot silia",
+      "medan elektrik",
+      "kanta pembesar"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 237,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "6.1 Pembiasan Cahaya",
+    "concept_title": "Pengenalan Pembiasan Cahaya",
+    "concept_explanation": "Pembiasan cahaya ialah fenomena perubahan arah rambatan cahaya apabila cahaya merambat melalui medium yang berlainan ketumpatan optik. Perubahan arah ini disebabkan oleh perubahan halaju cahaya apabila memasuki medium yang berbeza ketumpatan optik. Ketumpatan optik tidak sama dengan ketumpatan jisim; misalnya, minyak mempunyai ketumpatan jisim lebih rendah daripada air tetapi ketumpatan optik lebih tinggi.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara ketumpatan optik dengan ketumpatan jisim. Ingat bahawa ketumpatan optik berkaitan dengan kelajuan cahaya dalam medium, bukan jisim per unit isi padu.",
+    "keywords": [
+      "pembiasan cahaya",
+      "halaju cahaya",
+      "ketumpatan optik",
+      "sinar tuju",
+      "garis normal",
+      "sinar biasan",
+      "medium"
+    ],
+    "difficulty_level": 1
+  },
+  {
+    "page": 238,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Pembiasan Cahaya",
+    "concept_title": "Pembiasan Cahaya antara Medium",
+    "concept_explanation": "Apabila cahaya merambat dari medium berketumpatan optik rendah (udara) ke medium berketumpatan optik tinggi (kaca), cahaya membengkok ke arah garis normal kerana halajunya berkurang, menyebabkan sudut biasan, r lebih kecil daripada sudut tuju, i. Sebaliknya, apabila cahaya merambat dari medium berketumpatan optik tinggi (kaca) ke medium berketumpatan optik rendah (udara), cahaya membengkok menjauhi garis normal kerana halajunya bertambah, menyebabkan sudut biasan, r lebih besar daripada sudut tuju, i.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering tersalah anggap bahawa cahaya sentiasa membengkok ke arah garis normal tanpa mengira arah rambatan, atau keliru tentang medium mana yang menghasilkan sudut biasan lebih besar. Selain itu, ada yang menyangka halaju cahaya bertambah apabila memasuki medium lebih tumpat.",
+    "keywords": [
+      "pembiasan",
+      "sudut tuju",
+      "sudut biasan",
+      "garis normal",
+      "halaju cahaya",
+      "ketumpatan optik"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 239,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Hukum Snell dan Indeks Biasaan",
+    "concept_title": "Hukum Snell dan Indeks Biasaan",
+    "concept_explanation": "Indeks biasan suatu medium menunjukkan keupayaan medium itu membengkokkan sinar cahaya. Semakin tinggi indeks biasan, semakin besar pembengkokan cahaya dan semakin tinggi ketumpatan optik. Hukum Snell menyatakan hubungan antara sudut tuju, sudut biasan, dan indeks biasan dua medium: n1 sin θ1 = n2 sin θ2. Apabila cahaya bergerak dari medium kurang tumpat (indeks biasan rendah) ke medium lebih tumpat (indeks biasan tinggi), ia dibiaskan mendekati garis normal.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara sudut tuju dan sudut biasan, dan mungkin tersalah membaca dari normal. Juga, mereka mungkin menyangka bahawa indeks biasan yang lebih tinggi bermaksud kelajuan cahaya lebih tinggi, sedangkan yang benar adalah sebaliknya.",
+    "keywords": [
+      "indeks biasan",
+      "Hukum Snell",
+      "ketumpatan optik",
+      "pembiasaan",
+      "sudut tuju",
+      "sudut biasan",
+      "normal"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 240,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Hukum Pembiasan Cahaya (Hukum Snell)",
+    "concept_title": "Hukum Snell dan Indeks Bias",
+    "concept_explanation": "Menurut hukum pembiasan cahaya (Hukum Snell), apabila cahaya merambat antara dua medium, nisbah sinus sudut tuju kepada sinus sudut biasan adalah malar dan sama dengan nisbah indeks biasan medium kedua kepada medium pertama. Secara matematik, n1 sin θ1 = n2 sin θ2, dengan n1 dan n2 masing-masing indeks biasan medium 1 dan 2, θ1 sudut tuju dalam medium 1, dan θ2 sudut biasan dalam medium 2. Apabila medium 1 adalah udara (n1=1), hukum ini menjadi n = sin i / sin r, dengan i sudut tuju dalam udara dan r sudut biasan dalam medium.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara sudut tuju dan sudut biasan, atau menganggap sudut tuju sentiasa dalam udara. Hukum Snell menggunakan indeks biasan mutlak setiap medium, bukan hanya nisbah. Juga, lupa bahawa sinar tuju, sinar biasan dan garis normal berada dalam satah yang sama.",
+    "keywords": [
+      "indeks biasan",
+      "Hukum Snell",
+      "sudut tuju",
+      "sudut biasan",
+      "pembiasan",
+      "garis normal",
+      "sinar tuju",
+      "sinar biasan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 241,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Pembiasan Cahaya",
+    "concept_title": "Eksperimen Indeks Biasan Blok Kaca",
+    "concept_explanation": "Eksperimen ini bertujuan untuk menentukan indeks biasan blok kaca dengan mengkaji hubungan antara sudut tuju, i, dan sudut biasan, r. Hipotesisnya ialah semakin bertambah sudut tuju, semakin bertambah sudut biasan. Data eksperimen digunakan untuk memplot graf sin i melawan sin r, yang kecerunannya bersamaan dengan indeks biasan blok kaca (n = sin i / sin r). Ini mengesahkan Hukum Snell tentang pembiasan cahaya.",
+    "worked_example": "",
+    "common_mistakes": "Kesilapan biasa termasuk mengukur sudut dari garis normal yang salah, tidak melukis garis luar blok kaca dengan tepat, dan menganggap indeks biasan sebagai kecerunan graf r melawan i. Pelajar perlu ingat bahawa indeks biasan ialah nisbah sin i kepada sin r, bukan sudut itu sendiri.",
+    "keywords": [
+      "pembiasan",
+      "indeks biasan",
+      "Hukum Snell",
+      "sudut tuju",
+      "sudut biasan",
+      "blok kaca",
+      "eksperimen"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 242,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Dalam Nyata dan Dalam Ketara",
+    "concept_title": "Kedalaman Nyata dan Ketara",
+    "concept_explanation": "Apabila cahaya merambat dari medium tumpat ke medium kurang tumpat, ia dibiaskan menjauhi garis normal. Kesannya, imej objek kelihatan lebih dekat dengan permukaan medium tumpat. Dalam nyata (H) ialah jarak sebenar objek dari permukaan, manakala dalam ketara (h) ialah jarak imej yang dilihat. Nisbah H/h bersamaan dengan indeks biasan medium tumpat.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru bahawa dalam ketara sentiasa lebih kecil daripada dalam nyata, tetapi mereka mungkin tidak mengaitkannya dengan indeks biasan atau sudut pandangan. Selain itu, mereka mungkin menyangka imej objek berada di tempat yang sama tanpa mengambil kira pembiasan.",
+    "keywords": [
+      "pembiasan",
+      "dalam nyata",
+      "dalam ketara",
+      "indeks biasan",
+      "imej",
+      "garis normal"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 243,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Eksperimen 6.2: Menentukan Indeks Biasan Air",
+    "concept_title": "Kedalaman Nyata dan Ketara",
+    "concept_explanation": "Apabila cahaya melalui medium berlainan seperti dari air ke udara, cahaya akan dibiaskan. Ini menyebabkan objek di dalam air kelihatan lebih cetek daripada kedalaman sebenar. Kedalaman nyata (H) adalah kedalaman sebenar, manakala kedalaman ketara (h) adalah kedalaman yang dilihat. Indeks biasan air boleh ditentukan dengan nisbah H/h. Eksperimen 6.2 menggunakan kaedah tanpa paralaks untuk mengukur kedua-dua kedalaman dan mengira indeks biasan air.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering tersalah anggap bahawa kedalaman ketara lebih besar daripada kedalaman nyata, atau terbalik dalam nisbah indeks biasan. Mereka juga mungkin keliru tentang kedudukan imej objek dalam air berbanding dengan kedudukan sebenar.",
+    "keywords": [
+      "kedalaman nyata",
+      "kedalaman ketara",
+      "indeks biasan",
+      "tanpa paralaks",
+      "pembiasan cahaya",
+      "H",
+      "h",
+      "kaedah tanpa paralaks"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 244,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Eksperimen Menentukan Indeks Biasan Air",
+    "concept_title": "Hubungan Dalam Nyata dan Dalam Ketara",
+    "concept_explanation": "Eksperimen ini menggunakan kaedah tanpa paralaks untuk menentukan indeks biasan air. Dalam nyata (H) ialah kedalaman sebenar air, manakala dalam ketara (h) ialah kedalaman yang kelihatan disebabkan pembiasan cahaya. Hubungan antara H dan h diberikan oleh indeks biasan, n = H / h. Dengan mengukur H dan h bagi beberapa kedalaman, graf H melawan h diplot dan kecerunannya memberikan nilai indeks biasan air.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara dalam nyata dan dalam ketara, atau menyangka dalam ketara lebih besar daripada dalam nyata. Kesilapan lain ialah tidak mengukur jarak dari permukaan air dengan tepat.",
+    "keywords": [
+      "dalam nyata",
+      "dalam ketara",
+      "indeks biasan",
+      "pembiasan cahaya",
+      "kaedah tanpa paralaks"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 245,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Menyelesaikan Masalah yang Berkaitan dengan Pembiasan Cahaya",
+    "concept_title": "Penyelesaian Masalah Pembiasan Cahaya",
+    "concept_explanation": "Pembiasan cahaya melibatkan perubahan arah cahaya apabila ia merambat dari satu medium ke medium lain. Hubungan antara sudut tuju (i) dan sudut bias (r) diberikan oleh Hukum Snell: n = sin i / sin r, dengan n ialah indeks biasan medium kedua relatif terhadap medium pertama. Indeks biasan juga boleh dikaitkan dengan kelajuan cahaya dalam medium melalui n = c/v. Contoh-contoh menunjukkan pengiraan sudut biasan, kelajuan cahaya dalam plastik, dan indeks biasan larutan menggunakan konsep dalam ketara.",
+    "worked_example": "Contoh 1: Sinar cahaya merambat dari udara ke plastik pada sudut 60°. Indeks biasan plastik = 1.49. (a) Sudut biasan, r: n = sin i / sin r → sin r = sin i / n = sin 60° / 1.49 → r = sin⁻¹(sin60/1.49) = 35.54°. (b) Kelajuan cahaya dalam plastik: n = c/v → v = c/n = (3.0×10⁸)/1.49 = 2.01×10⁸ ms⁻¹.\n\nContoh 2: Imej syiling di dalam larutan kelihatan pada ketinggian 2/7 daripada kedalaman sebenar larutan. Dalam ketara, h = H - (2/7)H = 5H/7. Indeks biasan larutan, n = H/h = H/(5H/7) = 7/5 = 1.4.",
+    "common_mistakes": "Kesilapan biasa termasuk terbalik menggunakan n = sin r / sin i dan bukannya n = sin i / sin r, atau terlupa bahawa n adalah indeks biasan medium kedua berbanding pertama. Dalam masalah dalam ketara, pelajar sering tersilap menganggap h = H/n dan bukannya n = H/h.",
+    "keywords": [
+      "pembiasan cahaya",
+      "indeks bias",
+      "Hukum Snell",
+      "sudut bias",
+      "halaju cahaya",
+      "dalam ketara"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 246,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "6.1 Pembiasan Cahaya",
+    "concept_title": "Hukum Snell dan Indeks Biasaan",
+    "concept_explanation": "Apabila cahaya merambat dari satu medium ke medium lain, ia mengalami pembiasan. Hukum Snell menyatakan bahawa nisbah sinus sudut tuju kepada sinus sudut biasan adalah malar dan bersamaan dengan indeks biasan relatif antara dua medium. Indeks biasan juga boleh diungkapkan sebagai n = c/v, iaitu nisbah laju cahaya dalam vakum kepada laju cahaya dalam medium. Selain itu, kedalaman ketara dapat dihitung menggunakan formula n = kedalaman sebenar / kedalaman ketara.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering tersilap mengukur sudut tuju dan sudut biasan dari permukaan normal, bukan dari permukaan medium. Juga, apabila menggunakan formula indeks biasan, mereka mungkin terlupa menggunakan nilai sudut yang betul (dalam darjah) atau tidak memastikan medium di mana cahaya berasal.",
+    "keywords": [
+      "pembiasan",
+      "Hukum Snell",
+      "indeks biasan",
+      "laju cahaya",
+      "kedalaman ketara"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 247,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "6.2 Pantulan Dalam Penuh",
+    "concept_title": "Pantulan Dalam Penuh",
+    "concept_explanation": "Pantulan dalam penuh berlaku apabila cahaya merambat dari medium berketumpatan optik tinggi ke medium berketumpatan optik rendah dengan sudut tuju melebihi sudut genting. Dalam fenomena ini, semua cahaya dipantulkan semula ke dalam medium asal tanpa sebarang biasan. Sudut genting adalah sudut tuju yang menghasilkan sudut biasan 90°.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru bahawa pantulan dalam penuh hanya boleh berlaku apabila cahaya bergerak dari medium kurang tumpat ke medium lebih tumpat, padahal ia adalah sebaliknya.",
+    "keywords": [
+      "pantulan dalam penuh",
+      "sudut genting",
+      "biasan",
+      "pantulan",
+      "ketumpatan optik",
+      "sinar tuju",
+      "sinar pantulan",
+      "sinar biasan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 248,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Pantulan Dalam Penuh dan Sudut Genting",
+    "concept_title": "Pantulan Dalam Penuh (Total Internal Reflection)",
+    "concept_explanation": "Pantulan dalam penuh berlaku apabila cahaya merambat dari medium berketumpatan optik tinggi ke medium berketumpatan optik rendah dengan sudut tuju lebih besar daripada sudut genting. Sudut genting, c, ialah sudut tuju dalam medium berketumpatan optik tinggi yang menghasilkan sudut biasan 90° dalam medium berketumpatan optik rendah. Apabila sudut tuju kurang daripada sudut genting, sinar dibias menjauhi garis normal dan sinar pantulan lemah. Apabila sudut tuju sama dengan sudut genting, sinar biasan merambat sepanjang sempadan dan sinar pantulan lebih terang. Apabila sudut tuju melebihi sudut genting, tiada sinar biasan dan cahaya dipantulkan sepenuhnya ke dalam medium asal.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering tersalah anggap bahawa pantulan dalam penuh berlaku apabila sudut tuju kurang daripada sudut genting, atau lupa bahawa fenomena ini hanya berlaku apabila cahaya bergerak dari medium tumpat optik ke medium kurang tumpat optik.",
+    "keywords": [
+      "sudut genting",
+      "pantulan dalam penuh",
+      "sudut tuju",
+      "sudut biasan",
+      "ketumpatan optik",
+      "sinar biasan",
+      "sinar pantulan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 249,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "6.2.2 Sudut Genting dan Indeks Bias",
+    "concept_title": "Hubung Kait Sudut Genting dan Indeks Bias",
+    "concept_explanation": "Hukum Snell untuk perambatan sinar cahaya dari medium tumpat optik ke medium kurang tumpat (contohnya kaca ke udara) ialah n₁ sin θ₁ = n₂ sin θ₂. Apabila sudut tuju θ₁ sama dengan sudut genting c, sudut biasan θ₂ = 90°. Dengan menggunakan n₂ = 1 (indeks biasan udara), hubungan antara sudut genting dengan indeks biasan medium pertama ialah n = 1/sin c. Semakin tinggi indeks biasan medium, semakin kecil sudut gentingnya, kerana ketumpatan optik yang lebih tinggi menyebabkan pembiasan yang lebih besar.",
+    "worked_example": "Indeks biasan intan ialah 2.42. Maka, sin c = 1/2.42 = 0.4132, c = sin⁻¹(0.4132) = 24.4°. Jadi sudut genting intan bagi sempadan intan dan udara ialah 24.4°.",
+    "common_mistakes": "Pelajar sering lupa bahawa rumus n = 1/sin c hanya sah apabila medium kedua adalah udara (n₂ = 1). Jika medium kedua bukan udara, hubungan perlu diubah suai. Selain itu, ada yang keliru antara sudut genting dan sudut biasan.",
+    "keywords": [
+      "sudut genting",
+      "indeks biasan",
+      "Hukum Snell",
+      "ketumpatan optik",
+      "sempadan",
+      "pembiasan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 250,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Fenomena Semula Jadi dan Aplikasi Pantulan Dalam Penuh dalam Kehidupan Harian",
+    "concept_title": "Pantulan Dalam Penuh: Fenomena dan Aplikasi",
+    "concept_explanation": "Pantulan dalam penuh berlaku apabila cahaya merambat dari medium tumpat ke medium kurang tumpat dengan sudut tuju lebih besar daripada sudut genting, menyebabkan semua cahaya dipantulkan semula ke dalam medium asal. Fenomena ini diaplikasikan dalam kehidupan harian seperti dalam gentian optik untuk komunikasi, prisma dalam teropong, dan lampu hiasan yang menghasilkan kesan berkilauan seperti yang ditunjukkan dalam gambar foto.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering tersalah anggap bahawa pantulan dalam penuh boleh berlaku apabila cahaya bergerak dari medium kurang tumpat ke medium tumpat. Sebenarnya, syaratnya adalah sebaliknya.",
+    "keywords": [
+      "pantulan dalam penuh",
+      "sudut genting",
+      "gentian optik",
+      "prisma",
+      "cahaya"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 251,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Pantulan Dalam Penuh dalam Air",
+    "concept_explanation": "Apabila sinar laser memasuki aliran air, ia mengalami pantulan dalam penuh berulang kali sehingga keluar dari hujung aliran air. Aliran air bertindak sebagai paip alur cahaya yang dapat membimbing cahaya walaupun aliran melengkung. Jika aliran air digantikan dengan minyak, lebih banyak pantulan dalam penuh berlaku kerana indeks biasan minyak lebih besar, menyebabkan sudut genting lebih kecil.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar mungkin menyangka pantulan dalam penuh hanya berlaku dalam pepejal seperti gentian optik, sedangkan ia juga berlaku dalam aliran cecair. Selain itu, pelajar mungkin keliru bahawa indeks biasan yang lebih besar menghasilkan sudut genting yang lebih besar, padahal sebaliknya.",
+    "keywords": [
+      "pantulan dalam penuh",
+      "aliran air",
+      "paip alur cahaya",
+      "indeks biasan",
+      "sudut genting",
+      "laser",
+      "gentian optik"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 252,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Fenomena Semula Jadi Pantulan Dalam Penuh dalam Kehidupan Harian",
+    "concept_title": "Pantulan Dalam Penuh: Pelangi dan Logamaya",
+    "concept_explanation": "Pelangi terbentuk apabila cahaya matahari melalui titisan air di udara, mengalami pembiasan, penyebaran, dan pantulan dalam penuh pada permukaan dalam titisan air. Proses ini memisahkan warna cahaya putih kepada spektrum warna yang dilihat sebagai pelangi. Logamaya pula terjadi apabila lapisan udara panas di permukaan jalan raya mempunyai ketumpatan optik lebih rendah daripada udara sejuk di atasnya, menyebabkan cahaya dibias secara beransur-ansur menjauhi garis normal sehingga mengalami pantulan dalam penuh, menghasilkan imej lopak air palsu.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menyangka lopak air pada logamaya adalah air sebenar, padahal ia adalah imej maya akibat pantulan dalam penuh. Selain itu, mereka mungkin keliru tentang urutan warna pelangi atau menganggap pelangi berlaku tanpa pantulan dalam penuh.",
+    "keywords": [
+      "pantulan dalam penuh",
+      "pelangi",
+      "logamaya",
+      "pembiasan",
+      "penyebaran",
+      "titisan air",
+      "ketumpatan optik"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 253,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Aplikasi Pantulan Dalam Penuh dalam Kehidupan Harian",
+    "concept_title": "Periskop Berprisma dan Gentian Optik",
+    "concept_explanation": "Pantulan dalam penuh digunakan dalam periskop berprisma untuk melihat objek di sebalik penghalang. Dua prisma bersudut tegak dipasang pada hujung tiub; sinar cahaya memasuki prisma secara normal dan mengalami pantulan dalam penuh pada sudut 45° (melebihi sudut genting 42°), menghasilkan imej tegak dan sama saiz. Gentian optik pula terdiri daripada teras berindeks biasan tinggi dan penyalut berindeks biasan rendah; sinar cahaya mengalami pantulan dalam penuh berturut-turut di dalam teras, membolehkan penghantaran maklumat pantas dan bebas gangguan elektrik.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar mungkin tersalah anggap bahawa imej dalam periskop adalah songsang atau terbalik secara sisi, tetapi sebenarnya imej yang terhasil adalah tegak dan sama saiz dengan objek. Kesilapan lain ialah mengabaikan syarat sudut tuju mesti melebihi sudut genting untuk pantulan dalam penuh berlaku.",
+    "keywords": [
+      "pantulan dalam penuh",
+      "prisma",
+      "gentian optik",
+      "indeks biasan",
+      "sudut genting",
+      "periskop",
+      "endoskop"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 254,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Menyelesaikan Masalah yang Melibatkan Pantulan Dalam Penuh",
+    "concept_title": "Pantulan Dalam Penuh dan Pengiraan",
+    "concept_explanation": "This page focuses on solving problems involving total internal reflection. It demonstrates how to calculate the critical angle of a prism using the formula sin c = 1/n, where n is the refractive index. It also shows the path of light through a prism when the angle of incidence exceeds the critical angle, resulting in total internal reflection. Additionally, it applies Snell's law to determine angles in an optical fiber and explains the necessity of high purity in optical fiber materials to minimize signal loss.",
+    "worked_example": "Contoh 1: Rajah 6.25 menunjukkan sinar cahaya dari udara ke prisma dengan indeks biasan 1.49. (a) Hitung sudut genting prisma. Penyelesaian: sin c = 1/n = 1/1.49, c = sin⁻¹(1/1.49) = 42.2°. (b) Lengkapkan lintasan sinar: Pada Rajah 6.26, sudut tuju 45° > sudut genting 42.2°, jadi pantulan dalam penuh berlaku pada sempadan AB dan AC, dan sinar keluar secara normal dari BC.\n\nContoh 2: Rajah 6.27 menunjukkan gentian optik. (a) Di Q, biasan mendekati normal; di R, T, U, pantulan dalam penuh; di S, biasan menjauhi normal. (b) n1 sin θ1 = n2 sin θ2 → 1 × sin 45° = 1.51 sin x → sin x = sin 45°/1.51 = 0.468. (c) Bahan mesti mempunyai ketulenan tinggi untuk mengelakkan kehilangan cahaya akibat ketakmurnian.",
+    "common_mistakes": "Students often forget that total internal reflection only occurs when light travels from a denser to a less dense medium and the angle of incidence exceeds the critical angle. They may also incorrectly apply Snell's law during total internal reflection or miscalculate the critical angle by inverting the refractive index.",
+    "keywords": [
+      "pantulan dalam penuh",
+      "sudut genting",
+      "indeks biasan",
+      "gentian optik",
+      "hukum Snell",
+      "pembiasan",
+      "prisma",
+      "ketulenan tinggi"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 255,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Latihan Formatif 6.2",
+    "concept_title": "Pantulan Dalam Penuh dan Gentian Optik",
+    "concept_explanation": "Pantulan dalam penuh berlaku apabila cahaya merambat dari medium berindeks biasan tinggi ke medium berindeks biasan rendah dengan sudut tuju melebihi sudut genting. Sudut genting (c) boleh dihitung menggunakan n = 1/sin c. Dalam gentian optik, teras berindeks biasan tinggi (n=1.80) dilapisi oleh pelapisan berindeks biasan rendah (n=1.40) untuk memastikan pantulan dalam penuh berlaku di sempadan teras-pelapisan, membolehkan penghantaran cahaya dengan kehilangan tenaga minimum. Saiz gentian yang sangat halus membolehkan lenturan mudah dan kapasiti penghantaran data yang tinggi.",
+    "worked_example": "",
+    "common_mistakes": "Kesilapan biasa: Pelajar tersalah anggap bahawa pantulan dalam penuh berlaku apabila cahaya merambat dari medium kurang tumpat ke medium lebih tumpat, atau keliru antara sudut genting dan sudut biasan. Ada juga yang lupa bahawa syarat wajib adalah sudut tuju mestilah lebih besar daripada sudut genting.",
+    "keywords": [
+      "pantulan dalam penuh",
+      "sudut genting",
+      "indeks biasan",
+      "gentian optik",
+      "teras",
+      "pelapisan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 256,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "6.3 Pembentukan Imej Oleh Kanta",
+    "concept_title": "Jenis Kanta: Cembung dan Cekung",
+    "concept_explanation": "Kanta ialah sekeping bahan lut sinar seperti kaca, perspeks atau plastik yang mempunyai dua permukaan dengan sekurang-kurangnya satu permukaan melengkung. Dua jenis utama kanta ialah kanta cembung (penumpu) yang menumpukan sinar cahaya selari ke satu titik fokus, dan kanta cekung (pencapah) yang menyerakkan sinar cahaya selari.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara kanta cembung dan kanta cekung, menyangka kedua-duanya menumpukan cahaya, sedangkan kanta cekung menyerakkan cahaya.",
+    "keywords": [
+      "kanta",
+      "kanta cembung",
+      "kanta cekung",
+      "kanta penumpu",
+      "kanta pencapah",
+      "sinar selari",
+      "titik fokus"
+    ],
+    "difficulty_level": 1
+  },
+  {
+    "page": 257,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "6.3.1",
+    "concept_title": "Kanta Cembung dan Kanta Cekung",
+    "concept_explanation": "Kanta cembung menumpukan sinar cahaya selari pada satu titik fokus nyata (F), oleh itu dikenali sebagai kanta penumpu dengan panjang fokus positif. Kanta cekung pula menyebabkan sinar cahaya selari kelihatan mencapah dari satu titik fokus maya (F), maka ia dipanggil kanta pencapah dengan panjang fokus negatif. Titik fokus kanta cembung adalah nyata kerana sinar biasan benar-benar menumpu, manakala titik fokus kanta cekung adalah maya kerana sinar biasan hanya seolah-olah mencapah dari titik itu.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara titik fokus nyata dan maya – ingat bahawa kanta cembung menghasilkan fokus nyata (sinar benar-benar bertumpu) manakala kanta cekung menghasilkan fokus maya (sinar hanya kelihatan mencapah). Juga, panjang fokus kanta cekung adalah negatif, bukan positif.",
+    "keywords": [
+      "kanta cembung",
+      "kanta cekung",
+      "titik fokus",
+      "panjang fokus",
+      "kanta penumpu",
+      "kanta pencapah",
+      "pusat optik",
+      "paksi utama"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 258,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "6.3.2 Panjang Fokus bagi Kanta Cembung",
+    "concept_title": "Panjang Fokus Kanta Cembung",
+    "concept_explanation": "Panjang fokus kanta cembung dapat dianggarkan dengan menggunakan objek jauh seperti tingkap. Cahaya dari objek jauh adalah hampir selari, menyebabkan imej terbentuk pada titik fokus kanta. Jarak dari pusat optik kanta ke skrin yang menunjukkan imej tajam adalah anggaran panjang fokus. Kaedah ini tidak sesuai untuk kanta cekung kerana ia tidak menghasilkan imej nyata dari objek jauh.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering tersalah anggap bahawa kaedah ini juga sesuai untuk kanta cekung, padahal kanta cekung tidak membentuk imej nyata dari objek jauh. Selain itu, kesilapan dalam menyelaraskan kanta dan skrin boleh menyebabkan bacaan panjang fokus tidak tepat.",
+    "keywords": [
+      "kanta cembung",
+      "panjang fokus",
+      "imej nyata",
+      "objek jauh",
+      "pusat optik",
+      "skrin putih"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 259,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Kedudukan Imej dan Ciri-ciri Imej yang Dibentuk oleh Kanta",
+    "concept_title": "Tiga Sinar Utama untuk Kanta",
+    "concept_explanation": "Kedudukan dan ciri-ciri imej yang dibentuk oleh kanta cembung dan kanta cekung dapat ditentukan dengan melukis gambar rajah sinar menggunakan tiga sinar utama. Untuk kanta cembung: (1) sinar yang menuju pusat optik merambat lurus tanpa pembiasan, (2) sinar selari dengan paksi utama akan terbias melalui titik fokus (F), dan (3) sinar yang melalui titik fokus akan terbias selari dengan paksi utama. Untuk kanta cekung: (1) sinar yang menuju pusat optik merambat lurus, (2) sinar selari dengan paksi utama akan terbias seolah-olah berasal dari titik fokus (F), dan (3) sinar yang menuju titik fokus akan terbias selari dengan paksi utama.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara kanta cembung dan kanta cekung, terutamanya arah pembiasan sinar selari: pada kanta cembung sinar dibiaskan melalui F (nyata), manakala pada kanta cekung ia dibiaskan seolah-olah dari F (maya). Juga, sinar yang melalui pusat optik sentiasa tidak dibiaskan, tetapi pelajar mungkin terlupa prinsip ini.",
+    "keywords": [
+      "kanta cembung",
+      "kanta cekung",
+      "paksi utama",
+      "titik fokus",
+      "pusat optik",
+      "sinar utama",
+      "gambar rajah sinar"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 260,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Aktiviti 6.9",
+    "concept_title": "Pembentukan Imej oleh Kanta Cembung dan Cekung",
+    "concept_explanation": "Kanta cembung membentuk imej nyata, songsang, dan diperkecil apabila jarak objek (u) lebih daripada dua kali panjang fokus (f). Apabila u = 2f, imej nyata, songsang, dan sama saiz. Apabila f < u < 2f, imej nyata, songsang, dan diperbesar. Apabila u < f, imej maya, tegak, dan diperbesar. Kanta cekung hanya membentuk imej maya, tegak, dan diperkecil untuk semua jarak objek. Aktiviti ini mengesahkan hubungan antara jarak objek, jarak imej, dan ciri-ciri imej melalui eksperimen simulasi.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering tersalah anggap bahawa kanta cekung boleh membentuk imej nyata untuk jarak objek tertentu. Sebenarnya, kanta cekung hanya membentuk imej maya.",
+    "keywords": [
+      "kanta cembung",
+      "kanta cekung",
+      "imej nyata",
+      "imej maya",
+      "panjang fokus",
+      "jarak objek",
+      "gambar rajah sinar"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 261,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "6.3.3 Pembentukan Imej oleh Kanta Cembung dan Kanta Cekung",
+    "concept_title": "Pembentukan Imej oleh Kanta Cembung",
+    "concept_explanation": "Kanta cembung membentuk imej yang berbeza bergantung pada kedudukan objek. Apabila objek pada jarak tak terhingga, imej nyata terbentuk pada titik fokus F, bersongsang dan diperkecil. Objek pada jarak lebih daripada 2F menghasilkan imej nyata antara F dan 2F, bersongsang dan diperkecil. Objek pada 2F menghasilkan imej nyata pada 2F, bersongsang dan sama saiz. Objek antara F dan 2F menghasilkan imej nyata lebih jauh daripada 2F, bersongsang dan diperbesar. Objek pada F menghasilkan imej maya pada tak terhingga, tegak dan diperbesar. Objek antara F dan pusat optik menghasilkan imej maya di sebelah objek, tegak dan diperbesar.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara imej nyata dan maya. Imej nyata boleh ditayangkan pada skrin, manakala imej maya tidak. Selain itu, kesilapan biasa adalah mencampurkan ciri imej seperti 'tegak' dan 'songsang' bagi kedudukan objek yang berbeza.",
+    "keywords": [
+      "kanta cembung",
+      "fokus",
+      "jarak fokus",
+      "imej nyata",
+      "imej maya",
+      "diperbesar",
+      "diperkecil",
+      "sama saiz"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 262,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Pembentukan Imej oleh Kanta Cekung",
+    "concept_title": "Pembentukan Imej Kanta Cekung",
+    "concept_explanation": "Kanta cekung sentiasa membentuk imej maya, tegak, dan diperkecil tanpa mengira kedudukan objek. Apabila objek berada jauh dari kanta (u > 2f) atau di antara pusat optik dengan titik fokus (u < f), imej akan terletak di antara pusat optik dengan titik fokus pada sisi yang sama dengan objek. Imej yang terhasil adalah lebih kecil daripada objek asal.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru bahawa kanta cekung boleh menghasilkan imej yang diperbesarkan seperti kanta cembung. Sebenarnya, kanta cekung hanya menghasilkan imej yang diperkecilkan.",
+    "keywords": [
+      "kanta cekung",
+      "imej maya",
+      "tegak",
+      "diperkecil",
+      "jarak fokus",
+      "pembesaran linear",
+      "pusat optik"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 263,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Pembesaran Linear",
+    "concept_title": "Pembesaran Linear Kanta",
+    "concept_explanation": "Pembesaran linear, m, ditakrifkan sebagai nisbah ketinggian imej, hᵢ, kepada ketinggian objek, hₒ. Rumusnya ialah m = hᵢ / hₒ = v / u, dengan v ialah jarak imej dan u ialah jarak objek. Pembesaran linear tidak mempunyai unit. Nilai m menentukan saiz imej: m > 1 (imej diperbesar), m = 1 (imej sama saiz), dan m < 1 (imej diperkecil).",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering menyangka pembesaran linear mempunyai unit atau mengelirukan dengan pembesaran sudut. Juga, ada yang tersilap menggunakan pembesaran linear hanya untuk kanta pembesar, padahal ia terpakai untuk semua kanta dan cermin.",
+    "keywords": [
+      "pembesaran linear",
+      "ketinggian imej",
+      "ketinggian objek",
+      "jarak imej",
+      "jarak objek",
+      "kanta cembung",
+      "imej diperbesar",
+      "imej diperkecil"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 264,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "6.4 Formula Kanta Nipis",
+    "concept_title": "Formula Kanta Nipis dan Hubungannya",
+    "concept_explanation": "Formula kanta nipis memberikan hubungan antara jarak objek (u), jarak imej (v), dan panjang fokus (f) bagi suatu kanta: 1/f = 1/u + 1/v. Formula ini membolehkan pengiraan kedudukan imej tanpa perlu melukis gambar rajah sinar. Panjang fokus adalah tetap untuk kanta yang sama, manakala u dan v berubah bergantung pada kedudukan objek.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering tersilap tanda untuk jarak imej (v) bagi kanta cekung atau imej maya. Ingat bahawa v bernilai negatif untuk imej maya. Juga, pastikan semua unit dalam sentimeter atau meter yang sama.",
+    "keywords": [
+      "kanta nipis",
+      "formula kanta",
+      "jarak objek",
+      "jarak imej",
+      "panjang fokus",
+      "kanta cembung",
+      "kanta cekung"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 265,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Eksperimen: Menentukan panjang fokus kanta cembung",
+    "concept_title": "Eksperimen menentukan panjang fokus kanta cembung",
+    "concept_explanation": "Eksperimen ini bertujuan untuk menentukan panjang fokus kanta cembung menggunakan formula kanta, iaitu 1/f = 1/u + 1/v. Dengan mengubah jarak objek, u, dan mengukur jarak imej, v, yang sepadan, data dikumpul. Graf 1/v melawan 1/u diplot, dan panjang fokus ditentukan daripada pintasan graf atau kecerunan, di mana pintasan pada paksi 1/v dan 1/u masing-masing bersamaan dengan 1/f.",
+    "worked_example": "",
+    "common_mistakes": "Tidak memastikan imej yang terbentuk pada skrin adalah tajam (fokus tepat), menyebabkan nilai v yang tidak tepat. Galat paralaks semasa mengukur jarak u dan v dengan pembaris meter juga boleh menjejaskan kejituan keputusan. Selain itu, kesilapan dalam memplot graf atau menentukan pintasan dan kecerunan boleh membawa kepada nilai panjang fokus yang salah.",
+    "keywords": [
+      "kanta cembung",
+      "panjang fokus",
+      "jarak objek",
+      "jarak imej",
+      "formula kanta",
+      "graf 1/u melawan 1/v",
+      "kecerunan",
+      "pintasan"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 266,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Menyelesaikan Masalah yang Melibatkan Formula Kanta Nipis",
+    "concept_title": "Formula Kanta Nipis & Peraturan Tanda",
+    "concept_explanation": "Formula kanta nipis, 1/f = 1/u + 1/v, menghubungkan panjang fokus (f), jarak objek (u), dan jarak imej (v). Peraturan tanda: f positif untuk kanta penumpu (cembung), negatif untuk kanta pencapah (cekung); v positif untuk imej nyata (di sebelah bertentangan objek), negatif untuk imej maya (di sebelah sama objek). Pembesaran linear, m = v/u, menunjukkan saiz relatif dan orientasi imej.",
+    "worked_example": "Contoh 1: Kanta cembung nipis dengan f = 12 cm.\n(a) u = 18 cm: 1/v = 1/12 - 1/18 = 1/36, v = +36 cm (nyata). m = 36/18 = 2. Imej nyata, songsang, diperbesar 2 kali, 36 cm dari kanta di sebelah bertentangan objek.\n(b) u = 4 cm: 1/v = 1/12 - 1/4 = -1/6, v = -6 cm (maya). m = 6/4 = 1.5. Imej maya, tegak, diperbesar 1.5 kali, 6 cm dari kanta di sebelah sama objek.",
+    "common_mistakes": "Pelajar sering keliru dengan peraturan tanda, terutamanya apabila v negatif untuk imej maya dan positif untuk imej nyata. Kesilapan dalam menentukan tanda f bagi kanta cekung juga biasa berlaku.",
+    "keywords": [
+      "kanta nipis",
+      "panjang fokus",
+      "jarak imej",
+      "jarak objek",
+      "pembesaran linear",
+      "kanta cembung",
+      "kanta cekung",
+      "imej nyata",
+      "imej maya"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 267,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "6.4 Formula Kanta Nipis",
+    "concept_title": "Contoh Pengiraan Kanta Nipis",
+    "concept_explanation": "Halaman ini menunjukkan aplikasi formula kanta nipis, 1/f = 1/u + 1/v, dengan konvensyen tanda: f positif untuk kanta cembung, negatif untuk kanta cekung; u positif untuk objek di sebelah cahaya datang; v positif untuk imej nyata (berlawanan sisi), negatif untuk imej maya (sama sisi). Pembesaran linear m = hi/ho = |v|/u. Contoh-contoh yang diberi melibatkan pengiraan kedudukan dan saiz imej untuk kanta cekung dan cembung, serta penentuan ciri-ciri imej seperti maya/nyata, tegak/terbalik, dan diperbesar/diperkecil.",
+    "worked_example": "Contoh 2: Objek setinggi 9 cm diletakkan 60 cm dari kanta cekung (f = -30 cm). Gunakan 1/v = 1/f - 1/u = 1/(-30) - 1/60 = -1/20, maka v = -20 cm (imej maya, di sebelah sama dengan objek). Pembesaran m = |v|/u = 20/60 = 1/3, maka hi = m × ho = 3 cm. Imej: maya, tegak, diperkecil.",
+    "common_mistakes": "Kesalahan biasa termasuk penggunaan tanda yang salah untuk panjang fokus (f negatif bagi kanta cekung) dan jarak imej (v negatif bagi imej maya), serta kekeliruan dalam formula apabila menukar susunan persamaan. Pelajar juga sering lupa bahawa pembesaran linear hanya mengambil magnitud jarak imej untuk imej maya.",
+    "keywords": [
+      "kanta cekung",
+      "kanta cembung",
+      "formula kanta nipis",
+      "pembesaran linear",
+      "imej maya",
+      "panjang fokus"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 268,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "6.5 Peralatan Optik",
+    "concept_title": "Penggunaan Kanta dalam Peralatan Optik",
+    "concept_explanation": "Kanta digunakan dalam pelbagai peralatan optik seperti kanta pembesar, mikroskop majmuk, dan teleskop. Peranti ini memanfaatkan sifat kanta untuk membentuk imej yang lebih besar atau lebih dekat, membantu penglihatan manusia dalam pelbagai bidang seperti sains dan astronomi. Penggunaan kanta dalam peralatan optik memberikan manfaat besar kepada kehidupan harian manusia.",
+    "worked_example": "",
+    "common_mistakes": "Salah tanggapan umum ialah semua peralatan optik hanya menggunakan kanta cembung. Sedangkan sesetengah teleskop menggunakan kanta cekung sebagai kanta mata untuk menghasilkan imej tegak.",
+    "keywords": [
+      "kanta",
+      "peralatan optik",
+      "kanta pembesar",
+      "mikroskop majmuk",
+      "teleskop"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 269,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Penggunaan Kanta dalam Peralatan Optik",
+    "concept_title": "Penggunaan Kanta dalam Alat Optik",
+    "concept_explanation": "Kanta digunakan dalam pelbagai peralatan optik seperti kanta pembesar, mikroskop, dan teleskop. Setiap alat ini menggunakan kanta untuk membentuk imej yang sesuai bagi tujuan tertentu, seperti pembesaran objek kecil atau pemerhatian objek jauh. Para profesional seperti ahli gemologi, ahli oftalmologi, ahli astronomi, ahli mikrobiologi, dan ahli geologi menggunakan alat optik ini dalam kerja mereka.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru tentang fungsi kanta dalam alat optik yang berbeza, misalnya menyangka mikroskop dan teleskop menggunakan prinsip yang sama tanpa memahami perbezaan objek yang diperhatikan.",
+    "keywords": [
+      "kanta",
+      "peralatan optik",
+      "kanta pembesar",
+      "mikroskop",
+      "teleskop",
+      "pembesaran",
+      "imej"
+    ],
+    "difficulty_level": 1
+  },
+  {
+    "page": 270,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": true,
+    "reason": "Page contains only activity instructions for designing and building optical instruments, no conceptual physics content."
+  },
+  {
+    "page": 271,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Mikroskop Majmuk",
+    "concept_title": "Mikroskop Majmuk (Compound Microscope)",
+    "concept_explanation": "Mikroskop majmuk terdiri daripada dua keping kanta cembung: kanta objek (panjang fokus fo) dan kanta mata (panjang fokus fm), dengan fo < fm. Jarak antara kedua-dua kanta adalah lebih besar daripada fo + fm. Objek diletakkan di antara fo dengan 2fo kanta objek. Kanta objek membentuk imej pertama I1 yang nyata, songsang, dan diperbesar. I1 menjadi objek untuk kanta mata yang berfungsi sebagai kanta pembesar. I1 diletakkan di antara Fm dengan pusat optik kanta mata, menghasilkan imej akhir I2 yang maya, diperbesar, dan masih songsang berbanding objek asal. Pelarasan normal dilakukan supaya I2 berada pada jarak penglihatan terdekat (25 cm) untuk kejelasan maksimum.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru tentang kanta mana yang mempunyai panjang fokus lebih pendek (kanta objek) dan mungkin menyangka imej akhir adalah tegak berbanding objek (sebenarnya songsang). Selain itu, jarak antara kanta mestilah lebih besar daripada fo + fm, bukan kurang.",
+    "keywords": [
+      "mikroskop majmuk",
+      "kanta objek",
+      "kanta mata",
+      "panjang fokus",
+      "imej pertama",
+      "imej akhir",
+      "pembesaran",
+      "songsang"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 272,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Teleskop",
+    "concept_title": "Teleskop dan Pembesarannya",
+    "concept_explanation": "Teleskop terdiri daripada dua kanta cembung: kanta objek dengan panjang fokus panjang (fo) dan kanta mata dengan panjang fokus pendek (fm). Sinar selari dari objek jauh ditumpukan pada satah fokus kanta objek untuk membentuk imej pertama (I1) yang nyata, songsang, dan diperkecil. Imej I1 menjadi objek bagi kanta mata, yang membentuk imej akhir (I2) maya, songsang, dan diperbesar. Pada pelarasan normal, jarak antara kanta objek dan kanta mata ialah fo + fm, dan imej akhir terbentuk di infiniti untuk penglihatan selesa. Pembesaran teleskop pada pelarasan normal diberikan oleh M = fo / fm.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara teleskop dan mikroskop. Dalam teleskop, imej pertama terbentuk di fokus kanta objek (bukan di antara kanta seperti mikroskop), dan pembesaran dikira dengan fo/fm, bukan berkadar dengan panjang fokus kanta mata secara langsung.",
+    "keywords": [
+      "teleskop",
+      "kanta objek",
+      "kanta mata",
+      "panjang fokus",
+      "pembesaran",
+      "pelarasan normal",
+      "imej maya"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 273,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Aplikasi Kanta Bersaiz Kecil dalam Teknologi Peralatan Optik",
+    "concept_title": "Kanta Kecil dalam Kamera dan CCTV",
+    "concept_explanation": "Kanta cembung bersaiz kecil dalam kamera telefon pintar dan CCTV membentuk imej yang nyata, songsang dan diperkecil pada sensor. Jarak minimum antara sensor dengan pusat kanta mestilah sama dengan panjang fokus kanta, yang mengehadkan ketebalan peranti seperti telefon pintar dan CCTV.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering tersalah anggap bahawa imej yang dibentuk oleh kanta kecil adalah maya dan tegak, atau bahawa sensor boleh diletakkan pada sebarang jarak dari kanta. Sebenarnya, imej adalah nyata, songsang dan diperkecil, dan jarak sensor ke kanta adalah tetap dan sama dengan panjang fokus.",
+    "keywords": [
+      "kanta cembung",
+      "imej nyata",
+      "imej songsang",
+      "imej diperkecil",
+      "panjang fokus",
+      "kamera telefon pintar",
+      "CCTV"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 274,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "6.5.3",
+    "concept_title": "Teleskop: Pembesaran dan Kecerahan Imej",
+    "concept_explanation": "Dalam teleskop, pembesaran ditentukan oleh nisbah panjang fokus kanta objek kepada kanta mata (M = fₒ / fₑ). Kecerahan imej bergantung pada diameter kanta objek: semakin besar diameter, semakin banyak cahaya terkumpul dan imej lebih cerah. Pemilihan kanta objek yang sesuai perlu mengambil kira kedua-dua faktor untuk mendapatkan imej yang besar dan terang.",
+    "worked_example": "Diberi kanta mata dengan fₑ = 7 cm. Kanta objek A: fₒ = 14 cm, diameter = 5.0 cm → M = 14/7 = 2. Kanta B: fₒ = 14 cm, diameter = 10.0 cm → M = 2. Kanta C: fₒ = 70 cm, diameter = 5.0 cm → M = 10. Kanta D: fₒ = 70 cm, diameter = 10.0 cm → M = 10. Jawapan: (2) Kanta C dan D memberikan pembesaran paling besar. (3) Kanta B dan D memberikan imej paling cerah (diameter terbesar). (4) Kanta D paling sesuai kerana memberikan pembesaran tinggi (10) dan imej cerah (diameter 10.0 cm).",
+    "common_mistakes": "Pelajar sering menganggap hanya pembesaran yang penting tanpa mengambil kira diameter kanta untuk kecerahan imej. Ada juga yang keliru bahawa diameter kanta objek mempengaruhi pembesaran secara langsung.",
+    "keywords": [
+      "teleskop",
+      "kanta objek",
+      "kanta mata",
+      "panjang fokus",
+      "pembesaran",
+      "diameter kanta",
+      "kecerahan imej"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 275,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "6.6 Pembentukan Imej oleh Cermin Sfera",
+    "concept_title": "Cermin Sfera: Cekung dan Cembung",
+    "concept_explanation": "Cermin sfera adalah sebahagian daripada sfera berongga yang terpotong. Cermin cekung memantulkan cahaya dari permukaan dalam, manakala cermin cembung memantulkan cahaya dari permukaan luar. Medan penglihatan cermin cekung lebih sempit berbanding cermin satah, manakala cermin cembung memberikan medan penglihatan yang lebih luas. Perbezaan ini menyebabkan cermin cembung sering digunakan sebagai cermin pandang belakang kenderaan.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara cermin cekung dan cembung, terutamanya tentang permukaan yang memantulkan cahaya dan kesan terhadap medan penglihatan.",
+    "keywords": [
+      "cermin sfera",
+      "cermin cekung",
+      "cermin cembung",
+      "medan penglihatan",
+      "pantulan cahaya"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 276,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "6.6.1",
+    "concept_title": "Istilah Optik Cermin Sfera",
+    "concept_explanation": "Cermin sfera terdiri daripada cermin cekung dan cermin cembung. Istilah optik penting termasuk paksi utama (garis lurus melalui pusat kelengkungan dan kutub P), pusat kelengkungan C, jejari kelengkungan r, titik fokus F (bagi cermin cekung sinar selari tertumpu, bagi cermin cembung sinar selari tercapah), jarak objek u, jarak imej v, dan panjang fokus f. Kesemua istilah ini digunakan dalam analisis pembentukan imej cermin sfera.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara cermin cekung dan cembung terutamanya untuk definisi titik fokus: cermin cekung tumpu, cermin cembung capah.",
+    "keywords": [
+      "paksi utama",
+      "pusat kelengkungan",
+      "jejari kelengkungan",
+      "titik fokus",
+      "jarak objek",
+      "jarak imej",
+      "panjang fokus",
+      "cermin cekung",
+      "cermin cembung"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 277,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Panduan Melukis Gambar Rajah Sinar Cermin Sfera",
+    "concept_title": "Panduan Gambar Rajah Sinar Cermin Sfera",
+    "concept_explanation": "Bagi cermin cekung, sinar cahaya yang melalui pusat kelengkungan C dipantulkan balik mengikut lintasan asal, manakala bagi cermin cembung, sinar yang menuju ke C dipantulkan balik mengikut lintasan asal. Sinar selari dengan paksi utama dipantulkan melalui titik fokus F untuk cermin cekung, dan seolah-olah berpunca dari F untuk cermin cembung. Sinar yang melalui atau menuju F dipantulkan selari dengan paksi utama. Hubungan antara jejari kelengkungan, r dengan panjang fokus, f ialah r = 2f.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara peraturan untuk cermin cekung dan cermin cembung, terutamanya arah sinar pantulan bagi cermin cembung yang kelihatan seolah-olah berpunca dari F, bukan melalui F sebenarnya.",
+    "keywords": [
+      "cermin cekung",
+      "cermin cembung",
+      "pusat kelengkungan",
+      "titik fokus",
+      "paksi utama",
+      "jejari kelengkungan",
+      "panjang fokus",
+      "r = 2f"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 278,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "6.6.1",
+    "concept_title": "Ray Diagrams for Mirrors",
+    "concept_explanation": "This activity guides students to draw ray diagrams to determine the position and characteristics of images formed by concave and convex mirrors for various object positions. For concave mirrors, image characteristics such as real/virtual, upright/inverted, and magnified/diminished depend on whether the object is beyond C, at C, between C and F, at F, or between F and the pole. For convex mirrors, images are always virtual, upright, and diminished regardless of object position.",
+    "worked_example": "",
+    "common_mistakes": "Students may incorrectly label F and C, or confuse the ray rules for real and virtual images. Another common mistake is assuming convex mirrors can form real images.",
+    "keywords": [
+      "cermin cekung",
+      "cermin cembung",
+      "gambar rajah sinar",
+      "pusat kelengkungan",
+      "fokus",
+      "imej maya",
+      "imej nyata"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 279,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Kedudukan imej dan ciri-ciri imej yang dibentuk oleh cermin cekung dan cermin cembung",
+    "concept_title": "Imej oleh Cermin Cekung dan Cembung",
+    "concept_explanation": "Cermin cekung membentuk imej nyata atau maya bergantung pada kedudukan objek. Objek di infiniti menghasilkan imej nyata, songsang, dan diperkecil pada fokus. Objek pada pusat kelengkungan (C) memberikan imej nyata, songsang, dan sama saiz pada C. Objek di antara F dan C menghasilkan imej nyata, songsang, dan diperbesar. Objek pada F menghasilkan imej di infiniti. Objek di antara F dan P menghasilkan imej maya, tegak, dan diperbesar. Cermin cembung sentiasa membentuk imej maya, tegak, dan diperkecil di belakang cermin.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering salah menyangka bahawa cermin cekung hanya menghasilkan imej nyata, tetapi sebenarnya ia boleh menghasilkan imej maya apabila objek diletakkan di antara fokus dan cermin. Juga, kekeliruan antara ciri imej cermin cekung dan cermin cembung adalah perkara biasa.",
+    "keywords": [
+      "cermin cekung",
+      "cermin cembung",
+      "imej nyata",
+      "imej maya",
+      "songsang",
+      "tegak",
+      "diperbesar",
+      "diperkecil"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 280,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Aplikasi Cermin Cekung dan Cermin Cembung dalam Kehidupan Harian",
+    "concept_title": "Aplikasi Cermin Cekung dan Cembung",
+    "concept_explanation": "Cermin cekung dan cermin cembung digunakan dalam pelbagai aplikasi harian. Cermin cekung menghasilkan imej yang diperbesar untuk cermin solek dan cermin pergigian, serta digunakan sebagai pemantul dalam lampu hadapan kereta untuk mengekalkan keamatan cahaya pada jarak jauh. Cermin cembung (seperti cermin bintik buta) memberikan medan pandangan yang lebih luas, membantu pemandu melihat kawasan yang tidak kelihatan secara langsung.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara sifat imej cermin cekung dan cermin cembung. Cermin cekung boleh menghasilkan imej nyata atau maya bergantung pada jarak objek, manakala cermin cembung selalu menghasilkan imej maya, tegak, dan diperkecil.",
+    "keywords": [
+      "cermin cekung",
+      "cermin cembung",
+      "imej diperbesar",
+      "medan pandangan luas",
+      "lampu hadapan kereta",
+      "cermin bintik buta",
+      "cermin solek",
+      "cermin pergigian"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 281,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Aplikasi Cermin Cembung dalam Kehidupan Harian",
+    "concept_title": "Aplikasi Cermin Cembung",
+    "concept_explanation": "Cermin cembung digunakan dalam kehidupan harian kerana ia menyediakan medan penglihatan yang luas. Contoh aplikasi termasuk cermin keselamatan di selekoh tajam, cermin pengawasan dalam bangunan, dan cermin pandang belakang kenderaan. Imej yang dihasilkan oleh cermin cembung adalah maya, tegak, dan lebih kecil daripada objek.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering tersalah anggap bahawa cermin cembung menghasilkan imej yang terbalik atau digunakan untuk pembesaran, sedangkan ia menghasilkan imej tegak yang lebih kecil dan memberikan medan penglihatan yang luas.",
+    "keywords": [
+      "cermin cembung",
+      "medan penglihatan",
+      "cermin keselamatan",
+      "cermin pandang belakang",
+      "imej maya"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 282,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Aplikasi Cermin dan Kanta dalam Kehidupan Harian",
+    "concept_title": "Aplikasi Cermin dan Kanta",
+    "concept_explanation": "Cermin cekung (konkaf) digunakan untuk menghasilkan imej maya yang lebih besar, misalnya dalam solek dan pergigian, serta sebagai pemantul dalam lampu kenderaan. Cermin cembung (konveks) memberikan medan pandangan yang luas, sesuai untuk cermin keselamatan di bangunan dan cermin pandang belakang kenderaan. Kanta cekung (divergen) digunakan dalam alat optik seperti kamera dan kanta pembesar untuk mengurangkan saiz imej, manakala kanta cembung (konvergen) digunakan dalam teleskop, mikroskop, dan televisyen untuk membesarkan imej.",
+    "worked_example": "",
+    "common_mistakes": "Pelajar sering keliru antara cermin cekung dan cembung: cermin cekung mengumpul cahaya (membentuk imej nyata atau maya), manakala cermin cembung menyerakkan cahaya. Begitu juga, kanta cekung menyerakkan cahaya (imej maya), manakala kanta cembung mengumpul cahaya (imej nyata).",
+    "keywords": [
+      "cermin cekung",
+      "cermin cembung",
+      "kanta cekung",
+      "kanta cembung",
+      "aplikasi optik",
+      "pembentukan imej",
+      "pemantul"
+    ],
+    "difficulty_level": 1
+  },
+  {
+    "page": 283,
+    "bab": "Bab 6: baik                                                  baik",
+    "skip": true,
+    "reason": "Page contains self-reflection questionnaire and assessment questions, no explanatory teaching content."
+  },
+  {
+    "page": 284,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Pembiasan Cahaya",
+    "concept_title": "Apparent Depth due to Refraction",
+    "concept_explanation": "When an object is viewed through a transparent medium like glass, the light rays bend at the interface due to refraction. For normal incidence, the apparent depth d' of an object at actual depth d in a medium of refractive index n is given by d' = d/n. The image appears closer to the observer than the actual object, and the distance between the object and its image is d - d' = d(1 - 1/n). This principle explains why objects underwater appear shallower than they are.",
+    "worked_example": "A glass block of refractive index 1.50 and thickness 30.0 cm is placed between an observer and an object P. The apparent shift is: d - d' = 30.0 cm × (1 - 1/1.50) = 30.0 × (1 - 2/3) = 30.0 × 1/3 = 10.0 cm. Thus, the distance between object P and its image is 10.0 cm.",
+    "common_mistakes": "Students often forget that the formula d' = d/n only applies for normal incidence or small angles. They may also incorrectly add the thickness to the apparent shift instead of subtracting.",
+    "keywords": [
+      "apparent depth",
+      "refractive index",
+      "refraction",
+      "normal incidence",
+      "optical thickness",
+      "Snell's law"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 285,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "",
+    "concept_title": "Pembiasan Cahaya dalam Atmosfera",
+    "concept_explanation": "Apabila cahaya dari bintang memasuki atmosfera Bumi, halajunya berubah kerana perubahan ketumpatan udara. Ini menyebabkan pembiasan, iaitu perubahan arah perambatan cahaya. Indeks biasan udara boleh dihitung menggunakan n = c/v, di mana c = 3.00 × 10^8 m/s dan v = 299 910 km/s (299 910 000 m/s). Nilai indeks biasan udara hampir kepada 1, menunjukkan udara adalah medium yang sangat renggang. Perbezaan suhu pada waktu malam menyebabkan ketumpatan udara berbeza, seterusnya mempengaruhi sudut pembiasan ∆θ. Fenomena lopak air di jalan raya pada hari panas adalah ilusi optik akibat pembiasan cahaya dari langit yang dipantulkan oleh lapisan udara panas di permukaan jalan.",
+    "worked_example": "Soalan 5(a)(i): Hitungkan indeks biasan udara. Diberi laju cahaya dalam udara v = 299 910 km/s = 299 910 000 m/s, dan laju cahaya dalam vakum c = 3.00 × 10^8 m/s. Indeks biasan udara, n = c/v = (3.00 × 10^8) / (2.9991 × 10^8) ≈ 1.0003.",
+    "common_mistakes": "Pelajar mungkin terlupa menukar unit km/s kepada m/s sebelum mengira indeks biasan, atau menyangka indeks biasan udara adalah 0 kerana udara sangat ringan.",
+    "keywords": [
+      "indeks biasan",
+      "pembiasan",
+      "atmosfera",
+      "halaju cahaya",
+      "ilusi optik",
+      "lopak air",
+      "suhu"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 286,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": true,
+    "reason": "Page contains only practice questions without explanatory content."
+  },
+  {
+    "page": 287,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Sudut Pengayaan: Kedalaman Nyata dan Ketara",
+    "concept_title": "Hubungan Dalam Nyata dan Ketara",
+    "concept_explanation": "Apabila objek di dalam air diperhatikan dari atas, ia kelihatan lebih cetek daripada kedalaman sebenarnya. Kedalaman nyata (H) adalah jarak sebenar objek dari permukaan, manakala kedalaman ketara (h) adalah jarak imej dari permukaan. Hubungan antara H dan h diberikan oleh indeks biasan cecair, n = H / h.",
+    "worked_example": "Daripada Jadual 2, nilai h untuk setiap H boleh dikira dengan h = x - z? Sebenarnya h = jarak antara imej pin B dengan permukaan cecair, dan x serta z diukur. Bagi H = 5.0 cm, x = 30.8 cm, z = 27.0 cm, maka h = z - (x - ?) atau lebih tepat: h = jarak dari imej pin B ke permukaan = (jarak cermin ke permukaan) - (jarak imej pin B ke cermin)? Data menunjukkan h = 27.0 cm? Ini mungkin bukan formula biasa. Namun, hubungan asas: n = H / h. Pelajar perlu memplot graf H melawan h untuk menentukan kecerunan dan seterusnya indeks biasan.",
+    "common_mistakes": "Pelajar sering tersalah anggap bahawa kedalaman ketara lebih besar daripada kedalaman nyata. Juga, mereka mungkin keliru dengan formula n = H/h atau n = h/H. Dalam eksperimen ini, perlu berhati-hati mengukur x dan z dengan tepat.",
+    "keywords": [
+      "kedalaman nyata",
+      "kedalaman ketara",
+      "indeks biasan",
+      "pembiasan cahaya",
+      "eksperimen"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 288,
+    "bab": "Bab 1: Pengukuran",
+    "skip": false,
+    "subtopic": "Penilaian Prestasi",
+    "concept_title": "Kuantiti Asas dan Unit S.I.",
+    "concept_explanation": "Kuantiti asas fizik adalah kuantiti yang tidak boleh ditakrifkan daripada kuantiti fizik yang lain. Terdapat tujuh kuantiti asas dalam Sistem Unit Antarabangsa (SI): panjang (meter), jisim (kilogram), masa (saat), suhu termodinamik (kelvin), arus elektrik (ampere), kuantiti jirim (mol), dan keamatan berluminositi (candela). Semua kuantiti fizik lain adalah kuantiti terbitan yang diperoleh daripada kuantiti asas.",
+    "worked_example": "Data daripada ayunan spring-pemberat: T (s) = [1.30, 1.80, 2.22, 2.55, 2.86]; T^2 (s^2) = [1.69, 3.24, 4.93, 6.50, 8.18]. Kecerunan graf T^2 melawan jisim (m) ialah 0.0817 s^2 g^{-1}.",
+    "common_mistakes": "Pelajar sering keliru antara kuantiti asas dan kuantiti terbitan, contohnya menganggap kuasa (watt) sebagai kuantiti asas.",
+    "keywords": [
+      "kuantiti asas",
+      "unit S.I.",
+      "kuantiti terbitan",
+      "panjang",
+      "jisim",
+      "masa"
+    ],
+    "difficulty_level": 1
+  },
+  {
+    "page": 289,
+    "bab": "Bab 4: Haba",
+    "skip": true,
+    "reason": "The page contains only answers to questions and brief statements without any coherent teaching content or explanation of physics concepts."
+  },
+  {
+    "page": 290,
+    "bab": "Bab 5: Gelombang                                       gelombang da",
+    "skip": true,
+    "reason": "The page consists of answers to exercises from multiple topics, not a coherent teaching unit for a specific subtopic."
+  },
+  {
+    "page": 291,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": false,
+    "subtopic": "Penilaian Prestasi",
+    "concept_title": "Total Internal Reflection in Prisms",
+    "concept_explanation": "Total internal reflection occurs when light travels from a denser medium to a less dense medium at an angle of incidence greater than the critical angle. The critical angle is defined as the angle of incidence when the angle of refraction is 90°. In a prism periscope, light enters normally to side AB, strikes side AC at 45° (greater than the critical angle of 42° for glass), and undergoes total internal reflection downward, enabling the observer to see over obstacles.",
+    "worked_example": "",
+    "common_mistakes": "Students often think total internal reflection can occur when light travels from a less dense to a denser medium, or they forget that the angle of incidence must exceed the critical angle. They may also misuse the critical angle for different materials, e.g., applying diamond's critical angle (24°) to glass (42°).",
+    "keywords": [
+      "total internal reflection",
+      "critical angle",
+      "refractive index",
+      "prism",
+      "periscope",
+      "angle of incidence"
+    ],
+    "difficulty_level": 2
+  },
+  {
+    "page": 292,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": true,
+    "reason": "Page is a glossary or list of definitions with mixed terms from multiple chapters, not a focused teaching unit for a specific subtopic."
+  },
+  {
+    "page": 293,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": true,
+    "reason": "The page is a glossary of physics terms from multiple chapters, not a coherent teaching unit."
+  },
+  {
+    "page": 294,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": true,
+    "reason": "Halaman ini mengandungi senarai rujukan/bibliografi, bukan kandungan fizik yang boleh diajar."
+  },
+  {
+    "page": 295,
+    "bab": "Bab 6: Cahaya dan Optik",
+    "skip": true,
+    "reason": "This page is an index/glossary of terms with page references, not a teaching unit with physics content."
+  }
+]
