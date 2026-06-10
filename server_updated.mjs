@@ -2,7 +2,7 @@
 import PregenLookup from './PregenLookup.mjs';
 import * as subjectEngine from './subject_access_engine.mjs';
 import * as profileEngine from './student_profile_engine.mjs';
-import { formatNovaResponse, cleanTextForTTS } from './learnova_core.mjs';
+import { formatNovaResponse, cleanTextForTTS, NOVA_ZH_SYSTEM_PROMPT } from './learnova_core.mjs';
 import cors from 'cors';
 import express from 'express';
 import { createClient } from '@supabase/supabase-js';
@@ -1252,11 +1252,15 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
     const { subject: rawSubject, topic, message, history, phase, segment, language, activeQuestion, question,
             lessonId, lessonContext } = req.body;
     const subject = normalizeSubject(rawSubject);
-    const curriculum = subject.startsWith('AL-') ? 'ALevel' : subject.startsWith('ID-') ? 'Indonesian' : 'SPM';
+    const curriculum = subject.startsWith('AL-') ? 'ALevel'
+      : subject.startsWith('ID-') ? 'Indonesian'
+      : subject.startsWith('ZH-') ? 'Mandarin'
+      : 'SPM';
     const isBm = curriculum === 'SPM' || (language === 'ms' || language === 'bm');
     const isEnglish = curriculum === 'ALevel';
     const isIndonesian = curriculum === 'Indonesian';
-    const lang = isEnglish ? 'English' : isIndonesian ? 'Bahasa Indonesia' : 'Bahasa Malaysia';
+    const isMandarin = curriculum === 'Mandarin';
+    const lang = isEnglish ? 'English' : isIndonesian ? 'Bahasa Indonesia' : isMandarin ? 'Chinese' : 'Bahasa Malaysia';
 
     // Fetch textbook context from concept_chunks
     const textbookContext = topic ? await buildTextbookContext(subject, topic) : '';
@@ -1478,6 +1482,23 @@ The student is confused. Drop everything else and do this:
       : (phaseInstructions[currentPhase] || phaseInstructions.teach);
 
     // Curriculum-aware identity
+    // Mandarin students get the full ZH prompt — return early before BM/EN/ID logic
+    if (isMandarin) {
+      const zhPrompt = NOVA_ZH_SYSTEM_PROMPT +
+        `\n\n正在教的科目：${subject || 'Mathematics'}${topic ? ` — ${topic}` : ''}`;
+      const zhMessages = await anthropic.messages.create({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 1024,
+        system: zhPrompt,
+        messages: history && history.length > 0
+          ? [...history.map(m => ({ role: m.role, content: m.content })),
+             { role: 'user', content: message }]
+          : [{ role: 'user', content: message }],
+      });
+      const zhReply = formatNovaResponse(zhMessages.content[0]?.text);
+      return res.json({ reply: zhReply, subject, topic });
+    }
+
     const novaIdentity = isEnglish
       ? `You are Nova, Learnova's personal A-Level learning assistant. You are like a brilliant senior student who genuinely enjoys helping others understand deeply â€” not just memorise. You teach with academic rigour appropriate for Cambridge A-Level, but in an encouraging, supportive way.`
       : isIndonesian
