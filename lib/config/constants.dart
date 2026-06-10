@@ -10,16 +10,6 @@ const List<Map<String, dynamic>> kSubjects = [
   {'name': 'Biologi',         'color': 0xFF10B981, 'description': 'Sel, genetik & ekosistem'},
   {'name': 'Sejarah',         'color': 0xFFEF4444, 'description': 'Sejarah Malaysia & dunia'},
 ];
-const List<Map<String, dynamic>> kZHSubjects = [
-  {'name': '数学',  'apiKey': 'ZH-Mathematics', 'color': 0xFF4A7AFA, 'description': 'SPM 数学 · 中文教学'},
-  {'name': '附加数学', 'apiKey': 'ZH-AddMaths',   'color': 0xFF6B7EFF, 'description': 'SPM 附加数学 · 中文教学'},
-  {'name': '物理',  'apiKey': 'ZH-Physics',    'color': 0xFFF59E0B, 'description': 'SPM 物理 · 中文教学'},
-  {'name': '化学',  'apiKey': 'ZH-Chemistry',  'color': 0xFF22C55E, 'description': 'SPM 化学 · 中文教学'},
-  {'name': '生物',  'apiKey': 'ZH-Biology',    'color': 0xFF10B981, 'description': 'SPM 生物 · 中文教学'},
-  {'name': '历史',  'apiKey': 'ZH-Sejarah',    'color': 0xFFEF4444, 'description': 'SPM 历史 · 中文教学'},
-  {'name': '英文',  'apiKey': 'ZH-English',    'color': 0xFF8B5CF6, 'description': 'SPM 英文 · 中文讲解'},
-  {'name': '马来文', 'apiKey': 'ZH-BahasaMalaysia', 'color': 0xFFEC4899, 'description': 'SPM 马来文 · 中文讲解'},
-];
 
 const Color kPrimary  = Color(0xFF6366F1);
 const Color kPrimary2 = Color(0xFF8B5CF6);

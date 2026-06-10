@@ -62,7 +62,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   // Step 0 = level, 1 = language, 2 = subjects, 3 = success
   int    _step      = 0;
   String? _level;
-  String  _teachingLang = 'bm'; // 'bm' | 'en' | 'zh'
+  String  _teachingLang = 'bm'; // 'bm' | 'en' | 'zh' | 'ta' | 'id'
   bool   _advancing = false;
   bool   _submitting = false;
   String _learnovaId = '';
@@ -88,21 +88,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     ('Chemistry',       false, 'Chemistry'),
     ('Biology',         false, 'Biology'),
   ];
-  static const _zhRows = [
-    ('马来文 (BM)', true,  '马来文'),
-    ('英文 (English)', true, '英文'),
-    ('数学',      false, 'ZH-Mathematics'),
-    ('附加数学',   false, 'ZH-AddMaths'),
-    ('物理',      false, 'ZH-Physics'),
-    ('化学',      false, 'ZH-Chemistry'),
-    ('生物',      false, 'ZH-Biology'),
-    ('历史',      false, 'ZH-Sejarah'),
-  ];
-
   final Set<String> _selected = {'Bahasa Malaysia', 'English'};
 
   List<(String, bool, String)> get _rows {
-    if (_teachingLang == 'zh') return _zhRows;
     if (_level == 'A-Level') return _alRows;
     return _spmRows;
   }
@@ -128,13 +116,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     _advancing = true;
     setState(() {
       _teachingLang = lang;
-      // Reset subject selection based on language
       _selected.clear();
-      if (lang == 'zh') {
-        _selected.addAll(['马来文 (BM)', '英文 (English)']);
-      } else {
-        _selected.addAll(['Bahasa Malaysia', 'English']);
-      }
+      _selected.addAll(['Bahasa Malaysia', 'English']);
     });
     await Future.delayed(const Duration(milliseconds: 300));
     if (mounted) setState(() { _step = 2; _advancing = false; });
@@ -347,19 +330,37 @@ class _LangScreen extends StatelessWidget {
           _LangOption(
             lang: 'bm', label: 'Bahasa Malaysia',
             subtitle: 'SPM — Bahasa Melayu',
-            selected: selected == 'bm', onTap: () => onTap('bm'),
+            selected: selected == 'bm', disabled: false,
+            onTap: () => onTap('bm'),
           ),
           const SizedBox(height: 12),
           _LangOption(
             lang: 'en', label: 'English',
             subtitle: 'SPM — English medium',
-            selected: selected == 'en', onTap: () => onTap('en'),
+            selected: selected == 'en', disabled: false,
+            onTap: () => onTap('en'),
           ),
           const SizedBox(height: 12),
           _LangOption(
             lang: 'zh', label: '中文 (Mandarin)',
             subtitle: 'SPM — 华文教学',
-            selected: selected == 'zh', onTap: () => onTap('zh'),
+            selected: selected == 'zh', disabled: false,
+            onTap: () => onTap('zh'),
+          ),
+          const SizedBox(height: 12),
+          _LangOption(
+            lang: 'ta', label: 'தமிழ் (Tamil)',
+            subtitle: 'SPM — Tamil medium',
+            selected: selected == 'ta', disabled: true,
+            onTap: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Tamil akan datang tidak lama lagi!'),
+                  duration: Duration(seconds: 2),
+                  backgroundColor: Color(0xFF1A1D27),
+                ),
+              );
+            },
           ),
         ]),
       ),
@@ -370,14 +371,16 @@ class _LangScreen extends StatelessWidget {
 class _LangOption extends StatelessWidget {
   final String lang, label, subtitle;
   final bool selected;
+  final bool disabled;
   final VoidCallback onTap;
   const _LangOption({
     required this.lang, required this.label, required this.subtitle,
-    required this.selected, required this.onTap,
+    required this.selected, required this.disabled, required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
+    final flag = lang == 'bm' ? 'MY' : lang == 'en' ? 'EN' : lang == 'zh' ? '中' : 'TA';
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
@@ -392,20 +395,33 @@ class _LangOption extends StatelessWidget {
         ),
         child: Row(children: [
           Text(
-            lang == 'bm' ? 'MY' : lang == 'en' ? 'EN' : '中',
+            flag,
             style: TextStyle(
-              color: selected ? _kAccent : _kMuted,
+              color: disabled ? _kMuted.withOpacity(0.4) : (selected ? _kAccent : _kMuted),
               fontSize: 18, fontWeight: FontWeight.w800, fontFamily: 'monospace'),
           ),
           const SizedBox(width: 16),
           Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(label, style: TextStyle(
-              color: selected ? _kHeading : _kOptText,
+              color: disabled ? _kOptText.withOpacity(0.4) : (selected ? _kHeading : _kOptText),
               fontSize: 15, fontWeight: FontWeight.w600)),
             const SizedBox(height: 2),
-            Text(subtitle, style: const TextStyle(color: _kMuted, fontSize: 11)),
+            Text(subtitle, style: TextStyle(
+              color: disabled ? _kMuted.withOpacity(0.4) : _kMuted,
+              fontSize: 11)),
           ])),
-          if (selected) Icon(Icons.check_circle_rounded, color: _kAccent, size: 18),
+          if (disabled)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              decoration: BoxDecoration(
+                color: _kMuted.withOpacity(0.15),
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: const Text('Akan datang',
+                style: TextStyle(color: _kMuted, fontSize: 10, fontWeight: FontWeight.w500)),
+            )
+          else if (selected)
+            Icon(Icons.check_circle_rounded, color: _kAccent, size: 18),
         ]),
       ),
     );
