@@ -38,22 +38,36 @@ A-Level:   AL-Physics, AL-Chemistry, AL-Biology,
            AL-Mathematics, AL-FurtherMaths
 Indonesian: ID-Fisika, ID-Kimia, ID-Biologi,
             ID-Matematika, ID-BahasaIndonesia
-Mandarin:  ZH-Mathematics, ZH-AddMaths, ZH-Physics, ZH-Chemistry,
-           ZH-Biology, ZH-Sejarah, ZH-English, ZH-BahasaMalaysia
-           (No content yet — infrastructure only)
-
 Flutter sends unprefixed names.
 Server normalizeSubject() converts them.
 NEVER remove normalizeSubject().
 
-Four teaching languages: bm (MY-), en (AL-), id (ID-), zh (ZH-)
+Five teaching languages: bm, en, zh, ta (soon), id
 Stored in SharedPreferences: 'teaching_language'
+Teaching language drives Nova prompt and TTS engine — NOT subject prefix.
+ZH- subject prefix REMOVED. Mandarin students use MY- subjects, Nova explains in Chinese.
+
+## Teaching Language Config (learnova_core.mjs: TEACHING_LANGUAGES)
+bm → OpenAI nova TTS, BM Nova prompt
+en → DeepInfra Kokoro af_sarah, English Nova prompt
+zh → DeepInfra Kokoro zf_xiaobei, Mandarin Nova prompt (NOVA_ZH_PROMPT)
+ta → DeepInfra Kokoro af_sarah, Tamil Nova prompt (NOVA_TA_PROMPT) — Coming Soon UI
+id → OpenAI nova TTS, Indonesian Nova prompt
+
+## Audio Pipeline (ON-DEMAND, PERMANENT CACHE)
+- Endpoint: GET /api/audio/:lessonId?lang=bm (no auth required)
+- On first request: generate via OpenAI TTS (bm/id) or DeepInfra Kokoro (en/zh)
+- Upload MP3 to cPanel: /public_html/Learnova/audio/{lessonId}_{lang}.mp3
+- Save URL to structured_lessons: audio_url (bm), audio_url_en, audio_url_zh, audio_url_ta
+- On repeat requests: return cached URL instantly (no API call)
+- Flutter lesson_screen.dart: calls /api/audio/:lessonId?lang=$_teachingLang
+  Shows "Sedang menjana audio..." during first-time generation (up to 90s timeout)
+  Falls back to /api/tts (direct stream) if /api/audio fails
+- Railway env var needed: DEEPINFRA_API_KEY (for en/zh Kokoro audio)
 
 ## TTS Configuration (NEVER CHANGE)
-Model: tts-1-hd
-Voice: nova
-Speed: 1.0
-Format: mp3
+OpenAI TTS: model tts-1, voice nova, speed 1.0, format mp3
+DeepInfra Kokoro: hexgrad/Kokoro-82M, voices af_sarah (en/ta) + zf_xiaobei (zh)
 Always strip markdown before sending to TTS.
 
 ## Nova Pedagogy Rules (NEVER CHANGE)
@@ -61,11 +75,11 @@ Always strip markdown before sending to TTS.
 2. Always end response with open question
 3. Question must require typing — never yes/no
 4. No suggested answer chips mid-session
-5. BM for MY- subjects, English for AL-,
-   Bahasa Indonesia for ID-
+5. Teaching language drives tone: bm=casual BM, en=Cambridge, id=friendly Indonesian, zh=Chinese Socratic, ta=Tamil (soon)
 6. MY- tone: casual BM like senior student
 7. AL- tone: professional Cambridge tutor
 8. ID- tone: friendly Indonesian kakak/mas
+9. ZH- subjects: REMOVED. Use MY- subjects + zh teaching_language param.
 
 ## BM Language Rules (NEVER CHANGE)
 Technical terms OK: formula, graf, atom, pH
