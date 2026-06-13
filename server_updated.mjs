@@ -1424,9 +1424,10 @@ function safeReply(text) {
 }
 
 // -- TEXTBOOK CONTEXT FETCHER -------------------------------------------
-// Returns ONE concept chunk for the current session segment (no content dump).
+// Returns { text, totalChunks, done } — one concept chunk for the current segment.
+// done=true signals topic exhausted; never wraps back to chunk 0.
 async function buildTextbookContext(subject, topic, segment = 0) {
-  if (!subject || !topic) return '';
+  if (!subject || !topic) return { text: '', totalChunks: 0, done: true };
   try {
     const topicKeyword = topic.split(' ').slice(0, 4).join(' ');
     const { data: chunks, error } = await supabase
@@ -1435,7 +1436,7 @@ async function buildTextbookContext(subject, topic, segment = 0) {
       .eq('subject', subject)
       .ilike('topic', `%${topicKeyword}%`)
       .order('difficulty_level', { ascending: true })
-      .limit(10);
+      .limit(50);
     const fmt = c =>
       `Tajuk: ${c.concept_title}\n${c.concept_explanation}${c.worked_example ? `\nContoh: ${c.worked_example}` : ''}${c.common_mistakes ? `\nKesilapan lazim: ${c.common_mistakes}` : ''}`;
     if (error || !chunks || chunks.length === 0) {
@@ -1444,14 +1445,15 @@ async function buildTextbookContext(subject, topic, segment = 0) {
         .select('concept_title, concept_explanation, worked_example, common_mistakes')
         .eq('subject', subject)
         .limit(5);
-      if (!fallback || fallback.length === 0) return '';
-      return fmt(fallback[segment % fallback.length]);
+      if (!fallback || fallback.length === 0) return { text: '', totalChunks: 0, done: true };
+      if (segment >= fallback.length) return { text: '', totalChunks: fallback.length, done: true };
+      return { text: fmt(fallback[segment]), totalChunks: fallback.length, done: false };
     }
-    // ONE chunk per turn — advance through the list as segment grows
-    return fmt(chunks[segment % chunks.length]);
+    if (segment >= chunks.length) return { text: '', totalChunks: chunks.length, done: true };
+    return { text: fmt(chunks[segment]), totalChunks: chunks.length, done: false };
   } catch (e) {
     console.error('buildTextbookContext error:', e.message);
-    return '';
+    return { text: '', totalChunks: 0, done: true };
   }
 }
 
@@ -1472,7 +1474,9 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
     const lang = isEnglish ? 'English' : isIndonesian ? 'Bahasa Indonesia' : isMandarin ? 'Chinese' : isTamil ? 'Tamil' : 'Bahasa Malaysia';
 
     // Fetch ONE concept chunk for the current segment (prevents content dump)
-    const textbookContext = topic ? await buildTextbookContext(subject, topic, parseInt(segment) || 0) : '';
+    const { text: textbookContext, totalChunks, done: topicDone } =
+      topic ? await buildTextbookContext(subject, topic, parseInt(segment) || 0)
+            : { text: '', totalChunks: 0, done: false };
 
     const isBmSubject = subject === 'MY-BahasaMalaysia' || subject === 'Bahasa Malaysia' || subject === 'Bahasa Melayu' ||
       !!(topic && (topic.includes('Bahasa Malaysia') || topic.includes('Bahasa Melayu')));
@@ -1624,8 +1628,8 @@ The student has just responded. Assess their understanding:
 
 IF STUDENT ANSWERED CORRECTLY:
 - Praise in ONE sentence (genuine, not hollow)
-- If segment < 3: introduce the NEXT concept â†' set "phase": "teach"
-- If segment >= 3: move to exam practice â†' set "phase": "quiz_setup"
+- If segment < ${totalChunks - 1}: introduce the NEXT concept â†' set "phase": "teach"
+- If segment >= ${totalChunks - 1}: move to exam practice â†' set "phase": "quiz_setup"
 
 IF STUDENT ANSWERED WRONGLY OR IS CONFUSED:
 - DO NOT give the answer yet
