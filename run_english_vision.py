@@ -1,9 +1,9 @@
-import os
 """
 Vision-based processor for scanned English PDF (MY-English form 4-2.pdf).
 Uses Claude vision API to OCR + structure each page in one pass.
 Saves backup to MY-English_reprocess_results.json as requested.
 """
+import os
 import fitz
 import json
 import requests
@@ -12,8 +12,8 @@ import time
 import re
 
 CLAUDE_API_KEY = os.environ["ANTHROPIC_API_KEY"]
-SUPABASE_URL   = 'https://nxvbpanozswheackgwni.supabase.co'
-SUPABASE_KEY = os.environ["SUPABASE_SERVICE_KEY"]
+SUPABASE_URL   = os.environ["SUPABASE_URL"]
+SUPABASE_KEY   = os.environ["SUPABASE_SERVICE_KEY"]
 CLAUDE_MODEL   = 'claude-haiku-4-5-20251001'
 
 SYSTEM_PROMPT = """You are a Malaysian SPM English Language curriculum specialist and OCR expert.
