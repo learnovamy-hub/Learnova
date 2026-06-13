@@ -35,10 +35,12 @@ class _LessonScreenState extends State<LessonScreen>
 
   // â”€â”€ Tab state (0=Baca, 1=Dengar; Nova tab always navigates) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   int _tabIndex = 0;
+  String _teachingLang = 'bm';
 
   // â”€â”€ Dengar / TTS state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   bool _ttsLoading = false;
   bool _ttsPlaying = false;
+  bool _audioGenerating = false;
   html.AudioElement? _audioEl;
   String? _audioUrl;
   double _audioPosition = 0;
@@ -126,6 +128,7 @@ class _LessonScreenState extends State<LessonScreen>
     final prefs = await SharedPreferences.getInstance();
     _token = prefs.getString('token') ?? '';
     _studentId = prefs.getString('student_id') ?? '';
+    _teachingLang = prefs.getString('teaching_language') ?? 'bm';
 
     try {
       final r = await http.get(
@@ -272,47 +275,56 @@ class _LessonScreenState extends State<LessonScreen>
 
   Future<void> _loadAudio() async {
     if (_ttsLoading || _lesson == null) return;
-    setState(() { _ttsLoading = true; });
+    setState(() { _ttsLoading = true; _audioGenerating = false; });
 
     try {
-      // Use pre-generated audio from cPanel if available (free, instant)
-      final pregenUrl = _lesson!['audio_url'] as String?;
-      if (pregenUrl != null && pregenUrl.isNotEmpty) {
-        _disposeAudio(keepState: true);
-        _audioUrl = pregenUrl;
-        _audioEl  = html.AudioElement(pregenUrl);
-        _audioEl!.preload = 'auto';
+      // Request audio from server — generates on first call, serves cache on repeat
+      setState(() => _audioGenerating = true);
+      final audioResp = await http.get(
+        Uri.parse('$kApiUrl/api/audio/${widget.lessonId}?lang=$_teachingLang'),
+        // no auth header needed — public endpoint
+      ).timeout(const Duration(seconds: 90));
+      if (mounted) setState(() => _audioGenerating = false);
 
-        _timeSub = _audioEl!.onTimeUpdate.listen((_) {
-          if (mounted) setState(() {
-            _audioPosition = (_audioEl?.currentTime ?? 0).toDouble();
-            final dur = _audioEl?.duration;
-            _audioDuration = (dur != null && dur.isFinite ? dur : 0).toDouble();
+      if (!mounted) return;
+
+      if (audioResp.statusCode == 200) {
+        final d = jsonDecode(audioResp.body) as Map<String, dynamic>;
+        final url = d['url'] as String?;
+        if (url != null && url.isNotEmpty) {
+          _disposeAudio(keepState: true);
+          _audioUrl = url;
+          _audioEl  = html.AudioElement(url);
+          _audioEl!.preload = 'auto';
+
+          _timeSub = _audioEl!.onTimeUpdate.listen((_) {
+            if (mounted) setState(() {
+              _audioPosition = (_audioEl?.currentTime ?? 0).toDouble();
+              final dur = _audioEl?.duration;
+              _audioDuration = (dur != null && dur.isFinite ? dur : 0).toDouble();
+            });
           });
-        });
-        _endSub = _audioEl!.onEnded.listen((_) {
-          _pulseCtrl.stop();
-          if (mounted) setState(() { _ttsPlaying = false; _audioPosition = 0; });
-        });
+          _endSub = _audioEl!.onEnded.listen((_) {
+            _pulseCtrl.stop();
+            if (mounted) setState(() { _ttsPlaying = false; _audioPosition = 0; });
+          });
 
-        await _audioEl!.play();
-        _pulseCtrl.repeat(reverse: true);
-        if (mounted) setState(() { _ttsLoading = false; _ttsPlaying = true; });
-        return;
+          await _audioEl!.play();
+          _pulseCtrl.repeat(reverse: true);
+          if (mounted) setState(() { _ttsLoading = false; _ttsPlaying = true; });
+          return;
+        }
       }
 
-      // Fall back to OpenAI TTS API
-      final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('token') ?? '';
+      // Fallback: direct OpenAI TTS (if /api/audio fails)
       final text = _cleanForTts(_buildListenText());
-
       final resp = await http.post(
         Uri.parse('$kApiUrl/api/tts'),
         headers: {
           'Content-Type': 'application/json',
-          if (token.isNotEmpty) 'Authorization': 'Bearer $token',
+          if (_token.isNotEmpty) 'Authorization': 'Bearer $_token',
         },
-        body: jsonEncode({'text': text, 'voice': 'nova', 'language': 'bm'}),
+        body: jsonEncode({'text': text, 'voice': 'nova', 'language': _teachingLang}),
       ).timeout(const Duration(seconds: 60));
 
       if (!mounted) return;
@@ -331,7 +343,6 @@ class _LessonScreenState extends State<LessonScreen>
             _audioDuration = (dur != null && dur.isFinite ? dur : 0).toDouble();
           });
         });
-
         _endSub = _audioEl!.onEnded.listen((_) {
           if (_audioUrl != null) html.Url.revokeObjectUrl(_audioUrl!);
           _audioUrl = null;
@@ -346,7 +357,7 @@ class _LessonScreenState extends State<LessonScreen>
         if (mounted) setState(() { _ttsLoading = false; });
       }
     } catch (_) {
-      if (mounted) setState(() { _ttsLoading = false; _ttsPlaying = false; });
+      if (mounted) setState(() { _ttsLoading = false; _ttsPlaying = false; _audioGenerating = false; });
     }
   }
 
@@ -817,9 +828,9 @@ class _LessonScreenState extends State<LessonScreen>
                 child: CircularProgressIndicator(color: kPrimary, strokeWidth: 2),
               ),
               const SizedBox(height: 14),
-              const Text(
-                'Sedang memuatkan...',
-                style: TextStyle(color: kMuted, fontSize: 13),
+              Text(
+                _audioGenerating ? 'Sedang menjana audio...' : 'Sedang memuatkan...',
+                style: const TextStyle(color: kMuted, fontSize: 13),
               ),
             ] else ...[
 
