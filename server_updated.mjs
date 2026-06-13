@@ -16,12 +16,8 @@ const app = express();
 app.set('trust proxy', 1); // Railway runs behind a proxy — needed for express-rate-limit
 const PORT = process.env.PORT || 3000;
 
-const allowedOrigins = [
+const allowedBaseDomains = [
   'https://learnova.optimus.com.my',
-  'http://localhost:3000',
-  'http://localhost:8080',
-  'http://localhost:53782',
-  'http://localhost:53783',
 ];
 
 app.use(cors({
@@ -30,7 +26,9 @@ app.use(cors({
     if (origin.startsWith('http://localhost')) {
       return callback(null, true);
     }
-    if (allowedOrigins.includes(origin)) {
+    // Normalize: strip www. prefix so both www and non-www are accepted
+    const normalized = origin.replace(/^(https?:\/\/)www\./, '$1');
+    if (allowedBaseDomains.includes(normalized)) {
       return callback(null, true);
     }
     console.error('CORS blocked:', origin);
@@ -65,7 +63,33 @@ initLearningEngine(supabase);
 profileEngine.init(supabase);
 const JWT_SECRET = process.env.JWT_SECRET || 'learnova-dev-secret-2025';
 
-// Maps Flutter display names â†' prefixed Supabase subject keys
+// ── Symbol dictionary (loaded from Supabase, cached, refreshed hourly) ────────
+let SYMBOL_MAP = null; // null = not yet loaded; cleanTextForTTS falls back to hardcoded BM
+
+async function loadSymbolDictionary() {
+  try {
+    const { data } = await supabase
+      .from('symbol_dictionary')
+      .select('symbol, spoken_bm, spoken_en, spoken_zh, priority')
+      .order('priority', { ascending: false });
+    if (data && data.length > 0) {
+      SYMBOL_MAP = {
+        bm: data.map(d => ({ pattern: d.symbol, replacement: ' ' + d.spoken_bm + ' ' })),
+        en: data.map(d => ({ pattern: d.symbol, replacement: ' ' + d.spoken_en + ' ' })),
+        zh: data.map(d => ({ pattern: d.symbol, replacement: ' ' + (d.spoken_zh || d.spoken_en) + ' ' })),
+        ta: data.map(d => ({ pattern: d.symbol, replacement: ' ' + d.spoken_en + ' ' })),
+        id: data.map(d => ({ pattern: d.symbol, replacement: ' ' + d.spoken_bm + ' ' })),
+      };
+      console.log('Symbol dictionary loaded: ' + data.length + ' entries');
+    }
+  } catch (err) {
+    console.error('Symbol dictionary load failed:', err.message);
+  }
+}
+loadSymbolDictionary();
+setInterval(loadSymbolDictionary, 3600000);
+
+// Maps Flutter display names --> prefixed Supabase subject keys
 const SUBJECT_KEY_MAP = {
   'Mathematics':                'MY-Mathematics',
   'Matematik':                  'MY-Mathematics',
@@ -184,7 +208,7 @@ app.get('/health', async (req, res) => {
   }
 
   // CORS
-  checks.cors_origin = 'https://learnova.optimus.com.my';
+  checks.cors_origin = 'learnova.optimus.com.my (www+non-www)';
 
   // Environment variables
   checks.claude_api_key  = process.env.CLAUDE_API_KEY     ? 'OK' : 'MISSING';
@@ -1079,9 +1103,36 @@ app.post('/api/parent/link-child', async (req, res) => {
 });
 app.use('/api/learn', learningEngineRouter);
 
-function normalizeTtsInput(text) {
-  return cleanTextForTTS(text);
+function normalizeTtsInput(text, lang = 'bm') {
+  return cleanTextForTTS(text, lang, SYMBOL_MAP);
 }
+
+app.get('/api/symbols/lookup', async (req, res) => {
+  const { symbol, context, lang } = req.query;
+  if (!symbol) return res.status(400).json({ error: 'symbol required' });
+  let query = supabase.from('symbol_dictionary').select('*').eq('symbol', symbol);
+  if (context) query = query.eq('context', context);
+  const { data } = await query.limit(1).single();
+  if (!data) return res.json({ found: false });
+  res.json({
+    found: true,
+    symbol: data.symbol,
+    spoken: lang === 'en' ? data.spoken_en : lang === 'zh' ? data.spoken_zh : data.spoken_bm,
+    meaning: lang === 'en' ? data.meaning_en : data.meaning_bm,
+    example: data.example_usage,
+  });
+});
+
+app.post('/api/admin/reload-symbols', async (req, res) => {
+  try {
+    await loadSymbolDictionary();
+    const count = SYMBOL_MAP ? (SYMBOL_MAP.bm || []).length : 0;
+    console.log(`Symbol dictionary reloaded: ${count} entries`);
+    res.json({ reloaded: true, count });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
 
 app.post('/api/tts', async (req, res) => {
   try {
@@ -1091,7 +1142,7 @@ app.post('/api/tts', async (req, res) => {
       console.error('TTS: OPENAI_API_KEY is not set');
       return res.status(500).json({ error: 'TTS unavailable: API key not configured' });
     }
-    const clean = normalizeTtsInput(text).slice(0, 4000);
+    const clean = normalizeTtsInput(text, language).slice(0, 4000);
     if (!clean) return res.status(400).json({ error: 'text empty after normalization' });
     const r = await fetch('https://api.openai.com/v1/audio/speech', {
       method: 'POST',
@@ -1120,6 +1171,48 @@ app.post('/api/tts', async (req, res) => {
 });
 
 
+// ── TTS chunking helper (avoids quality degradation on long texts) ────────────
+// Splits text at sentence boundaries into ~800-char chunks, generates each
+// separately, then concatenates the CBR MP3 buffers (safe for OpenAI TTS output).
+async function openAITTSChunked(text, voice = 'nova') {
+  const MAX_CHUNK = 800;
+  const chunks = [];
+  if (text.length <= MAX_CHUNK) {
+    chunks.push(text);
+  } else {
+    const sentences = text.split(/(?<=[.!?])\s+/);
+    let current = '';
+    for (const sentence of sentences) {
+      if (current && (current + ' ' + sentence).length > MAX_CHUNK) {
+        chunks.push(current.trim());
+        current = sentence;
+      } else {
+        current = current ? current + ' ' + sentence : sentence;
+      }
+    }
+    if (current.trim()) chunks.push(current.trim());
+  }
+  console.log(`TTS: ${chunks.length} chunk(s) for ${text.length} chars`);
+
+  const buffers = [];
+  for (const chunk of chunks) {
+    const r = await fetch('https://api.openai.com/v1/audio/speech', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ model: 'tts-1-hd', input: chunk, voice, speed: 1.0, response_format: 'mp3' }),
+    });
+    if (!r.ok) {
+      const e = await r.text();
+      throw new Error(`OpenAI TTS chunk failed: ${e}`);
+    }
+    buffers.push(Buffer.from(await r.arrayBuffer()));
+  }
+  return buffers.length === 1 ? buffers[0] : Buffer.concat(buffers);
+}
+
 // ── ON-DEMAND AUDIO WITH PERMANENT CACHE ─────────────────────────────────────
 // Generates audio on first student request, uploads to cPanel, caches URL in Supabase.
 // Subsequent requests serve the cached URL instantly (no API call).
@@ -1129,7 +1222,7 @@ async function buildLessonText(lesson) {
   if (lesson.lesson_title) parts.push(lesson.lesson_title + '.');
   if (lesson.concept_explanation) parts.push(lesson.concept_explanation);
   if (lesson.worked_example) parts.push('Contoh: ' + lesson.worked_example);
-  if (lesson.key_formula) parts.push('Formula utama: ' + lesson.key_formula);
+  if (lesson.exam_technique) parts.push(lesson.exam_technique);
   return parts.join(' ').replace(/\s+/g, ' ').trim().slice(0, 4000);
 }
 
@@ -1194,7 +1287,7 @@ app.get('/api/audio/:lessonId', async (req, res) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          text: cleanTextForTTS(text),
+          text: cleanTextForTTS(text, lang, SYMBOL_MAP),
           voice: langConfig.ttsVoice,
           output_format: 'mp3',
         }),
@@ -1209,28 +1302,12 @@ app.get('/api/audio/:lessonId', async (req, res) => {
       if (!b64) return res.status(502).json({ error: 'No audio in DeepInfra response' });
       audioBuffer = Buffer.from(b64.replace(/^data:audio\/[^;]+;base64,/, ''), 'base64');
     } else {
-      // OpenAI TTS (bm / id)
+      // OpenAI TTS (bm / id) — tts-1-hd, chunked for quality
       if (!process.env.OPENAI_API_KEY) {
         return res.status(503).json({ error: 'OPENAI_API_KEY not configured' });
       }
-      const oaiRes = await fetch('https://api.openai.com/v1/audio/speech', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'tts-1',
-          input: cleanTextForTTS(text),
-          voice: langConfig.ttsVoice,
-          response_format: 'mp3',
-        }),
-      });
-      if (!oaiRes.ok) {
-        const e = await oaiRes.text();
-        return res.status(502).json({ error: 'OpenAI TTS failed', detail: e });
-      }
-      audioBuffer = Buffer.from(await oaiRes.arrayBuffer());
+      const cleanedText = cleanTextForTTS(text, lang, SYMBOL_MAP);
+      audioBuffer = await openAITTSChunked(cleanedText, langConfig.ttsVoice);
     }
 
     // Upload to cPanel
@@ -1347,7 +1424,8 @@ function safeReply(text) {
 }
 
 // -- TEXTBOOK CONTEXT FETCHER -------------------------------------------
-async function buildTextbookContext(subject, topic) {
+// Returns ONE concept chunk for the current session segment (no content dump).
+async function buildTextbookContext(subject, topic, segment = 0) {
   if (!subject || !topic) return '';
   try {
     const topicKeyword = topic.split(' ').slice(0, 4).join(' ');
@@ -1356,22 +1434,21 @@ async function buildTextbookContext(subject, topic) {
       .select('concept_title, concept_explanation, worked_example, common_mistakes, keywords')
       .eq('subject', subject)
       .ilike('topic', `%${topicKeyword}%`)
-      .limit(5);
+      .order('difficulty_level', { ascending: true })
+      .limit(10);
+    const fmt = c =>
+      `Tajuk: ${c.concept_title}\n${c.concept_explanation}${c.worked_example ? `\nContoh: ${c.worked_example}` : ''}${c.common_mistakes ? `\nKesilapan lazim: ${c.common_mistakes}` : ''}`;
     if (error || !chunks || chunks.length === 0) {
-      // Fallback: broader search without topic filter
       const { data: fallback } = await supabase
         .from('concept_chunks')
         .select('concept_title, concept_explanation, worked_example, common_mistakes')
         .eq('subject', subject)
-        .limit(3);
+        .limit(5);
       if (!fallback || fallback.length === 0) return '';
-      return fallback.map(c =>
-        `Tajuk: ${c.concept_title}\n${c.concept_explanation}${c.worked_example ? `\nContoh: ${c.worked_example}` : ''}`
-      ).join('\n---\n');
+      return fmt(fallback[segment % fallback.length]);
     }
-    return chunks.map(c =>
-      `Tajuk: ${c.concept_title}\n${c.concept_explanation}${c.worked_example ? `\nContoh: ${c.worked_example}` : ''}${c.common_mistakes ? `\nKesilapan lazim: ${c.common_mistakes}` : ''}`
-    ).join('\n---\n');
+    // ONE chunk per turn — advance through the list as segment grows
+    return fmt(chunks[segment % chunks.length]);
   } catch (e) {
     console.error('buildTextbookContext error:', e.message);
     return '';
@@ -1394,8 +1471,8 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
     const isTamil = teachingLang === 'ta';
     const lang = isEnglish ? 'English' : isIndonesian ? 'Bahasa Indonesia' : isMandarin ? 'Chinese' : isTamil ? 'Tamil' : 'Bahasa Malaysia';
 
-    // Fetch textbook context from concept_chunks
-    const textbookContext = topic ? await buildTextbookContext(subject, topic) : '';
+    // Fetch ONE concept chunk for the current segment (prevents content dump)
+    const textbookContext = topic ? await buildTextbookContext(subject, topic, parseInt(segment) || 0) : '';
 
     const isBmSubject = subject === 'MY-BahasaMalaysia' || subject === 'Bahasa Malaysia' || subject === 'Bahasa Melayu' ||
       !!(topic && (topic.includes('Bahasa Malaysia') || topic.includes('Bahasa Melayu')));
@@ -1728,9 +1805,20 @@ Good examples:
 `}
 
 ==================================================
-MANDATORY RESPONSE RULES â€” ALL SESSIONS
+SYMBOL CONSISTENCY RULE
 ==================================================
-RULE 1 â€” ASK FIRST, LECTURE NEVER:
+${isEnglish
+  ? `When explaining mathematical or scientific symbols, always use consistent spoken terms.
+Do not alternate between different names for the same symbol in one session.
+Standard terms: squared, cubed, square root of, integral of, delta (change in), theta, pi, sigma (sum of).`
+  : `Apabila menerangkan simbol matematik atau sains, gunakan istilah yang konsisten.
+Jangan tukar-tukar nama untuk simbol yang sama dalam satu sesi.
+Istilah piawai: kuasa dua, kuasa tiga, punca kuasa dua, kamiran, delta (perubahan), theta, pi, sigma (hasil tambah).`}
+==================================================
+==================================================
+MANDATORY RESPONSE RULES -- ALL SESSIONS
+==================================================
+RULE 1 -- ASK FIRST, LECTURE NEVER:
 Never start explaining before asking what the student doesn't understand.
 First message ALWAYS asks a diagnostic question.
 
@@ -2540,6 +2628,66 @@ app.post('/api/lesson/end', async (req, res) => {
   } catch (_) { res.json({ ok: false }); }
 });
 
+// Nova: contextual session init — returns lesson-aware opening message
+app.post('/api/nova/init', async (req, res) => {
+  try {
+    const { studentId, lastLessonId, subject, studentName } = req.body;
+    const firstName = (studentName || '').split(' ')[0] || 'pelajar';
+
+    let lessonTitle = '';
+    let conceptSnippet = '';
+    let lastSection = 'concept';
+
+    if (lastLessonId) {
+      const { data: lesson } = await supabase
+        .from('structured_lessons')
+        .select('lesson_title, topic, concept_explanation')
+        .eq('id', lastLessonId)
+        .maybeSingle();
+      if (lesson) {
+        lessonTitle = lesson.lesson_title || lesson.topic || '';
+        conceptSnippet = (lesson.concept_explanation || '').slice(0, 300);
+      }
+      const { data: prog } = await supabase
+        .from('student_lesson_progress')
+        .select('last_section')
+        .eq('student_id', studentId)
+        .eq('lesson_id', lastLessonId)
+        .maybeSingle();
+      if (prog) lastSection = prog.last_section || 'concept';
+    }
+
+    const sectionLabels = { concept: 'bahagian konsep', try_it: 'soalan Cuba Kamu', completed: 'selesai' };
+    const greeting = lessonTitle
+      ? `Assalamualaikum, ${firstName}. Mari kita sambung "${lessonTitle}".`
+      : `Assalamualaikum, ${firstName}. Apa yang kamu nak belajar hari ini?`;
+
+    let reply = greeting;
+    const suggestedResponses = ['Sambung belajar', 'Terangkan semula', 'Soalan baru'];
+
+    if (lessonTitle && conceptSnippet) {
+      const { default: Anthropic } = await import('@anthropic-ai/sdk');
+      const anthropic = new Anthropic({ apiKey: claudeApiKey });
+      const resp = await anthropic.messages.create({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 200,
+        system: `You are Nova, warm SPM tutor. Student paused at: ${sectionLabels[lastSection] || lastSection} of lesson "${lessonTitle}". Concept so far: ${conceptSnippet.slice(0, 200)}. Give 2-3 sentence contextual continuation in BM+English mix. End with ONE open question. Never say "Apa yang kamu nak belajar?"`,
+        messages: [{ role: 'user', content: 'continue' }],
+      });
+      reply = resp.content[0].text;
+    }
+
+    res.json({ greeting, reply, suggestedResponses });
+  } catch (e) {
+    console.error('[nova/init] error:', e);
+    res.json({
+      greeting: 'Assalamualaikum. Mari kita belajar.',
+      reply: 'Assalamualaikum. Mari kita sambung pelajaran kamu.',
+      suggestedResponses: ['Sambung belajar', 'Soalan baru'],
+    });
+  }
+});
+
 // Nova: record session end
 app.post('/api/nova/session-end', async (req, res) => {
   try {
@@ -2674,7 +2822,7 @@ app.get('/api/progress/resume', async (req, res) => {
     const { studentId } = req.query;
     if (!studentId) return res.status(400).json({ error: 'studentId required' });
 
-    const [progressResult, loginsResult, todayResult] = await Promise.all([
+    const [progressResult, loginsResult, todayResult, subjectProgressResult] = await Promise.all([
       supabase.from('student_progress')
         .select('*, structured_lessons(id, subject, topic, lesson_title, lesson_number, difficulty, estimated_minutes)')
         .eq('student_id', studentId)
@@ -2690,6 +2838,9 @@ app.get('/api/progress/resume', async (req, res) => {
         .select('duration_minutes, duration_seconds')
         .eq('student_id', studentId)
         .gte('started_at', new Date().toISOString().split('T')[0]),
+      supabase.from('subject_progress')
+        .select('lessons_completed')
+        .eq('student_id', studentId),
     ]);
 
     const lastProgress = progressResult.data?.[0] || null;
@@ -2697,6 +2848,8 @@ app.get('/api/progress/resume', async (req, res) => {
     const todayMinutes = (todayResult.data || []).reduce(
       (sum, s) => sum + (s.duration_minutes || Math.round((s.duration_seconds || 0) / 60)), 0
     );
+    const totalLessonsCompleted = (subjectProgressResult.data || [])
+      .reduce((sum, sp) => sum + (sp.lessons_completed || 0), 0);
 
     res.json({
       hasResume: !!lastProgress,
@@ -2712,6 +2865,7 @@ app.get('/api/progress/resume', async (req, res) => {
       } : null,
       streak,
       todayMinutes,
+      totalLessonsCompleted,
     });
   } catch (err) { console.error('resume:', err); res.status(500).json({ error: err.message }); }
 });
