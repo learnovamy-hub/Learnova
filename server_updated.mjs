@@ -2139,6 +2139,8 @@ TUGAS KAMU â€” WAJIB IKUT SEMUA PERATURAN INI:
         isCheckIn: false, activeQuestion: null,
       };
     }
+    console.log('[tutor raw head]', claudeRes.content[0].text.slice(0,120));
+    console.log('[tutor raw tail]', claudeRes.content[0].text.slice(-120));
     if (parsed.reply) parsed.reply = formatNovaResponse(parsed.reply);
     triggerBackup();
     return res.json({ ...parsed, source: 'claude' });
