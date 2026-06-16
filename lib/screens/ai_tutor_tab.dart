@@ -44,6 +44,11 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
   List<Map<String, dynamic>> _topics = [];
   List<String> _suggestions = [];
   String? _pendingSwitchTopic;
+  // Set when an idle-screen intent chip (Jelaskan / Bagi kuiz / ...) is tapped
+  // without a topic. Drained into the session as the student's first message
+  // after _startTutorSession completes, so Nova teaches instead of asking
+  // "which topic?".
+  String? _pendingIntent;
   String? _currentStandardCode;
   String? _currentStandardDesc;
   String? _standardsProgress;
@@ -576,6 +581,14 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     _preGenerateQuiz(topic);
     _fetchTopicAnimation(_currentSubject, topic);
     await _tutorSession('start', preRead: preRead);
+    // Drain pending intent (e.g. "Jelaskan topik ini") as the student's first
+    // real message so Nova continues into the requested intent instead of
+    // stopping after intro.
+    final pending = _pendingIntent;
+    _pendingIntent = null;
+    if (pending != null && pending.trim().isNotEmpty) {
+      await _tutorSession(pending);
+    }
     _sessionStarting = false;
   }
 
@@ -935,7 +948,18 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
             mainAxisSpacing: 8,
             childAspectRatio: 2.5,
             children: chips.map((label) => GestureDetector(
-              onTap: () => _ask(label),
+              onTap: () {
+                // Intent chips need a topic. If we already have one (mid-session
+                // chip use), let _ask route to the existing _tutorMode branch.
+                // Otherwise stash the intent and force the topic picker — the
+                // intent gets sent as the first message once _startTutorSession
+                // completes (see _startTutorSession).
+                if (_currentTopic != null) {
+                  _ask(label);
+                } else {
+                  setState(() => _pendingIntent = label);
+                }
+              },
               child: Container(
                 decoration: BoxDecoration(
                   color: const Color(0xFF0D1018),
@@ -964,7 +988,9 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     final subjectColor = Color(_subjectInfo['color'] as int);
     final isWide = MediaQuery.of(context).size.width > 700;
 
-    if (_messages.isEmpty && !_tutorMode && widget.lessonContext == null) {
+    // Skip the idle screen when an intent is pending — fall through to the
+    // tutor-mode chrome so _buildTopicSelector renders and the student can pick.
+    if (_messages.isEmpty && !_tutorMode && widget.lessonContext == null && _pendingIntent == null) {
       return _buildIdleScreen();
     }
 
@@ -1367,7 +1393,13 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
       child: SubjectSelector(
         selected: _currentSubject,
         onChanged: (s) {
-          setState(() => _currentSubject = s);
+          setState(() {
+            _currentSubject = s;
+            // Reset topic so the next idle-screen chip tap routes through the
+            // picker for the new subject (the old subject's topic isn't valid
+            // here anyway).
+            _currentTopic = null;
+          });
           _loadTopics(); _loadSuggestions();
           context.findAncestorStateOfType<MainShellState>()?.setSubject(s);
         },
