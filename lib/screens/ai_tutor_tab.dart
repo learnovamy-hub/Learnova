@@ -688,9 +688,10 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
           _pendingSwitchTopic = data['suggestedTopic'] as String?;
         }
         _suggestedResponses = (data['suggestedResponses'] as List?)?.cast<String>() ?? [];
-        _activeQuestion = data['activeQuestion'] != null
-            ? Map<String, dynamic>.from(data['activeQuestion'] as Map)
-            : null;
+        // New server contract: hasActiveQuestion is a bool. Old contract
+        // shipped activeQuestion as a Map?. Treat either as a truthiness flag.
+        final hasQ = data['hasActiveQuestion'] == true || data['activeQuestion'] != null;
+        _activeQuestion = hasQ ? <String, dynamic>{} : null;
         _messages.add({
           'role': 'ai', 'text': data['reply'] ?? '',
           'source': data['source'], 'isCheckIn': data['isCheckIn'] ?? false,
@@ -1624,35 +1625,14 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     ]);
   }
 
-  // Extract clean reply text from a message value.
-  // Handles: raw JSON strings, literal \n sequences, non-string values.
+  // Normalise escape sequences in plain teaching text.
+  // Server now returns plain reply text (no JSON envelope), so the JSON
+  // unwrap logic is gone; this only converts literal \n / \t that some
+  // upstream paths may still include.
   static String _parseNovaText(dynamic raw) {
-    String t;
-    if (raw is String) {
-      t = raw;
-    } else if (raw != null) {
-      t = raw.toString();
-    } else {
-      return '';
-    }
-    // If server double-encoded the JSON, extract the reply field
-    final trimmed = t.trimLeft();
-    if (trimmed.startsWith('{') && t.contains('"reply"')) {
-      try {
-        final j = jsonDecode(t) as Map<String, dynamic>;
-        final extracted = j['reply'] ?? j['answer'];
-        if (extracted is String && extracted.isNotEmpty) t = extracted;
-      } catch (_) {
-        // regex fallback: grab first "reply":"..." value
-        final m = RegExp(r'"reply"\s*:\s*"((?:[^"\\]|\\.)*)"').firstMatch(t);
-        if (m != null) {
-          try { t = jsonDecode('"${m.group(1)}"') as String; } catch (_) { t = m.group(1)!; }
-        }
-      }
-    }
-    // Convert literal \n sequences (sometimes Claude includes them)
-    t = t.replaceAll(r'\n', '\n').replaceAll(r'\t', '\t');
-    return t;
+    if (raw == null) return '';
+    final t = raw is String ? raw : raw.toString();
+    return t.replaceAll(r'\n', '\n').replaceAll(r'\t', '\t');
   }
 
   Widget _buildMessage(Map<String, dynamic> msg) {
