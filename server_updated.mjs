@@ -1529,7 +1529,7 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
       : subject.startsWith('ID-') ? 'Indonesian'
       : 'SPM';
     const isBm = teachingLang === 'bm' || teachingLang === 'ms' || (curriculum === 'SPM' && !teachingLang);
-    const isEnglish = curriculum === 'ALevel' || teachingLang === 'en';
+    const isEnglish = curriculum === 'ALevel' || teachingLang === 'en' || subject === 'English' || subject === 'English Literature';
     const isIndonesian = curriculum === 'Indonesian' || teachingLang === 'id';
     const isMandarin = teachingLang === 'zh';
     const isTamil = teachingLang === 'ta';
