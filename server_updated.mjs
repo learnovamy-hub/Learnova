@@ -1457,6 +1457,68 @@ async function buildTextbookContext(subject, topic, segment = 0) {
   }
 }
 
+// -- TUTOR FLOW: server-owned phase machine + chip templates --------------
+// Replaces the model-emitted JSON envelope. The model now returns plain
+// teaching text plus one classify_turn tool call; the server decides
+// phase/segment/chips and the client never sees a JSON envelope.
+
+const TUTOR_CLASSIFY_TOOL = {
+  name: 'classify_turn',
+  description: 'Classify the student turn so the server can drive lesson flow. Call exactly once per response.',
+  input_schema: {
+    type: 'object',
+    properties: {
+      student_signal: {
+        type: 'string',
+        enum: ['correct', 'wrong', 'confused', 'idk', 'off_topic', 'first_turn', 'continue'],
+        description: 'How the student responded this turn: correct=right answer; wrong=incorrect; confused=does not understand; idk=said they do not know; off_topic=changed subject; first_turn=opening turn (message was "start"); continue=neutral acknowledgement / asking to continue.'
+      },
+      ready_for_quiz: {
+        type: 'boolean',
+        description: 'true only when the student has demonstrated mastery of the current concept AND there are no more concepts left to teach. Otherwise false.'
+      }
+    },
+    required: ['student_signal']
+  }
+};
+
+function nextPhase(currentPhase, signal, segment, totalChunks, readyForQuiz, topicDone) {
+  if (currentPhase === 'intro') return 'teach';
+  if (signal === 'wrong' || signal === 'confused' || signal === 'idk') {
+    return currentPhase === 'teach' ? 'check' : currentPhase;
+  }
+  if (signal === 'off_topic') return currentPhase;
+  if (currentPhase === 'teach') return 'check';
+  if (currentPhase === 'check') {
+    if (topicDone || readyForQuiz || (totalChunks > 0 && segment >= totalChunks - 1)) {
+      return 'quiz_setup';
+    }
+    return 'teach';
+  }
+  if (currentPhase === 'quiz_setup') return 'quiz_answer';
+  if (currentPhase === 'quiz_answer') return 'done';
+  return currentPhase;
+}
+
+function nextSegment(currentPhase, newPhase, currentSegment) {
+  // Advance only when moving from check → teach (i.e. starting the next concept).
+  if (currentPhase === 'check' && newPhase === 'teach') return currentSegment + 1;
+  return currentSegment;
+}
+
+function chipsForPhase(phase, isBm, isIndonesian, isBmSubject, isSejarahSubject) {
+  if (phase === 'quiz_setup' || phase === 'quiz_answer') return ['A', 'B', 'C', 'D'];
+  if (phase === 'done') {
+    if (isBmSubject || isSejarahSubject || isBm) return ['Lagi soalan praktis', 'Topik baru', 'Ulang topik ini'];
+    if (isIndonesian) return ['Coba soal lagi', 'Topik baru', 'Ulang topik ini'];
+    return ['Try more questions', 'New topic', 'Review this topic'];
+  }
+  if (isBmSubject || isSejarahSubject) return ['Faham! Teruskan.', 'Boleh cerita lebih lanjut?', 'Saya kurang faham bahagian ini.'];
+  if (isIndonesian) return ['Oke, lanjut!', 'Bisa kasih contoh lain?', 'Aku belum paham bagian ini.'];
+  if (isBm) return ['Faham! Teruskan.', 'Boleh tunjukkan contoh?', 'Saya kurang faham bahagian ini.'];
+  return ['I understand, please continue.', 'Can you show an example?', "I'm not sure about this part."];
+}
+
 app.post('/api/tutor/session', authStudent, async (req, res) => {
   try {
     const { subject: rawSubject, topic, message, history, phase, segment, language, activeQuestion, question,
@@ -1603,95 +1665,82 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
 
     // â”€â”€ Phase-specific teaching instructions (HARDCODED PEDAGOGY) â”€â”€
     const phaseInstructions = {
-      intro: `=== LESSON 1: INTRODUCTION PHASE ===
-YOUR TASK (do ALL of these, nothing more):
-1. Write ONE curiosity hook â€” a surprising fact, relatable scenario, or real-life connection to "${topic}" in ${subject || 'Mathematics'} (1-2 sentences only)
-2. Ask ONE activation question to find out what the student already knows (e.g. "Before we start, what do you already know about this?")
-3. STOP. Do NOT explain the concept yet.
-â†' Set "phase": "teach"
-â†' Keep reply under 80 words`,
+      intro: `=== INTRODUCTION ===
+This is the very first turn of the lesson. Do ALL of these in one short reply, nothing more:
+1. Write ONE curiosity hook -- a surprising fact, relatable scenario, or real-life connection to "${topic}" in ${subject || 'Mathematics'} (1-2 sentences only).
+2. Ask ONE activation question to find out what the student already knows (e.g. "Before we start, what do you already know about this?").
+Do NOT explain the concept yet.
+Keep reply under 80 words.`,
 
-      teach: `=== LESSON 2: TEACHING PHASE (Segment ${currentSegment}) ===
-YOUR TASK (ONE concept per response â€” no more):
-1. Introduce ONE sub-concept or ONE step of "${topic}" â€” not the whole topic
-2. Show ONE worked example, step-by-step with working shown clearly
-3. Explain WHY this step works and WHEN to use it
-4. Name ONE common mistake SPM students make here
-5. End with a direct comprehension question to the student (e.g. "Now, can you tell me WHY we do step 2?" or "What do you think comes next?")
-â†' Set "isCheckIn": true
-â†' Set "phase": "check"
-â†' Keep reply under 160 words
-CRITICAL: Do NOT explain the next concept. Do NOT summarise the whole topic. ONE concept, then STOP.`,
+      teach: `=== TEACHING (Concept ${currentSegment + 1}) ===
+ONE concept per response -- no more:
+1. Introduce ONE sub-concept or ONE step of "${topic}" -- not the whole topic.
+2. Show ONE worked example, step-by-step with working shown clearly.
+3. Explain WHY this step works and WHEN to use it.
+4. Name ONE common mistake SPM students make here.
+5. End with a direct comprehension question to the student (e.g. "Now, can you tell me WHY we do step 2?" or "What do you think comes next?").
+Do NOT explain the next concept. Do NOT summarise the whole topic.
+Keep reply under 160 words.`,
 
-      check: `=== CHECK PHASE: ASSESSING UNDERSTANDING ===
-The student has just responded. Assess their understanding:
+      check: `=== CHECKING UNDERSTANDING ===
+The student has just responded. Assess their understanding and reply accordingly. The server decides what comes next based on the classify_turn tool you call.
 
 IF STUDENT ANSWERED CORRECTLY:
-- Praise in ONE sentence (genuine, not hollow)
-- If segment < ${totalChunks - 1}: introduce the NEXT concept â†' set "phase": "teach"
-- If segment >= ${totalChunks - 1}: move to exam practice â†' set "phase": "quiz_setup"
+- Praise in ONE sentence (genuine, not hollow).
+- Either lead into the next concept of "${topic}" or, if all concepts have been taught, into exam practice. Your reply should flow naturally into whichever it is.
 
 IF STUDENT ANSWERED WRONGLY OR IS CONFUSED:
-- DO NOT give the answer yet
-- Give ONE specific hint that points them in the right direction
-- Ask a simpler guiding question ("What if I told you that...?")
-- Stay in "phase": "check"
+- DO NOT give the answer yet.
+- Give ONE specific hint that points them in the right direction.
+- Ask a simpler guiding question ("What if I told you that...?").
 
 IF STUDENT SAYS "I DON'T KNOW":
-- Ask an even simpler scaffolding question first
-- Break it into the smallest possible step
-- Stay in "phase": "check"
+- Ask an even simpler scaffolding question first.
+- Break it into the smallest possible step.
 
-â†' Keep reply under 130 words`,
+Keep reply under 130 words.`,
 
-      quiz_setup: `=== LESSON 3: EXAM PRACTICE PHASE ===
-YOUR TASK:
+      quiz_setup: `=== EXAM PRACTICE ===
+Write ONE SPM-style question on "${topic}" in ${subject || 'Mathematics'}:
 1. Tell student: "Let's try an SPM-style question. Take your time and think before answering."
-2. Create ONE SPM-style question on "${topic}" in ${subject || 'Mathematics'}
-3. For MCQ: set activeQuestion with 4 options (A/B/C/D), correct answer, and a short explanation
-4. The question should match the difficulty and format of actual SPM past-year papers
-5. Add exam tip: mention which SPM paper this type appears in (Paper 1/Paper 2)
-â†' Set "isCheckIn": true
-â†' Set "phase": "quiz_answer"
-â†' Keep reply (excluding activeQuestion) under 80 words`,
+2. Write the question text.
+3. For MCQ: list options A, B, C, D each on its own line. Do NOT reveal the correct answer -- the student must work it out and reply with A/B/C/D.
+4. The question should match the difficulty and format of actual SPM past-year papers.
+5. Add an exam tip: mention which SPM paper this type appears in (Paper 1/Paper 2).
+Keep reply under 200 words.`,
 
-      quiz_answer: `=== QUIZ ANSWER PHASE ===
-The student has answered the MCQ. Assess their answer:
+      quiz_answer: `=== QUIZ FEEDBACK ===
+The student has answered the question. Assess their answer in your reply:
 
 IF CORRECT:
-- Confirm it enthusiastically
-- Explain WHY it is correct step-by-step (SPM marking-scheme style â€” show how marks are awarded)
-- Set "phase": "done"
+- Confirm it enthusiastically.
+- Explain WHY it is correct step-by-step (SPM marking-scheme style -- show how marks are awarded).
 
 IF WRONG:
-- DO NOT reveal the answer immediately
-- Ask: "Interesting choice â€” what was your thinking for that option?"
-- After they explain: guide them to see the error
-- Only reveal correct answer + full working after student attempts to reason
-- Set "phase": "done" once fully resolved
+- DO NOT reveal the answer immediately.
+- Ask: "Interesting choice -- what was your thinking for that option?"
+- After they explain: guide them to see the error.
+- Only reveal correct answer + full working after student attempts to reason.
 
-â†' Keep reply under 130 words`,
+Keep reply under 130 words.`,
 
-      done: `=== WRAP-UP PHASE ===
-YOUR TASK:
-1. Summarise "${topic}" in EXACTLY 3 bullet points using exam-ready language
-2. Give ONE specific SPM exam tip for this topic (e.g. "In Paper 2 Section B, always show full working for...")
+      done: `=== WRAP-UP ===
+1. Summarise "${topic}" in EXACTLY 3 bullet points using exam-ready language.
+2. Give ONE specific SPM exam tip for this topic (e.g. "In Paper 2 Section B, always show full working for...").
 3. Ask: "Would you like to try more practice questions, revisit any part, or move to a new topic?"
-â†' Set "phase": "done"
-â†' Keep reply under 120 words`
+Keep reply under 120 words.`
     };
 
     const currentPhaseInstructions = isConfused
-      ? `=== CONFUSION DETECTED â€” OVERRIDE NORMAL FLOW ===
+      ? `=== CONFUSION DETECTED -- OVERRIDE NORMAL FLOW ===
 The student is confused. Drop everything else and do this:
-1. Acknowledge confusion warmly (1 sentence)
+1. Acknowledge confusion warmly (1 sentence).
 2. Re-explain the LAST concept using a COMPLETELY DIFFERENT method:
-   - If you used formula: now use a real-life analogy
-   - If you used steps: now use a visual/diagram description
-   - If abstract: now use numbers first, then generalise
-3. Ask a simpler, more guided question than before
-â†' Stay in current phase: "${currentPhase}"
-â†' Keep reply under 130 words`
+   - If you used formula: now use a real-life analogy.
+   - If you used steps: now use a visual/diagram description.
+   - If abstract: now use numbers first, then generalise.
+3. Ask a simpler, more guided question than before.
+Keep reply under 130 words.`
       : (phaseInstructions[currentPhase] || phaseInstructions.teach);
 
     // Mandarin / Tamil: dedicated Nova prompts — return early before BM/EN/ID logic
@@ -1860,31 +1909,18 @@ CURRENT PHASE INSTRUCTIONS
 ${currentPhaseInstructions}
 
 ==================================================
-ANTI-CONTENT-DUMP RULES â€” HARD LIMITS
+OUTPUT RULES -- HARD LIMITS
 ==================================================
-- NEVER list all sub-topics in one message
-- NEVER give a full lesson summary before teaching
-- NEVER pre-answer questions the student hasn't asked yet
-- NEVER write more than the word limit specified above
-- If you catch yourself about to explain more than ONE concept: STOP, cut it, save it for next turn
-- NEVER output JSON, code, curly braces {}, brackets [], or any programming syntax in your reply text
-- NEVER show teaching instructions, phase descriptions, or response format examples to the student
-- ONLY write natural conversational sentences exactly as a teacher would speak out loud
-
-==================================================
-RESPONSE FORMAT â€” JSON ONLY, NO MARKDOWN OUTSIDE "reply"
-==================================================
-{"reply":"...use **bold** for key terms, use newlines for steps...","phase":"next_phase_name","segment":${currentSegment + 1},"suggestedResponses":["from student perspective 1","from student perspective 2","from student perspective 3"],"isCheckIn":false,"activeQuestion":null}
-
-activeQuestion format (MCQ only):
-{"question":"full question text","options":{"A":"...","B":"...","C":"...","D":"..."},"correct":"A","explanation":"why A is correct, step by step"}
-
-suggestedResponses must be from the STUDENT's perspective and written in ${lang}.
-${isIndonesian
-  ? 'Contoh (Bahasa Indonesia):\n- "Oke, paham! Lanjut dong."\n- "Aku belum ngerti bagian ini."\n- "Jawabanku [X], bener nggak?"\n- "Bisa kasih contoh lain?"'
-  : isBm
-  ? 'Examples (Bahasa Malaysia):\n- "Faham! Teruskan."\n- "Saya kurang faham bahagian ini."\n- "Jawapan saya [X], betul ke?"\n- "Boleh tunjukkan contoh lain?"'
-  : 'Examples (English):\n- "I understand! Please continue."\n- "I\'m not sure about [specific part]"\n- "My answer is [X], is that right?"\n- "Can you show another example?"'}`;
+- Respond in plain teaching text only. NO JSON, NO code blocks, NO curly braces {}, NO brackets [], no programming syntax in your reply.
+- NEVER list all sub-topics in one message.
+- NEVER give a full lesson summary before teaching.
+- NEVER pre-answer questions the student has not asked yet.
+- NEVER write more than the word limit specified above.
+- If you catch yourself about to explain more than ONE concept: STOP, cut it, save it for next turn.
+- NEVER show teaching instructions, phase descriptions, or internal labels to the student.
+- ONLY write natural conversational sentences exactly as a teacher would speak out loud.
+- Use **bold** for key terms and newlines for steps where helpful -- markdown is allowed in the reply text.
+- After your teaching text, call the classify_turn tool exactly once with how the student responded this turn. Do not mention the tool to the student.`;
 
     // Append strict Bahasa Malaysia rules when subject is BM
     if (isBmSubject) {
@@ -2123,27 +2159,37 @@ TUGAS KAMU â€” WAJIB IKUT SEMUA PERATURAN INI:
       max_tokens: maxTokens,
       system: systemPrompt,
       messages: msgs,
+      tools: [TUTOR_CLASSIFY_TOOL],
+      tool_choice: { type: 'tool', name: 'classify_turn' },
     });
 
-    let parsed;
-    try {
-      const text = claudeRes.content[0].text.trim();
-      const match = text.match(/\{[\s\S]*\}/);
-      parsed = JSON.parse(match ? match[0] : text);
-    } catch {
-      parsed = {
-        reply: formatNovaResponse(claudeRes.content[0].text),
-        phase: currentPhase === 'intro' ? 'teach' : currentPhase,
-        segment: currentSegment + 1,
-        suggestedResponses: suggestions,
-        isCheckIn: false, activeQuestion: null,
-      };
-    }
-    console.log('[tutor raw head]', claudeRes.content[0].text.slice(0,120));
-    console.log('[tutor raw tail]', claudeRes.content[0].text.slice(-120));
-    if (parsed.reply) parsed.reply = formatNovaResponse(parsed.reply);
+    const blocks = Array.isArray(claudeRes.content) ? claudeRes.content : [];
+    const reply = blocks
+      .filter(b => b.type === 'text')
+      .map(b => (b.text || ''))
+      .join('')
+      .trim();
+    const toolBlock = blocks.find(b => b.type === 'tool_use' && b.name === 'classify_turn');
+    const classification = (toolBlock && toolBlock.input) || { student_signal: 'continue', ready_for_quiz: false };
+    const signal = classification.student_signal || 'continue';
+    const readyForQuiz = classification.ready_for_quiz === true;
+
+    const newPhase = nextPhase(currentPhase, signal, currentSegment, totalChunks, readyForQuiz, topicDone);
+    const newSegment = nextSegment(currentPhase, newPhase, currentSegment);
+    const hasActiveQuestion = newPhase === 'quiz_setup';
+    const chips = chipsForPhase(newPhase, isBm, isIndonesian, isBmSubject, isSejarahSubject);
+
     triggerBackup();
-    return res.json({ ...parsed, source: 'claude' });
+    return res.json({
+      reply,
+      phase: newPhase,
+      segment: newSegment,
+      suggestedResponses: chips,
+      hasActiveQuestion,
+      activeQuestion: hasActiveQuestion ? {} : null,
+      isCheckIn: newPhase === 'check' || newPhase === 'quiz_answer',
+      source: 'claude',
+    });
   } catch (e) {
     console.error('Tutor session error:', e);
     res.status(500).json({ error: e.message });
