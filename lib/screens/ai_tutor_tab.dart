@@ -584,11 +584,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     // Drain pending intent (e.g. "Jelaskan topik ini") as the student's first
     // real message so Nova continues into the requested intent instead of
     // stopping after intro.
-    final pending = _pendingIntent;
     _pendingIntent = null;
-    if (pending != null && pending.trim().isNotEmpty) {
-      await _tutorSession(pending);
-    }
     _sessionStarting = false;
   }
 
@@ -1482,7 +1478,9 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
         const SizedBox(height: 12),
         if (_topics.isNotEmpty) ...[
           ..._topics.map((t) {
-            final topicName = (t['topic'] as String? ?? t['title'] as String? ?? '').trim();
+            final topicName = (t['topic'] as String? ?? t['title'] as String? ?? '')
+                .trim()
+                .replaceFirst(RegExp(r'^Bab\s+\d+\s*:\s*'), '');
             if (topicName.isEmpty) return const SizedBox.shrink();
             return GestureDetector(
               onTap: () => _startTutorSession(topicName),
