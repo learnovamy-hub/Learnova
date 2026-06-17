@@ -2164,11 +2164,11 @@ TUGAS KAMU â€” WAJIB IKUT SEMUA PERATURAN INI:
     });
 
     const blocks = Array.isArray(claudeRes.content) ? claudeRes.content : [];
-    const reply = blocks
+    const reply = safeReply(blocks
       .filter(b => b.type === 'text')
       .map(b => (b.text || ''))
       .join('')
-      .trim();
+      .trim());
     const toolBlock = blocks.find(b => b.type === 'tool_use' && b.name === 'classify_turn');
     const classification = (toolBlock && toolBlock.input) || { student_signal: 'continue', ready_for_quiz: false };
     const signal = classification.student_signal || 'continue';
@@ -2787,7 +2787,7 @@ app.post('/api/progress/lesson-open', async (req, res) => {
         subject: subject || '', topic: topic || '',
         lesson_title: lessonTitle || '',
         started_at: now, completed: false,
-      }).select('id').single(),
+      }).select('id').maybeSingle(),
       supabase.from('subject_progress').upsert({
         student_id: studentId, subject: subject || '',
         last_topic: topic || '', last_lesson_id: lessonId,
