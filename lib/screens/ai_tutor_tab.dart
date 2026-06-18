@@ -49,6 +49,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
   // after _startTutorSession completes, so Nova teaches instead of asking
   // "which topic?".
   String? _pendingIntent;
+  bool _returnedFromSession = false;
   String? _currentStandardCode;
   String? _currentStandardDesc;
   String? _standardsProgress;
@@ -577,9 +578,8 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
       _animSteps = []; _animAltSteps = [];
       _showAnim = false; _lastAnimCode = null; _studentConfused = false;
       _topicAnimation = null; _showTopicAnim = true;
+      _returnedFromSession = false;
     });
-    _preGenerateQuiz(topic);
-    _fetchTopicAnimation(_currentSubject, topic);
     await _tutorSession('start', preRead: preRead);
     // Drain pending intent (e.g. "Jelaskan topik ini") as the student's first
     // real message so Nova continues into the requested intent instead of
@@ -901,6 +901,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
       _showAnim = false; _lastAnimCode = null;
       _topicAnimation = null; _showTopicAnim = true;
       _workspaceExpanded = false;
+      _returnedFromSession = true;
     });
   }
 
@@ -986,7 +987,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
 
     // Skip the idle screen when an intent is pending — fall through to the
     // tutor-mode chrome so _buildTopicSelector renders and the student can pick.
-    if (_messages.isEmpty && !_tutorMode && widget.lessonContext == null && _pendingIntent == null) {
+    if (_messages.isEmpty && !_tutorMode && widget.lessonContext == null && _pendingIntent == null && !_returnedFromSession) {
       return _buildIdleScreen();
     }
 
@@ -1153,7 +1154,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
       // Chat column
       Expanded(child: Column(children: [
         if (!_tutorMode) _buildSubjectBar(),
-        if (_tutorMode) _buildDisclaimerBanner(),
+        _buildDisclaimerBanner(),
         if (_tutorMode && widget.lessonContext != null) _buildLessonBanner(),
         if (_messages.isEmpty && !_tutorMode) _buildWelcome(subjectColor),
         Expanded(child: _buildMessageList()),
@@ -1170,7 +1171,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
       // â”€â”€ Main column â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       Column(children: [
         if (!_tutorMode) _buildSubjectBar(),
-        if (_tutorMode) _buildDisclaimerBanner(),
+        _buildDisclaimerBanner(),
         if (_tutorMode && widget.lessonContext != null) _buildLessonBanner(),
         // Topic animation (pre-built, from engine) â€” shown first when in tutor mode
         if (_tutorMode && _topicAnimation != null && _showTopicAnim)
@@ -1332,21 +1333,12 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
 
   Widget _buildDisclaimerBanner() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      color: const Color(0xFFF59E0B).withOpacity(0.08),
-      child: Row(children: [
-        Icon(Icons.info_outline_rounded, size: 13, color: Colors.amber[700]),
-        const SizedBox(width: 6),
-        const Expanded(child: Text(
-          'Platform AI â€” semak dengan guru untuk pengesahan',
-          style: TextStyle(fontSize: 11, color: Color(0xFF92400E)))),
-        GestureDetector(
-          onTap: _showFullDisclaimer,
-          child: Text('Info', style: TextStyle(
-            fontSize: 11, color: Colors.amber[800],
-            decoration: TextDecoration.underline,
-            decorationColor: Colors.amber[800]))),
-      ]),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+      child: Text(
+        'Learnova is AI and can make mistakes. Always verify with your teacher.',
+        style: TextStyle(fontSize: 11, color: kMuted),
+        textAlign: TextAlign.center,
+      ),
     );
   }
 
@@ -1395,6 +1387,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
             // picker for the new subject (the old subject's topic isn't valid
             // here anyway).
             _currentTopic = null;
+            _returnedFromSession = false;
           });
           _loadTopics(); _loadSuggestions();
           context.findAncestorStateOfType<MainShellState>()?.setSubject(s);
