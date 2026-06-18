@@ -20,14 +20,21 @@ class _QuizzesTabState extends State<QuizzesTab> {
     'Fizik':     'Physics',
   };
 
+  // Converts any incoming subject string (BM display name OR English API name)
+  // to the kSubjects BM display name so SubjectSelector highlights correctly
+  // and the map lookup always finds a match.
+  String _toBm(String s) => kSubjects
+      .map((e) => e['name'] as String)
+      .firstWhere((n) => n == s || (_qbSubjectMap[n] ?? n) == s, orElse: () => s);
+
   List<dynamic> _quizzes = [];
   bool _loading = true;
-  String _currentSubject = 'Mathematics';
+  String _currentSubject = 'Matematik';
 
   @override
   void initState() {
     super.initState();
-    _currentSubject = widget.selectedSubject;
+    _currentSubject = _toBm(widget.selectedSubject);
     _load();
   }
 
@@ -35,7 +42,7 @@ class _QuizzesTabState extends State<QuizzesTab> {
   void didUpdateWidget(QuizzesTab oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.selectedSubject != widget.selectedSubject) {
-      setState(() => _currentSubject = widget.selectedSubject);
+      setState(() => _currentSubject = _toBm(widget.selectedSubject));
       _load();
     }
   }
