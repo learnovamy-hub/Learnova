@@ -6,9 +6,9 @@ import '../config/constants.dart';
 import '../widgets/workspace_panel.dart';
 
 class QuizScreen extends StatefulWidget {
-  final String quizId;
-  final String title;
-  const QuizScreen({super.key, required this.quizId, required this.title});
+  final String subject;
+  final String topic;
+  const QuizScreen({super.key, required this.subject, required this.topic});
   @override
   State<QuizScreen> createState() => _QuizScreenState();
 }
@@ -30,10 +30,14 @@ class _QuizScreenState extends State<QuizScreen> {
 
   Future<void> _load() async {
     try {
-      final r = await http.get(Uri.parse('$kApiUrl/api/quizzes/${widget.quizId}'));
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token') ?? '';
+      final r = await http.get(
+        Uri.parse('$kApiUrl/api/quizzes/questions/${Uri.encodeComponent(widget.subject)}/${Uri.encodeComponent(widget.topic)}'),
+        headers: {'Authorization': 'Bearer $token'},
+      );
       if (r.statusCode == 200) {
-        final data = jsonDecode(r.body);
-        setState(() => _questions = data['questions'] ?? []);
+        setState(() => _questions = List<dynamic>.from(jsonDecode(r.body)));
       }
     } catch (_) {}
     setState(() => _loading = false);
@@ -59,19 +63,32 @@ class _QuizScreenState extends State<QuizScreen> {
       return;
     }
     setState(() => _submitting = true);
+    int score = 0;
+    final details = <Map<String, dynamic>>[];
+    for (final q in _questions) {
+      final qId = q['id']?.toString() ?? '';
+      final correct = (_answers[qId] ?? '') == (q['correct_answer'] ?? '');
+      if (correct) score++;
+      details.add({'question': q['question_text'] ?? q['question'] ?? '', 'correct': correct});
+    }
+    setState(() {
+      _results = {'score': score, 'total': _questions.length, 'details': details};
+      _submitted = true;
+      _submitting = false;
+    });
+    _recordAttempt(score, _questions.length);
+  }
+
+  void _recordAttempt(int score, int total) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token') ?? '';
-      final r = await http.post(
-        Uri.parse('$kApiUrl/api/quizzes/${widget.quizId}/submit'),
+      await http.post(
+        Uri.parse('$kApiUrl/api/quizzes/attempt'),
         headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer $token'},
-        body: jsonEncode({'answers': _answers}),
+        body: jsonEncode({'subject': widget.subject, 'topic': widget.topic, 'score': score, 'total': total}),
       );
-      if (r.statusCode == 200) {
-        setState(() { _results = jsonDecode(r.body); _submitted = true; });
-      }
     } catch (_) {}
-    setState(() => _submitting = false);
   }
 
   Future<void> _assessWorkspace(WorkspaceResult result) async {
@@ -83,7 +100,7 @@ class _QuizScreenState extends State<QuizScreen> {
       final body = {
         'student_id': studentId,
         'subject': 'Mathematics',
-        'topic': widget.title,
+        'topic': widget.topic,
         'question': q['question'] ?? q['question_text'] ?? '',
         'correct_answer': q['correct_answer'] ?? '',
         'input_mode': result.mode,
@@ -111,7 +128,7 @@ class _QuizScreenState extends State<QuizScreen> {
   Widget build(BuildContext context) {
     if (_loading) return const Scaffold(backgroundColor: kBg, body: Center(child: CircularProgressIndicator(color: kPrimary)));
     if (_submitted && _results != null) return _buildResults();
-    if (_questions.isEmpty) return Scaffold(appBar: AppBar(title: Text(widget.title)), body: const Center(child: Text('No questions found', style: TextStyle(color: kMuted))));
+    if (_questions.isEmpty) return Scaffold(appBar: AppBar(title: Text(widget.topic)), body: const Center(child: Text('No questions found', style: TextStyle(color: kMuted))));
     return _buildQuiz();
   }
 
@@ -125,7 +142,7 @@ class _QuizScreenState extends State<QuizScreen> {
     return Scaffold(
       backgroundColor: kBg,
       appBar: AppBar(
-        title: Text(widget.title, style: const TextStyle(fontSize: 15)),
+        title: Text(widget.topic, style: const TextStyle(fontSize: 15)),
         actions: [
           Padding(padding: const EdgeInsets.only(right: 16),
             child: Center(child: Text('${_current + 1} / ${_questions.length}',
@@ -329,7 +346,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
     return Scaffold(
       backgroundColor: kBg,
-      appBar: AppBar(title: Text(widget.title)),
+      appBar: AppBar(title: Text(widget.topic)),
       body: Center(child: Container(
         constraints: BoxConstraints(maxWidth: isWide ? 600 : double.infinity),
         padding: const EdgeInsets.all(24),
