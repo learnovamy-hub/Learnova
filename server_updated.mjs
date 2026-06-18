@@ -719,6 +719,22 @@ app.get('/api/quizzes/questions/:subject/:topic', authStudent, async (req, res) 
   }
 });
 
+app.post('/api/quizzes/attempt', authStudent, async (req, res) => {
+  try {
+    const { subject, topic, score, total } = req.body;
+    await supabase.from('quiz_attempts').insert({
+      student_id: req.user.student_id || req.user.id,
+      subject,
+      topic,
+      score: parseInt(score) || 0,
+      total: parseInt(total) || 0,
+    });
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // -- QUIZ ROUTES (teacher-created quizzes) --
 app.get('/api/quiz/list/:subject', async (req, res) => {
   try {
