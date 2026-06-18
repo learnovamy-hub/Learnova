@@ -669,7 +669,7 @@ app.get('/api/lessons/detail/:id', async (req, res) => {
 });
 
 // -- QUESTION BANK QUIZ ROUTES --
-app.get('/api/quizzes/list/:subject', authStudent, async (req, res) => {
+app.get('/api/quizzes/list/:subject', async (req, res) => {
   try {
     const subject = req.params.subject;
     const { data, error } = await supabase
