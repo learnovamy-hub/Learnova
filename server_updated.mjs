@@ -1666,11 +1666,11 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
     // â”€â”€ Phase-specific teaching instructions (HARDCODED PEDAGOGY) â”€â”€
     const phaseInstructions = {
       intro: `=== INTRODUCTION ===
-This is the very first turn of the lesson. Do ALL of these in one short reply, nothing more:
+This is the very first turn of the lesson. Do ALL of these in one short message, nothing more:
 1. Write ONE curiosity hook -- a surprising fact, relatable scenario, or real-life connection to "${topic}" in ${subject || 'Mathematics'} (1-2 sentences only).
 2. Ask ONE activation question to find out what the student already knows (e.g. "Before we start, what do you already know about this?").
 Do NOT explain the concept yet.
-Keep reply under 80 words.`,
+Keep it under 80 words.`,
 
       teach: `=== TEACHING (Concept ${currentSegment + 1}) ===
 ONE concept per response -- no more:
@@ -2150,7 +2150,7 @@ TUGAS KAMU â€” WAJIB IKUT SEMUA PERATURAN INI:
     }
 
     const userMsg = message === 'start'
-      ? `Start teaching me about "${topic}" in ${subject}. Begin with the intro phase.`
+      ? `Start teaching me about "${topic}" in ${subject}.`
       : (message || 'continue');
     msgs.push({ role: 'user', content: userMsg });
 
@@ -2164,11 +2164,11 @@ TUGAS KAMU â€” WAJIB IKUT SEMUA PERATURAN INI:
     });
 
     const blocks = Array.isArray(claudeRes.content) ? claudeRes.content : [];
-    const reply = safeReply(blocks
-      .filter(b => b.type === 'text')
-      .map(b => (b.text || ''))
-      .join('')
-      .trim());
+    const _raw = blocks.filter(b => b.type === 'text').map(b => (b.text || '')).join('').trim();
+    const _braceIdx = _raw.indexOf('{');
+    const reply = _braceIdx > 0
+      ? (safeReply(_raw.slice(_braceIdx)) || _raw.slice(0, _braceIdx).trim())
+      : safeReply(_raw);
     const toolBlock = blocks.find(b => b.type === 'tool_use' && b.name === 'classify_turn');
     const classification = (toolBlock && toolBlock.input) || { student_signal: 'continue', ready_for_quiz: false };
     const signal = classification.student_signal || 'continue';
