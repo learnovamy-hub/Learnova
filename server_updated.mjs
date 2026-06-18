@@ -1747,14 +1747,14 @@ ONE concept per response -- no more:
 4. Name ONE common mistake SPM students make here.
 5. End with a direct comprehension question to the student (e.g. "Now, can you tell me WHY we do step 2?" or "What do you think comes next?").
 Do NOT explain the next concept. Do NOT summarise the whole topic.
-Keep reply under 160 words.`,
+Keep it under 160 words.`,
 
       check: `=== CHECKING UNDERSTANDING ===
-The student has just responded. Assess their understanding and reply accordingly. The server decides what comes next based on the classify_turn tool you call.
+The student has just responded. Assess their understanding and respond accordingly. The server decides what comes next based on the classify_turn tool you call.
 
 IF STUDENT ANSWERED CORRECTLY:
 - Praise in ONE sentence (genuine, not hollow).
-- Either lead into the next concept of "${topic}" or, if all concepts have been taught, into exam practice. Your reply should flow naturally into whichever it is.
+- Either lead into the next concept of "${topic}" or, if all concepts have been taught, into exam practice. Your response should flow naturally into whichever it is.
 
 IF STUDENT ANSWERED WRONGLY OR IS CONFUSED:
 - DO NOT give the answer yet.
@@ -1765,7 +1765,7 @@ IF STUDENT SAYS "I DON'T KNOW":
 - Ask an even simpler scaffolding question first.
 - Break it into the smallest possible step.
 
-Keep reply under 130 words.`,
+Keep it under 130 words.`,
 
       quiz_setup: `=== EXAM PRACTICE ===
 Write ONE SPM-style question on "${topic}" in ${subject || 'Mathematics'}:
@@ -1978,7 +1978,8 @@ ${currentPhaseInstructions}
 ==================================================
 OUTPUT RULES -- HARD LIMITS
 ==================================================
-- Respond in plain teaching text only. NO JSON, NO code blocks, NO curly braces {}, NO brackets [], no programming syntax in your reply.
+CRITICAL: Output plain text ONLY. If you find yourself writing { or "reply": or "phase": STOP and rewrite as plain text.
+- Respond in plain teaching text only. NO JSON, NO code blocks, NO curly braces {}, NO brackets [], no programming syntax.
 - NEVER list all sub-topics in one message.
 - NEVER give a full lesson summary before teaching.
 - NEVER pre-answer questions the student has not asked yet.
