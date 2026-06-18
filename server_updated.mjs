@@ -668,7 +668,58 @@ app.get('/api/lessons/detail/:id', async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// â”€â”€ QUIZ ROUTES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// -- QUESTION BANK QUIZ ROUTES --
+app.get('/api/quizzes/list/:subject', authStudent, async (req, res) => {
+  try {
+    const subject = req.params.subject;
+    const { data, error } = await supabase
+      .from('question_bank')
+      .select('topic')
+      .eq('subject', subject)
+      .eq('country', 'MY')
+      .not('topic', 'is', null);
+    if (error) throw error;
+    // Group by topic, count questions per topic
+    const topicMap = {};
+    (data || []).forEach(row => {
+      const t = row.topic;
+      if (t) topicMap[t] = (topicMap[t] || 0) + 1;
+    });
+    const topics = Object.entries(topicMap)
+      .map(([topic, count]) => ({
+        id: `${subject}-${topic}`,
+        title: topic,
+        topic,
+        subject,
+        total_questions: count,
+        difficulty: 'mixed'
+      }))
+      .sort((a, b) => a.topic.localeCompare(b.topic));
+    res.json(topics);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/quizzes/questions/:subject/:topic', authStudent, async (req, res) => {
+  try {
+    const { subject, topic } = req.params;
+    const { data, error } = await supabase
+      .from('question_bank')
+      .select('id,question_text,options,correct_answer,full_solution,difficulty')
+      .eq('subject', subject)
+      .eq('topic', decodeURIComponent(topic))
+      .eq('country', 'MY')
+      .eq('question_type', 'multiple_choice')
+      .limit(20);
+    if (error) throw error;
+    res.json(data || []);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// -- QUIZ ROUTES (teacher-created quizzes) --
 app.get('/api/quiz/list/:subject', async (req, res) => {
   try {
     const { data } = await supabase.from('quizzes').select('id,title,topic,subject,total_questions,difficulty').eq('subject', req.params.subject).eq('is_published', true);
