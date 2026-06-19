@@ -1433,7 +1433,7 @@ app.get('/api/tutor/topics', async (req, res) => {
   try {
     const { subject: rawSubject } = req.query;
     const subject = normalizeSubject(rawSubject);
-    const cols = 'id, title, topic, subtopic, form_level, introduction, summary';
+    const cols = 'id, title, topic, form_level, introduction, summary';
 
     // 1. status field (lessons created via setup scripts)
     const { data } = await supabase.from('lessons').select(cols)
