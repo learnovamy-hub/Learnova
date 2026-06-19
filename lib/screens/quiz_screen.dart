@@ -14,6 +14,9 @@ class QuizScreen extends StatefulWidget {
 }
 
 class _QuizScreenState extends State<QuizScreen> {
+  // Workspace ("Show your working") is hidden until /api/workspace/assess
+  // is built (Part B). Flip to true to re-enable the UI entry points.
+  static const bool _workspaceEnabled = false;
   List<dynamic> _questions = [];
   Map<String, String> _answers = {};
   bool _loading = true;
@@ -159,13 +162,14 @@ class _QuizScreenState extends State<QuizScreen> {
           ? Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
               // Question + options (left)
               Expanded(flex: 3, child: _buildQuestionPanel(q, questionText, options)),
-              // Workspace (right) — always visible on desktop
-              Expanded(flex: 2, child: _buildDesktopWorkspace(q, questionText)),
+              // Workspace (right) — hidden until /api/workspace/assess is built (Part B)
+              if (_workspaceEnabled)
+                Expanded(flex: 2, child: _buildDesktopWorkspace(q, questionText)),
             ])
           // MOBILE: stacked
           : Stack(children: [
               _buildQuestionPanel(q, questionText, options),
-              if (_showWorkspace)
+              if (_workspaceEnabled && _showWorkspace)
                 Positioned(bottom: 0, left: 0, right: 0,
                   child: WorkspacePanel(
                     subject: 'Mathematics',
@@ -178,7 +182,7 @@ class _QuizScreenState extends State<QuizScreen> {
         ),
 
         // Workspace result banner
-        if (_workspaceResult != null) _buildWorkspaceBanner(),
+        if (_workspaceEnabled && _workspaceResult != null) _buildWorkspaceBanner(),
 
         // Bottom navigation
         _buildBottomNav(q),
@@ -289,8 +293,8 @@ class _QuizScreenState extends State<QuizScreen> {
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
       decoration: const BoxDecoration(color: kSurface, border: Border(top: BorderSide(color: kBorder))),
       child: Row(children: [
-        // Workspace toggle (mobile only)
-        if (isMobile) ...[
+        // Workspace toggle (mobile only) — hidden until /api/workspace/assess is built (Part B)
+        if (isMobile && _workspaceEnabled) ...[
           GestureDetector(
             onTap: () => setState(() => _showWorkspace = !_showWorkspace),
             child: Container(
