@@ -51,6 +51,17 @@ class _QuizScreenState extends State<QuizScreen> {
     if (raw is Map) {
       return raw.entries.map((e) => {'key': e.key.toString(), 'value': e.value.toString()}).toList();
     }
+    // question_bank stores options as a JSON array: ["A. text", "B. text", ...]
+    if (raw is List && raw.isNotEmpty) {
+      return raw.map((e) {
+        final s = e.toString();
+        final dot = s.indexOf('.');
+        if (dot > 0 && dot <= 2) {
+          return {'key': s.substring(0, dot).trim(), 'value': s.substring(dot + 1).trim()};
+        }
+        return {'key': s, 'value': s};
+      }).toList();
+    }
     final opts = <Map<String, String>>[];
     for (final k in ['A', 'B', 'C', 'D']) {
       final v = q['option_${k.toLowerCase()}'];

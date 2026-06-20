@@ -1933,7 +1933,8 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
             style: const TextStyle(color: kText, fontSize: 14),
             maxLines: 4,
             minLines: 1,
-            textInputAction: TextInputAction.newline,
+            textInputAction: TextInputAction.send,
+            onSubmitted: (value) { final t = value.trim(); _ctrl.clear(); setState(() {}); if (t.isNotEmpty) _ask(t); },
             decoration: InputDecoration(
               hintText: _hintText,
               hintStyle: const TextStyle(color: kMuted, fontSize: 13),
