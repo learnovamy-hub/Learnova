@@ -1438,12 +1438,18 @@ app.get('/api/tutor/topics', async (req, res) => {
     // 1. status field (lessons created via setup scripts)
     const { data } = await supabase.from('lessons').select(cols)
       .eq('subject', subject).in('status', ['published', 'active']).order('topic');
-    if (data && data.length > 0) return res.json({ topics: data });
+    if (data && data.length > 0) {
+      const unique = [...new Map(data.map(r => [r.topic, r])).values()];
+      return res.json({ topics: unique });
+    }
 
     // 2. is_published boolean (lessons created via teacher portal)
     const { data: pub } = await supabase.from('lessons').select(cols)
       .eq('subject', subject).eq('is_published', true).order('topic');
-    if (pub && pub.length > 0) return res.json({ topics: pub });
+    if (pub && pub.length > 0) {
+      const unique = [...new Map(pub.map(r => [r.topic, r])).values()];
+      return res.json({ topics: unique });
+    }
 
     // 3. Fallback: concept_chunks (topics with content even if no lesson entry)
     const { data: cc } = await supabase.from('concept_chunks')
