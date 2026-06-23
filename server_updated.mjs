@@ -1690,6 +1690,14 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
         });
       }
 
+      // faq_cache hybrid lookup (MY subjects: 712 pre-generated answers)
+      const cacheHit = await searchFaqCache(message, subject);
+      if (cacheHit) {
+        return res.json({ reply: safeReply(cacheHit.answer), source: 'faq_cache', from_cache: true,
+          phase, segment: (parseInt(segment)||0)+1, isCheckIn: false,
+          suggestedResponses: suggestions, activeQuestion: null });
+      }
+
       // Explanation type check
       const expType = pregen.detectExplanationType(message);
       if (expType) {
