@@ -1722,6 +1722,7 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
     // -- OFF-TOPIC REDIRECT + SESSION TIMER (checked BEFORE faq_cache to prevent vector false-positives) --
     const sidForState = (req.user && (req.user.student_id || req.user.id)) || req.body.studentId || req.body.student_id || 'anon';
     const sessState = topic ? getTutorSessionState(sidForState, topic) : null;
+    console.log('[tutor/session] ROUTE-CHECK:', JSON.stringify({ message, topic, isOffTopic: message ? isOffTopicMessage(message) : false, hasSessState: !!sessState, isStart: message === 'start' }));
     if (sessState && message && message !== 'start' && isOffTopicMessage(message)) {
       sessState.offTopicCount = (sessState.offTopicCount || 0) + 1;
       const idx = Math.min(sessState.offTopicCount - 1, OFF_TOPIC_REDIRECTS_BM.length - 1);
