@@ -37,6 +37,8 @@ class _HomeTabState extends State<HomeTab> {
   bool _showKhabar = false;
   bool _showButtons = false;
   final TextEditingController _chatController = TextEditingController();
+  final List<Map<String, String>> _qaMessages = [];
+  bool _qaLoading = false;
 
   String _getNovaGreeting() {
     final resume    = _resumeData?['resume'] as Map<String, dynamic>?;
@@ -333,13 +335,43 @@ class _HomeTabState extends State<HomeTab> {
     ));
   }
 
-  void _submitChat() {
+  Future<void> _submitChat() async {
     final text = _chatController.text.trim();
     if (text.isEmpty) return;
     _chatController.clear();
     _dismissWelcome();
-    final shell = context.findAncestorStateOfType<MainShellState>();
-    shell?.setState(() => shell.currentIndex = 2);
+    setState(() {
+      _qaMessages.add({'role': 'user', 'text': text});
+      _qaLoading = true;
+    });
+    try {
+      final r = await http.post(
+        Uri.parse('$kApiUrl/api/qa'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $_token',
+        },
+        body: jsonEncode({
+          'message': text,
+          'studentId': _studentId,
+          'language': _teachingLang,
+        }),
+      );
+      final data = jsonDecode(r.body) as Map<String, dynamic>;
+      if (mounted) {
+        setState(() {
+          _qaMessages.add({'role': 'ai', 'text': data['reply'] as String? ?? 'Maaf, cuba lagi.'});
+          _qaLoading = false;
+        });
+      }
+    } catch (_) {
+      if (mounted) {
+        setState(() {
+          _qaMessages.add({'role': 'ai', 'text': 'Ralat sambungan. Cuba lagi.'});
+          _qaLoading = false;
+        });
+      }
+    }
   }
 
   // ── Subject helpers ───────────────────────────────────────────────
@@ -383,6 +415,7 @@ class _HomeTabState extends State<HomeTab> {
                       ),
                     ),
         ),
+        if (_qaMessages.isNotEmpty || _qaLoading) _buildQaReplyArea(),
         _buildHomeChatInput(),
       ]),
     );
@@ -631,8 +664,63 @@ class _HomeTabState extends State<HomeTab> {
     );
   }
 
-  // ── SECTION 4: Persistent chat input ─────────────────────────────
-  // (chat input unchanged — see _buildHomeChatInput below)
+  // ── SECTION 4: Q&A reply area ─────────────────────────────────────
+  Widget _buildQaReplyArea() {
+    return Container(
+      constraints: const BoxConstraints(maxHeight: 220),
+      decoration: const BoxDecoration(
+        color: kSurface,
+        border: Border(top: BorderSide(color: kBorder)),
+      ),
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ..._qaMessages.map((m) {
+              final isUser = m['role'] == 'user';
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+                  children: [
+                    if (!isUser) ...[
+                      const Icon(Icons.auto_awesome_rounded, color: kPrimary, size: 14),
+                      const SizedBox(width: 6),
+                    ],
+                    Flexible(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: isUser ? kPrimary.withOpacity(0.15) : kSurface2,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Text(m['text'] ?? '',
+                          style: const TextStyle(color: kText, fontSize: 13, height: 1.4)),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }),
+            if (_qaLoading)
+              const Padding(
+                padding: EdgeInsets.only(top: 4),
+                child: Row(children: [
+                  Icon(Icons.auto_awesome_rounded, color: kPrimary, size: 14),
+                  SizedBox(width: 8),
+                  SizedBox(width: 14, height: 14,
+                    child: CircularProgressIndicator(color: kPrimary, strokeWidth: 2)),
+                ]),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // ── SECTION 5: Persistent chat input ──────────────────────────────
   Widget _buildHomeChatInput() {
     final bottom = MediaQuery.of(context).padding.bottom;
     return Container(

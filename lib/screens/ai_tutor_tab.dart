@@ -768,41 +768,14 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
       _maybeShowIllustrations(question);
       return;
     }
-    setState(() { _messages.add({'role': 'user', 'text': question}); _loading = true; });
-    _ctrl.clear();
-    _scrollToBottom();
-    try {
-      final r = await http.post(
-        Uri.parse('$kApiUrl/api/tutor/session'),
-        headers: {
-          'Content-Type': 'application/json',
-          if (_authToken != null) 'Authorization': 'Bearer $_authToken',
-        },
-        body: jsonEncode({
-          'question': question,
-          'subject': _currentSubject,
-          'language': _forceEnglish ? 'en' : 'bm',
-        }),
-      );
-      final data = jsonDecode(r.body);
-      final related = data['related_questions'];
-      setState(() {
-        _messages.add({
-          'role': 'ai',
-          'text': data['reply'] ?? data['answer'] ?? 'Maaf, saya tidak dapat menjawab soalan itu.',
-          'example': data['example'], 'source': data['source'],
-          'related_questions': (related is List) ? related.cast<String>() : <String>[],
-          'wrong_subject_note': data['wrong_subject_note'],
-        });
-        _loading = false;
-      });
-    } catch (_) {
-      setState(() {
-        _messages.add({'role': 'ai', 'text': 'Ralat sambungan. Cuba lagi.'});
-        _loading = false;
-      });
-    }
-    _scrollToBottom();
+    // No topic selected — require topic before starting a lesson
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Pilih topik dahulu dari senarai di atas untuk mula belajar bersama Nova.'),
+        duration: Duration(seconds: 2),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
   }
 
   void _scrollToBottom() {
