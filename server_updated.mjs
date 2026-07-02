@@ -1719,6 +1719,45 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
       return res.json({ ...parsed, source: 'claude' });
     }
 
+    // -- OFF-TOPIC REDIRECT + SESSION TIMER (checked BEFORE faq_cache to prevent vector false-positives) --
+    const sidForState = (req.user && (req.user.student_id || req.user.id)) || req.body.studentId || req.body.student_id || 'anon';
+    const sessState = topic ? getTutorSessionState(sidForState, topic) : null;
+    if (sessState && message && message !== 'start' && isOffTopicMessage(message)) {
+      sessState.offTopicCount = (sessState.offTopicCount || 0) + 1;
+      const idx = Math.min(sessState.offTopicCount - 1, OFF_TOPIC_REDIRECTS_BM.length - 1);
+      const isBmLang = isBm || isBmSubject || isSejarahSubject;
+      const timeRemaining = calculateTimeRemaining(sessState.sessionStartTime);
+      let offTopicReply;
+      if (deepseekApiKey) {
+        try {
+          const dsSystem = isBmLang
+            ? `Kamu adalah Nova, pembantu belajar. Jawab soalan ini dalam SATU ayat ringkas dalam Bahasa Malaysia, kemudian tambah satu ayat lembut untuk kembali fokus pada pelajaran "${topic}".`
+            : `You are Nova, a study assistant. Answer this question in ONE brief sentence in English, then add one gentle nudge to refocus on the lesson "${topic}".`;
+          offTopicReply = await callDeepSeek(dsSystem, message, 150);
+        } catch (e) {
+          console.error('[tutor/session] DeepSeek off-topic fallback:', e.message);
+          offTopicReply = isBmLang ? OFF_TOPIC_REDIRECTS_BM[idx] : OFF_TOPIC_REDIRECTS_EN[idx];
+        }
+      } else {
+        offTopicReply = isBmLang ? OFF_TOPIC_REDIRECTS_BM[idx] : OFF_TOPIC_REDIRECTS_EN[idx];
+      }
+      console.log('[tutor/session] OFF-TOPIC:', JSON.stringify({ sid: sidForState, topic, count: sessState.offTopicCount, usedDeepSeek: !!deepseekApiKey, timeRemaining }));
+      return res.json({
+        reply: offTopicReply,
+        source: 'redirect',
+        phase: phase || 'intro',
+        segment: parseInt(segment) || 0,
+        suggestedResponses: suggestions,
+        hasActiveQuestion: false,
+        activeQuestion: null,
+        isCheckIn: false,
+        offTopicCount: sessState.offTopicCount,
+        timeRemaining,
+        suggestBreak: sessState.offTopicCount >= 5,
+        sessionStartTime: sessState.sessionStartTime,
+      });
+    }
+
     // â”€â”€ Pregen: serve FAQ or explanation before calling Claude â”€â”€â”€
     if (topic && message && message !== 'start') {
       const country = req.body.country || 'MY';
@@ -1757,45 +1796,6 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
           });
         }
       }
-    }
-
-    // -- OFF-TOPIC REDIRECT + SESSION TIMER --
-    const sidForState = (req.user && (req.user.student_id || req.user.id)) || req.body.studentId || req.body.student_id || 'anon';
-    const sessState = topic ? getTutorSessionState(sidForState, topic) : null;
-    if (sessState && message && message !== 'start' && isOffTopicMessage(message)) {
-      sessState.offTopicCount = (sessState.offTopicCount || 0) + 1;
-      const idx = Math.min(sessState.offTopicCount - 1, OFF_TOPIC_REDIRECTS_BM.length - 1);
-      const isBmLang = isBm || isBmSubject || isSejarahSubject;
-      const timeRemaining = calculateTimeRemaining(sessState.sessionStartTime);
-      let offTopicReply;
-      if (deepseekApiKey) {
-        try {
-          const dsSystem = isBmLang
-            ? `Kamu adalah Nova, pembantu belajar. Jawab soalan ini dalam SATU ayat ringkas dalam Bahasa Malaysia, kemudian tambah satu ayat lembut untuk kembali fokus pada pelajaran "${topic}".`
-            : `You are Nova, a study assistant. Answer this question in ONE brief sentence in English, then add one gentle nudge to refocus on the lesson "${topic}".`;
-          offTopicReply = await callDeepSeek(dsSystem, message, 150);
-        } catch (e) {
-          console.error('[tutor/session] DeepSeek off-topic fallback:', e.message);
-          offTopicReply = isBmLang ? OFF_TOPIC_REDIRECTS_BM[idx] : OFF_TOPIC_REDIRECTS_EN[idx];
-        }
-      } else {
-        offTopicReply = isBmLang ? OFF_TOPIC_REDIRECTS_BM[idx] : OFF_TOPIC_REDIRECTS_EN[idx];
-      }
-      console.log('[tutor/session] OFF-TOPIC:', JSON.stringify({ sid: sidForState, topic, count: sessState.offTopicCount, usedDeepSeek: !!deepseekApiKey, timeRemaining }));
-      return res.json({
-        reply: offTopicReply,
-        source: 'redirect',
-        phase: phase || 'intro',
-        segment: parseInt(segment) || 0,
-        suggestedResponses: suggestions,
-        hasActiveQuestion: false,
-        activeQuestion: null,
-        isCheckIn: false,
-        offTopicCount: sessState.offTopicCount,
-        timeRemaining,
-        suggestBreak: sessState.offTopicCount >= 5,
-        sessionStartTime: sessState.sessionStartTime,
-      });
     }
 
     // â”€â”€ Tutor mode: guided lesson with topic â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
