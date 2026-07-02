@@ -1,5 +1,6 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math' as math;
 // ignore: avoid_web_libraries_in_flutter
@@ -49,7 +50,6 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
   // after _startTutorSession completes, so Nova teaches instead of asking
   // "which topic?".
   String? _pendingIntent;
-  bool _returnedFromSession = false;
   String? _currentStandardCode;
   String? _currentStandardDesc;
   String? _standardsProgress;
@@ -62,6 +62,14 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
   bool _showAnim        = false;
   bool _studentConfused = false;
   String? _lastAnimCode;
+
+  // -- Session timer + off-topic redirect (server-driven) --
+  int? _sessionStartTimeMs;
+  int _offTopicCount = 0;
+  bool _suggestBreak = false;
+  int _timeRemainingMin = 45;
+  Timer? _countdownTimer;
+  static const int _sessionDurationMin = 45;
 
   // â”€â”€ Topic animation (pre-built, stored in engine, served on demand) â”€â”€
   Map<String, dynamic>? _topicAnimation;
@@ -570,6 +578,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     _sessionId = _newSessionId();
     _novaSessionStart = DateTime.now();
     context.findAncestorStateOfType<MainShellState>()?.setTutorMode(true);
+    _resetSessionTimer();
     setState(() {
       _tutorMode = true; _currentTopic = topic;
       _phase = 'intro'; _segment = 0;
@@ -578,7 +587,6 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
       _animSteps = []; _animAltSteps = [];
       _showAnim = false; _lastAnimCode = null; _studentConfused = false;
       _topicAnimation = null; _showTopicAnim = true;
-      _returnedFromSession = false;
     });
     await _tutorSession('start', preRead: preRead);
     // Drain pending intent (e.g. "Jelaskan topik ini") as the student's first
@@ -701,12 +709,25 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
         // shipped activeQuestion as a Map?. Treat either as a truthiness flag.
         final hasQ = data['hasActiveQuestion'] == true || data['activeQuestion'] != null;
         _activeQuestion = hasQ ? <String, dynamic>{} : null;
+        if (data['sessionStartTime'] != null) {
+          _sessionStartTimeMs = (data['sessionStartTime'] as num).toInt();
+        }
+        if (data['offTopicCount'] != null) {
+          _offTopicCount = (data['offTopicCount'] as num).toInt();
+        }
+        if (data['suggestBreak'] != null) {
+          _suggestBreak = data['suggestBreak'] == true;
+        }
+        if (data['timeRemaining'] != null) {
+          _timeRemainingMin = (data['timeRemaining'] as num).toInt();
+        }
         _messages.add({
           'role': 'ai', 'text': data['reply'] ?? '',
           'source': data['source'], 'isCheckIn': data['isCheckIn'] ?? false,
         });
         _loading = false;
       });
+      _ensureCountdownTimer();
 
       // Use inline visual from response first; fall back to pre-stored standard animation
       final visualData = data['visual'];
@@ -901,95 +922,13 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
       _showAnim = false; _lastAnimCode = null;
       _topicAnimation = null; _showTopicAnim = true;
       _workspaceExpanded = false;
-      _returnedFromSession = true;
     });
-  }
-
-  // â”€â”€ Layout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  Widget _buildIdleScreen() {
-    const chips = ['Jelaskan topik ini', 'Bagi saya kuiz', 'Selesaikan soalan', 'Pelan belajar'];
-    return Scaffold(
-      backgroundColor: const Color(0xFF07080C),
-      body: Column(children: [
-        SafeArea(
-          bottom: false,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-            child: Row(children: [
-              Container(
-                width: 32, height: 32,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF0D1018),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: const Color(0xFF181C28)),
-                ),
-                child: const Center(child: Icon(Icons.auto_awesome_rounded,
-                  color: Color(0xFF4A7AFA), size: 16)),
-              ),
-              const SizedBox(width: 10),
-              const Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text('Nova', style: TextStyle(
-                  color: Color(0xFFE8ECF8), fontSize: 14, fontWeight: FontWeight.w500)),
-                Text('Pembantu belajar kamu', style: TextStyle(
-                  color: Color(0xFF4A5070), fontSize: 10)),
-              ]),
-            ]),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: GridView.count(
-            crossAxisCount: 2,
-            shrinkWrap: true,
-            crossAxisSpacing: 8,
-            mainAxisSpacing: 8,
-            childAspectRatio: 2.5,
-            children: chips.map((label) => GestureDetector(
-              onTap: () {
-                // Intent chips need a topic. If we already have one (mid-session
-                // chip use), let _ask route to the existing _tutorMode branch.
-                // Otherwise stash the intent and force the topic picker — the
-                // intent gets sent as the first message once _startTutorSession
-                // completes (see _startTutorSession).
-                if (_currentTopic != null) {
-                  _ask(label);
-                } else {
-                  setState(() => _pendingIntent = label);
-                }
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: const Color(0xFF0D1018),
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: const Color(0xFF181C28)),
-                ),
-                alignment: Alignment.center,
-                child: Text(label,
-                  style: const TextStyle(color: Color(0xFF6A7A9A), fontSize: 12),
-                  textAlign: TextAlign.center),
-              ),
-            )).toList(),
-          ),
-        ),
-        const Spacer(),
-        Padding(
-          padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
-          child: _buildChatInput(),
-        ),
-      ]),
-    );
   }
 
   @override
   Widget build(BuildContext context) {
     final subjectColor = Color(_subjectInfo['color'] as int);
     final isWide = MediaQuery.of(context).size.width > 700;
-
-    // Skip the idle screen when an intent is pending — fall through to the
-    // tutor-mode chrome so _buildTopicSelector renders and the student can pick.
-    if (_messages.isEmpty && !_tutorMode && widget.lessonContext == null && _pendingIntent == null && !_returnedFromSession) {
-      return _buildIdleScreen();
-    }
 
     return Scaffold(
       backgroundColor: kBg,
@@ -1007,6 +946,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
                 (_currentTopic!.length > 20 ? '${_currentTopic!.substring(0, 20)}â€¦' : _currentTopic!),
               style: const TextStyle(fontSize: 14)),
             actions: [
+              if (_sessionStartTimeMs != null) _buildTimerChip(),
               if (_showLanguageToggle && !_forceEnglish)
                 GestureDetector(
                   onTap: _toggleEnglishRequest,
@@ -1383,11 +1323,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
         onChanged: (s) {
           setState(() {
             _currentSubject = s;
-            // Reset topic so the next idle-screen chip tap routes through the
-            // picker for the new subject (the old subject's topic isn't valid
-            // here anyway).
             _currentTopic = null;
-            _returnedFromSession = false;
           });
           _loadTopics(); _loadSuggestions();
           context.findAncestorStateOfType<MainShellState>()?.setSubject(s);
@@ -2329,8 +2265,54 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     _scrollCtrl.dispose();
     _orbPulse.dispose();
     _stopSpeech();
+    _countdownTimer?.cancel();
     _recordNovaSession();
     super.dispose();
+  }
+
+  void _ensureCountdownTimer() {
+    if (_sessionStartTimeMs == null) return;
+    if (_countdownTimer != null && _countdownTimer!.isActive) return;
+    _countdownTimer = Timer.periodic(const Duration(seconds: 30), (_) {
+      if (!mounted || _sessionStartTimeMs == null) return;
+      final elapsedMs = DateTime.now().millisecondsSinceEpoch - _sessionStartTimeMs!;
+      final remaining = _sessionDurationMin - (elapsedMs / 60000).ceil();
+      final clamped = remaining < 0 ? 0 : remaining;
+      if (clamped != _timeRemainingMin) {
+        setState(() => _timeRemainingMin = clamped);
+      }
+    });
+  }
+
+  void _resetSessionTimer() {
+    _countdownTimer?.cancel();
+    _countdownTimer = null;
+    _sessionStartTimeMs = null;
+    _offTopicCount = 0;
+    _suggestBreak = false;
+    _timeRemainingMin = _sessionDurationMin;
+  }
+
+  Widget _buildTimerChip() {
+    final mins = _timeRemainingMin;
+    final isLow = mins <= 5;
+    final isDone = mins <= 0;
+    final color = isDone ? kRed : isLow ? kYellow : kPrimary;
+    final label = isDone ? "Time's up" : 'Time: $mins min';
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.12),
+        border: Border.all(color: color.withOpacity(0.5)),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(mainAxisSize: MainAxisSize.min, children: [
+        Icon(_suggestBreak ? Icons.coffee_rounded : Icons.timer_outlined, size: 11, color: color),
+        const SizedBox(width: 4),
+        Text(label, style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w700)),
+      ]),
+    );
   }
 
   void _recordNovaSession() {
