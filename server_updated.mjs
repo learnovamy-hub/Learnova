@@ -49,6 +49,7 @@ const stripEmojis = (v) => (v || '')
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
 const claudeApiKey = process.env.CLAUDE_API_KEY;
+const deepseekApiKey = process.env.DEEPSEEK_API_KEY;
 
 if (!supabaseUrl || !supabaseKey) {
   console.error('FATAL: Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY');
@@ -439,7 +440,7 @@ app.post('/api/ai/ask', authStudent, async (req, res) => {
     const anthropic = new Anthropic({ apiKey: claudeApiKey });
     const subjectLabel = subject || 'General';
     const message = await anthropic.messages.create({
-      model: 'claude-haiku-4-5-20251001',
+      model: 'claude-sonnet-4-6',
       max_tokens: 600,
       system: `You are Learnova AI, a warm Malaysian Form 4-5 tutor. Subject: ${subjectLabel}. Topic: ${topic || 'General'}. Explain clearly with examples in under 150 words. Always include an Example: section.`,
       messages: [{ role: 'user', content: question }]
@@ -735,41 +736,6 @@ app.post('/api/quizzes/attempt', authStudent, async (req, res) => {
   }
 });
 
-// -- QUIZ ROUTES (teacher-created quizzes) --
-app.get('/api/quiz/list/:subject', async (req, res) => {
-  try {
-    const { data } = await supabase.from('quizzes').select('id,title,topic,subject,total_questions,difficulty').eq('subject', req.params.subject).eq('is_published', true);
-    res.json(data || []);
-  } catch (err) { res.status(500).json({ error: err.message }); }
-});
-
-app.get('/api/quiz/:id', async (req, res) => {
-  try {
-    const { data: quiz } = await supabase.from('quizzes').select('*').eq('id', req.params.id).single();
-    const { data: questions } = await supabase.from('quiz_questions').select('*').eq('quiz_id', req.params.id);
-    if (!quiz) return res.status(404).json({ error: 'Quiz not found' });
-    res.json({ ...quiz, questions: questions || [] });
-  } catch (err) { res.status(500).json({ error: err.message }); }
-});
-
-app.post('/api/quiz/:id/submit', authStudent, async (req, res) => {
-  try {
-    const { answers, time_taken_seconds } = req.body;
-    const { data: questions } = await supabase.from('quiz_questions').select('*').eq('quiz_id', req.params.id);
-    if (!questions?.length) return res.status(404).json({ error: 'Questions not found' });
-    let score = 0;
-    const feedback = questions.map(q => {
-      const studentAnswer = answers?.[q.id];
-      const correct = studentAnswer === q.correct_answer;
-      if (correct) score++;
-      return { question_id: q.id, correct, correct_answer: q.correct_answer, student_answer: studentAnswer, explanation: q.explanation };
-    });
-    const percentage = Math.round((score / questions.length) * 100);
-    const { data: result } = await supabase.from('quiz_results').insert([{ student_id: req.user.student_id, quiz_id: req.params.id, score, total: questions.length, percentage, time_taken_seconds: time_taken_seconds || 0 }]).select();
-    res.json({ score, total: questions.length, percentage, feedback, result_id: result?.[0]?.id });
-    triggerBackup();
-  } catch (err) { console.error('Quiz submit:', err); res.status(500).json({ error: err.message }); }
-});
 
 // â”€â”€ TEACHER ROUTES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.post('/api/teacher/signup', async (req, res) => {
@@ -845,7 +811,7 @@ app.post('/api/teacher/generate-lesson', authTeacher, async (req, res) => {
     const { default: Anthropic } = await import('@anthropic-ai/sdk');
     const anthropic = new Anthropic({ apiKey: claudeApiKey });
     const message = await anthropic.messages.create({
-      model: 'claude-haiku-4-5-20251001', max_tokens: 2000,
+      model: 'claude-sonnet-4-6', max_tokens: 2000,
       system: 'You are a Malaysian secondary school curriculum designer for Form 4-5 KSSM syllabus. Return ONLY valid JSON, no markdown.',
       messages: [{ role: 'user', content: `Create lesson for Form ${form_level || 4} ${subject || 'Mathematics'}.\nTopic: ${topic}\n${textbook_content ? 'Content: ' + textbook_content : ''}\n${pedagogy_notes ? 'Teaching style: ' + pedagogy_notes : ''}\nReturn JSON: {"title":"","introduction":"","learning_objectives":[],"key_concepts":[],"explanation":"","worked_examples":[{"problem":"","solution":""}],"summary":"","quiz_questions":[{"question":"","type":"multiple_choice","options":["A)","B)","C)","D)"],"correct_answer":"A)","explanation":""}]}` }]
     });
@@ -1408,7 +1374,7 @@ app.post('/api/help/chat', async (req, res) => {
     const { data: cached } = await supabase.from('faq_cache').select('answer').eq('subject', 'help').ilike('question', `%${message.substring(0,30)}%`).limit(1);
     if (cached && cached.length > 0) return res.json({ reply: cached[0].answer, source: 'cache' });
     const claudeRes = await anthropic.messages.create({
-      model: 'claude-haiku-4-5-20251001', max_tokens: 300,
+      model: 'claude-sonnet-4-6', max_tokens: 300,
       system: 'You are Nova, Learnova help assistant for Malaysian SPM students. Answer only app-related questions. Be warm and concise. If unsure say: I will connect you with our support team.',
       messages: [...(history||[]).slice(-4).map(h => ({ role: h.role, content: h.content })), { role: 'user', content: message }],
     });
@@ -1592,8 +1558,85 @@ function chipsForPhase(phase, isBm, isIndonesian, isBmSubject, isSejarahSubject)
   return ['I understand, please continue.', 'Can you show an example?', "I'm not sure about this part."];
 }
 
+// -- OFF-TOPIC REDIRECT + SESSION TIMER --
+const OFF_TOPIC_REDIRECTS_BM = [
+  "Menarik pertanyaan! Tapi kita fokus dulu pada pelajaran. Paham?",
+  "Bagus curiosity kamu, tapi mari kita teruskan lesson dulu. Siap?",
+  "Aku tengok kamu agak distracted. Let's finish this concept, then kamu boleh rest.",
+  "Kamu perlu focus sekarang. Kita nearly done dengan topik ini. Boleh?",
+  "Kamu dah tanya 5 kali. Aku rasa kamu perlu 5-min break. Datang balik lepas?"
+];
+const OFF_TOPIC_REDIRECTS_EN = [
+  "Interesting question! But let's focus on the lesson first. Ready?",
+  "Good curiosity, but let's finish this concept. Are you with me?",
+  "I notice you're getting distracted. Let's complete this topic, then rest.",
+  "You need to focus now. We're almost done with this concept. Okay?",
+  "You've asked 5 off-topic questions. I think you need a 5-min break. Come back when ready!"
+];
+const SESSION_DURATION_MIN = 45;
+const SESSION_TTL_MS = 2 * 60 * 60 * 1000;
+const tutorSessionState = new Map();
+
+async function callDeepSeek(systemPrompt, userMessage, maxTokens = 200) {
+  if (!deepseekApiKey) throw new Error('DEEPSEEK_API_KEY not configured');
+  const res = await fetch('https://api.deepseek.com/v1/chat/completions', {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${deepseekApiKey}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'deepseek-chat',
+      max_tokens: maxTokens,
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userMessage },
+      ],
+    }),
+  });
+  if (!res.ok) { const e = await res.text(); throw new Error(`DeepSeek ${res.status}: ${e}`); }
+  const json = await res.json();
+  return (json.choices[0].message.content || '').trim();
+}
+
+function isOffTopicMessage(message) {
+  if (!message) return false;
+  const patterns = [
+    /\b(lapar|hungry|tired|sleepy|bored|boring)\b/i,
+    /\b(weather|cuaca)\b|what\s*time|whattime/i,
+    /\b(toilet|bathroom|wc)\b/i,
+    /2\s*\+\s*2|math\s+trick|\bjoke\b/i,
+    /\b(sports|gaming|football|basketball)\b/i,
+  ];
+  return patterns.some(p => p.test(message));
+}
+
+function calculateTimeRemaining(sessionStartTime) {
+  if (!sessionStartTime) return SESSION_DURATION_MIN;
+  const elapsedMin = (Date.now() - sessionStartTime) / 60000;
+  return Math.max(0, Math.ceil(SESSION_DURATION_MIN - elapsedMin));
+}
+
+function getTutorSessionState(studentId, topic) {
+  if (!studentId || !topic) return { sessionStartTime: Date.now(), offTopicCount: 0 };
+  const key = `${studentId}:${topic}`;
+  let state = tutorSessionState.get(key);
+  if (!state) {
+    for (const k of Array.from(tutorSessionState.keys())) {
+      if (k.startsWith(studentId + ':') && k !== key) tutorSessionState.delete(k);
+    }
+    state = { sessionStartTime: Date.now(), offTopicCount: 0 };
+    tutorSessionState.set(key, state);
+  }
+  if (tutorSessionState.size > 500) {
+    const now = Date.now();
+    for (const [k, v] of tutorSessionState) {
+      if (now - v.sessionStartTime > SESSION_TTL_MS) tutorSessionState.delete(k);
+    }
+  }
+  return state;
+}
+
 app.post('/api/tutor/session', authStudent, async (req, res) => {
   try {
+    console.log('[tutor/session] IN:', JSON.stringify({ studentId: req.body.studentId, subject: req.body.subject, topic: req.body.topic, hasMessage: !!req.body.message, msgLen: (req.body.message || '').length, hasQuestion: !!req.body.question, phase: req.body.phase, segment: req.body.segment, lang: req.body.teaching_language || req.body.language }));
     const { subject: rawSubject, topic, message, history, phase, segment, language, activeQuestion, question,
             lessonId, lessonContext } = req.body;
     const subject = normalizeSubject(rawSubject);
@@ -1654,12 +1697,14 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
       }
       const { default: Anthropic } = await import('@anthropic-ai/sdk');
       const anthropic = new Anthropic({ apiKey: claudeApiKey });
+      console.log('[tutor/session] About to call Claude (Q&A mode):', JSON.stringify({ subject, lang, questionLen: (question || '').length }));
       const claudeRes = await anthropic.messages.create({
-        model: 'claude-haiku-4-5-20251001',
+        model: 'claude-sonnet-4-6',
         max_tokens: 500,
         system: `You are Nova, a warm Malaysian SPM tutor for ${subject || 'General'}. Answer in ${lang}. Be concise and friendly. Respond with valid JSON only: {"answer":"...","example":"...or null","related_questions":["q1","q2","q3"]}`,
         messages: [{ role: 'user', content: question }],
       });
+      console.log('[tutor/session] Claude returned (Q&A mode):', JSON.stringify({ contentBlocks: Array.isArray(claudeRes.content) ? claudeRes.content.length : 0, stopReason: claudeRes.stop_reason }));
       let parsed;
       try {
         const text = claudeRes.content[0].text.trim();
@@ -1712,6 +1757,45 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
           });
         }
       }
+    }
+
+    // -- OFF-TOPIC REDIRECT + SESSION TIMER --
+    const sidForState = (req.user && (req.user.student_id || req.user.id)) || req.body.studentId || req.body.student_id || 'anon';
+    const sessState = topic ? getTutorSessionState(sidForState, topic) : null;
+    if (sessState && message && message !== 'start' && isOffTopicMessage(message)) {
+      sessState.offTopicCount = (sessState.offTopicCount || 0) + 1;
+      const idx = Math.min(sessState.offTopicCount - 1, OFF_TOPIC_REDIRECTS_BM.length - 1);
+      const isBmLang = isBm || isBmSubject || isSejarahSubject;
+      const timeRemaining = calculateTimeRemaining(sessState.sessionStartTime);
+      let offTopicReply;
+      if (deepseekApiKey) {
+        try {
+          const dsSystem = isBmLang
+            ? `Kamu adalah Nova, pembantu belajar. Jawab soalan ini dalam SATU ayat ringkas dalam Bahasa Malaysia, kemudian tambah satu ayat lembut untuk kembali fokus pada pelajaran "${topic}".`
+            : `You are Nova, a study assistant. Answer this question in ONE brief sentence in English, then add one gentle nudge to refocus on the lesson "${topic}".`;
+          offTopicReply = await callDeepSeek(dsSystem, message, 150);
+        } catch (e) {
+          console.error('[tutor/session] DeepSeek off-topic fallback:', e.message);
+          offTopicReply = isBmLang ? OFF_TOPIC_REDIRECTS_BM[idx] : OFF_TOPIC_REDIRECTS_EN[idx];
+        }
+      } else {
+        offTopicReply = isBmLang ? OFF_TOPIC_REDIRECTS_BM[idx] : OFF_TOPIC_REDIRECTS_EN[idx];
+      }
+      console.log('[tutor/session] OFF-TOPIC:', JSON.stringify({ sid: sidForState, topic, count: sessState.offTopicCount, usedDeepSeek: !!deepseekApiKey, timeRemaining }));
+      return res.json({
+        reply: offTopicReply,
+        source: 'redirect',
+        phase: phase || 'intro',
+        segment: parseInt(segment) || 0,
+        suggestedResponses: suggestions,
+        hasActiveQuestion: false,
+        activeQuestion: null,
+        isCheckIn: false,
+        offTopicCount: sessState.offTopicCount,
+        timeRemaining,
+        suggestBreak: sessState.offTopicCount >= 5,
+        sessionStartTime: sessState.sessionStartTime,
+      });
     }
 
     // â”€â”€ Tutor mode: guided lesson with topic â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -1830,7 +1914,7 @@ Keep reply under 130 words.`
         ? NOVA_ZH_PROMPT + `\n\n正在教的科目：${subject || 'Mathematics'}${topic ? ` — ${topic}` : ''}`
         : NOVA_TA_PROMPT + `\n\nபடிக்கும் பாடம்: ${subject || 'Mathematics'}${topic ? ` — ${topic}` : ''}`;
       const langMessages = await anthropic.messages.create({
-        model: 'claude-haiku-4-5-20251001',
+        model: 'claude-sonnet-4-6',
         max_tokens: 1024,
         system: langPrompt,
         messages: history && history.length > 0
@@ -2236,14 +2320,16 @@ TUGAS KAMU â€” WAJIB IKUT SEMUA PERATURAN INI:
       : (message || 'continue');
     msgs.push({ role: 'user', content: userMsg });
 
+    console.log('[tutor/session] About to call Claude (tutor mode):', JSON.stringify({ phase: currentPhase, segment: currentSegment, subject, topic, msgsCount: msgs.length, maxTokens, hasApiKey: !!claudeApiKey, systemPromptLen: (systemPrompt || '').length }));
     const claudeRes = await anthropic.messages.create({
-      model: 'claude-haiku-4-5-20251001',
+      model: 'claude-sonnet-4-6',
       max_tokens: maxTokens,
       system: systemPrompt,
       messages: msgs,
       tools: [TUTOR_CLASSIFY_TOOL],
       tool_choice: { type: 'tool', name: 'classify_turn' },
     });
+    console.log('[tutor/session] Claude returned (tutor mode):', JSON.stringify({ contentBlocks: Array.isArray(claudeRes.content) ? claudeRes.content.length : 0, stopReason: claudeRes.stop_reason, usage: claudeRes.usage }));
 
     const blocks = Array.isArray(claudeRes.content) ? claudeRes.content : [];
     const _raw = blocks.filter(b => b.type === 'text').map(b => (b.text || '')).join('').trim();
@@ -2271,9 +2357,17 @@ TUGAS KAMU â€” WAJIB IKUT SEMUA PERATURAN INI:
       activeQuestion: hasActiveQuestion ? {} : null,
       isCheckIn: newPhase === 'check' || newPhase === 'quiz_answer',
       source: 'claude',
+      ...(sessState ? {
+        offTopicCount: sessState.offTopicCount,
+        timeRemaining: calculateTimeRemaining(sessState.sessionStartTime),
+        suggestBreak: (sessState.offTopicCount || 0) >= 5,
+        sessionStartTime: sessState.sessionStartTime,
+      } : {}),
     });
   } catch (e) {
-    console.error('Tutor session error:', e);
+    console.error('[tutor/session] ERROR stack:', e && e.stack ? e.stack : e);
+    console.error('[tutor/session] ERROR body keys:', Object.keys(req.body || {}));
+    console.error('[tutor/session] ERROR body snapshot:', JSON.stringify({ subject: req.body && req.body.subject, topic: req.body && req.body.topic, msgLen: req.body && req.body.message ? req.body.message.length : 0, phase: req.body && req.body.phase, segment: req.body && req.body.segment }));
     res.status(500).json({ error: e.message });
   }
 });
@@ -2697,7 +2791,7 @@ app.get('/api/parent/child-progress', async (req, res) => {
         const { default: Anthropic } = await import('@anthropic-ai/sdk');
         const anthropic = new Anthropic({ apiKey: claudeApiKey });
         const msg = await anthropic.messages.create({
-          model: 'claude-haiku-4-5-20251001', max_tokens: 250,
+          model: 'claude-sonnet-4-6', max_tokens: 250,
           messages: [{ role: 'user', content: `Kamu adalah sistem pelaporan untuk platform pembelajaran Learnova. Tulis ringkasan pembelajaran dalam 3-4 ayat BM yang natural dan informatif untuk ibu bapa.\n\nData pelajar:\n- Nama: ${firstName}\n- Tahap: ${level}\n- Hari ini: ${studyMinutes} minit belajar, ${lessonsCompleted} pelajaran selesai\n- Streak: ${streak} hari berturut-turut\n- Subjek terkini: ${lastSubjectName || 'tiada'}\n- Topik terkini: ${lastTopic || 'tiada'}\n- Kemajuan keseluruhan: ${overallPercent}%\n- Hari ke SPM: ${daysRemaining}\n\nTulis dalam BM yang mudah difahami ibu bapa. Jangan guna jargon teknikal. Mulakan dengan nama pelajar. Akhiri dengan nota motivasi. Jawab hanya ringkasan sahaja.` }],
         });
         summaryBm = msg.content[0]?.text?.trim() || '';
@@ -2803,7 +2897,7 @@ app.post('/api/nova/init', async (req, res) => {
       const { default: Anthropic } = await import('@anthropic-ai/sdk');
       const anthropic = new Anthropic({ apiKey: claudeApiKey });
       const resp = await anthropic.messages.create({
-        model: 'claude-haiku-4-5-20251001',
+        model: 'claude-sonnet-4-6',
         max_tokens: 200,
         system: `You are Nova, warm SPM tutor. Student paused at: ${sectionLabels[lastSection] || lastSection} of lesson "${lessonTitle}". Concept so far: ${conceptSnippet.slice(0, 200)}. Give 2-3 sentence contextual continuation in BM+English mix. End with ONE open question. Never say "Apa yang kamu nak belajar?"`,
         messages: [{ role: 'user', content: 'continue' }],
@@ -3179,94 +3273,6 @@ app.listen(PORT, () => {
   console.log(`Multi-subject FAQ: faq_cache table (8 subjects)`);
   console.log(`PregenLookup: question_bank + faq_bank + concept_explanations (ID + MY)`);
   console.log(`Claude API: ${claudeApiKey ? 'ready' : 'FAQ-only mode'}\n`);
-});
-// â”€â”€ MARKING ENGINE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-function markWorking(studentWorking, markingKeywords, correctAnswer, studentAnswer) {
-  const working = (studentWorking || '').toLowerCase();
-  const answer = (studentAnswer || '').toLowerCase().trim();
-  const correct = (correctAnswer || '').toLowerCase().trim();
-  const answerCorrect = answer === correct || answer.replace(/\s/g,'') === correct.replace(/\s/g,'');
-  const keywords = markingKeywords || [];
-  const foundKeywords = keywords.filter(kw => working.includes(kw.toLowerCase()));
-  const methodScore = keywords.length > 0 ? Math.round((foundKeywords.length / keywords.length) * 100) : (answerCorrect ? 100 : 0);
-  let feedback = '';
-  if (answerCorrect && methodScore >= 60) feedback = 'Correct answer with good working shown.';
-  else if (answerCorrect) feedback = 'Correct answer! Try showing more working steps next time.';
-  else if (!answerCorrect && methodScore >= 60) feedback = 'Good method! Right approach but check your calculation.';
-  else if (!answerCorrect && methodScore > 0) feedback = 'Partially correct method. Review the worked solution below.';
-  else feedback = 'Incorrect. Study the worked solution carefully.';
-  return { answerCorrect, methodScore, feedback };
-}
-
-app.post('/api/quiz/:id/submit', authStudent, async (req, res) => {
-  try {
-    const { answers, working_notes } = req.body;
-    const { data: quiz } = await supabase.from('quizzes').select('*').eq('id', req.params.id).single();
-    if (!quiz) return res.status(404).json({ error: 'Quiz not found' });
-    const { data: questions } = await supabase.from('quiz_questions')
-      .select('id, correct_answer, worked_solution, marking_keywords, question_type')
-      .eq('quiz_id', req.params.id);
-    if (!questions || questions.length === 0) return res.status(404).json({ error: 'No questions found' });
-
-    let correct = 0;
-    let totalMethodScore = 0;
-    const questionFeedback = {};
-
-    for (const q of questions) {
-      const studentAnswer = answers[q.id] || answers[q.id.toString()] || '';
-      const studentWorking = working_notes ? (working_notes[q.id] || working_notes[q.id.toString()] || '') : '';
-      const marking = markWorking(studentWorking, q.marking_keywords, q.correct_answer, studentAnswer);
-      if (marking.answerCorrect) correct++;
-      totalMethodScore += marking.methodScore;
-      questionFeedback[q.id] = {
-        correct: marking.answerCorrect,
-        correct_answer: q.correct_answer,
-        worked_solution: q.worked_solution || '',
-        feedback: marking.feedback,
-        method_score: marking.methodScore,
-      };
-    }
-
-    const avgMethodScore = Math.round(totalMethodScore / questions.length);
-    const percentage = Math.round((correct / questions.length) * 100);
-    const overallFeedback = correct === questions.length ? 'Perfect score! Excellent work!' :
-      percentage >= 70 ? 'Great work! Review the questions you missed.' :
-      percentage >= 50 ? 'Good effort. Study the worked solutions carefully.' :
-      'Keep practising! Review all the worked solutions below.';
-
-    const workingText = working_notes ? Object.values(working_notes).filter(Boolean).join('\n---\n') : '';
-
-    await supabase.from('quiz_results').insert({
-      student_id: req.user.id,
-      quiz_id: req.params.id,
-      score: correct,
-      total_questions: questions.length,
-      working_notes: workingText,
-      method_feedback: overallFeedback,
-      method_score: avgMethodScore,
-    });
-
-    // CP mastery tracking for Indonesian students
-    if (quiz.country === 'ID' || req.body.country === 'ID') {
-      const fase = (quiz.form || '').includes('10') ? 'Fase E' : 'Fase F';
-      const cpCode = `${quiz.subject || 'General'}:${quiz.topic || 'General'}`;
-      const isCorrect = percentage >= 70;
-      updateCPMastery(req.user.id, quiz.subject, fase, cpCode, isCorrect).catch(() => {});
-    }
-
-    res.json({
-      score: correct,
-      total: questions.length,
-      percentage,
-      method_score: avgMethodScore,
-      overall_feedback: overallFeedback,
-      question_feedback: questionFeedback,
-    });
-    triggerBackup();
-  } catch (e) {
-    console.error('Quiz submit error:', e);
-    res.status(500).json({ error: e.message });
-  }
 });
 
 
