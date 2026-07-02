@@ -2372,6 +2372,50 @@ TUGAS KAMU â€” WAJIB IKUT SEMUA PERATURAN INI:
   }
 });
 
+// ── General Q&A (home chat, no topic required) ──────────────────────────
+app.post('/api/qa', authStudent, async (req, res) => {
+  try {
+    const { message, language } = req.body;
+    if (!message || !message.trim()) {
+      return res.json({ reply: 'Sila taip soalan kamu.', source: 'fallback' });
+    }
+    const isBm = (language || 'bm') !== 'en';
+
+    const cacheHit = await searchFaqCache(message, null);
+    if (cacheHit) return res.json({ reply: safeReply(cacheHit.answer), source: 'faq_cache' });
+
+    if (deepseekApiKey) {
+      const system = isBm
+        ? 'Kamu adalah Nova, pembantu belajar pelajar Malaysia. Jawab soalan dengan ringkas, tepat, dan mesra dalam Bahasa Malaysia. Maksimum 3 ayat.'
+        : 'You are Nova, a Malaysian student learning assistant. Answer questions concisely and helpfully in English. Maximum 3 sentences.';
+      try {
+        const reply = await callDeepSeek(system, message, 250);
+        return res.json({ reply, source: 'deepseek' });
+      } catch (e) {
+        console.error('/api/qa DeepSeek error:', e.message);
+      }
+    }
+
+    if (!claudeApiKey) {
+      return res.json({ reply: isBm ? 'Maaf, perkhidmatan tidak tersedia sekarang.' : 'Sorry, service unavailable.', source: 'fallback' });
+    }
+    const { default: Anthropic } = await import('@anthropic-ai/sdk');
+    const anthropic = new Anthropic({ apiKey: claudeApiKey });
+    const claudeRes = await anthropic.messages.create({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 300,
+      system: isBm
+        ? 'Kamu adalah Nova, pembantu belajar Malaysia. Jawab ringkas dalam Bahasa Malaysia. Maksimum 3 ayat.'
+        : 'You are Nova, a Malaysian student assistant. Answer concisely in English. Maximum 3 sentences.',
+      messages: [{ role: 'user', content: message }],
+    });
+    return res.json({ reply: claudeRes.content[0].text.trim(), source: 'claude' });
+  } catch (e) {
+    console.error('/api/qa error:', e.message);
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // â”€â”€ KM CURRICULUM HELPERS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async function loadStudentCP(subject, studentForm) {
   const fase = (studentForm || '').includes('10') ? 'Fase E' : 'Fase F';
