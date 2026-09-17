@@ -1,5 +1,6 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math' as math;
 // ignore: avoid_web_libraries_in_flutter
@@ -44,6 +45,11 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
   List<Map<String, dynamic>> _topics = [];
   List<String> _suggestions = [];
   String? _pendingSwitchTopic;
+  // Set when an idle-screen intent chip (Jelaskan / Bagi kuiz / ...) is tapped
+  // without a topic. Drained into the session as the student's first message
+  // after _startTutorSession completes, so Nova teaches instead of asking
+  // "which topic?".
+  String? _pendingIntent;
   String? _currentStandardCode;
   String? _currentStandardDesc;
   String? _standardsProgress;
@@ -56,6 +62,14 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
   bool _showAnim        = false;
   bool _studentConfused = false;
   String? _lastAnimCode;
+
+  // -- Session timer + off-topic redirect (server-driven) --
+  int? _sessionStartTimeMs;
+  int _offTopicCount = 0;
+  bool _suggestBreak = false;
+  int _timeRemainingMin = 45;
+  Timer? _countdownTimer;
+  static const int _sessionDurationMin = 45;
 
   // â”€â”€ Topic animation (pre-built, stored in engine, served on demand) â”€â”€
   Map<String, dynamic>? _topicAnimation;
@@ -564,6 +578,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     _sessionId = _newSessionId();
     _novaSessionStart = DateTime.now();
     context.findAncestorStateOfType<MainShellState>()?.setTutorMode(true);
+    _resetSessionTimer();
     setState(() {
       _tutorMode = true; _currentTopic = topic;
       _phase = 'intro'; _segment = 0;
@@ -573,9 +588,11 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
       _showAnim = false; _lastAnimCode = null; _studentConfused = false;
       _topicAnimation = null; _showTopicAnim = true;
     });
-    _preGenerateQuiz(topic);
-    _fetchTopicAnimation(_currentSubject, topic);
     await _tutorSession('start', preRead: preRead);
+    // Drain pending intent (e.g. "Jelaskan topik ini") as the student's first
+    // real message so Nova continues into the requested intent instead of
+    // stopping after intro.
+    _pendingIntent = null;
     _sessionStarting = false;
   }
 
@@ -688,15 +705,29 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
           _pendingSwitchTopic = data['suggestedTopic'] as String?;
         }
         _suggestedResponses = (data['suggestedResponses'] as List?)?.cast<String>() ?? [];
-        _activeQuestion = data['activeQuestion'] != null
-            ? Map<String, dynamic>.from(data['activeQuestion'] as Map)
-            : null;
+        // New server contract: hasActiveQuestion is a bool. Old contract
+        // shipped activeQuestion as a Map?. Treat either as a truthiness flag.
+        final hasQ = data['hasActiveQuestion'] == true || data['activeQuestion'] != null;
+        _activeQuestion = hasQ ? <String, dynamic>{} : null;
+        if (data['sessionStartTime'] != null) {
+          _sessionStartTimeMs = (data['sessionStartTime'] as num).toInt();
+        }
+        if (data['offTopicCount'] != null) {
+          _offTopicCount = (data['offTopicCount'] as num).toInt();
+        }
+        if (data['suggestBreak'] != null) {
+          _suggestBreak = data['suggestBreak'] == true;
+        }
+        if (data['timeRemaining'] != null) {
+          _timeRemainingMin = (data['timeRemaining'] as num).toInt();
+        }
         _messages.add({
           'role': 'ai', 'text': data['reply'] ?? '',
           'source': data['source'], 'isCheckIn': data['isCheckIn'] ?? false,
         });
         _loading = false;
       });
+      _ensureCountdownTimer();
 
       // Use inline visual from response first; fall back to pre-stored standard animation
       final visualData = data['visual'];
@@ -737,41 +768,14 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
       _maybeShowIllustrations(question);
       return;
     }
-    setState(() { _messages.add({'role': 'user', 'text': question}); _loading = true; });
-    _ctrl.clear();
-    _scrollToBottom();
-    try {
-      final r = await http.post(
-        Uri.parse('$kApiUrl/api/tutor/session'),
-        headers: {
-          'Content-Type': 'application/json',
-          if (_authToken != null) 'Authorization': 'Bearer $_authToken',
-        },
-        body: jsonEncode({
-          'question': question,
-          'subject': _currentSubject,
-          'language': _forceEnglish ? 'en' : 'bm',
-        }),
-      );
-      final data = jsonDecode(r.body);
-      final related = data['related_questions'];
-      setState(() {
-        _messages.add({
-          'role': 'ai',
-          'text': data['reply'] ?? data['answer'] ?? 'Maaf, saya tidak dapat menjawab soalan itu.',
-          'example': data['example'], 'source': data['source'],
-          'related_questions': (related is List) ? related.cast<String>() : <String>[],
-          'wrong_subject_note': data['wrong_subject_note'],
-        });
-        _loading = false;
-      });
-    } catch (_) {
-      setState(() {
-        _messages.add({'role': 'ai', 'text': 'Ralat sambungan. Cuba lagi.'});
-        _loading = false;
-      });
-    }
-    _scrollToBottom();
+    // No topic selected — require topic before starting a lesson
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Pilih topik dahulu dari senarai di atas untuk mula belajar bersama Nova.'),
+        duration: Duration(seconds: 2),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
   }
 
   void _scrollToBottom() {
@@ -894,78 +898,10 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     });
   }
 
-  // â”€â”€ Layout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  Widget _buildIdleScreen() {
-    const chips = ['Jelaskan topik ini', 'Bagi saya kuiz', 'Selesaikan soalan', 'Pelan belajar'];
-    return Scaffold(
-      backgroundColor: const Color(0xFF07080C),
-      body: Column(children: [
-        SafeArea(
-          bottom: false,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-            child: Row(children: [
-              Container(
-                width: 32, height: 32,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF0D1018),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: const Color(0xFF181C28)),
-                ),
-                child: const Center(child: Icon(Icons.auto_awesome_rounded,
-                  color: Color(0xFF4A7AFA), size: 16)),
-              ),
-              const SizedBox(width: 10),
-              const Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text('Nova', style: TextStyle(
-                  color: Color(0xFFE8ECF8), fontSize: 14, fontWeight: FontWeight.w500)),
-                Text('Pembantu belajar kamu', style: TextStyle(
-                  color: Color(0xFF4A5070), fontSize: 10)),
-              ]),
-            ]),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: GridView.count(
-            crossAxisCount: 2,
-            shrinkWrap: true,
-            crossAxisSpacing: 8,
-            mainAxisSpacing: 8,
-            childAspectRatio: 2.5,
-            children: chips.map((label) => GestureDetector(
-              onTap: () => _ask(label),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: const Color(0xFF0D1018),
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: const Color(0xFF181C28)),
-                ),
-                alignment: Alignment.center,
-                child: Text(label,
-                  style: const TextStyle(color: Color(0xFF6A7A9A), fontSize: 12),
-                  textAlign: TextAlign.center),
-              ),
-            )).toList(),
-          ),
-        ),
-        const Spacer(),
-        Padding(
-          padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
-          child: _buildChatInput(),
-        ),
-      ]),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final subjectColor = Color(_subjectInfo['color'] as int);
     final isWide = MediaQuery.of(context).size.width > 700;
-
-    if (_messages.isEmpty && !_tutorMode && widget.lessonContext == null) {
-      return _buildIdleScreen();
-    }
 
     return Scaffold(
       backgroundColor: kBg,
@@ -983,6 +919,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
                 (_currentTopic!.length > 20 ? '${_currentTopic!.substring(0, 20)}â€¦' : _currentTopic!),
               style: const TextStyle(fontSize: 14)),
             actions: [
+              if (_sessionStartTimeMs != null) _buildTimerChip(),
               if (_showLanguageToggle && !_forceEnglish)
                 GestureDetector(
                   onTap: _toggleEnglishRequest,
@@ -1130,7 +1067,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
       // Chat column
       Expanded(child: Column(children: [
         if (!_tutorMode) _buildSubjectBar(),
-        if (_tutorMode) _buildDisclaimerBanner(),
+        _buildDisclaimerBanner(),
         if (_tutorMode && widget.lessonContext != null) _buildLessonBanner(),
         if (_messages.isEmpty && !_tutorMode) _buildWelcome(subjectColor),
         Expanded(child: _buildMessageList()),
@@ -1147,7 +1084,7 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
       // â”€â”€ Main column â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       Column(children: [
         if (!_tutorMode) _buildSubjectBar(),
-        if (_tutorMode) _buildDisclaimerBanner(),
+        _buildDisclaimerBanner(),
         if (_tutorMode && widget.lessonContext != null) _buildLessonBanner(),
         // Topic animation (pre-built, from engine) â€” shown first when in tutor mode
         if (_tutorMode && _topicAnimation != null && _showTopicAnim)
@@ -1309,21 +1246,12 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
 
   Widget _buildDisclaimerBanner() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      color: const Color(0xFFF59E0B).withOpacity(0.08),
-      child: Row(children: [
-        Icon(Icons.info_outline_rounded, size: 13, color: Colors.amber[700]),
-        const SizedBox(width: 6),
-        const Expanded(child: Text(
-          'Platform AI â€” semak dengan guru untuk pengesahan',
-          style: TextStyle(fontSize: 11, color: Color(0xFF92400E)))),
-        GestureDetector(
-          onTap: _showFullDisclaimer,
-          child: Text('Info', style: TextStyle(
-            fontSize: 11, color: Colors.amber[800],
-            decoration: TextDecoration.underline,
-            decorationColor: Colors.amber[800]))),
-      ]),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+      child: Text(
+        'Learnova is AI and can make mistakes. Always verify with your teacher.',
+        style: TextStyle(fontSize: 11, color: kMuted),
+        textAlign: TextAlign.center,
+      ),
     );
   }
 
@@ -1366,7 +1294,10 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
       child: SubjectSelector(
         selected: _currentSubject,
         onChanged: (s) {
-          setState(() => _currentSubject = s);
+          setState(() {
+            _currentSubject = s;
+            _currentTopic = null;
+          });
           _loadTopics(); _loadSuggestions();
           context.findAncestorStateOfType<MainShellState>()?.setSubject(s);
         },
@@ -1449,7 +1380,9 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
         const SizedBox(height: 12),
         if (_topics.isNotEmpty) ...[
           ..._topics.map((t) {
-            final topicName = (t['topic'] as String? ?? t['title'] as String? ?? '').trim();
+            final topicName = (t['topic'] as String? ?? t['title'] as String? ?? '')
+                .trim()
+                .replaceFirst(RegExp(r'^Bab\s+\d+\s*:\s*'), '');
             if (topicName.isEmpty) return const SizedBox.shrink();
             return GestureDetector(
               onTap: () => _startTutorSession(topicName),
@@ -1624,35 +1557,14 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     ]);
   }
 
-  // Extract clean reply text from a message value.
-  // Handles: raw JSON strings, literal \n sequences, non-string values.
+  // Normalise escape sequences in plain teaching text.
+  // Server now returns plain reply text (no JSON envelope), so the JSON
+  // unwrap logic is gone; this only converts literal \n / \t that some
+  // upstream paths may still include.
   static String _parseNovaText(dynamic raw) {
-    String t;
-    if (raw is String) {
-      t = raw;
-    } else if (raw != null) {
-      t = raw.toString();
-    } else {
-      return '';
-    }
-    // If server double-encoded the JSON, extract the reply field
-    final trimmed = t.trimLeft();
-    if (trimmed.startsWith('{') && t.contains('"reply"')) {
-      try {
-        final j = jsonDecode(t) as Map<String, dynamic>;
-        final extracted = j['reply'] ?? j['answer'];
-        if (extracted is String && extracted.isNotEmpty) t = extracted;
-      } catch (_) {
-        // regex fallback: grab first "reply":"..." value
-        final m = RegExp(r'"reply"\s*:\s*"((?:[^"\\]|\\.)*)"').firstMatch(t);
-        if (m != null) {
-          try { t = jsonDecode('"${m.group(1)}"') as String; } catch (_) { t = m.group(1)!; }
-        }
-      }
-    }
-    // Convert literal \n sequences (sometimes Claude includes them)
-    t = t.replaceAll(r'\n', '\n').replaceAll(r'\t', '\t');
-    return t;
+    if (raw == null) return '';
+    final t = raw is String ? raw : raw.toString();
+    return t.replaceAll(r'\n', '\n').replaceAll(r'\t', '\t');
   }
 
   Widget _buildMessage(Map<String, dynamic> msg) {
@@ -1930,7 +1842,8 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
             style: const TextStyle(color: kText, fontSize: 14),
             maxLines: 4,
             minLines: 1,
-            textInputAction: TextInputAction.newline,
+            textInputAction: TextInputAction.send,
+            onSubmitted: (value) { final t = value.trim(); _ctrl.clear(); setState(() {}); if (t.isNotEmpty) _ask(t); },
             decoration: InputDecoration(
               hintText: _hintText,
               hintStyle: const TextStyle(color: kMuted, fontSize: 13),
@@ -2325,8 +2238,54 @@ class _AITutorTabState extends State<AITutorTab> with SingleTickerProviderStateM
     _scrollCtrl.dispose();
     _orbPulse.dispose();
     _stopSpeech();
+    _countdownTimer?.cancel();
     _recordNovaSession();
     super.dispose();
+  }
+
+  void _ensureCountdownTimer() {
+    if (_sessionStartTimeMs == null) return;
+    if (_countdownTimer != null && _countdownTimer!.isActive) return;
+    _countdownTimer = Timer.periodic(const Duration(seconds: 30), (_) {
+      if (!mounted || _sessionStartTimeMs == null) return;
+      final elapsedMs = DateTime.now().millisecondsSinceEpoch - _sessionStartTimeMs!;
+      final remaining = _sessionDurationMin - (elapsedMs / 60000).ceil();
+      final clamped = remaining < 0 ? 0 : remaining;
+      if (clamped != _timeRemainingMin) {
+        setState(() => _timeRemainingMin = clamped);
+      }
+    });
+  }
+
+  void _resetSessionTimer() {
+    _countdownTimer?.cancel();
+    _countdownTimer = null;
+    _sessionStartTimeMs = null;
+    _offTopicCount = 0;
+    _suggestBreak = false;
+    _timeRemainingMin = _sessionDurationMin;
+  }
+
+  Widget _buildTimerChip() {
+    final mins = _timeRemainingMin;
+    final isLow = mins <= 5;
+    final isDone = mins <= 0;
+    final color = isDone ? kRed : isLow ? kYellow : kPrimary;
+    final label = isDone ? "Time's up" : 'Time: $mins min';
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.12),
+        border: Border.all(color: color.withOpacity(0.5)),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(mainAxisSize: MainAxisSize.min, children: [
+        Icon(_suggestBreak ? Icons.coffee_rounded : Icons.timer_outlined, size: 11, color: color),
+        const SizedBox(width: 4),
+        Text(label, style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w700)),
+      ]),
+    );
   }
 
   void _recordNovaSession() {

@@ -13,14 +13,28 @@ class QuizzesTab extends StatefulWidget {
 }
 
 class _QuizzesTabState extends State<QuizzesTab> {
+  static const _qbSubjectMap = {
+    'Matematik': 'Mathematics',
+    'Biologi':   'Biology',
+    'Kimia':     'Chemistry',
+    'Fizik':     'Physics',
+  };
+
+  // Converts any incoming subject string (BM display name OR English API name)
+  // to the kSubjects BM display name so SubjectSelector highlights correctly
+  // and the map lookup always finds a match.
+  String _toBm(String s) => kSubjects
+      .map((e) => e['name'] as String)
+      .firstWhere((n) => n == s || (_qbSubjectMap[n] ?? n) == s, orElse: () => s);
+
   List<dynamic> _quizzes = [];
   bool _loading = true;
-  String _currentSubject = 'Mathematics';
+  String _currentSubject = 'Matematik';
 
   @override
   void initState() {
     super.initState();
-    _currentSubject = widget.selectedSubject;
+    _currentSubject = _toBm(widget.selectedSubject);
     _load();
   }
 
@@ -28,7 +42,7 @@ class _QuizzesTabState extends State<QuizzesTab> {
   void didUpdateWidget(QuizzesTab oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.selectedSubject != widget.selectedSubject) {
-      setState(() => _currentSubject = widget.selectedSubject);
+      setState(() => _currentSubject = _toBm(widget.selectedSubject));
       _load();
     }
   }
@@ -36,7 +50,8 @@ class _QuizzesTabState extends State<QuizzesTab> {
   Future<void> _load() async {
     setState(() => _loading = true);
     try {
-      final r = await http.get(Uri.parse('$kApiUrl/api/quizzes/list/${Uri.encodeComponent(_currentSubject)}'));
+      final qbSubject = _qbSubjectMap[_currentSubject] ?? _currentSubject;
+      final r = await http.get(Uri.parse('$kApiUrl/api/quizzes/list/${Uri.encodeComponent(qbSubject)}'));
       if (r.statusCode == 200) setState(() => _quizzes = jsonDecode(r.body));
     } catch (_) {}
     setState(() => _loading = false);
@@ -95,7 +110,10 @@ class _QuizzesTabState extends State<QuizzesTab> {
                             ]),
                           ]),
                           trailing: const Icon(Icons.arrow_forward_ios_rounded, color: kMuted, size: 14),
-                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => QuizScreen(quizId: q['id'], title: q['title'] ?? 'Quiz'))),
+                          onTap: () {
+                            final qbSubject = _qbSubjectMap[_currentSubject] ?? _currentSubject;
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => QuizScreen(subject: qbSubject, topic: q['topic'] as String)));
+                          },
                         ),
                       );
                     },
