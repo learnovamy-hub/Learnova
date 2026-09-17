@@ -1501,25 +1501,47 @@ async function buildTextbookContext(subject, topic, segment = 0) {
 // teaching text plus one classify_turn tool call; the server decides
 // phase/segment/chips and the client never sees a JSON envelope.
 
-const TUTOR_CLASSIFY_TOOL = {
-  name: 'classify_turn',
-  description: 'Classify the student turn so the server can drive lesson flow. Call exactly once per response.',
-  input_schema: {
-    type: 'object',
-    properties: {
-      student_signal: {
-        type: 'string',
-        enum: ['correct', 'wrong', 'confused', 'idk', 'off_topic', 'first_turn', 'continue'],
-        description: 'How the student responded this turn: correct=right answer; wrong=incorrect; confused=does not understand; idk=said they do not know; off_topic=changed subject; first_turn=opening turn (message was "start"); continue=neutral acknowledgement / asking to continue.'
-      },
-      ready_for_quiz: {
-        type: 'boolean',
-        description: 'true only when the student has demonstrated mastery of the current concept AND there are no more concepts left to teach. Otherwise false.'
-      }
+// Build classify_turn tool schema. stem_problem is only included on quiz_setup turns
+// to avoid the schema complexity causing the model to skip text generation on other phases.
+function buildTutorClassifyTool(phase) {
+  const properties = {
+    student_signal: {
+      type: 'string',
+      enum: ['correct', 'wrong', 'confused', 'idk', 'off_topic', 'first_turn', 'continue'],
+      description: 'How the student responded this turn: correct=right answer; wrong=incorrect; confused=does not understand; idk=said they do not know; off_topic=changed subject; first_turn=opening turn (message was "start"); continue=neutral acknowledgement / asking to continue.'
     },
-    required: ['student_signal']
+    ready_for_quiz: {
+      type: 'boolean',
+      description: 'true only when the student has demonstrated mastery of the current concept AND there are no more concepts left to teach. Otherwise false.'
+    },
+  };
+  if (phase === 'quiz_setup') {
+    properties.stem_problem = {
+      type: 'object',
+      description: 'Fill this whenever your quiz question contains specific numeric values. Provide question_text (verbatim, all values as digits), givens (one entry per known quantity), and expected_answer. Omit only for purely conceptual questions with no numbers at all.',
+      properties: {
+        question_text: { type: 'string', description: 'Exact question text shown to student. All numeric values must appear as digits.' },
+        givens: {
+          type: 'array',
+          description: 'Each known numeric quantity in the problem.',
+          items: { type: 'object', properties: { label: { type: 'string' }, value: { type: 'number' }, unit: { type: 'string' } }, required: ['label', 'value'] }
+        },
+        expected_answer: {
+          type: 'object',
+          description: 'Correct final answer.',
+          properties: { value: { type: 'number' }, unit: { type: 'string' }, tolerance_pct: { type: 'number', description: 'Acceptable % error, default 1.0' } },
+          required: ['value']
+        }
+      },
+      required: ['question_text', 'givens', 'expected_answer']
+    };
   }
-};
+  return {
+    name: 'classify_turn',
+    description: 'Classify the student turn so the server can drive lesson flow. Call exactly once per response, after your teaching text.',
+    input_schema: { type: 'object', properties, required: ['student_signal'] }
+  };
+}
 
 function nextPhase(currentPhase, signal, segment, totalChunks, readyForQuiz, topicDone) {
   if (currentPhase === 'intro') return 'teach';
@@ -1622,7 +1644,7 @@ function getTutorSessionState(studentId, topic) {
     for (const k of Array.from(tutorSessionState.keys())) {
       if (k.startsWith(studentId + ':') && k !== key) tutorSessionState.delete(k);
     }
-    state = { sessionStartTime: Date.now(), offTopicCount: 0 };
+    state = { sessionStartTime: Date.now(), offTopicCount: 0, active_problem: null };
     tutorSessionState.set(key, state);
   }
   if (tutorSessionState.size > 500) {
@@ -1633,6 +1655,174 @@ function getTutorSessionState(studentId, topic) {
   }
   return state;
 }
+// -- STEM PROBLEM STATE: Phase 1 utilities --
+
+const UNIT_CONVERSIONS = {
+  'deg:rad':      v => v * Math.PI / 180,
+  'rad:deg':      v => v * 180 / Math.PI,
+  'degree:radian':  v => v * Math.PI / 180,
+  'degrees:radians':v => v * Math.PI / 180,
+  'radian:degree':  v => v * 180 / Math.PI,
+  'radians:degrees':v => v * 180 / Math.PI,
+  'km:m':  v => v * 1000,
+  'm:km':  v => v / 1000,
+  'cm:m':  v => v / 100,
+  'm:cm':  v => v * 100,
+  'mm:m':  v => v / 1000,
+  'm:mm':  v => v * 1000,
+  'g:kg':  v => v / 1000,
+  'kg:g':  v => v * 1000,
+  'ms:s':  v => v / 1000,
+  's:ms':  v => v * 1000,
+};
+
+function applyUnitConversion(value, fromUnit, toUnit) {
+  const key = `${(fromUnit || '').toLowerCase().trim()}:${(toUnit || '').toLowerCase().trim()}`;
+  const fn = UNIT_CONVERSIONS[key];
+  return fn ? fn(value) : null;
+}
+
+// Gate: every given's numeric value must appear somewhere in question_text.
+// Catches Nova declaring value=3.2 but writing "some value" in the question.
+function validateDeclarationGivens(questionText, givens) {
+  for (const g of (givens || [])) {
+    const n = Number(g.value);
+    if (!isFinite(n)) continue;
+    const candidates = [String(n), n.toFixed(0), n.toFixed(1), n.toFixed(2), n.toFixed(3)];
+    if (!candidates.some(c => questionText.includes(c))) {
+      return { valid: false, offending: { label: g.label, value: n } };
+    }
+  }
+  return { valid: true };
+}
+
+// Numeric comparison with unit conversion. Same units -> tolerance check.
+// Different known units -> convert then check. Unknown units -> needs_review.
+function matchValue(extracted, declared, extractedUnit, declaredUnit, tolPct) {
+  if (typeof tolPct !== 'number' || !isFinite(tolPct)) tolPct = 1.0;
+  if (extracted === null || extracted === undefined || typeof extracted !== 'number' || !isFinite(extracted)) {
+    return 'extraction_failed';
+  }
+  const eu = (extractedUnit || '').toLowerCase().trim();
+  const du = (declaredUnit || '').toLowerCase().trim();
+  if (!eu || !du || eu === du) {
+    const pctErr = Math.abs(extracted - declared) / (Math.abs(declared) || 1) * 100;
+    return pctErr <= tolPct ? 'correct' : 'wrong';
+  }
+  const converted = applyUnitConversion(extracted, eu, du);
+  if (converted !== null) {
+    const pctErr = Math.abs(converted - declared) / (Math.abs(declared) || 1) * 100;
+    return pctErr <= tolPct ? 'correct' : 'wrong';
+  }
+  return 'needs_review';
+}
+
+const STEM_EXTRACT_TOOL = {
+  name: 'extract_student_values',
+  description: 'Extract all numeric values a student stated in their message. Call exactly once.',
+  input_schema: {
+    type: 'object',
+    properties: {
+      extracted: {
+        type: 'array',
+        description: 'All numeric values the student stated, matched to known variable labels.',
+        items: {
+          type: 'object',
+          properties: {
+            label:         { type: 'string', description: 'Variable label this value belongs to (match problem labels).' },
+            raw_text:      { type: 'string', description: 'Verbatim text from student for this value.' },
+            numeric_value: { type: 'number', description: 'Parsed number. Omit if truly unreadable.' },
+            unit:          { type: 'string', description: 'Unit the student stated, if any.' },
+            confidence:    { type: 'string', enum: ['high', 'medium', 'low'] }
+          },
+          required: ['label', 'raw_text', 'confidence']
+        }
+      },
+      final_answer: {
+        type: 'object',
+        description: "Student's final answer, if separately identifiable from given substitutions.",
+        properties: {
+          raw_text:      { type: 'string' },
+          numeric_value: { type: 'number' },
+          unit:          { type: 'string' },
+          confidence:    { type: 'string', enum: ['high', 'medium', 'low'] }
+        }
+      }
+    },
+    required: ['extracted']
+  }
+};
+
+async function extractStudentValues(message, knownLabels, apiKey) {
+  try {
+    const { default: Anthropic } = await import('@anthropic-ai/sdk');
+    const ant = new Anthropic({ apiKey });
+    const labelHint = knownLabels.length ? `Known variable labels in this problem: ${knownLabels.join(', ')}.` : '';
+    const res = await ant.messages.create({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 400,
+      system: `You are a numeric value extractor for a STEM education platform. The student is answering a math/physics/chemistry problem. Extract every numeric value they state and match it to the known variable labels. ${labelHint} Handle all informal phrasings: "one point five"->1.5, "theta equals three"->3, "changed to 3.2"->3.2, "thirty"->30, "theta approx 3"->3. If a student states contradictory values for the same variable (e.g. "I think theta is 3 but the question says 1.5"), extract both with confidence "low". Call extract_student_values exactly once.`,
+      messages: [{ role: 'user', content: message }],
+      tools: [STEM_EXTRACT_TOOL],
+      tool_choice: { type: 'tool', name: 'extract_student_values' },
+    });
+    const toolBlk = (res.content || []).find(b => b.type === 'tool_use' && b.name === 'extract_student_values');
+    return toolBlk ? toolBlk.input : null;
+  } catch (e) {
+    console.error('[STEM] extractStudentValues error:', e.message);
+    return null;
+  }
+}
+
+async function verifyAgainstProblem(message, activeProblem, apiKey) {
+  if (!activeProblem || !message) return null;
+  const extraction = await extractStudentValues(message, activeProblem.givens.map(g => g.label), apiKey);
+  if (!extraction) return { result: 'extraction_failed', details: [], final_answer_check: null };
+
+  const extracted = extraction.extracted || [];
+  const details = [];
+  let hasWrong = false, hasNeedsReview = false;
+
+  for (const given of activeProblem.givens) {
+    const hit = extracted.find(e => e.label && e.label.toLowerCase() === given.label.toLowerCase());
+    if (!hit || hit.numeric_value === undefined || hit.numeric_value === null || hit.confidence === 'low') {
+      details.push({ label: given.label, expected: given.value, extracted: null, match: 'not_stated' });
+      continue;
+    }
+    const tol = (activeProblem.expected_answer && activeProblem.expected_answer.tolerance_pct) || 1.0;
+    const m = matchValue(hit.numeric_value, given.value, hit.unit, given.unit, tol);
+    details.push({ label: given.label, expected: given.value, extracted: hit.numeric_value, unit_extracted: hit.unit, match: m, raw_text: hit.raw_text });
+    if (m === 'wrong') hasWrong = true;
+    if (m === 'needs_review') hasNeedsReview = true;
+  }
+
+  let finalAnswerCheck = null;
+  const fa = extraction.final_answer;
+  if (fa && fa.numeric_value !== undefined && fa.numeric_value !== null && fa.confidence !== 'low') {
+    const ea = activeProblem.expected_answer;
+    const tol = (ea && ea.tolerance_pct) || 1.0;
+    const m = matchValue(fa.numeric_value, ea.value, fa.unit, ea.unit, tol);
+    finalAnswerCheck = { expected_value: ea.value, extracted_value: fa.numeric_value, unit: fa.unit, match: m };
+    if (m === 'wrong') hasWrong = true;
+    if (m === 'needs_review') hasNeedsReview = true;
+  }
+
+  let result;
+  if (hasNeedsReview) {
+    result = 'needs_review';
+  } else if (hasWrong) {
+    result = 'wrong';
+  } else if (details.some(d => d.match === 'correct') || (finalAnswerCheck && finalAnswerCheck.match === 'correct')) {
+    const allCorrectOrNotStated = details.every(d => d.match === 'correct' || d.match === 'not_stated');
+    const answerCorrect = !finalAnswerCheck || finalAnswerCheck.match === 'correct';
+    result = (allCorrectOrNotStated && answerCorrect) ? 'correct' : 'partial';
+  } else {
+    result = 'not_stated';
+  }
+
+  return { result, details, final_answer_check: finalAnswerCheck };
+}
+
 
 app.post('/api/tutor/session', authStudent, async (req, res) => {
   try {
@@ -1976,6 +2166,19 @@ Teaching personality: ${personalityDesc}
 Subject: ${subject || 'Mathematics'}
 Topic: ${topic}
 Respond in: ${lang}
+${currentPhase === 'quiz_setup' ? `
+==================================================
+STEM QUIZ TASK -- MANDATORY (quiz_setup phase)
+==================================================
+You are posing a quiz question this turn.
+If your question uses ANY specific numeric values (a formula with numbers):
+  YOU MUST fill in stem_problem in your classify_turn call with:
+    question_text: the exact question text you wrote (all values as digits)
+    givens: one entry per known quantity  e.g. {label: "v", value: 30, unit: "m/s"}
+    expected_answer: the correct answer  e.g. {value: 150, unit: "m", tolerance_pct: 1.0}
+If the question has NO numeric calculation (purely conceptual), omit stem_problem.
+ALWAYS declare for numeric problems -- this is how the system checks student work.
+==================================================` : ''}
 ${textbookContext ? `
 ==================================================
 KONTEKS DARI BUKU TEKS (gunakan untuk mengajar)
@@ -2087,7 +2290,8 @@ CRITICAL: Output plain text ONLY. If you find yourself writing { or "reply": or 
 - NEVER show teaching instructions, phase descriptions, or internal labels to the student.
 - ONLY write natural conversational sentences exactly as a teacher would speak out loud.
 - Use **bold** for key terms and newlines for steps where helpful -- markdown is allowed in the reply text.
-- After your teaching text, call the classify_turn tool exactly once with how the student responded this turn. Do not mention the tool to the student.`;
+- MANDATORY: Every response must have TWO parts: (1) your teaching text first, then (2) a classify_turn tool call. ALWAYS call classify_turn exactly once per response, no exceptions.
+- Do not mention the tool or its name to the student.`;
 
     // Append strict Bahasa Malaysia rules when subject is BM
     if (isBmSubject) {
@@ -2275,6 +2479,23 @@ Jika ragu antara BM atau Inggeris, PILIH BM.
         systemPrompt += `\n\n==================================================\nLEARNOVA PEDAGOGY LAYER (Project Garuda)\n==================================================\nGunakan gaya pengajaran ini:\n- Analogi: ${pedagogy.analogy_used || 'gunakan analogi kehidupan sehari-hari'}\n- Urutan: ${teachingOrder}\n${shortcuts.length ? `- Trik: ${shortcuts.slice(0, 3).join(', ')}` : ''}\n${fears.length ? `- Mulai dengan: "${fears[0]}"` : 'Mulai dengan mengurangi kecemasan sebelum masuk materi.'}\n==================================================`;
       }
     }
+    // -- STEM PROBLEM STATE: system prompt injection + verification --
+    let verificationResult = null;
+    if (currentPhase === 'quiz_setup') {
+      systemPrompt += '\n\n==================================================\nREMINDER: STEM DECLARATION REQUIRED\n==================================================\nYou are posing a quiz question. If it contains ANY specific numbers:\nYOU MUST fill in stem_problem in classify_turn -- question_text, givens, expected_answer.\nThis is how the system verifies student substitutions. Do not skip it for numeric questions.\n==================================================';
+    }
+    if (currentPhase === 'quiz_answer' && sessState && sessState.active_problem) {
+      verificationResult = await verifyAgainstProblem(message, sessState.active_problem, claudeApiKey);
+      if (verificationResult) {
+        const vr = verificationResult;
+        const detailStr = vr.details.map(d => `${d.label}: expected ${d.expected}, student said ${d.extracted != null ? d.extracted : '(not stated)'} [${d.match}]`).join('; ');
+        const faStr = vr.final_answer_check
+          ? ` | Final answer: student ${vr.final_answer_check.extracted_value} ${vr.final_answer_check.unit || ''}, expected ${vr.final_answer_check.expected_value} [${vr.final_answer_check.match}]`
+          : '';
+        systemPrompt += `\n\n==================================================\nSTEM VERIFICATION RESULT (server-computed -- do NOT re-derive)\n==================================================\nResult: ${vr.result.toUpperCase()}\n${detailStr}${faStr}\n\nMandatory response rules based on result:\n- correct: praise specifically, explain WHY the method works (1-2 sentences max). Set student_signal to "correct".\n- wrong: name the specific error from the details, give ONE hint, do NOT reveal the answer. Set student_signal to "wrong".\n- partial: acknowledge what was right, point to the discrepancy, guide them to reconsider.\n- needs_review: student may have used different units. Ask them to clarify which unit they used.\n- not_stated: student did not clearly state a final answer. Ask them to show their full calculation.\n- extraction_failed: tell the student you could not read their numbers, ask them to restate using digits (e.g. "3.14" not "three point one four").\n==================================================`;
+        console.log('[STEM] verification:', JSON.stringify({ result: vr.result, detailCount: vr.details.length }));
+      }
+    }
 
     const msgs = [];
     if (Array.isArray(history)) {
@@ -2327,8 +2548,8 @@ TUGAS KAMU â€” WAJIB IKUT SEMUA PERATURAN INI:
       max_tokens: maxTokens,
       system: systemPrompt,
       messages: msgs,
-      tools: [TUTOR_CLASSIFY_TOOL],
-      tool_choice: { type: 'tool', name: 'classify_turn' },
+      tools: [buildTutorClassifyTool(currentPhase)],
+      tool_choice: { type: 'auto' },
     });
     console.log('[tutor/session] Claude returned (tutor mode):', JSON.stringify({ contentBlocks: Array.isArray(claudeRes.content) ? claudeRes.content.length : 0, stopReason: claudeRes.stop_reason, usage: claudeRes.usage }));
 
@@ -2342,11 +2563,36 @@ TUGAS KAMU â€” WAJIB IKUT SEMUA PERATURAN INI:
     const classification = (toolBlock && toolBlock.input) || { student_signal: 'continue', ready_for_quiz: false };
     const signal = classification.student_signal || 'continue';
     const readyForQuiz = classification.ready_for_quiz === true;
+    const declaredStemProblem = classification.stem_problem || null;
 
     const newPhase = nextPhase(currentPhase, signal, currentSegment, totalChunks, readyForQuiz, topicDone);
     const newSegment = nextSegment(currentPhase, newPhase, currentSegment);
     const hasActiveQuestion = newPhase === 'quiz_setup';
     const chips = chipsForPhase(newPhase, isBm, isIndonesian, isBmSubject, isSejarahSubject);
+
+    // STEM: store declared problem on quiz_setup; clear on done
+    if (sessState) {
+      if (declaredStemProblem && currentPhase === 'quiz_setup' &&
+          Array.isArray(declaredStemProblem.givens) && declaredStemProblem.givens.length > 0) {
+        const gate = validateDeclarationGivens(
+          declaredStemProblem.question_text || '',
+          declaredStemProblem.givens || []
+        );
+        if (gate.valid) {
+          sessState.active_problem = {
+            id: `sp_${Date.now()}`,
+            question_text: declaredStemProblem.question_text,
+            givens: declaredStemProblem.givens || [],
+            expected_answer: declaredStemProblem.expected_answer || { value: 0 },
+            declared_at: Date.now(),
+          };
+          console.log('[STEM] active_problem set:', JSON.stringify({ id: sessState.active_problem.id, givens: sessState.active_problem.givens.length }));
+        } else {
+          console.warn('[STEM] Declaration gate BLOCKED:', JSON.stringify(gate.offending));
+        }
+      }
+      if (newPhase === 'done') sessState.active_problem = null;
+    }
 
     triggerBackup();
     return res.json({
@@ -2358,6 +2604,13 @@ TUGAS KAMU â€” WAJIB IKUT SEMUA PERATURAN INI:
       activeQuestion: hasActiveQuestion ? {} : null,
       isCheckIn: newPhase === 'check' || newPhase === 'quiz_answer',
       source: 'claude',
+      active_problem: (sessState && sessState.active_problem) ? {
+        id: sessState.active_problem.id,
+        question_text: sessState.active_problem.question_text,
+        givens: sessState.active_problem.givens,
+        declared_at: sessState.active_problem.declared_at,
+      } : null,
+      verification: verificationResult,
       ...(sessState ? {
         offTopicCount: sessState.offTopicCount,
         timeRemaining: calculateTimeRemaining(sessState.sessionStartTime),
