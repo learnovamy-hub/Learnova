@@ -11,6 +11,7 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import rateLimit from 'express-rate-limit';
 import { exec } from 'child_process';
+import { initFeedbackRoutes, startDailyDigest } from './feedback_router.mjs';
 
 const app = express();
 app.set('trust proxy', 1); // Railway runs behind a proxy — needed for express-rate-limit
@@ -181,6 +182,13 @@ const authLimiter = rateLimit({
   legacyHeaders: false,
   message: { error: 'Too many auth attempts, please wait.' },
 });
+const feedbackLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many feedback submissions, please wait.' },
+});
 
 app.use('/api/', generalLimiter);
 app.use('/api/tutor', tutorLimiter);
@@ -191,6 +199,8 @@ app.use('/api/teacher/signup', authLimiter);
 app.use('/api/teacher/login', authLimiter);
 app.use('/api/parent/signup', authLimiter);
 app.use('/api/parent/login', authLimiter);
+app.use('/api/admin/login', authLimiter);
+app.use('/api/feedback/submit', feedbackLimiter);
 // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 app.get('/', (req, res) => res.send('Learnova API v2.5'));
@@ -1465,15 +1475,19 @@ function safeReply(text) {
 // -- TEXTBOOK CONTEXT FETCHER -------------------------------------------
 // Returns { text, totalChunks, done } — one concept chunk for the current segment.
 // done=true signals topic exhausted; never wraps back to chunk 0.
-async function buildTextbookContext(subject, topic, segment = 0) {
+async function buildTextbookContext(subject, topic, segment = 0, form = null) {
   if (!subject || !topic) return { text: '', totalChunks: 0, done: true };
   try {
     const topicKeyword = topic.split(' ').slice(0, 4).join(' ');
-    const { data: chunks, error } = await supabase
+    let query = supabase
       .from('concept_chunks')
       .select('concept_title, concept_explanation, worked_example, common_mistakes, keywords')
       .eq('subject', subject)
-      .ilike('topic', `%${topicKeyword}%`)
+      .ilike('topic', `%${topicKeyword}%`);
+    if (form !== null && form !== undefined) {
+      query = query.or(`form.eq.${form},form.is.null`);
+    }
+    const { data: chunks, error } = await query
       .order('difficulty_level', { ascending: true })
       .limit(50);
     const fmt = c =>
@@ -1842,8 +1856,17 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
     const lang = isEnglish ? 'English' : isIndonesian ? 'Bahasa Indonesia' : isMandarin ? 'Chinese' : isTamil ? 'Tamil' : 'Bahasa Malaysia';
 
     // Fetch ONE concept chunk for the current segment (prevents content dump)
+    let topicForm = null;
+    if (topic) {
+      const { data: lessonRow } = await supabase.from('lessons')
+        .select('form')
+        .eq('subject', subject)
+        .eq('topic', topic)
+        .maybeSingle();
+      topicForm = lessonRow?.form ?? null;
+    }
     const { text: textbookContext, totalChunks, done: topicDone } =
-      topic ? await buildTextbookContext(subject, topic, parseInt(segment) || 0)
+      topic ? await buildTextbookContext(subject, topic, parseInt(segment) || 0, topicForm)
             : { text: '', totalChunks: 0, done: false };
 
     const isBmSubject = subject === 'MY-BahasaMalaysia' || subject === 'Bahasa Malaysia' || subject === 'Bahasa Melayu' ||
@@ -2556,9 +2579,20 @@ TUGAS KAMU â€” WAJIB IKUT SEMUA PERATURAN INI:
     const blocks = Array.isArray(claudeRes.content) ? claudeRes.content : [];
     const _raw = blocks.filter(b => b.type === 'text').map(b => (b.text || '')).join('').trim();
     const _braceIdx = _raw.indexOf('{');
-    const reply = _braceIdx > 0
+    let reply = _braceIdx > 0
       ? (safeReply(_raw.slice(_braceIdx)) || _raw.slice(0, _braceIdx).trim())
       : safeReply(_raw);
+    if (!reply) {
+      const fallback = await anthropic.messages.create({
+        model: 'claude-sonnet-4-6',
+        max_tokens: maxTokens,
+        system: systemPrompt,
+        messages: msgs,
+      });
+      const fRaw = (Array.isArray(fallback.content) ? fallback.content : [])
+        .filter(b => b.type === 'text').map(b => (b.text || '')).join('').trim();
+      reply = safeReply(fRaw) || '';
+    }
     const toolBlock = blocks.find(b => b.type === 'tool_use' && b.name === 'classify_turn');
     const classification = (toolBlock && toolBlock.input) || { student_signal: 'continue', ready_for_quiz: false };
     const signal = classification.student_signal || 'continue';
@@ -2721,7 +2755,7 @@ async function updateCPMastery(studentId, subject, fase, cpCode, isCorrect) {
 app.patch('/api/auth/update-form', authStudent, async (req, res) => {
   try {
     const { student_id, form_level, subjects } = req.body;
-    await supabase.from('students').update({ form_level, onboarding_complete: true }).eq('id', student_id);
+    await supabase.from('students').update({ form_level, onboarding_completed: true }).eq('id', student_id);
     res.json({ ok: true });
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
@@ -3564,6 +3598,9 @@ app.get('/api/home/dashboard', authStudent, async (req, res) => {
 app.get('/api/student/notifications', authStudent, async (req, res) => {
   res.json({ notifications: [] });
 });
+
+initFeedbackRoutes(app, supabase, JWT_SECRET, authStudent);
+startDailyDigest(supabase);
 
 app.listen(PORT, () => {
   console.log(`\nLearnova v2.2 running on port ${PORT}`);
