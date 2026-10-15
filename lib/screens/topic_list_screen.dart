@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import '../config/constants.dart';
+import '../utils/form_level.dart';
 import 'lesson_list_screen.dart';
 
 class TopicListScreen extends StatefulWidget {
@@ -25,7 +26,9 @@ class _TopicListScreenState extends State<TopicListScreen> {
   bool _loading = true;
   String _studentId = '';
   String _token = '';
-  String _form = 'Form 5';
+  // Nullable: null means form level unknown — show explicit error instead of
+  // silently querying with a default.
+  String? _form;
 
   @override
   void initState() {
@@ -37,16 +40,20 @@ class _TopicListScreenState extends State<TopicListScreen> {
     final prefs = await SharedPreferences.getInstance();
     _token     = prefs.getString('token') ?? '';
     _studentId = prefs.getString('student_id') ?? '';
-    _form      = prefs.getString('student_form') ?? 'Form 5';
+    // Bug fix: read the canonical 'form_level' key (not the non-existent
+    // 'student_form' key) and normalise to the exact label used in
+    // structured_lessons.form ('Form 4' or 'Form 5').
+    _form = normalizeFormLabel(prefs.getString('form_level'));
 
     await Future.wait([_fetchTopics(), _fetchProgress()]);
     if (mounted) setState(() => _loading = false);
   }
 
   Future<void> _fetchTopics() async {
+    if (_form == null) return; // explicit: no query without a valid form label
     try {
       final r = await http.get(
-        Uri.parse('$kApiUrl/api/lessons/path?subject=${Uri.encodeComponent(widget.subjectKey)}&form=${Uri.encodeComponent(_form)}'),
+        Uri.parse('$kApiUrl/api/lessons/path?subject=${Uri.encodeComponent(widget.subjectKey)}&form=${Uri.encodeComponent(_form!)}'),
         headers: {'Authorization': 'Bearer $_token'},
       );
       if (r.statusCode == 200) {
@@ -97,6 +104,8 @@ class _TopicListScreenState extends State<TopicListScreen> {
       ),
       body: _loading
         ? const Center(child: CircularProgressIndicator(color: kPrimary, strokeWidth: 2))
+        : _form == null
+          ? _buildUnknownForm()
         : _topicLessons.isEmpty
           ? _buildEmpty()
           : RefreshIndicator(
@@ -113,6 +122,23 @@ class _TopicListScreenState extends State<TopicListScreen> {
               ),
             ),
     );
+  }
+
+  Widget _buildUnknownForm() {
+    return Center(child: Padding(
+      padding: const EdgeInsets.all(32),
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        const Icon(Icons.person_outline_rounded, color: kBorder, size: 48),
+        const SizedBox(height: 12),
+        const Text('Tahap persekolahan tidak diketahui',
+          style: TextStyle(color: kMuted, fontSize: 14),
+          textAlign: TextAlign.center),
+        const SizedBox(height: 6),
+        const Text('Log keluar dan log masuk semula, atau lengkapkan borang pendaftaran.',
+          style: TextStyle(color: kBorder, fontSize: 12),
+          textAlign: TextAlign.center),
+      ]),
+    ));
   }
 
   Widget _buildEmpty() {

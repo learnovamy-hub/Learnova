@@ -207,10 +207,10 @@ class _LessonScreenState extends State<LessonScreen>
     Navigator.push(context, MaterialPageRoute(
       builder: (_) => AITutorTab(
         selectedSubject: widget.subject,
+        lessonId: widget.lessonId,
         lessonContext: {
-          'lesson_id':           lesson['id'],
-          'lesson_title':        lesson['lesson_title'],
-          'topic':               lesson['topic'],
+          'lesson_title': lesson['lesson_title'],
+          'topic':        lesson['topic'],
           'concept_explanation': lesson['concept_explanation'],
           'worked_example':      lesson['worked_example'],
           'try_it_question':     lesson['try_it_question'],
@@ -767,6 +767,16 @@ class _LessonScreenState extends State<LessonScreen>
             SizedBox(width: 8),
             Text('Tak faham? Tanya Nova', style: TextStyle(fontSize: 13)),
           ]),
+        ),
+        const SizedBox(height: 12),
+        TextButton.icon(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.arrow_back_rounded, size: 15),
+          label: const Text('Kembali ke senarai topik'),
+          style: TextButton.styleFrom(
+            foregroundColor: kMuted,
+            minimumSize: const Size(double.infinity, 44),
+          ),
         ),
         const SizedBox(height: 24),
       ],

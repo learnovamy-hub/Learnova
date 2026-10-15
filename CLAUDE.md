@@ -1,5 +1,17 @@
 # LEARNOVA — Claude Code Master Reference
-Last updated: 2026-06-10
+Last updated: 2026-09-22
+
+## !! PERMANENT ARCHITECTURAL DECISION — READ FIRST !!
+THE LIVE APP IS C:\Learnova (server_updated.mjs), deployed at
+learnova-backend-production-bd3a.up.railway.app. The Flutter app (C:\learnova_app) points here.
+ALL backend work goes here and ONLY here.
+C:\Projects\learnova-2.0 is ABANDONED — never build into it, never deploy it.
+Before ANY change: confirm the target file is C:\Learnova\server_updated.mjs and confirm
+which TABLES the live app reads (concept_chunks for teaching content, lessons for the topic
+picker) — never assume a different table is active.
+Decided: 2026-09-22. Reason: learnova-2.0 had incompatible auth (Supabase JWT vs custom JWT),
+unproven production history (28 study sessions total ever, 0/86 students on 2.0), and would
+break 12+ Flutter screens. The monolith is the one engine going forward.
 
 ## Project Overview
 Learnova is an AI-powered tutoring platform for Malaysian SPM, A-Level, Indonesian SNBT, and Mandarin-medium SPM students.
@@ -9,7 +21,7 @@ Backend: https://learnova-backend-production-bd3a.up.railway.app
 ## Tech Stack
 - Frontend: Flutter Web (C:\learnova_app)
 - Backend: Node.js server_updated.mjs (Railway)
-- Database: Supabase (nxvbpanozswheackgwni)
+- Database: Supabase project wcocifgjopwehohsgumq (verified 2026-09-22; old ID nxvbpanozswheackgwni is stale)
 - AI: Claude API (tutoring) + DeepSeek (processing)
 - TTS: OpenAI TTS (nova voice)
 - Hosting: GitHub Pages (learnova.optimus.com.my via CNAME)
@@ -23,11 +35,30 @@ Backend: https://learnova-backend-production-bd3a.up.railway.app
 - C:\learnova_app\lib\config\constants.dart (kSubjects)
 - C:\Learnova\server_updated.mjs (Railway backend)
 
-## Database Structure
-- concept_chunks: all textbook content
+## Database Structure — LIVE TABLES (verified 2026-09-22)
+TWO different tables serve the Nova tutor — never confuse them:
+
+- concept_chunks: teaching content Nova reads during a session (buildTextbookContext)
   Prefixes: MY- (SPM), AL- (A-Level), ID- (Indonesian)
-- lessons: structured lesson records
-- topics: topic list per subject
+  Key columns: subject, form, topic, concept_title, concept_explanation, worked_example,
+               common_mistakes, difficulty_level, keywords
+  Row counts (MY-): Physics 433, Biology 1767, Chemistry 1712, AddMaths 752,
+                    Mathematics 476, English 869, BahasaMalaysia 809, Sejarah 1138
+  NOTE: concept_chunks has F4 content for all subjects. The topic PICKER (lessons table)
+  is what limits which topics students can start — not missing concept_chunks content.
+
+- lessons: topic picker source (/api/tutor/topics reads this first)
+  Key columns: subject, topic, form (integer), status, is_published
+  Server checks: status IN ('published','active') OR is_published=true
+  PROBLEM: MY-Physics only has 6 lessons, ALL form=5 — F4 Physics is invisible to students
+           even though 201 F4 Physics concept_chunks exist.
+  All other MY- subjects have form=NULL lessons (visible to all form levels).
+
+- structured_lessons: the Learn tab's lesson browser (NOT the Nova tutor)
+  ~5,412 rows generated from concept_chunks. Different table, different UI path.
+
+NEVER mistake concept_explanations or curriculum_topics (learnova-2.0 tables, ABANDONED)
+for the live teaching tables. Those exist in the same DB but are never read by server_updated.mjs.
 
 ## Subject Naming Convention (CRITICAL)
 Always use prefixed names in Supabase:
@@ -103,23 +134,28 @@ Quizzes tab removed from nav — QuizzesTab file still exists but not in nav.
 
 ## Deployment Process
 Flutter: Run .\deploy.ps1 from C:\learnova_app
-  1. flutter build web --release
-  2. Zip build\web contents → deploy_fresh.zip
-  3. Upload zip to cPanel via FTP (curl.exe — NOT curl, which is aliased to Invoke-WebRequest)
-  4. Extract via cPanel UAPI (https://learnova.optimus.com.my:2083/execute/Fileman/extract_file)
-  5. Delete zip from server
-  FTP host: learnova.optimus.com.my | user: optimus | remote: /home/optimus/public_html/Learnova/
-  Manual backup: zip build\web, upload via cPanel File Manager at :2083
+  1. flutter build web --release --pwa-strategy=none --base-href=/
+  2. Stamp build timestamp (builds versioned JS: flutter_bootstrap.{ts}.js, main.{ts}.dart.js)
+  3. Upload root files via cPanel UAPI save_file_content (writes to REAL web root)
+     Files uploaded: index.html, .htaccess, index.php, flutter_bootstrap.{ts}.js, main.{ts}.dart.js
+  NEVER use FTP STOR for individual files — FTP on this host writes to CageFS virtual directory,
+  NOT the real web document root. Only cPanel UAPI and zip+extract write to the real path.
+  For full deploy (assets changed): zip build\web\* → FTP upload → JSON API extract via
+    https://host:2083/json-api/cpanel?cpanel_jsonapi_module=Fileman&cpanel_jsonapi_func=fileop&op=extract
+  cPanel UAPI dir path: /public_html/Learnova (NOT /home/optimus/public_html/Learnova)
 Backend: cd C:\Learnova && railway up --detach
 NEVER manually edit files on the server.
 NEVER deploy without building first.
 
-## Cache Busting (IMPLEMENTED 2026-06-08)
-- flutter_bootstrap.js and main.dart.js get a timestamp query param on each build
-  so browsers always fetch fresh JS — no manual version bumping needed
-- PWA strategy set to none: service worker does NOT cache files aggressively
-- web/index.html already has Cache-Control: no-cache, no-store, must-revalidate meta tags
-- Result: every deploy is immediately live for all users with no stale-cache issues
+## Cache Busting (UPDATED 2026-06-10)
+- APPROACH: File renaming (not query params — LiteSpeed strips query params from cache key)
+- Each build: flutter_bootstrap.{ts}.js + main.{ts}.dart.js (new paths = no LiteSpeed cache entry)
+- web/index.html loads flutter_bootstrap.__BUILD_TS__.js (placeholder replaced at deploy time)
+- index.php wraps index.html: LiteSpeed does NOT cache PHP output → always fresh HTML
+- .htaccess: DirectoryIndex index.php index.html → root URL serves PHP wrapper first
+- .htaccess: RewriteRule . /index.php [L] → SPA fallback goes through PHP (not cached HTML)
+- PWA strategy set to none: no service worker caching
+- Result: every deploy is immediately live — no LiteSpeed cache interference
 
 ## Two Separate Backends — CRITICAL
 Production Railway: C:\Learnova\server_updated.mjs
@@ -146,24 +182,22 @@ Old/wrong backend: C:\Users\Yong\OneDrive\learnova\learnova-backend\
 - New LessonScreen: Objective bar, Concept, Worked Example, Try It, Answer, Mistakes, Technique
 - API endpoints: /api/lessons/path, /api/lessons/lesson, /api/lessons/complete, /api/lessons/progress, /api/lessons/next
 
-## Deployment Note (IMPORTANT — 2026-06-09)
-LiteSpeed static file memory cache on cPanel does NOT detect FTP STOR overwrites
-after the first post-extraction overwrite. To force cache clear on every deploy:
-1. FTP upload root_only.zip (created by deploy.ps1 zip step, root files only)
-2. In cPanel File Manager → /public_html/Learnova/ → upload zip → Extract
-3. This creates new inodes → LiteSpeed serves fresh content immediately
-Assets folder (/assets/) is locked (owned by extraction user, not FTP user).
-Assets haven't changed — only root JS files change per build.
+## Deployment Note (UPDATED 2026-06-10)
+FTP STOR on this host writes to CageFS virtual directory — files NEVER reach the web server.
+Use cPanel UAPI save_file_content for all file updates (see deploy.ps1 step 3).
+For assets/ or canvaskit/ changes: zip + FTP upload + Fileman/fileop?op=extract via JSON API.
+Assets folder (/assets/) is unchanged between most builds — skip zip deploy unless icons/fonts change.
 
-## LiteSpeed Cache Bypass Attempts (NONE work via API/FTP — 2026-06-10)
-- `CacheLookup off` and `StaticCache off` in .htaccess: does NOT clear memory cache
-- FTP DELE then STOR: does NOT bust LiteSpeed cache (new inode not detected)
-- cPanel JSON API rename then FTP STOR: does NOT bust cache
-- `CacheMgr` UAPI module: not installed on this host
-- `Fileman/extract_file` UAPI: function does not exist on this host
-- PURGE HTTP method: 405 Method Not Allowed
-- TTL unknown — possibly 24h. Only cPanel File Manager GUI extract reliably busts it.
-  If cache blocking rollout: login to :2083, upload any zip to /public_html/Learnova/, Extract.
+## LiteSpeed Cache — Root Cause (2026-06-10)
+- FTP STOR goes to CageFS virtual directory — NOT the real web document root.
+  Web server reads from REAL filesystem; FTP writes to per-user cage copy.
+  Result: direct FTP uploads never reach the web server regardless of cache.
+- cPanel UAPI save_file_content writes to REAL filesystem (runs outside cage as cpanel user).
+  Use UAPI for all file updates: curl.exe --form "content=<localfile" to avoid cmd-line length limit.
+- LiteSpeed caches static JS files by URL path. New versioned filenames bypass all cache entries.
+- `CacheMgr` UAPI module: not installed on this host — cannot flush programmatically.
+- PHP files are NOT cached by LiteSpeed → index.php always serves fresh index.html from disk.
+- SOLUTION: UAPI save_file_content + versioned filenames + PHP wrapper for index.
 
 ## Railway Crash Root Cause (2026-06-10)
 Emoji corruption: emojis in server_updated.mjs strings (💪 = F0 9F 92 AA in UTF-8)
@@ -320,6 +354,20 @@ All icons use Material Icons only (Icons.*).
 cupertino_icons package removed from pubspec.yaml.
 Never re-add CupertinoIcons.
 
+## CupertinoIcons Font Warning (KNOWN — UNREMOVABLE)
+Build warning: "Expected to find fonts for (MaterialIcons, packages/cupertino_icons/CupertinoIcons)"
+Browser console: "Failed to load font CupertinoIcons.ttf"
+ROOT CAUSE: Flutter SDK's own C:/flutter/packages/flutter/lib/src/cupertino/icons.dart declares
+  `static const String iconFont = 'CupertinoIcons'` and `fontPackage: 'cupertino_icons'`.
+  This file is compiled into EVERY Flutter app as part of the `flutter` SDK dependency.
+  The build tool sees that font family referenced in compiled code and expects the font file.
+  Since cupertino_icons is not in pubspec.yaml, the font is absent → warning + browser error.
+STATUS: Cosmetic only. Cannot be fixed without adding cupertino_icons back to pubspec.yaml.
+  No Learnova icons use CupertinoIcons. All visible icons are Material Icons. App functions correctly.
+  No missing-glyph boxes (□) visible anywhere in the app.
+  Confirmed: none of Learnova's direct dependencies (flutter_tts, flutter_markdown, etc.) cause this.
+  The warning is inherent to Flutter SDK and cannot be suppressed.
+
 ## Completed This Project
 - [x] 25,070 concept_chunks in Supabase
 - [x] All subjects categorised with MY/AL/ID prefix
@@ -363,6 +411,17 @@ Never re-add CupertinoIcons.
       Kokoro models: C:\learnova_audio\models\ (kokoro-v1.0.onnx + voices-v1.0.bin)
       MP3s stored at: learnova.optimus.com.my/audio/{id}_{title}.mp3
       Run: python C:\learnova_app\generate_audio.py [--limit N] [--subject AL-]
+- [x] Home screen redesign (2026-06-11): learning coach layout — compact header, hero card,
+      Sasaran Hari Ini goals, footer stats row (streak/subjects/SPM). Single CTA dominates.
+- [x] CORS www fix (2026-06-11): www.learnova.optimus.com.my now accepted (normalized comparison)
+- [x] TTS quality fix (2026-06-11): /api/audio switched from tts-1 to tts-1-hd + chunking
+- [x] Symbol dictionary (2026-06-11): centralized TTS symbol→spoken word table, 86 symbols,
+      seed_symbol_dictionary.py, /api/symbols/lookup endpoint, Nova SYMBOL CONSISTENCY RULE
+- [x] Cuba Kamu input flow (2026-06-11): _buildCubaKamuSection() in lesson_screen.dart,
+      answer input + Semak Jawapan button + model answer reveal + Nova handoff with student answer
+- [x] Student ID card redesign (2026-06-11): dark card, LRN copy button, QR dialog, parent link
+- [x] Parent QR scanner (2026-06-11): qr_scanner_screen.dart with mobile_scanner, wired to parent_screen
+- [x] Nova idle screen redesign (2026-06-11): centered gradient icon, heading, 2x2 chip grid
 - [x] Mandarin support infrastructure (2026-06-10): ZH- subject prefix, Nova zh prompt,
       onboarding language step (BM/EN/ZH), home greeting in Chinese, kZHSubjects in constants
       teaching_language stored in SharedPreferences ('bm'|'en'|'zh')
@@ -451,6 +510,85 @@ Navigation flow: Learn tab → Subject cards → Topic list → Lesson list → 
   WARNS (non-blocking) for kau / JSON in Text() / build age
 - Emoji check: scans server_updated.mjs only (subject_access_engine.mjs has
   intentional emoji for subject icons — those bytes are safe, no 0x92 byte)
+
+## Home Screen Redesign (2026-06-11)
+- New layout: Compact header → Hero card → Sasaran Hari Ini → Footer stats
+- _buildCompactHeader(): greeting + firstName, subtitle = form level + first 2 subjects + "+N"
+  SPM countdown chip top-right (e.g. "SPM · 156 hari")
+- _buildHeroCard(): gradient card (Color(0xFF1A1F35) → Color(0xFF15182A)), subject chip,
+  "Kita berhenti di:" / "Pelajaran seterusnya:", lesson title 20px bold white,
+  bookmark/time row, BIG "Sambung Belajar" / "Mula Belajar" button
+  Single _continueLesson() handler: resume if hasResume, else next lesson, else Learn tab
+- _buildSasaranHariIni(): 2 goals with check/circle icons (Selesaikan lesson, Cuba Kamu)
+  lessonDone = lastSection=='completed', tryItDone = lessonDone || lastSection=='try_it'
+- _buildFooterStats(): 3 Expanded chips (streak, subjects count, SPM countdown)
+  Subjects chip tappable → _showSubjectsSheet() bottom sheet with all subjects
+- _statChip() helper: icon + label in dark bordered container
+- _showSubjectsSheet(): lists all _activeSubjects, tap → _goToTutor(subject: s)
+- State: added _activeSubjects List<String>, _formLevel int, _daysToSpm getter
+  _formLevel loaded from SharedPreferences 'form_level' string: "Form 4"→4, A-Level→6, else 5
+- Removed: _buildGreeting(), _buildContinueCard(), _buildResumeCard(), _buildNextLessonCard(),
+  _buildStartCard(), _buildMissions(), _buildStatsLine(), _buildNovaBanner(), _buildOutcomeRow()
+
+## CORS Fix (2026-06-11)
+- Problem: login failed from https://www.learnova.optimus.com.my (www not in allowed list)
+- Fix: replaced allowedOrigins list + simple .includes() with normalized www/non-www comparison:
+  const normalized = origin.replace(/^(https?:\/\/)www\./, '$1');
+  Accepts both www and non-www variants of learnova.optimus.com.my automatically.
+- Tested: curl OPTIONS with Origin: www.learnova... → returns correct ACAO header.
+
+## TTS Quality Fix (2026-06-11)
+- Problem: /api/audio/:lessonId was using 'tts-1' (lower quality) causing garbled audio
+  /api/tts was already correct (tts-1-hd). Gap introduced when audio caching was added.
+- Fix: replaced one-shot OpenAI TTS call in /api/audio with openAITTSChunked() helper:
+  - Splits text at sentence boundaries into ~800-char chunks
+  - Generates each chunk with tts-1-hd at speed 1.0
+  - Concatenates buffers (CBR MP3 safe to concat)
+  - Logs chunk count for debugging
+- nixpacks.toml created: installs ffmpeg on Railway (for future proper audio concat)
+- To re-generate audio for a lesson: clear audio_url in structured_lessons, open Dengar mode
+
+## Symbol Dictionary (IMPLEMENTED 2026-06-11)
+- Supabase table: symbol_dictionary
+  Columns: id, symbol TEXT, spoken_bm TEXT, spoken_en TEXT, spoken_zh TEXT,
+           meaning_bm TEXT, meaning_en TEXT, example_usage TEXT,
+           context TEXT (math/physics/chemistry/economics/general), priority INT
+- Seed script: C:\learnova_app\seed_symbol_dictionary.py (86 symbols across 5 contexts)
+  Run: python C:\learnova_app\seed_symbol_dictionary.py
+  Uses Supabase Management API; clears then re-inserts on every run
+- Server loads map at startup: loadSymbolDictionary() in server_updated.mjs
+  Refreshes every hour via setInterval. Passes SYMBOL_MAP to cleanTextForTTS().
+- cleanTextForTTS(text, lang, symbolMap) in learnova_core.mjs:
+  - If symbolMap provided with entries for lang: applies DB symbols (priority DESC order)
+  - Falls back to hardcoded BM symbols when symbolMap is null (cold start)
+- Nova system prompt includes SYMBOL CONSISTENCY RULE: use consistent spoken terms per session
+- API: GET /api/symbols/lookup?symbol=÷&lang=bm → {found, symbol, spoken, meaning, example}
+  Optional: ?context=math to narrow to specific context
+- Symbol contexts: math (35), general (24), chemistry (10), physics (9), economics (8)
+
+## Messaging Standard (ENFORCE ON ALL COPY — 2026-06-11)
+All user-facing copy (UI text, Nova greetings, toasts, buttons, cards, notifications) MUST be:
+✅ Professional + encouraging. Academic context (SPM, mastery, topics). Parent-appropriate.
+❌ NO slang: "killing it", "crushing it", "you're on fire", "on fire"
+❌ NO gaming hype: "LEVEL UP!", "SLAY!", "YESSS!", "You're unstoppable!"
+❌ NO patronizing: "you got it, champ", "you're a legend", "sweetie", "kiddo"
+❌ NO informal BM slang: "dah" (use "sudah"/"hampir"), "nak" OK but not with gaming tone
+
+XP/gamification copy:
+✅ "Topik selesai. +50 XP"  ❌ "YOU EARNED 50 XP! You're amazing!"
+✅ "Streak: 7 hari. Terus fokus."  ❌ "STREAK ON FIRE! You're unstoppable!"
+✅ "Level dinaikkan ke 3."  ❌ "LEVEL UP! You're crushing it!"
+
+Greetings (Nova card):
+✅ "Sasaran harian hampir tercapai. Teruskan usaha kamu."
+✅ "Streak X hari berturut-turut. Terus kekalkan kebiasaan belajar."
+✅ "Topik baru menanti. Luangkan masa untuk belajar hari ini."
+❌ "Kamu on fire!"  ❌ "Teruskan momentum!"  ❌ "You're killing it!"
+
+Button labels: "Sambung Belajar", "Jawab Soalan", "Selesai", "Tanya Nova"
+NOT: "Let's Go!", "Crush It!", "Go Get 'Em!"
+
+When in doubt: Would a Form 5 student's parent read this and think Learnova is serious? If no, rewrite.
 
 ## Rules For This Project
 1. Always read CLAUDE.md before starting work

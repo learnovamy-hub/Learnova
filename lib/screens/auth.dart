@@ -3,10 +3,11 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../config/constants.dart';
+import '../utils/form_level.dart';
 import 'landing.dart';
 import 'teacher_portal.dart';
 import 'parent_portal.dart';
-import 'welcome_home.dart';
+import 'main_shell.dart';
 import 'onboarding_screen.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -66,10 +67,10 @@ class _AuthScreenState extends State<AuthScreen> {
               final pd = jsonDecode(pr.body);
               final s = pd['student'];
               needsOnboarding = s?['onboardingRequired'] == true || s?['onboarding_completed'] != true;
-              final form = s?['form_level']?.toString();
-              if (form != null && form.isNotEmpty) {
-                await prefs.setString('student_form_$studentId', form);
-                await prefs.setString('form_level', form);
+              final formLabel = labelFromFormLevel(s?['form_level']);
+              if (formLabel != null) {
+                await prefs.setString('student_form_$studentId', formLabel);
+                await prefs.setString('form_level', formLabel);
               }
               final activeSubjects = s?['active_subjects'];
               if (activeSubjects is List) {
@@ -98,7 +99,7 @@ class _AuthScreenState extends State<AuthScreen> {
           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
             builder: (_) => OnboardingScreen(studentId: studentId, token: token, studentName: studentName)), (_) => false);
         } else {
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => WelcomeHome(studentName: studentName, studentId: studentId)), (_) => false);
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => const MainShell()), (_) => false);
         }
       } else { _showSnack(data['error'] ?? 'Incorrect email or password.', isError: true); }
     } catch (e) { _showSnack('Connection error. Please try again.', isError: true);
@@ -112,21 +113,28 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0, leading: IconButton(icon: const Icon(Icons.arrow_back_rounded, color: kText), onPressed: () => Navigator.pop(context))),
+      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0, leading: IconButton(icon: Icon(Icons.arrow_back_rounded, color: cs.onSurface), onPressed: () => Navigator.pop(context))),
       body: Container(
-        decoration: const BoxDecoration(gradient: RadialGradient(center: Alignment(-0.5, -0.5), radius: 1.2, colors: [Color(0xFF1E1B4B), kBg])),
+        decoration: BoxDecoration(
+          gradient: RadialGradient(
+            center: const Alignment(-0.5, -0.5),
+            radius: 1.2,
+            colors: [cs.primaryContainer.withOpacity(0.35), cs.surface],
+          ),
+        ),
         child: SafeArea(child: SingleChildScrollView(padding: const EdgeInsets.all(24), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const SizedBox(height: 8),
-          Row(children: [Container(width: 44, height: 44, decoration: BoxDecoration(gradient: const LinearGradient(colors: [kPrimary, kPrimary2]), borderRadius: BorderRadius.circular(12)), child: const Icon(Icons.school_rounded, color: Colors.white, size: 24)), const SizedBox(width: 12), const Text('Learnova', style: TextStyle(color: kText, fontSize: 24, fontWeight: FontWeight.w800))]),
+          Row(children: [Container(width: 44, height: 44, decoration: BoxDecoration(gradient: const LinearGradient(colors: [kPrimary, kPrimary2]), borderRadius: BorderRadius.circular(12)), child: const Icon(Icons.school_rounded, color: Colors.white, size: 24)), const SizedBox(width: 12), Text('Learnova', style: TextStyle(color: cs.onSurface, fontSize: 24, fontWeight: FontWeight.w800))]),
           const SizedBox(height: 32),
-          Row(children: [Icon(_roleIcon, size: 28, color: _roleColor), const SizedBox(width: 10), Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(_isLogin ? 'Welcome back!' : 'Join Learnova', style: const TextStyle(color: kText, fontSize: 22, fontWeight: FontWeight.w800)), Text('$_roleLabel login', style: TextStyle(color: _roleColor, fontSize: 13, fontWeight: FontWeight.w600))])]),
+          Row(children: [Icon(_roleIcon, size: 28, color: _roleColor), const SizedBox(width: 10), Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(_isLogin ? 'Welcome back!' : 'Join Learnova', style: TextStyle(color: cs.onSurface, fontSize: 22, fontWeight: FontWeight.w800)), Text('$_roleLabel login', style: TextStyle(color: _roleColor, fontSize: 13, fontWeight: FontWeight.w600))])]),
           const SizedBox(height: 32),
-          if (!_isLogin && widget.role != 'parent') ...[ _field(_nameCtrl, 'Full Name', Icons.person_outline), const SizedBox(height: 14)],
-          if (!_isLogin && widget.role == 'student') ...[ _field(_parentEmailCtrl, 'Parent Email (optional)', Icons.family_restroom), const SizedBox(height: 14)],
-          _field(_emailCtrl, 'Email Address', Icons.email_outlined, type: TextInputType.emailAddress),
+          if (!_isLogin && widget.role != 'parent') ...[ _field(cs, _nameCtrl, 'Full Name', Icons.person_outline), const SizedBox(height: 14)],
+          if (!_isLogin && widget.role == 'student') ...[ _field(cs, _parentEmailCtrl, 'Parent Email (optional)', Icons.family_restroom), const SizedBox(height: 14)],
+          _field(cs, _emailCtrl, 'Email Address', Icons.email_outlined, type: TextInputType.emailAddress),
           const SizedBox(height: 14),
-          _field(_passwordCtrl, 'Password', Icons.lock_outline, obscure: !_showPassword, isPassword: true),
+          _field(cs, _passwordCtrl, 'Password', Icons.lock_outline, obscure: !_showPassword, isPassword: true),
           const SizedBox(height: 28),
           SizedBox(width: double.infinity, child: ElevatedButton(onPressed: _isLoading ? null : _submit, style: ElevatedButton.styleFrom(backgroundColor: _roleColor), child: _isLoading ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white)) : Text(_isLogin ? 'Sign In as $_roleLabel' : 'Create Account'))),
           if (widget.role != 'parent') ...[ const SizedBox(height: 20), Center(child: TextButton(onPressed: () => setState(() => _isLogin = !_isLogin), child: Text(_isLogin ? "Don't have an account? Sign Up" : 'Already have an account? Sign In', style: TextStyle(color: _roleColor, fontWeight: FontWeight.w600))))],
@@ -135,8 +143,8 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 
-  Widget _field(TextEditingController ctrl, String label, IconData icon, {bool obscure = false, bool isPassword = false, TextInputType type = TextInputType.text}) {
-    return TextField(controller: ctrl, obscureText: obscure, keyboardType: type, style: const TextStyle(color: kText), decoration: InputDecoration(labelText: label, prefixIcon: Icon(icon, color: kMuted, size: 20), suffixIcon: isPassword ? IconButton(icon: Icon(_showPassword ? Icons.visibility : Icons.visibility_off, color: kMuted, size: 20), onPressed: () => setState(() => _showPassword = !_showPassword)) : null));
+  Widget _field(ColorScheme cs, TextEditingController ctrl, String label, IconData icon, {bool obscure = false, bool isPassword = false, TextInputType type = TextInputType.text}) {
+    return TextField(controller: ctrl, obscureText: obscure, keyboardType: type, style: TextStyle(color: cs.onSurface), decoration: InputDecoration(labelText: label, prefixIcon: Icon(icon, color: cs.onSurfaceVariant, size: 20), suffixIcon: isPassword ? IconButton(icon: Icon(_showPassword ? Icons.visibility : Icons.visibility_off, color: cs.onSurfaceVariant, size: 20), onPressed: () => setState(() => _showPassword = !_showPassword)) : null));
   }
 
   @override
