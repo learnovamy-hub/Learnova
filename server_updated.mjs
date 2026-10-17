@@ -357,7 +357,7 @@ function findBestFAQ(query) {
 }
 
 // â”€â”€ SEARCH faq_cache table (multi-subject) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-async function searchFaqCache(query, subject) {
+async function searchFaqCache(query, subject, topic = null) {
   try {
     const q = query.toLowerCase().trim();
     // Build query
@@ -369,6 +369,13 @@ async function searchFaqCache(query, subject) {
     // Filter by subject if provided
     if (subject) {
       dbQuery = dbQuery.ilike('subject', `%${subject}%`);
+    }
+
+    // When called from a guided tutor session, restrict to the active topic so
+    // a cached answer for a different topic (e.g. Discriminant) is never served
+    // to a student currently studying a different topic (e.g. Matrices).
+    if (topic) {
+      dbQuery = dbQuery.ilike('topic', `%${topic}%`);
     }
 
     const { data, error } = await dbQuery;
@@ -1473,10 +1480,12 @@ function safeReply(text) {
 }
 
 // -- TEXTBOOK CONTEXT FETCHER -------------------------------------------
-// Returns { text, totalChunks, done } — one concept chunk for the current segment.
-// done=true signals topic exhausted; never wraps back to chunk 0.
+// Returns { text, totalChunks, done, source } where source is:
+//   'topic'          — topic-specific concept chunks found
+//   'subject_fallback' — no topic match; returned generic subject chunks
+//   'none'           — no usable content found
 async function buildTextbookContext(subject, topic, segment = 0, form = null) {
-  if (!subject || !topic) return { text: '', totalChunks: 0, done: true };
+  if (!subject || !topic) return { text: '', totalChunks: 0, done: true, source: 'none' };
   try {
     const topicKeyword = topic.split(' ').slice(0, 4).join(' ');
     let query = supabase
@@ -1498,17 +1507,18 @@ async function buildTextbookContext(subject, topic, segment = 0, form = null) {
         .select('concept_title, concept_explanation, worked_example, common_mistakes')
         .eq('subject', subject)
         .limit(5);
-      if (!fallback || fallback.length === 0) return { text: '', totalChunks: 0, done: true };
-      if (segment >= fallback.length) return { text: '', totalChunks: fallback.length, done: true };
-      return { text: fmt(fallback[segment]), totalChunks: fallback.length, done: false };
+      if (!fallback || fallback.length === 0) return { text: '', totalChunks: 0, done: true, source: 'none' };
+      if (segment >= fallback.length) return { text: '', totalChunks: fallback.length, done: true, source: 'none' };
+      return { text: fmt(fallback[segment]), totalChunks: fallback.length, done: false, source: 'subject_fallback' };
     }
-    if (segment >= chunks.length) return { text: '', totalChunks: chunks.length, done: true };
-    return { text: fmt(chunks[segment]), totalChunks: chunks.length, done: false };
+    if (segment >= chunks.length) return { text: '', totalChunks: chunks.length, done: true, source: 'none' };
+    return { text: fmt(chunks[segment]), totalChunks: chunks.length, done: false, source: 'topic' };
   } catch (e) {
     console.error('buildTextbookContext error:', e.message);
-    return { text: '', totalChunks: 0, done: true };
+    return { text: '', totalChunks: 0, done: true, source: 'none' };
   }
 }
+
 
 // -- TUTOR FLOW: server-owned phase machine + chip templates --------------
 // Replaces the model-emitted JSON envelope. The model now returns plain
@@ -1848,9 +1858,18 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
     const curriculum = subject.startsWith('AL-') ? 'ALevel'
       : subject.startsWith('ID-') ? 'Indonesian'
       : 'SPM';
-    const isBm = teachingLang === 'bm' || teachingLang === 'ms' || (curriculum === 'SPM' && !teachingLang);
-    const isEnglish = curriculum === 'ALevel' || teachingLang === 'en' || subject === 'English' || subject === 'English Literature';
-    const isIndonesian = curriculum === 'Indonesian' || teachingLang === 'id';
+    // When the student explicitly provides teaching_language it takes priority
+    // over curriculum and subject-name defaults (student choice > system defaults).
+    const teachingLangProvided = !!(req.body.teaching_language);
+    const isBm = teachingLangProvided
+      ? (teachingLang === 'bm' || teachingLang === 'ms')
+      : (teachingLang === 'bm' || teachingLang === 'ms' || (curriculum === 'SPM' && !teachingLang));
+    const isEnglish = teachingLangProvided
+      ? (teachingLang === 'en')
+      : (curriculum === 'ALevel' || teachingLang === 'en' || subject === 'English' || subject === 'English Literature');
+    const isIndonesian = teachingLangProvided
+      ? (teachingLang === 'id')
+      : (curriculum === 'Indonesian' || teachingLang === 'id');
     const isMandarin = teachingLang === 'zh';
     const isTamil = teachingLang === 'ta';
     const lang = isEnglish ? 'English' : isIndonesian ? 'Bahasa Indonesia' : isMandarin ? 'Chinese' : isTamil ? 'Tamil' : 'Bahasa Malaysia';
@@ -1875,8 +1894,10 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
     const isSejarahSubject = subject === 'MY-Sejarah' || subject === 'Sejarah' || subject === 'Sejarah Indonesia' ||
       !!(subject && subject.includes('Sejarah'));
 
-    // Language-matched quick-reply suggestions
-    const suggestions = (isBmSubject || isSejarahSubject)
+    // Language-matched quick-reply suggestions.
+    // isBmSubject/isSejarahSubject only force BM suggestions when the student
+    // has NOT explicitly selected English.
+    const suggestions = ((isBmSubject || isSejarahSubject) && !isEnglish)
       ? ['Faham! Teruskan.', 'Boleh cerita lebih lanjut?', 'Saya kurang faham bahagian ini.']
       : isIndonesian
       ? ['Oke, lanjut!', 'Bisa kasih contoh lain?', 'Aku belum paham bagian ini.']
@@ -1939,7 +1960,7 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
     if (sessState && message && message !== 'start' && isOffTopicMessage(message)) {
       sessState.offTopicCount = (sessState.offTopicCount || 0) + 1;
       const idx = Math.min(sessState.offTopicCount - 1, OFF_TOPIC_REDIRECTS_BM.length - 1);
-      const isBmLang = isBm || isBmSubject || isSejarahSubject;
+      const isBmLang = isBm || ((isBmSubject || isSejarahSubject) && !isEnglish);
       const timeRemaining = calculateTimeRemaining(sessState.sessionStartTime);
       let offTopicReply;
       if (deepseekApiKey) {
@@ -1988,28 +2009,19 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
         });
       }
 
-      // faq_cache hybrid lookup (MY subjects: 712 pre-generated answers)
-      const cacheHit = await searchFaqCache(message, subject);
+      // faq_cache hybrid lookup — topic-scoped so a cached answer for a different
+      // Add Maths topic (e.g. Discriminant) is never served during a Matrices session.
+      const cacheHit = await searchFaqCache(message, subject, topic);
       if (cacheHit) {
         return res.json({ reply: safeReply(cacheHit.answer), source: 'faq_cache', from_cache: true,
           phase, segment: (parseInt(segment)||0)+1, isCheckIn: false,
           suggestedResponses: suggestions, activeQuestion: null });
       }
 
-      // Explanation type check
-      const expType = pregen.detectExplanationType(message);
-      if (expType) {
-        const prebuilt = await pregen.getExplanation(country, subject || 'General', topic, expType);
-        if (prebuilt) {
-          console.log(`[PreGen] Explanation hit: ${expType}`);
-          return res.json({
-            reply: safeReply(prebuilt), source: 'explanation_cache', from_cache: true,
-            phase, segment: (parseInt(segment) || 0) + 1, isCheckIn: false,
-            suggestedResponses: suggestions,
-            activeQuestion: null,
-          });
-        }
-      }
+      // NOTE: pregen.getExplanation() (concept_explanations table, learnova-2.0) is
+      // intentionally NOT called here. Static pre-built explanations bypass the Socratic
+      // open-question rule and phase tracking enforced by Nova's constitution.
+      // Claude always handles these turns so that pedagogy is applied consistently.
     }
 
     // â”€â”€ Tutor mode: guided lesson with topic â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -2204,11 +2216,11 @@ ALWAYS declare for numeric problems -- this is how the system checks student wor
 ==================================================` : ''}
 ${textbookContext ? `
 ==================================================
-KONTEKS DARI BUKU TEKS (gunakan untuk mengajar)
+${isEnglish ? 'TEXTBOOK CONTEXT (use to teach)' : isIndonesian ? 'KONTEN BUKU TEKS (gunakan untuk mengajar)' : 'KONTEKS DARI BUKU TEKS (gunakan untuk mengajar)'}
 ==================================================
 ${textbookContext}
 
-${isEnglish ? 'Use the above textbook content to teach. Do not say "according to the textbook" â€” teach naturally as if you know this yourself.' : isIndonesian ? 'Gunakan konten buku teks di atas untuk mengajar. Jangan bilang "menurut buku teks" â€” ajar secara natural seolah kamu sendiri yang tahu.' : 'Gunakan konteks buku teks di atas untuk mengajar. Jangan sebut "mengikut buku teks" â€” ajar secara natural seolah-olah kamu sendiri yang tahu benda ni.'}
+${isEnglish ? 'Use the above textbook content to teach. Do not say "according to the textbook" -- teach naturally as if you know this yourself.' : isIndonesian ? 'Gunakan konten buku teks di atas untuk mengajar. Jangan bilang "menurut buku teks" -- ajar secara natural seolah kamu sendiri yang tahu.' : 'Gunakan konteks buku teks di atas untuk mengajar. Jangan sebut "mengikut buku teks" -- ajar secara natural seolah-olah kamu sendiri yang tahu benda ni.'}
 ==================================================` : ''}
 
 ==================================================
@@ -2316,8 +2328,9 @@ CRITICAL: Output plain text ONLY. If you find yourself writing { or "reply": or 
 - MANDATORY: Every response must have TWO parts: (1) your teaching text first, then (2) a classify_turn tool call. ALWAYS call classify_turn exactly once per response, no exceptions.
 - Do not mention the tool or its name to the student.`;
 
-    // Append strict Bahasa Malaysia rules when subject is BM
-    if (isBmSubject) {
+    // Append strict Bahasa Malaysia rules only when subject is BM AND the student
+    // has not explicitly selected English as tutoring language.
+    if (isBmSubject && !isEnglish) {
       systemPrompt += `
 
 ==================================================
@@ -2358,8 +2371,9 @@ Subjek ini adalah Bahasa Malaysia.
 ==================================================`;
     }
 
-    // Append strict Sejarah rules when subject is Sejarah
-    if (isSejarahSubject) {
+    // Append strict Sejarah rules only when subject is Sejarah AND student has not
+    // explicitly selected English.
+    if (isSejarahSubject && !isEnglish) {
       systemPrompt += `
 
 ==================================================
@@ -2529,6 +2543,12 @@ Jika ragu antara BM atau Inggeris, PILIH BM.
     // â”€â”€ Lesson context injection (when opened from LessonScreen) â”€â”€
     if (lessonId && lessonContext) {
       const lc = lessonContext;
+      const lcRedirect = isEnglish
+        ? `”Great work! Now go try the Try It question in your lesson. You can do this! Go back to the Lesson.”`
+        : `”Okay bagus! Cuba selesaikan soalan tu sekarang. Kamu boleh buat ni! Kembali ke Pelajaran.”`;
+      const lcFocus = isEnglish
+        ? `”Let's stay focused on ${lc.lesson_title || topic}. Complete this first, then we can explore other topics!”`
+        : `”Jom fokus dulu pada ${lc.lesson_title || topic} ni. Selesaikan dulu, baru kita boleh explore topik lain!”`;
       systemPrompt += `\n\n==================================================
 KONTEKS PELAJARAN SEMASA â€” BACA DAN IKUT
 ==================================================
@@ -2553,9 +2573,9 @@ TUGAS KAMU â€” WAJIB IKUT SEMUA PERATURAN INI:
 4. Gunakan soalan Socratic â€” pandu pelajar berfikir sendiri.
 5. Nova BUKAN pengganti pelajaran â€” Nova PEMBANTU pelajaran.
 6. Selepas 3-4 pertukaran mesej DAN pelajar dah faham, WAJIB tulis:
-   "Okay bagus! Cuba selesaikan soalan tu sekarang. Kamu boleh buat ni! Kembali ke Pelajaran."
+   ${lcRedirect}
 7. Jika pelajar tanya soalan di luar topik ini, balas:
-   "Jom fokus dulu pada [lesson_title] ni. Selesaikan dulu, baru kita boleh explore topik lain!"
+   ${lcFocus}
 ==================================================`
       ;
     }
