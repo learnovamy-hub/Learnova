@@ -579,12 +579,12 @@ class _LessonScreenState extends State<LessonScreen>
   Widget _buildBacaBody() {
     final l = _lesson!;
     return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+      padding: const EdgeInsets.fromLTRB(16, 20, 16, 24),
       children: [
         // 0. Hook sentence
         if ((l['hook_sentence'] as String?)?.isNotEmpty == true) ...[
           Container(
-            padding: const EdgeInsets.all(14),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 colors: [Color(0xFF1E1040), Color(0xFF0D1117)],
@@ -593,48 +593,58 @@ class _LessonScreenState extends State<LessonScreen>
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: kPrimary.withOpacity(0.3)),
             ),
-            child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Icon(Icons.lightbulb_outline_rounded, color: kPrimary, size: 18),
-              const SizedBox(width: 10),
-              Expanded(child: Text(
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Row(children: [
+                Icon(Icons.lightbulb_outline_rounded, color: kPrimary, size: 13),
+                const SizedBox(width: 5),
+                Text('Situasi Sebenar',
+                  style: TextStyle(
+                    color: kPrimary, fontSize: 11,
+                    fontWeight: FontWeight.w700, letterSpacing: 0.4,
+                  )),
+              ]),
+              const SizedBox(height: 8),
+              Text(
                 l['hook_sentence'] as String? ?? '',
-                style: const TextStyle(color: kText, fontSize: 14, height: 1.6, fontStyle: FontStyle.italic),
-              )),
+                style: const TextStyle(color: kText, fontSize: 14, height: 1.65, fontStyle: FontStyle.italic),
+              ),
             ]),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 24),
         ],
 
         // 1. Concept
         _sectionHeader('Konsep', Icons.lightbulb_outline_rounded, kText),
-        const SizedBox(height: 8),
-        Text(
-          l['concept_explanation'] as String? ?? '',
-          style: const TextStyle(color: kText, fontSize: 14, height: 1.65),
+        const SizedBox(height: 12),
+        Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: kSurface,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: kBorder),
+          ),
+          child: _buildBodyText(
+            l['concept_explanation'] as String? ?? '',
+            fontSize: 14, lineHeight: 1.75,
+          ),
         ),
 
         // 2. Worked example
         if ((l['worked_example'] as String?)?.isNotEmpty == true) ...[
-          const SizedBox(height: 20),
+          const SizedBox(height: 24),
           _card(
             icon: Icons.check_circle_outline_rounded, label: 'Contoh', color: _kGreen,
-            child: Text(
-              l['worked_example'] as String? ?? '',
-              style: const TextStyle(color: kText, fontSize: 13, height: 1.65),
-            ),
+            child: _buildBodyText(l['worked_example'] as String? ?? ''),
           ),
         ],
 
         // 3. Try It
         if ((l['try_it_question'] as String?)?.isNotEmpty == true) ...[
-          const SizedBox(height: 20),
+          const SizedBox(height: 24),
           _card(
             icon: Icons.edit_outlined, label: 'Cuba kamu selesaikan', color: _kBlue,
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                l['try_it_question'] as String? ?? '',
-                style: const TextStyle(color: kText, fontSize: 13, height: 1.65),
-              ),
+              _buildBodyText(l['try_it_question'] as String? ?? ''),
               if (!_submitted) ...[
                 const SizedBox(height: 12),
                 TextField(
@@ -718,40 +728,30 @@ class _LessonScreenState extends State<LessonScreen>
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const Text('Jawapan Penuh:',
                 style: TextStyle(color: kMuted, fontSize: 12, fontWeight: FontWeight.w600)),
-              const SizedBox(height: 6),
-              Text(
-                l['try_it_answer'] as String? ?? '',
-                style: const TextStyle(color: kText, fontSize: 13, height: 1.65),
-              ),
+              const SizedBox(height: 8),
+              _buildBodyText(l['try_it_answer'] as String? ?? ''),
             ]),
           ),
         ],
 
         // 5. Common Mistakes
         if ((l['common_mistakes'] as String?)?.isNotEmpty == true) ...[
-          const SizedBox(height: 20),
+          const SizedBox(height: 24),
           _card(
             icon: Icons.warning_amber_rounded, label: 'Kesilapan Lazim', color: _kOrange,
-            child: Text(
-              l['common_mistakes'] as String? ?? '',
-              style: const TextStyle(color: kText, fontSize: 13, height: 1.65),
-            ),
+            child: _buildBodyText(l['common_mistakes'] as String? ?? ''),
           ),
         ],
 
         // 6. Exam Technique
         if ((l['exam_technique'] as String?)?.isNotEmpty == true) ...[
-          const SizedBox(height: 20),
+          const SizedBox(height: 24),
           _card(
             icon: Icons.star_outline_rounded, label: 'Teknik SPM', color: _kPurple,
-            child: Text(
-              l['exam_technique'] as String? ?? '',
-              style: const TextStyle(color: kText, fontSize: 13, height: 1.65),
-            ),
+            child: _buildBodyText(l['exam_technique'] as String? ?? ''),
           ),
         ],
 
-        // â”€â”€ Tak faham button â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         const SizedBox(height: 28),
         OutlinedButton(
           onPressed: _openNova,
@@ -786,7 +786,17 @@ class _LessonScreenState extends State<LessonScreen>
   // â”€â”€ Dengar mode â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   Widget _buildDengarBody() {
-    final title = _lesson!['lesson_title'] as String? ?? '';
+    final l = _lesson!;
+    final title = l['lesson_title'] as String? ?? '';
+    final topic = l['topic'] as String? ?? '';
+
+    final coverList = <String>[];
+    if ((l['hook_sentence'] as String?)?.isNotEmpty == true) coverList.add('Situasi sebenar');
+    if ((l['concept_explanation'] as String?)?.isNotEmpty == true) coverList.add('Konsep');
+    if ((l['worked_example'] as String?)?.isNotEmpty == true) coverList.add('Contoh');
+    if ((l['try_it_question'] as String?)?.isNotEmpty == true) coverList.add('Soalan');
+    if ((l['common_mistakes'] as String?)?.isNotEmpty == true) coverList.add('Kesilapan lazim');
+    if ((l['exam_technique'] as String?)?.isNotEmpty == true) coverList.add('Teknik SPM');
 
     return Center(
       child: SingleChildScrollView(
@@ -794,6 +804,13 @@ class _LessonScreenState extends State<LessonScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            if (topic.isNotEmpty) ...[
+              Text(topic,
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: kMuted, fontSize: 11, letterSpacing: 0.4),
+              ),
+              const SizedBox(height: 4),
+            ],
             Text(
               title,
               textAlign: TextAlign.center,
@@ -839,8 +856,11 @@ class _LessonScreenState extends State<LessonScreen>
               ),
               const SizedBox(height: 14),
               Text(
-                _audioGenerating ? 'Sedang menjana audio...' : 'Sedang memuatkan...',
-                style: const TextStyle(color: kMuted, fontSize: 13),
+                _audioGenerating
+                  ? 'Sedang menjana audio...\n(kira-kira 30-60 saat)'
+                  : 'Sedang memuatkan...',
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: kMuted, fontSize: 13, height: 1.5),
               ),
             ] else ...[
 
@@ -920,11 +940,33 @@ class _LessonScreenState extends State<LessonScreen>
 
               if (_audioDuration == 0 && !_ttsLoading) ...[
                 const SizedBox(height: 20),
-                Text(
-                  'Tekan â–¶ untuk dengar pelajaran ini',
-                  style: TextStyle(color: kMuted.withOpacity(0.6), fontSize: 12),
+                const Text(
+                  'Tekan butang main untuk dengar pelajaran ini',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: kMuted, fontSize: 12),
                 ),
               ],
+            ],
+
+            // Content outline — always visible
+            if (coverList.isNotEmpty) ...[
+              const SizedBox(height: 28),
+              const Text('Pelajaran ini merangkumi:',
+                style: TextStyle(color: kMuted, fontSize: 11)),
+              const SizedBox(height: 8),
+              Wrap(
+                spacing: 6, runSpacing: 6,
+                alignment: WrapAlignment.center,
+                children: coverList.map((s) => Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: kSurface2,
+                    borderRadius: BorderRadius.circular(6),
+                    border: Border.all(color: kBorder),
+                  ),
+                  child: Text(s, style: const TextStyle(color: kMuted, fontSize: 11)),
+                )).toList(),
+              ),
             ],
           ],
         ),
@@ -958,11 +1000,41 @@ class _LessonScreenState extends State<LessonScreen>
 
   // â”€â”€ Shared helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-  Widget _sectionHeader(String label, IconData icon, Color color) => Row(children: [
-    Icon(icon, color: color, size: 16),
-    const SizedBox(width: 6),
-    Text(label, style: TextStyle(color: color, fontSize: 13, fontWeight: FontWeight.w700)),
-  ]);
+  Widget _buildBodyText(String text, {double fontSize = 13, double lineHeight = 1.7}) {
+    if (text.isEmpty) return const SizedBox.shrink();
+    final paras = text
+      .split(RegExp(r'\n\s*\n'))
+      .map((p) => p.trim())
+      .where((p) => p.isNotEmpty)
+      .toList();
+    final style = TextStyle(color: kText, fontSize: fontSize, height: lineHeight);
+    if (paras.length == 1) {
+      return Text(text.trim(), style: style);
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (int i = 0; i < paras.length; i++) ...[
+          if (i > 0) const SizedBox(height: 10),
+          Text(paras[i], style: style),
+        ],
+      ],
+    );
+  }
+
+  Widget _sectionHeader(String label, IconData icon, Color color) {
+    return Container(
+      padding: const EdgeInsets.only(left: 10),
+      decoration: BoxDecoration(
+        border: Border(left: BorderSide(color: color, width: 3)),
+      ),
+      child: Row(children: [
+        Icon(icon, color: color, size: 15),
+        const SizedBox(width: 6),
+        Text(label, style: TextStyle(color: color, fontSize: 14, fontWeight: FontWeight.w700)),
+      ]),
+    );
+  }
 
   Widget _card({required IconData icon, required String label, required Color color, required Widget child}) {
     return Container(

@@ -9,6 +9,7 @@ import 'subject_screen.dart';
 import 'ai_tutor_tab.dart';
 import 'profile_tab.dart';
 import 'notifications_screen.dart';
+import '../widgets/help_button.dart';
 
 class MainShell extends StatefulWidget {
   final String initialSubject;
@@ -107,8 +108,6 @@ class MainShellState extends State<MainShell> {
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           Container(width: 40, height: 4, decoration: BoxDecoration(color: kBorder, borderRadius: BorderRadius.circular(2))),
           const SizedBox(height: 20),
-          const Text('⏸️', style: TextStyle(fontSize: 36)),
-          const SizedBox(height: 12),
           const Text('Time for a quick break!',
             style: TextStyle(color: kText, fontSize: 18, fontWeight: FontWeight.w800)),
           const SizedBox(height: 8),
@@ -123,7 +122,7 @@ class MainShellState extends State<MainShell> {
                 side: const BorderSide(color: kPrimary),
                 padding: const EdgeInsets.symmetric(vertical: 14),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
-              child: const Text('Take a break 🧃', style: TextStyle(color: kPrimary, fontWeight: FontWeight.w700)),
+              child: const Text('Rehat Sebentar', style: TextStyle(color: kPrimary, fontWeight: FontWeight.w700)),
             )),
             const SizedBox(width: 12),
             Expanded(child: ElevatedButton(
@@ -148,7 +147,7 @@ class MainShellState extends State<MainShell> {
       if (_breakElapsed >= _breakDuration) _endBreak(auto: true);
     });
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text('Session paused — enjoy your break! 🧃'),
+      content: Text('Sesi dijeda. Rehat sebentar.'),
       backgroundColor: kSurface2,
       duration: Duration(seconds: 3),
     ));
@@ -160,7 +159,7 @@ class MainShellState extends State<MainShell> {
     setState(() => _onBreak = false);
     if (auto) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Break over — welcome back! Let's continue 💪"),
+        content: Text('Rehat selesai. Sambung belajar.'),
         backgroundColor: Color(0xFF059669),
         duration: Duration(seconds: 3),
       ));
@@ -170,7 +169,7 @@ class MainShellState extends State<MainShell> {
   void _showWarningBanner() {
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text('⏰ 15 minutes left — let\'s wrap up this topic strong!'),
+      content: Text('15 minit berbaki. Sila lengkapkan topik yang sedang dipelajari.'),
       backgroundColor: Color(0xFFD97706),
       duration: Duration(seconds: 6),
     ));
@@ -187,7 +186,7 @@ class MainShellState extends State<MainShell> {
       builder: (_) => AlertDialog(
         backgroundColor: kSurface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: const Text("Session complete! 🎉", style: TextStyle(color: kText, fontWeight: FontWeight.w800)),
+        title: const Text('Sesi Belajar Selesai', style: TextStyle(color: kText, fontWeight: FontWeight.w800)),
         content: Text(
           "You've hit 75 minutes — amazing dedication, $_selectedSubject warrior!\n\nTime for your end-of-session quiz to lock in what you learned.",
           style: const TextStyle(color: kMuted, height: 1.55)),
@@ -221,9 +220,6 @@ class MainShellState extends State<MainShell> {
     const SubjectScreen(),
     AITutorTab(
       selectedSubject: _selectedSubject,
-      initialTopic: _preReadTopic,
-      preRead: _preRead,
-      lessonContext: _lessonContext,
     ),
     const ProfileTab(),
   ];
@@ -261,6 +257,8 @@ class MainShellState extends State<MainShell> {
               ),
             ),
           ),
+        // Help & Feedback button — visible on all tabs
+        HelpButton(subjectContext: _selectedSubject, pageContext: 'main_shell'),
         // Notification bell overlay in top-right (hidden on Profil tab)
         if (currentIndex != 3)
         Positioned(

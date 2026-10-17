@@ -43,7 +43,7 @@ class _AITutorTabState extends State<AITutorTab> {
   String? _currentStandardCode;
   String? _currentStandardDesc;
   String? _standardsProgress;
-  String _language = 'en';
+  String _tutorLang = 'bm';
 
   @override
   void initState() {
@@ -96,7 +96,16 @@ class _AITutorTabState extends State<AITutorTab> {
 
   Future<void> _loadLanguage() async {
     final prefs = await SharedPreferences.getInstance();
-    if (mounted) setState(() => _language = prefs.getString('preferred_language') ?? 'en');
+    // teaching_language is the canonical key (CLAUDE.md); default 'bm' for SPM students
+    final stored = prefs.getString('teaching_language') ?? '';
+    if (mounted) setState(() => _tutorLang = stored == 'en' ? 'en' : 'bm');
+  }
+
+  void _switchLang(String lang) async {
+    if (_tutorLang == lang) return;
+    setState(() => _tutorLang = lang);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('teaching_language', lang);
   }
 
   Future<void> _loadSuggestions() async {
@@ -174,7 +183,9 @@ class _AITutorTabState extends State<AITutorTab> {
         body: jsonEncode({
           'subject': _currentSubject, 'topic': _currentTopic,
           'message': message, 'history': history,
-          'phase': _phase, 'segment': _segment, 'language': _language,
+          'phase': _phase, 'segment': _segment,
+          'language': _tutorLang,           // backward-compat field
+          'teaching_language': _tutorLang,  // preferred field (server reads this first)
           if (widget.lessonId != null) 'lessonId': widget.lessonId,
           if (widget.lessonContext != null) 'lessonContext': widget.lessonContext,
         }),
@@ -215,9 +226,14 @@ class _AITutorTabState extends State<AITutorTab> {
     _ctrl.clear();
     _scrollToBottom();
     try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token') ?? '';
       final r = await http.post(
         Uri.parse('$kApiUrl/api/ai/ask'),
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          if (token.isNotEmpty) 'Authorization': 'Bearer $token',
+        },
         body: jsonEncode({'question': question, 'subject': _currentSubject}),
       );
       final data = jsonDecode(r.body);
@@ -225,7 +241,10 @@ class _AITutorTabState extends State<AITutorTab> {
       setState(() {
         _messages.add({
           'role': 'ai',
-          'text': data['answer'] ?? 'Sorry, I could not answer that.',
+          'text': data['answer'] as String? ??
+              (data['error'] != null
+                  ? 'Something went wrong. Please try again.'
+                  : 'Sorry, I could not answer that.'),
           'example': data['example'], 'source': data['source'],
           'related_questions': (related is List) ? related.cast<String>() : <String>[],
           'wrong_subject_note': data['wrong_subject_note'],
@@ -261,6 +280,7 @@ class _AITutorTabState extends State<AITutorTab> {
         title: Text(_tutorMode && _currentTopic != null ? 'Lesson: $_currentTopic' : 'AI Tutor - $_currentSubject',
           style: const TextStyle(fontSize: 15)),
         actions: [
+          _buildLangToggle(),
           if (_tutorMode)
             TextButton(
               onPressed: () => setState(() {
@@ -589,7 +609,9 @@ class _AITutorTabState extends State<AITutorTab> {
           controller: _ctrl,
           style: const TextStyle(color: kText, fontSize: 14),
           decoration: InputDecoration(
-            hintText: _tutorMode ? 'Ask your tutor...' : 'Ask about $_currentSubject...',
+            hintText: _tutorMode
+              ? (_tutorLang == 'en' ? 'Ask your tutor...' : 'Tanya Nova kamu...')
+              : (_tutorLang == 'en' ? 'Ask about $_currentSubject...' : 'Tanya tentang $_currentSubject...'),
             hintStyle: const TextStyle(color: kMuted),
             filled: true, fillColor: kSurface2,
             border:        OutlineInputBorder(borderRadius: BorderRadius.circular(24), borderSide: const BorderSide(color: kBorder)),
@@ -608,6 +630,41 @@ class _AITutorTabState extends State<AITutorTab> {
             child: const Icon(Icons.send_rounded, color: Colors.white, size: 20)),
         ),
       ]),
+    );
+  }
+
+  Widget _buildLangToggle() {
+    return Container(
+      margin: const EdgeInsets.only(right: 4),
+      padding: const EdgeInsets.all(3),
+      decoration: BoxDecoration(
+        color: kSurface2,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: kBorder),
+      ),
+      child: Row(mainAxisSize: MainAxisSize.min, children: [
+        _langBtn('BM', 'bm'),
+        _langBtn('EN', 'en'),
+      ]),
+    );
+  }
+
+  Widget _langBtn(String label, String lang) {
+    final active = _tutorLang == lang;
+    return GestureDetector(
+      onTap: () => _switchLang(lang),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 150),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        decoration: BoxDecoration(
+          color: active ? kPrimary : Colors.transparent,
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Text(label, style: TextStyle(
+          color: active ? Colors.white : kMuted,
+          fontSize: 12, fontWeight: FontWeight.w700,
+        )),
+      ),
     );
   }
 
