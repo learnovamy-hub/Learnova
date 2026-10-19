@@ -1,5 +1,6 @@
 ﻿import 'package:flutter/material.dart';
 import '../config/constants.dart';
+import '../utils/form_level.dart';
 import 'lesson_screen.dart';
 
 class LessonListScreen extends StatefulWidget {
@@ -46,7 +47,7 @@ class _LessonListScreenState extends State<LessonListScreen> {
         foregroundColor: kText,
         elevation: 0,
         title: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(widget.topic,
+          Text(cleanTopicTitle(widget.topic),
             style: const TextStyle(color: kText, fontSize: 15, fontWeight: FontWeight.w700),
             overflow: TextOverflow.ellipsis),
           Text(widget.subjectName,

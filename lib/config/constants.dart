@@ -1,5 +1,9 @@
 ﻿import 'package:flutter/material.dart';
 const String kApiUrl = 'https://learnova-backend-production-bd3a.up.railway.app';
+
+// Learnova 2.0 backend. Update to production URL before release.
+// Android emulator: use 10.0.2.2:3000. iOS simulator / web: localhost:3000.
+const String kNovaApiUrl = 'http://10.0.2.2:3000';
 const List<Map<String, dynamic>> kSubjects = [
   {'name': 'Bahasa Malaysia', 'color': 0xFF4A7AFA, 'description': 'Bahasa, sastera & tatabahasa'},
   {'name': 'English',         'color': 0xFF22C55E, 'description': 'Grammar, writing & comprehension'},

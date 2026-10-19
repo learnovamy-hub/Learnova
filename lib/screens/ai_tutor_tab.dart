@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../config/constants.dart';
+import '../utils/form_level.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'main_shell.dart';
 import '../widgets/tts_player.dart';
@@ -277,7 +278,7 @@ class _AITutorTabState extends State<AITutorTab> {
     return Scaffold(
       backgroundColor: kBg,
       appBar: AppBar(
-        title: Text(_tutorMode && _currentTopic != null ? 'Lesson: $_currentTopic' : 'AI Tutor - $_currentSubject',
+        title: Text(_tutorMode && _currentTopic != null ? 'Lesson: ${cleanTopicTitle(_currentTopic!)}' : 'AI Tutor - $_currentSubject',
           style: const TextStyle(fontSize: 15)),
         actions: [
           _buildLangToggle(),
@@ -305,7 +306,7 @@ class _AITutorTabState extends State<AITutorTab> {
             ),
             // Main chat
             Expanded(child: Column(children: [
-              _buildSubjectBar(),
+              if (!_tutorMode) _buildSubjectBar(),
               if (_messages.isEmpty && !_tutorMode) _buildWelcome(subjectColor),
               Expanded(child: _buildMessageList()),
               if (_tutorMode && _suggestedResponses.isNotEmpty) _buildSuggestedResponses(),
@@ -314,7 +315,7 @@ class _AITutorTabState extends State<AITutorTab> {
             ])),
           ])
         : Column(children: [
-            _buildSubjectBar(),
+            if (!_tutorMode) _buildSubjectBar(),
             Expanded(child: _messages.isEmpty && !_tutorMode ? _buildTopicSelector() : _buildMessageList()),
             if (_tutorMode && _suggestedResponses.isNotEmpty) _buildSuggestedResponses(),
             _buildInput(),

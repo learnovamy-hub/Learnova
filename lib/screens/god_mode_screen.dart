@@ -40,6 +40,14 @@ class _GodModeScreenState extends State<GodModeScreen> {
   String _grantType = 'admin_grant';
   int _grantDays = 30;
 
+  // Feedback tickets
+  List<dynamic> _feedbackTickets = [];
+  bool _feedbackLoading = false;
+  int _feedbackPage = 1;
+  int _feedbackTotal = 0;
+  String _feedbackStatusFilter = 'all';
+  String? _feedbackError;
+
   @override
   void dispose() {
     _emailCtrl.dispose();
@@ -61,6 +69,7 @@ class _GodModeScreenState extends State<GodModeScreen> {
         setState(() { _adminToken = data['token']; _admin = data['admin']; });
         await _loadDashboard();
         await _loadStudents();
+        await _loadFeedbackTickets();
       } else {
         setState(() => _loginError = data['error'] ?? 'Login gagal');
       }
@@ -98,6 +107,63 @@ class _GodModeScreenState extends State<GodModeScreen> {
       }
     } catch (_) {}
     if (mounted) setState(() => _studentsLoading = false);
+  }
+
+  Future<void> _loadFeedbackTickets() async {
+    if (_adminToken == null) return;
+    if (mounted) setState(() { _feedbackLoading = true; _feedbackError = null; });
+    try {
+      final statusParam = _feedbackStatusFilter == 'all' ? '' : '&status=$_feedbackStatusFilter';
+      final r = await http.get(
+        Uri.parse('$kApiUrl/api/admin/feedback?page=$_feedbackPage&limit=10$statusParam'),
+        headers: {'Authorization': 'Bearer $_adminToken'},
+      ).timeout(const Duration(seconds: 10));
+      if (r.statusCode == 200) {
+        final d = jsonDecode(r.body);
+        if (mounted) setState(() {
+          _feedbackTickets = d['tickets'] ?? [];
+          _feedbackTotal = d['total'] ?? 0;
+        });
+      } else {
+        final d = jsonDecode(r.body);
+        if (mounted) setState(() => _feedbackError = d['error'] ?? 'Gagal memuatkan tiket (${r.statusCode})');
+      }
+    } catch (_) {
+      if (mounted) setState(() => _feedbackError = 'Tiada sambungan');
+    }
+    if (mounted) setState(() => _feedbackLoading = false);
+  }
+
+  // Returns true on success. Surfaces API/network errors via SnackBar.
+  Future<bool> _updateFeedbackTicket(String ticketId,
+      {String? status, String? priority, String? adminNotes}) async {
+    try {
+      final payload = <String, dynamic>{};
+      if (status != null) payload['status'] = status;
+      if (priority != null) payload['priority'] = priority;
+      if (adminNotes != null) payload['admin_notes'] = adminNotes;
+      final r = await http.patch(
+        Uri.parse('$kApiUrl/api/admin/feedback/$ticketId'),
+        headers: {'Authorization': 'Bearer $_adminToken', 'Content-Type': 'application/json'},
+        body: jsonEncode(payload),
+      ).timeout(const Duration(seconds: 10));
+      if (r.statusCode == 200) {
+        await _loadFeedbackTickets();
+        return true;
+      }
+      final d = jsonDecode(r.body);
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(d['error'] ?? 'Kemas kini gagal (${r.statusCode})'),
+        backgroundColor: kRed,
+      ));
+      return false;
+    } catch (_) {
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Tiada sambungan'),
+        backgroundColor: kRed,
+      ));
+      return false;
+    }
   }
 
   Future<void> _toggleTrialMode(bool value) async {
@@ -225,7 +291,11 @@ class _GodModeScreenState extends State<GodModeScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh_rounded, size: 20),
-            onPressed: () async { await _loadDashboard(); await _loadStudents(); },
+            onPressed: () async {
+              await _loadDashboard();
+              await _loadStudents();
+              await _loadFeedbackTickets();
+            },
           ),
           TextButton(
             onPressed: () => setState(() { _adminToken = null; _admin = null; }),
@@ -345,6 +415,100 @@ class _GodModeScreenState extends State<GodModeScreen> {
           ),
           const SizedBox(height: 24),
 
+          // Feedback tickets
+          _sectionHeader('Maklum Balas Pelajar ($_feedbackTotal)', Icons.feedback_rounded),
+          const SizedBox(height: 10),
+          // Status filter chips
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(children: [
+              for (final f in [
+                ['all', 'Semua'],
+                ['open', 'Terbuka'],
+                ['in_progress', 'Diproses'],
+                ['resolved', 'Selesai'],
+                ['closed', 'Ditutup'],
+              ])
+                Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() { _feedbackStatusFilter = f[0]; _feedbackPage = 1; });
+                      _loadFeedbackTickets();
+                    },
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 150),
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: _feedbackStatusFilter == f[0] ? kPrimary.withOpacity(0.15) : kSurface,
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: _feedbackStatusFilter == f[0] ? kPrimary : kBorder),
+                      ),
+                      child: Text(f[1], style: TextStyle(
+                        color: _feedbackStatusFilter == f[0] ? kPrimary : kMuted,
+                        fontSize: 12,
+                        fontWeight: _feedbackStatusFilter == f[0] ? FontWeight.w700 : FontWeight.w400,
+                      )),
+                    ),
+                  ),
+                ),
+            ]),
+          ),
+          const SizedBox(height: 10),
+          if (_feedbackLoading)
+            const Center(child: Padding(
+              padding: EdgeInsets.all(20),
+              child: CircularProgressIndicator(color: kPrimary),
+            ))
+          else if (_feedbackError != null)
+            Container(
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(
+                color: kRed.withOpacity(0.08),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: kRed.withOpacity(0.3)),
+              ),
+              child: Row(children: [
+                const Icon(Icons.error_outline_rounded, color: kRed, size: 16),
+                const SizedBox(width: 8),
+                Expanded(child: Text(_feedbackError!, style: const TextStyle(color: kRed, fontSize: 13))),
+                TextButton(
+                  onPressed: _loadFeedbackTickets,
+                  child: const Text('Cuba lagi', style: TextStyle(color: kRed, fontSize: 12)),
+                ),
+              ]),
+            )
+          else if (_feedbackTickets.isEmpty)
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(color: kSurface, borderRadius: BorderRadius.circular(12), border: Border.all(color: kBorder)),
+              child: const Center(child: Text('Tiada tiket', style: TextStyle(color: kMuted, fontSize: 13))),
+            )
+          else
+            ..._feedbackTickets.map((t) => _feedbackTile(t as Map)),
+          // Pagination
+          if (_feedbackTotal > 10)
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                IconButton(
+                  onPressed: _feedbackPage > 1
+                      ? () { setState(() => _feedbackPage--); _loadFeedbackTickets(); }
+                      : null,
+                  icon: const Icon(Icons.chevron_left_rounded, color: kMuted),
+                ),
+                Text('$_feedbackPage / ${(_feedbackTotal / 10).ceil()}',
+                    style: const TextStyle(color: kMuted, fontSize: 12)),
+                IconButton(
+                  onPressed: _feedbackPage < (_feedbackTotal / 10).ceil()
+                      ? () { setState(() => _feedbackPage++); _loadFeedbackTickets(); }
+                      : null,
+                  icon: const Icon(Icons.chevron_right_rounded, color: kMuted),
+                ),
+              ]),
+            ),
+          const SizedBox(height: 24),
+
           // Students list
           _sectionHeader('Senarai Pelajar ($_studentsTotal)', Icons.people_rounded),
           const SizedBox(height: 10),
@@ -372,6 +536,187 @@ class _GodModeScreenState extends State<GodModeScreen> {
         ]),
       ),
     );
+  }
+
+  Widget _feedbackTile(Map t) {
+    final status = t['status'] as String? ?? 'open';
+    final category = t['category'] as String? ?? '';
+    final statusColor = {'open': kRed, 'in_progress': kYellow, 'resolved': kGreen, 'closed': kMuted}[status] ?? kMuted;
+    return GestureDetector(
+      onTap: () => _showFeedbackDetail(t),
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 8),
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(color: kSurface, borderRadius: BorderRadius.circular(12), border: Border.all(color: kBorder)),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              decoration: BoxDecoration(color: statusColor.withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
+              child: Text(status.replaceAll('_', ' ').toUpperCase(),
+                  style: TextStyle(color: statusColor, fontSize: 9, fontWeight: FontWeight.w800, letterSpacing: 0.5)),
+            ),
+            const SizedBox(width: 6),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              decoration: BoxDecoration(color: kSurface2, borderRadius: BorderRadius.circular(6)),
+              child: Text(_categoryLabel(category),
+                  style: const TextStyle(color: kMuted, fontSize: 9, fontWeight: FontWeight.w600)),
+            ),
+            const Spacer(),
+            Text(_formatDate(t['created_at'] as String? ?? ''),
+                style: const TextStyle(color: kMuted, fontSize: 10)),
+          ]),
+          const SizedBox(height: 8),
+          Text(t['ticket_number'] as String? ?? '',
+              style: const TextStyle(color: kMuted, fontSize: 10, fontFamily: 'monospace')),
+          const SizedBox(height: 4),
+          Text(
+            t['description'] as String? ?? '',
+            maxLines: 2, overflow: TextOverflow.ellipsis,
+            style: const TextStyle(color: kText, fontSize: 13, height: 1.4),
+          ),
+          if ((t['admin_notes'] as String? ?? '').isNotEmpty) ...[
+            const SizedBox(height: 6),
+            Row(children: [
+              const Icon(Icons.comment_rounded, color: kPrimary, size: 12),
+              const SizedBox(width: 4),
+              Expanded(child: Text(t['admin_notes'] as String,
+                  maxLines: 1, overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(color: kPrimary, fontSize: 11))),
+            ]),
+          ],
+        ]),
+      ),
+    );
+  }
+
+  void _showFeedbackDetail(Map t) {
+    final notesCtrl = TextEditingController(text: t['admin_notes'] as String? ?? '');
+    String selectedStatus = t['status'] as String? ?? 'open';
+    String selectedPriority = t['priority'] as String? ?? 'normal';
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: kSurface,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (_) => StatefulBuilder(builder: (ctx, setModal) {
+        return Padding(
+          padding: EdgeInsets.only(
+            top: 20, left: 20, right: 20,
+            bottom: MediaQuery.of(ctx).viewInsets.bottom + 24,
+          ),
+          child: SingleChildScrollView(
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min, children: [
+              Center(child: Container(width: 40, height: 4,
+                  decoration: BoxDecoration(color: kBorder, borderRadius: BorderRadius.circular(2)))),
+              const SizedBox(height: 16),
+              Text(t['ticket_number'] as String? ?? '',
+                  style: const TextStyle(color: kMuted, fontSize: 11, fontFamily: 'monospace')),
+              const SizedBox(height: 4),
+              Text(_categoryLabel(t['category'] as String? ?? ''),
+                  style: const TextStyle(color: kText, fontSize: 14, fontWeight: FontWeight.w700)),
+              const SizedBox(height: 8),
+              Text(t['description'] as String? ?? '',
+                  style: const TextStyle(color: kText, fontSize: 13, height: 1.5)),
+              if ((t['subject_context'] as String? ?? '').isNotEmpty) ...[
+                const SizedBox(height: 6),
+                Text('Subjek: ${t['subject_context']}',
+                    style: const TextStyle(color: kMuted, fontSize: 11)),
+              ],
+              const SizedBox(height: 16),
+              Row(children: [
+                Expanded(child: DropdownButtonFormField<String>(
+                  value: selectedStatus,
+                  decoration: _dropDecor('Status'),
+                  dropdownColor: kSurface,
+                  style: const TextStyle(color: kText, fontSize: 13),
+                  items: const [
+                    DropdownMenuItem(value: 'open',        child: Text('Terbuka')),
+                    DropdownMenuItem(value: 'in_progress', child: Text('Diproses')),
+                    DropdownMenuItem(value: 'resolved',    child: Text('Selesai')),
+                    DropdownMenuItem(value: 'closed',      child: Text('Ditutup')),
+                  ],
+                  onChanged: (v) { if (v != null) setModal(() => selectedStatus = v); },
+                )),
+                const SizedBox(width: 10),
+                Expanded(child: DropdownButtonFormField<String>(
+                  value: selectedPriority,
+                  decoration: _dropDecor('Keutamaan'),
+                  dropdownColor: kSurface,
+                  style: const TextStyle(color: kText, fontSize: 13),
+                  items: const [
+                    DropdownMenuItem(value: 'low',      child: Text('Rendah')),
+                    DropdownMenuItem(value: 'normal',   child: Text('Normal')),
+                    DropdownMenuItem(value: 'high',     child: Text('Tinggi')),
+                    DropdownMenuItem(value: 'critical', child: Text('Kritikal')),
+                  ],
+                  onChanged: (v) { if (v != null) setModal(() => selectedPriority = v); },
+                )),
+              ]),
+              const SizedBox(height: 10),
+              TextField(
+                controller: notesCtrl,
+                maxLines: 3,
+                style: const TextStyle(color: kText, fontSize: 13),
+                decoration: InputDecoration(
+                  labelText: 'Nota Admin',
+                  labelStyle: const TextStyle(color: kMuted, fontSize: 12),
+                  hintText: 'Nota dalaman (tidak dilihat pelajar)',
+                  hintStyle: const TextStyle(color: kMuted, fontSize: 12),
+                  filled: true, fillColor: kBg,
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: kBorder)),
+                  enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: kBorder)),
+                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: kPrimary)),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                ),
+              ),
+              const SizedBox(height: 12),
+              SizedBox(width: double.infinity, child: ElevatedButton(
+                onPressed: () async {
+                  final notes = notesCtrl.text.trim();
+                  final ok = await _updateFeedbackTicket(
+                    t['id'] as String,
+                    status: selectedStatus,
+                    priority: selectedPriority,
+                    adminNotes: notes.isEmpty ? null : notes,
+                  );
+                  if (ok && ctx.mounted) Navigator.pop(ctx);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: kPrimary, foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                ),
+                child: const Text('Simpan Perubahan', style: TextStyle(fontWeight: FontWeight.w700)),
+              )),
+            ]),
+          ),
+        );
+      }),
+    ).then((_) => notesCtrl.dispose());
+  }
+
+  String _categoryLabel(String cat) {
+    const labels = {
+      'bug_report':       'Aduan Pepijat',
+      'need_help':        'Perlu Bantuan',
+      'content_error':    'Kesilapan Kandungan',
+      'suggestion':       'Cadangan',
+      'feature_request':  'Permintaan Ciri',
+      'general_feedback': 'Maklum Balas Am',
+    };
+    return labels[cat] ?? cat;
+  }
+
+  String _formatDate(String iso) {
+    try {
+      final dt = DateTime.parse(iso).toLocal();
+      return '${dt.day}/${dt.month}/${dt.year}';
+    } catch (_) {
+      return '';
+    }
   }
 
   Widget _studentTile(Map s) {

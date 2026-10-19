@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../config/constants.dart';
+import 'qr_scanner_screen.dart';
 
 const _kBg     = Color(0xFF07080C);
 const _kCard   = Color(0xFF0D1018);
@@ -137,6 +138,46 @@ class _ParentScreenState extends State<ParentScreen> {
                 style: TextStyle(color: _kMuted, fontSize: 12),
               ),
               const SizedBox(height: 32),
+              GestureDetector(
+                onTap: () async {
+                  final result = await Navigator.push<String>(
+                    context,
+                    MaterialPageRoute(builder: (_) => const QRScannerScreen()),
+                  );
+                  if (result != null && mounted) {
+                    _idCtrl.text = result;
+                    _link();
+                  }
+                },
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+                  decoration: BoxDecoration(
+                    color: _kCard,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: _kBorder, width: 0.5),
+                  ),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.qr_code_scanner_rounded, size: 18, color: _kBlue),
+                      SizedBox(width: 10),
+                      Text('Imbas Kod QR', style: TextStyle(
+                        color: _kText, fontSize: 14, fontWeight: FontWeight.w500)),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Row(children: [
+                const Expanded(child: Divider(color: _kBorder, height: 1)),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: const Text('atau', style: TextStyle(color: _kMuted, fontSize: 12)),
+                ),
+                const Expanded(child: Divider(color: _kBorder, height: 1)),
+              ]),
+              const SizedBox(height: 16),
               TextField(
                 controller: _idCtrl,
                 textCapitalization: TextCapitalization.characters,

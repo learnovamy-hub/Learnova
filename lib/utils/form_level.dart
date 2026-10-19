@@ -13,6 +13,16 @@ String? labelFromFormLevel(dynamic raw) {
   return null;
 }
 
+// Strips redundant chapter prefixes from topic titles for display.
+// "Bab 3: Elektrik" → "Elektrik"
+// Bare "Bab 1" (no subtitle) is returned unchanged — those need a DB correction.
+// Meaningful titles and mathematical expressions are never modified.
+String cleanTopicTitle(String raw) {
+  final m = RegExp(r'^Bab\s+\d+\s*:\s*(.+)$', caseSensitive: false).firstMatch(raw.trim());
+  if (m != null) return m.group(1)!.trim();
+  return raw;
+}
+
 // Validates that [raw] is a label the /api/lessons/path query accepts.
 // structured_lessons only has 'Form 4' and 'Form 5' rows.
 // A-Level content is not yet in structured_lessons, so returns null for it.

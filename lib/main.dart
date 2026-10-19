@@ -17,19 +17,16 @@ class LearnovaApp extends StatelessWidget {
       title: 'Learnova',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: kBg,
-        primaryColor: kPrimary,
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo, brightness: Brightness.light),
         fontFamily: 'Roboto',
-        colorScheme: const ColorScheme.dark(primary: kPrimary, secondary: kPrimary2, surface: kSurface),
-        appBarTheme: const AppBarTheme(backgroundColor: kSurface, elevation: 0, titleTextStyle: TextStyle(color: kText, fontSize: 18, fontWeight: FontWeight.w700), iconTheme: IconThemeData(color: kText)),
-        inputDecorationTheme: InputDecorationTheme(filled: true, fillColor: kSurface2,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: kBorder)),
-          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: kBorder)),
-          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: kPrimary)),
-          labelStyle: const TextStyle(color: kMuted), hintStyle: const TextStyle(color: kMuted)),
-        elevatedButtonTheme: ElevatedButtonThemeData(style: ElevatedButton.styleFrom(backgroundColor: kPrimary, foregroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)), padding: const EdgeInsets.symmetric(vertical: 14), textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700))),
       ),
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo, brightness: Brightness.dark),
+        fontFamily: 'Roboto',
+      ),
+      themeMode: ThemeMode.system,
       home: const SplashScreen(),
     );
   }
@@ -74,14 +71,17 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: kBg, body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Container(width: 80, height: 80, decoration: BoxDecoration(gradient: const LinearGradient(colors: [kPrimary, kPrimary2]), borderRadius: BorderRadius.circular(20)), child: const Icon(Icons.school_rounded, color: Colors.white, size: 44)),
-      const SizedBox(height: 20),
-      const Text('Learnova', style: TextStyle(color: kText, fontSize: 32, fontWeight: FontWeight.w800)),
-      const SizedBox(height: 8),
-      const Text('AI-Powered Tutoring', style: TextStyle(color: kMuted, fontSize: 15)),
-      const SizedBox(height: 40),
-      const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(strokeWidth: 2, color: kPrimary)),
-    ])));
+    final cs = Theme.of(context).colorScheme;
+    return Scaffold(
+      body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Container(width: 80, height: 80, decoration: BoxDecoration(gradient: const LinearGradient(colors: [kPrimary, kPrimary2]), borderRadius: BorderRadius.circular(20)), child: const Icon(Icons.school_rounded, color: Colors.white, size: 44)),
+        const SizedBox(height: 20),
+        Text('Learnova', style: TextStyle(color: cs.onSurface, fontSize: 32, fontWeight: FontWeight.w800)),
+        const SizedBox(height: 8),
+        Text('AI-Powered Tutoring', style: TextStyle(color: cs.onSurfaceVariant, fontSize: 15)),
+        const SizedBox(height: 40),
+        const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(strokeWidth: 2)),
+      ])),
+    );
   }
 }

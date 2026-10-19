@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:qr_flutter/qr_flutter.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../config/constants.dart';
@@ -180,6 +181,7 @@ class _ProfileTabState extends State<ProfileTab> {
                 const SizedBox(height: 16),
                 // Hidden God Mode trigger — triple-tap the divider area
                 GestureDetector(
+                  behavior: HitTestBehavior.opaque,
                   onTap: () {
                     _logoBadgeTaps++;
                     if (_logoBadgeTaps >= 7) {
@@ -187,12 +189,13 @@ class _ProfileTabState extends State<ProfileTab> {
                       Navigator.push(context, MaterialPageRoute(builder: (_) => const GodModeScreen()));
                     }
                   },
-                  child: const SizedBox(height: 20, width: double.infinity),
+                  child: const SizedBox(height: 60, width: double.infinity),
                 ),
                 const SizedBox(height: 16),
                 TextButton(
                   onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ParentScreen())),
-                  child: const Text('Ibu Bapa? Pantau di sini →', style: TextStyle(color: kMuted, fontSize: 12)),
+                  child: const Text('Ibu Bapa? Pantau pembelajaran di sini →',
+                    style: TextStyle(color: Color(0xFF4A5070), fontSize: 12)),
                 ),
                 const SizedBox(height: 12),
                 SizedBox(
@@ -223,57 +226,136 @@ class _ProfileTabState extends State<ProfileTab> {
 
   Widget _buildStudentIdCard() {
     final lrnId = _profile?['student']?['learnova_id']?.toString() ?? '';
-    final displayId = lrnId.isNotEmpty ? lrnId : (_profile?['student']?['student_code']?.toString() ?? '');
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(colors: [kPrimary.withOpacity(0.12), kPrimary2.withOpacity(0.08)]),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: kPrimary.withOpacity(0.3)),
-      ),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Row(children: [
-          const Icon(Icons.badge_rounded, color: kPrimary, size: 18),
-          const SizedBox(width: 8),
-          const Text('ID Pelajar', style: TextStyle(color: kMuted, fontSize: 12, fontWeight: FontWeight.w600)),
-          const Spacer(),
-          GestureDetector(
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const StudentIdScreen())),
-            child: const Text('Lihat Kad →', style: TextStyle(color: kPrimary, fontSize: 12, fontWeight: FontWeight.w600)),
-          ),
-        ]),
-        const SizedBox(height: 10),
-        if (displayId.isNotEmpty) ...[
+    final displayId = lrnId.isNotEmpty ? lrnId : (_profile?['student']?['student_code']?.toString() ?? '—');
+    return Column(children: [
+      Container(
+        margin: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: const Color(0xFF0D1018),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFF181C28), width: 0.5),
+        ),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          const Text('ID PELAJAR',
+            style: TextStyle(
+              color: Color(0xFF4A5070),
+              fontSize: 10,
+              letterSpacing: 1.2,
+            )),
+          const SizedBox(height: 8),
           Row(children: [
-            Text(displayId, style: const TextStyle(color: kText, fontSize: 22, fontWeight: FontWeight.w900, letterSpacing: 2, fontFamily: 'monospace')),
-            const SizedBox(width: 10),
-            GestureDetector(
-              onTap: () {
+            Expanded(
+              child: Text(displayId,
+                style: const TextStyle(
+                  color: Color(0xFFE8ECF8),
+                  fontSize: 20,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 1,
+                ))),
+            IconButton(
+              onPressed: () {
                 Clipboard.setData(ClipboardData(text: displayId));
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('Disalin: $displayId'),
-                  backgroundColor: kGreen,
-                  behavior: SnackBarBehavior.floating,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                  duration: const Duration(seconds: 2),
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text('ID disalin!'),
+                  backgroundColor: Color(0xFF0D1018),
+                  duration: Duration(seconds: 2),
                 ));
               },
-              child: Container(
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(color: kPrimary.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
-                child: const Icon(Icons.copy_rounded, color: kPrimary, size: 16),
-              ),
+              icon: const Icon(Icons.copy_outlined, size: 18, color: Color(0xFF4A7AFA)),
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(),
             ),
           ]),
-          const SizedBox(height: 6),
-          const Text('Kongsi ID ini dengan ibu bapa untuk pantauan pembelajaran', style: TextStyle(color: kMuted, fontSize: 11)),
-        ] else
-          GestureDetector(
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const StudentIdScreen())),
-            child: const Text('Lihat Student ID Card →', style: TextStyle(color: kPrimary, fontSize: 13, fontWeight: FontWeight.w600)),
+          const SizedBox(height: 12),
+          const Divider(color: Color(0xFF181C28), height: 1),
+          const SizedBox(height: 12),
+          const Text(
+            'Kongsi ID ini dengan ibu bapa kamu untuk menghubungkan akaun mereka',
+            style: TextStyle(color: Color(0xFF4A5070), fontSize: 11, height: 1.5)),
+        ]),
+      ),
+      GestureDetector(
+        onTap: () => _showQRDialog(context, displayId),
+        child: Container(
+          margin: const EdgeInsets.only(bottom: 16),
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+          decoration: BoxDecoration(
+            color: const Color(0xFF0D1018),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: const Color(0xFF181C28)),
           ),
-      ]),
+          child: const Row(children: [
+            Icon(Icons.qr_code_rounded, size: 18, color: Color(0xFF4A7AFA)),
+            SizedBox(width: 10),
+            Text('Tunjuk Kod QR untuk Ibu Bapa',
+              style: TextStyle(color: Color(0xFFAEB6CC), fontSize: 13)),
+            Spacer(),
+            Icon(Icons.chevron_right, size: 18, color: Color(0xFF4A5070)),
+          ]),
+        ),
+      ),
+    ]);
+  }
+
+  void _showQRDialog(BuildContext context, String displayId) {
+    showDialog(
+      context: context,
+      builder: (_) => Dialog(
+        backgroundColor: const Color(0xFF0D1018),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('Kod QR Pelajar',
+                style: TextStyle(color: Color(0xFFE8ECF8), fontSize: 16, fontWeight: FontWeight.w600)),
+              const SizedBox(height: 4),
+              const Text('Minta ibu bapa imbas kod ini',
+                style: TextStyle(color: Color(0xFF4A5070), fontSize: 11)),
+              const SizedBox(height: 20),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: QrImageView(
+                  data: 'learnova://parent-link/$displayId',
+                  version: QrVersions.auto,
+                  size: 200,
+                  backgroundColor: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(displayId,
+                style: const TextStyle(
+                  color: Color(0xFFE8ECF8),
+                  fontSize: 18,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 1,
+                )),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  style: TextButton.styleFrom(
+                    backgroundColor: const Color(0xFF181C28),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  ),
+                  child: const Text('Tutup',
+                    style: TextStyle(color: Color(0xFFAEB6CC), fontSize: 13)),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 

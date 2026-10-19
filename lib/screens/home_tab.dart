@@ -301,6 +301,26 @@ class _HomeTabState extends State<HomeTab> {
     shell.setState(() => shell.currentIndex = 2);
   }
 
+  Future<void> _openTopicPicker() async {
+    final subjectDisplay = _subjectDisplayName(_firstSubject);
+    await showModalBottomSheet(
+      context: context,
+      backgroundColor: kSurface,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (sheetCtx) => _TopicPickerSheet(
+        subjectDisplay: subjectDisplay,
+        onTopicTap: (topic) {
+          Navigator.pop(sheetCtx);
+          context.findAncestorStateOfType<MainShellState>()
+              ?.startTopicWithPreRead(subjectDisplay, topic);
+        },
+      ),
+    );
+  }
+
   void _goToLearnTab() {
     final shell = context.findAncestorStateOfType<MainShellState>();
     shell?.setState(() => shell.currentIndex = 1);
@@ -593,7 +613,7 @@ class _HomeTabState extends State<HomeTab> {
           label: 'Tutor Nova',
           subtitle: 'Belajar konsep baru',
           gradientColors: [kPrimary, kPrimary2],
-          onTap: () { _dismissWelcome(); _goToTutor(); },
+          onTap: () { _dismissWelcome(); _openTopicPicker(); },
         ),
         const SizedBox(width: 10),
         _buildActionCard(
@@ -788,4 +808,108 @@ class _TapScaleButtonState extends State<_TapScaleButton> {
       child: widget.child,
     ),
   );
+}
+
+class _TopicPickerSheet extends StatefulWidget {
+  final String subjectDisplay;
+  final void Function(String topic) onTopicTap;
+  const _TopicPickerSheet({required this.subjectDisplay, required this.onTopicTap});
+  @override
+  State<_TopicPickerSheet> createState() => _TopicPickerSheetState();
+}
+
+class _TopicPickerSheetState extends State<_TopicPickerSheet> {
+  List<String> _topics = [];
+  bool _loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  Future<void> _load() async {
+    try {
+      final r = await http.get(Uri.parse(
+        '$kApiUrl/api/tutor/topics?subject=${Uri.encodeComponent(widget.subjectDisplay)}'));
+      if (r.statusCode == 200) {
+        final body = jsonDecode(r.body);
+        List data;
+        if (body is List) {
+          data = body;
+        } else if (body is Map && body['topics'] is List) {
+          data = body['topics'] as List;
+        } else {
+          data = [];
+        }
+        final names = data.map((e) {
+          final m = Map<String, dynamic>.from(e as Map);
+          return ((m['topic'] as String?) ?? (m['title'] as String?) ?? '')
+              .trim()
+              .replaceFirst(RegExp(r'^Bab\s+\d+\s*:\s*'), '');
+        }).where((s) => s.isNotEmpty).toList();
+        if (mounted) setState(() { _topics = names; _loading = false; });
+      } else {
+        if (mounted) setState(() => _loading = false);
+      }
+    } catch (_) {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DraggableScrollableSheet(
+      initialChildSize: 0.6,
+      minChildSize: 0.3,
+      maxChildSize: 0.9,
+      expand: false,
+      builder: (_, scrollCtrl) => Padding(
+        padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Center(child: Container(width: 36, height: 4,
+            decoration: BoxDecoration(color: kBorder, borderRadius: BorderRadius.circular(2)))),
+          const SizedBox(height: 16),
+          Text('Pilih topik untuk ${widget.subjectDisplay}',
+            style: const TextStyle(color: kText, fontSize: 16, fontWeight: FontWeight.w700)),
+          const SizedBox(height: 4),
+          const Text('Nova akan mulakan pelajaran berpandu untuk topik yang dipilih.',
+            style: TextStyle(color: kMuted, fontSize: 12)),
+          const SizedBox(height: 12),
+          Expanded(
+            child: _loading
+              ? const Center(child: CircularProgressIndicator(color: kPrimary, strokeWidth: 2))
+              : _topics.isEmpty
+                ? const Center(child: Text('Tiada topik dijumpai.', style: TextStyle(color: kMuted)))
+                : ListView.builder(
+                    controller: scrollCtrl,
+                    itemCount: _topics.length,
+                    itemBuilder: (_, i) {
+                      final topic = _topics[i];
+                      return GestureDetector(
+                        onTap: () => widget.onTopicTap(topic),
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 8),
+                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                          decoration: BoxDecoration(
+                            color: kSurface2,
+                            border: Border.all(color: kBorder),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Row(children: [
+                            const Icon(Icons.play_circle_outline_rounded, color: kPrimary, size: 18),
+                            const SizedBox(width: 10),
+                            Expanded(child: Text(topic,
+                              style: const TextStyle(color: kText, fontSize: 14))),
+                            const Icon(Icons.chevron_right_rounded, color: kMuted, size: 18),
+                          ]),
+                        ),
+                      );
+                    },
+                  ),
+          ),
+        ]),
+      ),
+    );
+  }
 }

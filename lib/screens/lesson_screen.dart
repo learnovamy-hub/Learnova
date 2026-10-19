@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import '../config/constants.dart';
 import 'ai_tutor_tab.dart';
+import 'main_shell.dart';
 
 class LessonScreen extends StatefulWidget {
   final String lessonId;
@@ -146,6 +147,9 @@ class _LessonScreenState extends State<LessonScreen>
           _loading = false;
         });
         await _openLesson();
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) _openNova();
+        });
       } else {
         setState(() => _loading = false);
       }
@@ -217,6 +221,13 @@ class _LessonScreenState extends State<LessonScreen>
         },
       ),
     ));
+  }
+
+  void _goHome() {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (_) => const MainShell(initialTabIndex: 0)),
+      (_) => false,
+    );
   }
 
   // â”€â”€ Tab switching â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -462,6 +473,11 @@ class _LessonScreenState extends State<LessonScreen>
               _diffBadge(diff),
               const SizedBox(width: 8),
               Text('~$mins min', style: const TextStyle(color: kMuted, fontSize: 11)),
+              const SizedBox(width: 10),
+              GestureDetector(
+                onTap: _goHome,
+                child: const Icon(Icons.home_rounded, color: kMuted, size: 20),
+              ),
             ]),
             const SizedBox(height: 6),
             Padding(
@@ -623,7 +639,7 @@ class _LessonScreenState extends State<LessonScreen>
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: kBorder),
           ),
-          child: _buildBodyText(
+          child: _buildRichContent(
             l['concept_explanation'] as String? ?? '',
             fontSize: 14, lineHeight: 1.75,
           ),
@@ -634,7 +650,7 @@ class _LessonScreenState extends State<LessonScreen>
           const SizedBox(height: 24),
           _card(
             icon: Icons.check_circle_outline_rounded, label: 'Contoh', color: _kGreen,
-            child: _buildBodyText(l['worked_example'] as String? ?? ''),
+            child: _buildRichContent(l['worked_example'] as String? ?? ''),
           ),
         ],
 
@@ -644,7 +660,7 @@ class _LessonScreenState extends State<LessonScreen>
           _card(
             icon: Icons.edit_outlined, label: 'Cuba kamu selesaikan', color: _kBlue,
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              _buildBodyText(l['try_it_question'] as String? ?? ''),
+              _buildRichContent(l['try_it_question'] as String? ?? ''),
               if (!_submitted) ...[
                 const SizedBox(height: 12),
                 TextField(
@@ -729,7 +745,7 @@ class _LessonScreenState extends State<LessonScreen>
               const Text('Jawapan Penuh:',
                 style: TextStyle(color: kMuted, fontSize: 12, fontWeight: FontWeight.w600)),
               const SizedBox(height: 8),
-              _buildBodyText(l['try_it_answer'] as String? ?? ''),
+              _buildRichContent(l['try_it_answer'] as String? ?? ''),
             ]),
           ),
         ],
@@ -739,7 +755,7 @@ class _LessonScreenState extends State<LessonScreen>
           const SizedBox(height: 24),
           _card(
             icon: Icons.warning_amber_rounded, label: 'Kesilapan Lazim', color: _kOrange,
-            child: _buildBodyText(l['common_mistakes'] as String? ?? ''),
+            child: _buildRichContent(l['common_mistakes'] as String? ?? ''),
           ),
         ],
 
@@ -748,7 +764,7 @@ class _LessonScreenState extends State<LessonScreen>
           const SizedBox(height: 24),
           _card(
             icon: Icons.star_outline_rounded, label: 'Teknik SPM', color: _kPurple,
-            child: _buildBodyText(l['exam_technique'] as String? ?? ''),
+            child: _buildRichContent(l['exam_technique'] as String? ?? ''),
           ),
         ],
 
@@ -1000,26 +1016,143 @@ class _LessonScreenState extends State<LessonScreen>
 
   // â”€â”€ Shared helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-  Widget _buildBodyText(String text, {double fontSize = 13, double lineHeight = 1.7}) {
-    if (text.isEmpty) return const SizedBox.shrink();
-    final paras = text
-      .split(RegExp(r'\n\s*\n'))
-      .map((p) => p.trim())
-      .where((p) => p.isNotEmpty)
-      .toList();
-    final style = TextStyle(color: kText, fontSize: fontSize, height: lineHeight);
-    if (paras.length == 1) {
-      return Text(text.trim(), style: style);
+  // Parses **bold** markers into TextSpan children.
+  List<TextSpan> _parseInline(String text, {required TextStyle base}) {
+    if (!text.contains('**')) return [TextSpan(text: text, style: base)];
+    final spans = <TextSpan>[];
+    final rx = RegExp(r'\*\*(.+?)\*\*');
+    int last = 0;
+    for (final m in rx.allMatches(text)) {
+      if (m.start > last) spans.add(TextSpan(text: text.substring(last, m.start), style: base));
+      spans.add(TextSpan(text: m.group(1), style: base.copyWith(fontWeight: FontWeight.w700)));
+      last = m.end;
     }
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        for (int i = 0; i < paras.length; i++) ...[
-          if (i > 0) const SizedBox(height: 10),
-          Text(paras[i], style: style),
-        ],
-      ],
-    );
+    if (last < text.length) spans.add(TextSpan(text: text.substring(last), style: base));
+    return spans;
+  }
+
+  // Renders lesson content with visual hierarchy: bold, numbered steps, bullets, labels.
+  Widget _buildRichContent(String raw, {double fontSize = 13.5, double lineHeight = 1.75}) {
+    if (raw.trim().isEmpty) return const SizedBox.shrink();
+    final base = TextStyle(color: kText, fontSize: fontSize, height: lineHeight);
+
+    final lines = raw.replaceAll('\r\n', '\n').replaceAll('\r', '\n').split('\n');
+    final nodes = <_RNode>[];
+    final buf   = <String>[];
+
+    void flushPara() {
+      final s = buf.join(' ').trim();
+      if (s.isNotEmpty) nodes.add(_RNode.para(s));
+      buf.clear();
+    }
+
+    for (final rawLine in lines) {
+      final line = rawLine.trim();
+      if (line.isEmpty) { flushPara(); continue; }
+
+      // Numbered step: "1. text", "1) text", "Step 1: text", "Langkah 1: text"
+      final stepM = RegExp(
+        r'^(?:(?:Step|Langkah)\s+(\d+)[:.)]?\s*(.*)|(\d+)[.)]\s+(.+))$',
+        caseSensitive: false,
+      ).firstMatch(line);
+      if (stepM != null) {
+        flushPara();
+        final n = int.tryParse(stepM.group(1) ?? stepM.group(3) ?? '') ?? 0;
+        final body = (stepM.group(2) ?? stepM.group(4) ?? '').trim();
+        final stepNum = n > 0 ? n : nodes.where((x) => x.type == _RNodeType.step).length + 1;
+        nodes.add(_RNode.step(stepNum, body.isEmpty ? line : body));
+        continue;
+      }
+
+      // Bullet: "- text" or "* text"
+      if (line.length > 2 && (line.startsWith('- ') || line.startsWith('* '))) {
+        flushPara();
+        nodes.add(_RNode.bullet(line.substring(2).trim()));
+        continue;
+      }
+
+      // Short label ending in ":" e.g. "Penyelesaian:", "Given:", "Solution:"
+      if (line.endsWith(':') && line.length < 55 && !RegExp(r'^\d').hasMatch(line)) {
+        flushPara();
+        nodes.add(_RNode.label(line));
+        continue;
+      }
+
+      buf.add(line);
+    }
+    flushPara();
+
+    if (nodes.isEmpty) return const SizedBox.shrink();
+
+    final widgets = <Widget>[];
+    _RNodeType? prev;
+
+    for (final node in nodes) {
+      if (prev != null) {
+        final gap = switch (node.type) {
+          _RNodeType.step    => prev == _RNodeType.step   ? 10.0 : 14.0,
+          _RNodeType.bullet  => prev == _RNodeType.bullet ? 8.0  : 12.0,
+          _RNodeType.label   => 14.0,
+          _RNodeType.divider => 6.0,
+          _RNodeType.para    => prev == _RNodeType.para   ? 10.0 : 12.0,
+        };
+        widgets.add(SizedBox(height: gap));
+      }
+
+      switch (node.type) {
+        case _RNodeType.para:
+          widgets.add(Text.rich(TextSpan(children: _parseInline(node.text, base: base))));
+        case _RNodeType.step:
+          widgets.add(Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 24, height: 24,
+                margin: const EdgeInsets.only(top: 1, right: 10),
+                decoration: BoxDecoration(
+                  color: kPrimary.withOpacity(0.15),
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: Text('${node.step}',
+                    style: TextStyle(color: kPrimary, fontSize: 11, fontWeight: FontWeight.w700)),
+                ),
+              ),
+              Expanded(
+                child: Text.rich(TextSpan(children: _parseInline(node.text, base: base))),
+              ),
+            ],
+          ));
+        case _RNodeType.bullet:
+          widgets.add(Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 6, height: 6,
+                margin: const EdgeInsets.only(top: 9, right: 10),
+                decoration: BoxDecoration(
+                  color: kPrimary.withOpacity(0.5),
+                  shape: BoxShape.circle,
+                ),
+              ),
+              Expanded(
+                child: Text.rich(TextSpan(children: _parseInline(node.text, base: base))),
+              ),
+            ],
+          ));
+        case _RNodeType.label:
+          widgets.add(Text(node.text,
+            style: const TextStyle(
+              color: kMuted, fontSize: 11,
+              fontWeight: FontWeight.w600, letterSpacing: 0.3,
+            )));
+        case _RNodeType.divider:
+          widgets.add(const Divider(color: kBorder, height: 1, thickness: 1));
+      }
+      prev = node.type;
+    }
+
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: widgets);
   }
 
   Widget _sectionHeader(String label, IconData icon, Color color) {
@@ -1069,4 +1202,19 @@ class _LessonScreenState extends State<LessonScreen>
       child: Text(label, style: TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.w600)),
     );
   }
+}
+
+// ── Rich content node types used by _buildRichContent ────────────────────────
+enum _RNodeType { para, step, bullet, label, divider }
+
+class _RNode {
+  final _RNodeType type;
+  final String text;
+  final int step;
+  const _RNode._({required this.type, this.text = '', this.step = 0});
+  factory _RNode.para(String t)        => _RNode._(type: _RNodeType.para,    text: t);
+  factory _RNode.step(int n, String t) => _RNode._(type: _RNodeType.step,    text: t, step: n);
+  factory _RNode.bullet(String t)      => _RNode._(type: _RNodeType.bullet,  text: t);
+  factory _RNode.label(String t)       => _RNode._(type: _RNodeType.label,   text: t);
+  factory _RNode.divider()             => _RNode._(type: _RNodeType.divider);
 }

@@ -207,7 +207,7 @@ class _TopicListScreenState extends State<TopicListScreen> {
                 Icon(dotIcon, color: dotColor, size: 16),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: Text(topic,
+                  child: Text(cleanTopicTitle(topic),
                     style: const TextStyle(color: kText, fontSize: 14, fontWeight: FontWeight.w600)),
                 ),
                 Container(

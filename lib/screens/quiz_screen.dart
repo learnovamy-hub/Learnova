@@ -21,7 +21,7 @@ class _QuizScreenState extends State<QuizScreen> {
   Map<String, String> _answers = {};
   bool _loading = true;
   bool _submitted = false;
-  bool _submitting = false;
+  bool _answered = false;
   bool _showWorkspace = false;
   bool _assessingWorkspace = false;
   Map<String, dynamic>? _results;
@@ -70,25 +70,19 @@ class _QuizScreenState extends State<QuizScreen> {
     return opts;
   }
 
-  Future<void> _submit() async {
-    if (_answers.length < _questions.length) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please answer all questions'), backgroundColor: kSurface2));
-      return;
-    }
-    setState(() => _submitting = true);
+  void _finishQuiz() {
     int score = 0;
     final details = <Map<String, dynamic>>[];
     for (final q in _questions) {
       final qId = q['id']?.toString() ?? '';
-      final correct = (_answers[qId] ?? '') == (q['correct_answer'] ?? '');
+      final ca = (q['correct_answer'] ?? '').toString().toUpperCase();
+      final correct = (_answers[qId] ?? '') == ca;
       if (correct) score++;
       details.add({'question': q['question_text'] ?? q['question'] ?? '', 'correct': correct});
     }
     setState(() {
       _results = {'score': score, 'total': _questions.length, 'details': details};
       _submitted = true;
-      _submitting = false;
     });
     _recordAttempt(score, _questions.length);
   }
@@ -217,35 +211,140 @@ class _QuizScreenState extends State<QuizScreen> {
         const SizedBox(height: 24),
         // MCQ options
         ...options.map((opt) {
-          final selected = _answers[q['id']] == opt['key'];
+          final qId = q['id']?.toString() ?? '';
+          final correctKey = (q['correct_answer'] ?? '').toString().toUpperCase();
+          final selectedKey = _answers[qId];
+          final isSelected = selectedKey == opt['key'];
+          final isCorrect = opt['key'] == correctKey;
+
+          Color bgColor;
+          Color borderColor;
+          Color circleColor;
+          Color circleBorderColor;
+          Color circleTextColor;
+
+          if (_answered) {
+            if (isCorrect) {
+              bgColor = kGreen.withOpacity(0.12);
+              borderColor = kGreen;
+              circleColor = kGreen;
+              circleBorderColor = kGreen;
+              circleTextColor = Colors.white;
+            } else if (isSelected) {
+              bgColor = kRed.withOpacity(0.12);
+              borderColor = kRed;
+              circleColor = kRed;
+              circleBorderColor = kRed;
+              circleTextColor = Colors.white;
+            } else {
+              bgColor = kSurface;
+              borderColor = kBorder;
+              circleColor = kSurface2;
+              circleBorderColor = kBorder;
+              circleTextColor = kMuted;
+            }
+          } else {
+            if (isSelected) {
+              bgColor = kPrimary.withOpacity(0.15);
+              borderColor = kPrimary;
+              circleColor = kPrimary;
+              circleBorderColor = kPrimary;
+              circleTextColor = Colors.white;
+            } else {
+              bgColor = kSurface;
+              borderColor = kBorder;
+              circleColor = kSurface2;
+              circleBorderColor = kBorder;
+              circleTextColor = kMuted;
+            }
+          }
+
           return GestureDetector(
-            onTap: () => setState(() { _answers[q['id']] = opt['key']!; _workspaceResult = null; }),
+            onTap: _answered ? null : () => setState(() {
+              _answers[qId] = opt['key']!;
+              _answered = true;
+              _workspaceResult = null;
+            }),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 150),
               margin: const EdgeInsets.only(bottom: 10),
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: selected ? kPrimary.withOpacity(0.15) : kSurface,
-                border: Border.all(color: selected ? kPrimary : kBorder, width: selected ? 2 : 1),
+                color: bgColor,
+                border: Border.all(color: borderColor, width: (_answered && (isCorrect || isSelected)) ? 2 : 1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(children: [
                 Container(
                   width: 30, height: 30,
                   decoration: BoxDecoration(shape: BoxShape.circle,
-                    color: selected ? kPrimary : kSurface2,
-                    border: Border.all(color: selected ? kPrimary : kBorder)),
+                    color: circleColor,
+                    border: Border.all(color: circleBorderColor)),
                   child: Center(child: Text(opt['key']!,
-                    style: TextStyle(color: selected ? Colors.white : kMuted, fontSize: 12, fontWeight: FontWeight.w700))),
+                    style: TextStyle(color: circleTextColor, fontSize: 12, fontWeight: FontWeight.w700))),
                 ),
                 const SizedBox(width: 12),
                 Expanded(child: Text(opt['value']!,
-                  style: TextStyle(color: kText, fontSize: 14, fontWeight: selected ? FontWeight.w600 : FontWeight.w400))),
+                  style: TextStyle(color: kText, fontSize: 14,
+                    fontWeight: (isSelected || (_answered && isCorrect)) ? FontWeight.w600 : FontWeight.w400))),
+                if (_answered && isCorrect) const Icon(Icons.check_circle, color: kGreen, size: 18),
+                if (_answered && isSelected && !isCorrect) const Icon(Icons.cancel, color: kRed, size: 18),
               ]),
             ),
           );
         }),
+
+        // Inline feedback after answering
+        if (_answered) ...[
+          const SizedBox(height: 16),
+          _buildFeedback(q, options),
+        ],
         const SizedBox(height: 80), // space for bottom nav
+      ]),
+    );
+  }
+
+  Widget _buildFeedback(dynamic q, List<Map<String, String>> options) {
+    final correctKey = (q['correct_answer'] ?? '').toString().toUpperCase();
+    final qId = q['id']?.toString() ?? '';
+    final selectedKey = _answers[qId] ?? '';
+    final isCorrect = selectedKey == correctKey;
+    final correctOpt = options.firstWhere(
+      (o) => o['key'] == correctKey,
+      orElse: () => {'key': correctKey, 'value': ''},
+    );
+    final solution = (q['full_solution'] ?? '').toString().trim();
+
+    final isBM = widget.subject == 'Bahasa Malaysia' || widget.subject == 'Sejarah';
+    final correctText = isBM ? 'Betul!' : 'Correct!';
+    final incorrectText = isBM
+      ? 'Salah - Jawapan yang betul ialah $correctKey: ${correctOpt['value']}'
+      : 'Incorrect - The answer is $correctKey: ${correctOpt['value']}';
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: isCorrect ? kGreen.withOpacity(0.08) : kRed.withOpacity(0.08),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: isCorrect ? kGreen.withOpacity(0.4) : kRed.withOpacity(0.4)),
+      ),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Row(children: [
+          Icon(isCorrect ? Icons.check_circle : Icons.cancel,
+            color: isCorrect ? kGreen : kRed, size: 20),
+          const SizedBox(width: 8),
+          Expanded(child: Text(
+            isCorrect ? correctText : incorrectText,
+            style: TextStyle(color: isCorrect ? kGreen : kRed,
+              fontSize: 14, fontWeight: FontWeight.w700),
+          )),
+        ]),
+        if (solution.isNotEmpty) ...[
+          const SizedBox(height: 10),
+          const Divider(color: kBorder, height: 1),
+          const SizedBox(height: 10),
+          Text(solution, style: const TextStyle(color: kText, fontSize: 13, height: 1.5)),
+        ],
       ]),
     );
   }
@@ -300,6 +399,8 @@ class _QuizScreenState extends State<QuizScreen> {
 
   Widget _buildBottomNav(dynamic q) {
     final isMobile = MediaQuery.of(context).size.width <= 700;
+    final isLast = _current == _questions.length - 1;
+
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
       decoration: const BoxDecoration(color: kSurface, border: Border(top: BorderSide(color: kBorder))),
@@ -323,30 +424,23 @@ class _QuizScreenState extends State<QuizScreen> {
           ),
           const SizedBox(width: 8),
         ],
-        // Previous
-        if (_current > 0) ...[
-          OutlinedButton(
-            onPressed: () => setState(() { _current--; _workspaceResult = null; _showWorkspace = false; }),
-            style: OutlinedButton.styleFrom(foregroundColor: kText, side: const BorderSide(color: kBorder), padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-            child: const Text('Back'),
-          ),
-          const SizedBox(width: 8),
-        ],
         const Spacer(),
-        // Next or Submit
-        if (_current < _questions.length - 1)
+        // Next / See Results — only visible after answering
+        if (_answered)
           ElevatedButton(
-            onPressed: _answers[q['id']] == null ? null : () => setState(() { _current++; _workspaceResult = null; _showWorkspace = false; }),
-            style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-            child: const Text('Next'),
-          )
-        else
-          ElevatedButton(
-            onPressed: _submitting ? null : _submit,
-            style: ElevatedButton.styleFrom(backgroundColor: kGreen, padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-            child: _submitting
-              ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-              : const Text('Submit Quiz'),
+            onPressed: isLast
+              ? _finishQuiz
+              : () => setState(() {
+                  _current++;
+                  _answered = false;
+                  _workspaceResult = null;
+                  _showWorkspace = false;
+                }),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: isLast ? kGreen : null,
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+            child: Text(isLast ? 'See Results' : 'Next'),
           ),
       ]),
     );

@@ -225,10 +225,12 @@ class _WelcomeHomeState extends State<WelcomeHome> with TickerProviderStateMixin
   void _navigate() {
     if (!mounted || _navigated) return;
     _navigated = true;
+    // Quiz → Nova tab; New Lesson / Revision → Learn tab
+    final goToNova = _selectedMode == 'Quiz';
     Navigator.pushReplacement(context, MaterialPageRoute(
       builder: (_) => MainShell(
         initialSubject: _selectedSubject ?? 'Mathematics',
-        initialTabIndex: 2,
+        initialTabIndex: goToNova ? 2 : 1,
       ),
     ));
   }
