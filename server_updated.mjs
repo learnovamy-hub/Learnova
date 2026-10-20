@@ -12,6 +12,16 @@ import { dirname, join } from 'path';
 import rateLimit from 'express-rate-limit';
 import { exec } from 'child_process';
 import { initFeedbackRoutes, startDailyDigest } from './feedback_router.mjs';
+import {
+  init as initPromotion,
+  startAnnualPromotionJob,
+  runPromotion,
+  previewPromotion,
+  setAcademicYearConfig,
+  setStudentPromotionFlags,
+  getPromotionLog,
+  getActiveConfig,
+} from './promotion_engine.mjs';
 
 const app = express();
 app.set('trust proxy', 1); // Railway runs behind a proxy — needed for express-rate-limit
@@ -63,6 +73,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 const pregen = new PregenLookup(supabase);
 initLearningEngine(supabase);
 profileEngine.init(supabase);
+initPromotion(supabase);
 const JWT_SECRET = process.env.JWT_SECRET || 'learnova-dev-secret-2025';
 
 // ── Symbol dictionary (loaded from Supabase, cached, refreshed hourly) ────────
@@ -1184,6 +1195,72 @@ app.post('/api/admin/reload-symbols', async (req, res) => {
   }
 });
 
+// ── ADMIN: Annual Promotion ────────────────────────────────────────────────────
+
+function checkAdminKey(req, res) {
+  const key = req.body?.admin_key || req.query?.admin_key;
+  if (!process.env.ADMIN_KEY || key !== process.env.ADMIN_KEY) {
+    res.status(403).json({ error: 'Unauthorized' });
+    return false;
+  }
+  return true;
+}
+
+// Preview who would be promoted (dry run, no changes)
+app.get('/api/admin/promotion/preview', async (req, res) => {
+  if (!checkAdminKey(req, res)) return;
+  try {
+    const result = await previewPromotion();
+    res.json(result);
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+// Run the promotion (live or dry_run)
+app.post('/api/admin/promotion/run', async (req, res) => {
+  if (!checkAdminKey(req, res)) return;
+  try {
+    const dry_run = req.body.dry_run === true;
+    const result  = await runPromotion({ dryRun: dry_run });
+    res.json(result);
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+// Create or update the active academic year config
+app.post('/api/admin/promotion/config', async (req, res) => {
+  if (!checkAdminKey(req, res)) return;
+  try {
+    const { academic_year, promotion_date } = req.body;
+    if (!academic_year || !promotion_date) {
+      return res.status(400).json({ error: 'academic_year and promotion_date required' });
+    }
+    const config = await setAcademicYearConfig({ academic_year, promotion_date });
+    res.json({ ok: true, config });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+// Set repeat_year or no_promote flags on an individual student
+app.patch('/api/admin/promotion/student/:studentId', async (req, res) => {
+  if (!checkAdminKey(req, res)) return;
+  try {
+    const { repeat_year, no_promote } = req.body;
+    const student = await setStudentPromotionFlags(req.params.studentId, { repeat_year, no_promote });
+    res.json({ ok: true, student });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+// View the promotion audit log
+app.get('/api/admin/promotion/log', async (req, res) => {
+  if (!checkAdminKey(req, res)) return;
+  try {
+    const limit = Math.min(parseInt(req.query.limit || '50', 10), 500);
+    const rows  = await getPromotionLog({ limit });
+    const config = await getActiveConfig();
+    res.json({ config, log: rows, count: rows.length });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+// ── END ADMIN: Annual Promotion ───────────────────────────────────────────────
+
 app.post('/api/tts', async (req, res) => {
   try {
     const { text, voice = 'nova', language = 'bm' } = req.body;
@@ -1894,6 +1971,13 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
     const isSejarahSubject = subject === 'MY-Sejarah' || subject === 'Sejarah' || subject === 'Sejarah Indonesia' ||
       !!(subject && subject.includes('Sejarah'));
 
+    const isEnglishSubject = subject === 'MY-English' || subject === 'English';
+    const isMathSubject = subject === 'MY-Mathematics' || subject === 'Mathematics' ||
+      subject === 'MY-AddMaths' || subject === 'Add Maths' || subject === 'Matematik' ||
+      subject === 'AL-Mathematics' || subject === 'A-Level Mathematics' ||
+      subject === 'AL-FurtherMaths' || subject === 'A-Level Further Mathematics';
+    const isLanguageSubject = isBmSubject || isEnglishSubject;
+
     // Language-matched quick-reply suggestions.
     // isBmSubject/isSejarahSubject only force BM suggestions when the student
     // has NOT explicitly selected English.
@@ -2076,6 +2160,12 @@ Keep it under 160 words.`,
       check: `=== CHECKING UNDERSTANDING ===
 The student has just responded. Assess their understanding and respond accordingly. The server decides what comes next based on the classify_turn tool you call.
 
+IF STUDENT'S ANSWER IS UNCLEAR, AMBIGUOUS, OR APPEARS MISTYPED:
+- Do NOT interpret the unclear answer as correct or incorrect.
+- Ask ONE brief clarifying question: "Did you mean [likely interpretation]? Or could you write that out more clearly?"
+- Examples: "x = -6/21" could mean -6 divided by (2x1) -- ask before marking. "x2" could mean x^2 or 2x -- clarify first.
+- This takes priority over all other cases.
+
 IF STUDENT ANSWERED CORRECTLY:
 - Praise in ONE sentence (genuine, not hollow).
 - Either lead into the next concept of "${topic}" or, if all concepts have been taught, into exam practice. Your response should flow naturally into whichever it is.
@@ -2123,15 +2213,17 @@ Keep reply under 120 words.`
     };
 
     const currentPhaseInstructions = isConfused
-      ? `=== CONFUSION DETECTED -- OVERRIDE NORMAL FLOW ===
-The student is confused. Drop everything else and do this:
-1. Acknowledge confusion warmly (1 sentence).
-2. Re-explain the LAST concept using a COMPLETELY DIFFERENT method:
-   - If you used formula: now use a real-life analogy.
-   - If you used steps: now use a visual/diagram description.
-   - If abstract: now use numbers first, then generalise.
-3. Ask a simpler, more guided question than before.
-Keep reply under 130 words.`
+      ? `=== CONFUSION DETECTED -- DIAGNOSE THEN RETEACH ===
+The student expressed confusion. Your job this turn is to find exactly WHERE the understanding broke down -- not to re-explain yet.
+Do these steps in order:
+1. Acknowledge in ONE short sentence. ("That is a common sticking point -- let us find where it gets tricky.")
+2. Ask ONE targeted diagnostic question that forces them to locate their own gap. Choose the most specific one that fits:
+   - "Is it the concept itself that is unclear, or the step where we [specific operation]?"
+   - "What part of what I said just now did make sense? Start from there."
+   - "When you look at [key term or step], what do you think it means?"
+   Do NOT re-explain anything in this turn. Wait for their answer.
+3. Keep the entire response under 60 words.
+On the NEXT turn, after the student identifies the gap, re-explain ONLY that specific part using a different method (analogy, concrete numbers, or visual description).`
       : (phaseInstructions[currentPhase] || phaseInstructions.teach);
 
     // Mandarin / Tamil: dedicated Nova prompts — return early before BM/EN/ID logic
@@ -2297,7 +2389,13 @@ RULE 6 â€” STUDENT SAYS TIDAK FAHAM:
 ${isBm ? '"Okay takpe! Mula dengan yang paling asas â€” [soalan paling mudah berkaitan]"' : '"No worries! Let\'s start from the very basics â€” [simplest related question]"'}
 
 RULE 7 â€” REDIRECT AFTER 3-4 EXCHANGES:
-${isBm ? 'Selepas 3-4 pertukaran mesej dan pelajar dah faham, WAJIB kata:\n"Okay kamu dah faham! Pergi cuba soalan Try It dalam pelajaran tu. Kamu boleh buat!"' : 'After 3-4 exchanges and student understands, MUST say:\n"Great, you\'ve got it! Go try the Try It question in your lesson. You can do this!"'}
+${isBm ? 'Selepas 3-4 pertukaran mesej dan pelajar dah faham, WAJIB kata:\n”Okay kamu dah faham! Pergi cuba soalan Try It dalam pelajaran tu. Kamu boleh buat!”' : 'After 3-4 exchanges and student understands, MUST say:\n”Great, you\'ve got it! Go try the Try It question in your lesson. You can do this!”'}
+
+RULE 8 â€” AMBIGUOUS OR UNCLEAR ANSWER:
+If the student\'s reply is a single character, garbled text, very short and unrelated to the question, or uses notation that could mean more than one thing:
+${isBm ? '”Hmm, kamu maksudkan [interpretasi yang paling munasabah]? Cuba tulis semula dengan lebih jelas supaya saya dapat bantu dengan tepat.”' : '”Hmm, did you mean [most likely interpretation]? Could you write that more clearly so I can help you accurately?”'}
+Do NOT mark it correct or wrong until the meaning is confirmed.
+This applies especially in Maths: “x2” could mean x^2 or 2x. “-6/21” could mean -6 divided by 2 times 1. Clarify before proceeding.
 ==================================================
 
 ==================================================
@@ -2465,6 +2563,66 @@ Kata-kata biasa MESTI dalam BM â€” BUKAN Inggeris:
 - adapt / adaptation â†' menyesuaikan diri / adaptasi
 
 Jika ragu antara BM atau Inggeris, PILIH BM.
+==================================================`;
+    }
+
+    // Mathematics: concept-first, formula-last, negative-coefficient rule
+    if (isMathSubject) {
+      systemPrompt += `
+
+==================================================
+TEACHING RULES -- MATHEMATICS (ALL PHASES)
+==================================================
+1. CONCEPT BEFORE FORMULA:
+   Before writing any algebraic formula or equation, confirm the student understands the concept in plain language.
+   First-teach checklist -- ask these before going algebraic:
+   - Quadratic Functions: "What shape does a quadratic function make on a graph?" before ax^2+bx+c.
+   - Integration: "What does area under a curve mean to you?" before integral notation.
+   - Differentiation: "What does gradient mean at a point?" before dy/dx.
+   Rule: if the student cannot describe the concept in their own words, they are not ready for the formula.
+   This applies on the FIRST teaching segment (Concept 1). From Concept 2 onwards, you may use the formula freely.
+
+2. NEGATIVE COEFFICIENT -- MANDATORY RULE:
+   When 'a' is negative (e.g. f(x) = -2x^2 + 8x - 3):
+   ALWAYS state the geometric meaning BEFORE any calculation:
+   "The negative sign means the parabola opens downward. The vertex is a maximum point, not a minimum."
+   Then check: "In your own words, what does that tell you about where the highest point of the graph is?"
+   Never skip this step for negative-a problems.
+
+3. MISCONCEPTION FIRST:
+   Before each new sub-concept, name the most common mistake SPM students make and address it before the student can make it.
+   Example: "Most students write +b/2a -- the correct vertex x-coordinate is NEGATIVE b over 2a."
+
+4. PRESERVE STEM VERIFICATION:
+   All numeric problem checking via STEM verify tools continues as configured. Do not bypass it.
+==================================================`;
+    }
+
+    // Language and reading subjects: always demonstrate techniques on a passage
+    if (isLanguageSubject) {
+      systemPrompt += `
+
+==================================================
+TEACHING RULES -- LANGUAGE AND READING SUBJECTS
+==================================================
+For reading comprehension techniques (e.g. THRILD, SQ3R, inference, summary) and writing tasks:
+
+1. NEVER explain a technique in the abstract. Always demonstrate it on an actual passage or sentence FIRST.
+   Use the textbook passage provided in the lesson context, or generate a short 4-6 sentence passage at SPM Form 4/5 level.
+
+2. Demonstration sequence (MANDATORY for every technique step):
+   a. Name the step (e.g. "T stands for Title").
+   b. Apply it immediately to a specific line in your passage.
+   c. Narrate your reasoning aloud ("I see the title is '...' which tells me the topic is...").
+
+3. After demonstrating, give the student the SAME passage and ask them to apply the SAME step independently.
+   Only move to the next step after they attempt the current one.
+
+4. For THRILD: teach ONE letter per turn. Demonstrate, have the student practise, then move to the next letter.
+
+5. For essay and writing tasks: write one model sentence or paragraph first, then ask the student to write their own version on the same topic.
+
+6. Never list all technique steps without demonstrating each one individually.
 ==================================================`;
     }
 
@@ -3476,47 +3634,60 @@ app.get('/api/lessons/path', async (req, res) => {
 
 // Get single lesson with student progress
 app.get('/api/lessons/lesson', async (req, res) => {
-  const { lessonId, studentId } = req.query;
-  const { data: lesson } = await supabase
-    .from('structured_lessons')
-    .select('*')
-    .eq('id', lessonId)
-    .single();
-  if (!lesson) return res.status(404).json({ error: 'Lesson not found' });
-  let progress = null;
-  if (studentId) {
-    const { data } = await supabase
-      .from('student_lesson_progress')
+  try {
+    const { lessonId, studentId } = req.query;
+    if (!lessonId) return res.status(400).json({ error: 'Missing lessonId' });
+    const { data: lesson, error: lessonErr } = await supabase
+      .from('structured_lessons')
       .select('*')
-      .eq('student_id', studentId)
-      .eq('lesson_id', lessonId)
+      .eq('id', lessonId)
       .single();
-    progress = data;
-    if (!progress) {
-      await supabase.from('student_lesson_progress').insert({
-        student_id: studentId,
-        lesson_id: lessonId,
-        subject: lesson.subject,
-        topic: lesson.topic,
-        status: 'in_progress',
-        started_at: new Date().toISOString()
-      });
+    if (lessonErr || !lesson) return res.status(404).json({ error: 'Lesson not found' });
+    let progress = null;
+    if (studentId) {
+      const { data } = await supabase
+        .from('student_lesson_progress')
+        .select('*')
+        .eq('student_id', studentId)
+        .eq('lesson_id', lessonId)
+        .single();
+      progress = data;
+      if (!progress) {
+        try {
+          await supabase.from('student_lesson_progress').insert({
+            student_id: studentId,
+            lesson_id: lessonId,
+            subject: lesson.subject,
+            topic: lesson.topic,
+            status: 'in_progress',
+            started_at: new Date().toISOString()
+          });
+        } catch (_) { /* non-fatal — lesson still loads without progress record */ }
+      }
     }
+    res.json({
+      lesson: {
+        ...lesson,
+        hook_sentence:       stripEmojis(lesson.hook_sentence),
+        objective:           stripEmojis(lesson.objective),
+        concept_explanation: stripEmojis(lesson.concept_explanation),
+        worked_example:      stripEmojis(lesson.worked_example),
+        try_it_question:     stripEmojis(lesson.try_it_question),
+        try_it_answer:       stripEmojis(lesson.try_it_answer),
+        common_mistakes:     stripEmojis(lesson.common_mistakes),
+        exam_technique:      stripEmojis(lesson.exam_technique),
+      },
+      progress,
+    });
+  } catch (err) {
+    console.error('[lesson] Error:', err.message);
+    res.status(500).json({ error: 'Internal server error' });
   }
-  res.json({
-    lesson: {
-      ...lesson,
-      hook_sentence:       stripEmojis(lesson.hook_sentence),
-      objective:           stripEmojis(lesson.objective),
-      concept_explanation: stripEmojis(lesson.concept_explanation),
-      worked_example:      stripEmojis(lesson.worked_example),
-      try_it_question:     stripEmojis(lesson.try_it_question),
-      try_it_answer:       stripEmojis(lesson.try_it_answer),
-      common_mistakes:     stripEmojis(lesson.common_mistakes),
-      exam_technique:      stripEmojis(lesson.exam_technique),
-    },
-    progress,
-  });
+});
+
+// Pre-generate session quiz (fire-and-forget from ai_tutor_tab; quiz screen handles empty state)
+app.post('/api/session-quiz/generate', async (req, res) => {
+  res.json({ queued: false });
 });
 
 // Mark lesson complete
@@ -3621,6 +3792,7 @@ app.get('/api/student/notifications', authStudent, async (req, res) => {
 
 initFeedbackRoutes(app, supabase, JWT_SECRET, authStudent);
 startDailyDigest(supabase);
+startAnnualPromotionJob(supabase);
 
 app.listen(PORT, () => {
   console.log(`\nLearnova v2.2 running on port ${PORT}`);

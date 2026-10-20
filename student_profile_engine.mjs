@@ -47,6 +47,11 @@ export async function completeOnboarding(userId, { level, selectedSubjects }) {
   const levelMap = { 'Form 4': 4, 'Form 5': 5, 'A-Level': 6 };
   const formLevelInt = levelMap[level] ?? null;
 
+  // last_promoted_year is set to the current year so that a student who onboards
+  // partway through an academic year is not immediately eligible for that same
+  // year's rollover. They will first become eligible in the following year.
+  const currentYear = new Date().getFullYear();
+
   const { data, error } = await _supabase
     .from('students')
     .update({
@@ -54,7 +59,8 @@ export async function completeOnboarding(userId, { level, selectedSubjects }) {
       selected_subjects: activeSubjects,
       onboarding_completed: true,
       learnova_id: learnovaId,
-      academic_year: new Date().getFullYear(),
+      academic_year: currentYear,
+      last_promoted_year: currentYear,
     })
     .eq('id', userId)
     .select()

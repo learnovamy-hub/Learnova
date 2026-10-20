@@ -347,6 +347,31 @@ immediately after const app = express(). Allowed origins: learnova.optimus.com.m
 - quiz_attempts: id UUID, student_id UUID, lesson_id UUID, score INT, total INT,
     subject TEXT, topic TEXT, started_at TIMESTAMPTZ
 - parent_child_links: upserted by /api/parent/connect (parent_id, student_id)
+- academic_year_config: id, academic_year INT UNIQUE, promotion_date DATE, is_current BOOL
+    Admin sets one current row; cron checks daily if today == promotion_date
+- student_promotion_log: id UUID, student_id, from_form, to_form, academic_year,
+    promoted_at, reason CHECK('annual_rollover'|'admin_manual'|'repeat_year_cleared'), promoted_by
+    UNIQUE(student_id, academic_year) — database-level idempotency guard
+- students table additions: repeat_year BOOL, no_promote BOOL, last_promoted_year INT
+    last_promoted_year set to current year at onboarding (prevents same-year promotion)
+    Backfill: existing students get last_promoted_year = EXTRACT(YEAR FROM created_at)
+
+## Academic Year Promotion Engine (IMPLEMENTED 2026-10-19)
+- C:\Learnova\promotion_engine.mjs — new file, imported by server_updated.mjs
+- C:\learnova_app\supabase\migrations\20261019_academic_promotion.sql — DB migration
+- C:\Learnova\test_promotion.mjs — 8 tests, 36 assertions, all passing
+- SPM track rules: Form 4 -> Form 5 only. Form 5 is NEVER auto-promoted.
+- Idempotency: last_promoted_year >= config.academic_year -> skip
+  + UNIQUE(student_id, academic_year) on student_promotion_log as DB safety net
+- Scheduled: node-cron 01:00 Asia/Kuala_Lumpur daily; only acts on matching date
+- Admin routes (all require ADMIN_KEY in body/query):
+    GET  /api/admin/promotion/preview       — dry run, lists eligible + skipped
+    POST /api/admin/promotion/run           — live or dry_run:true
+    POST /api/admin/promotion/config        — set academic_year + promotion_date
+    PATCH /api/admin/promotion/student/:id  — set repeat_year or no_promote flags
+    GET  /api/admin/promotion/log           — audit log (limit param)
+- Late registrant protection: last_promoted_year set to current year at onboarding
+- NO Flutter changes needed: form_level propagates automatically via /api/student/profile
 
 ## Icon Library
 CupertinoIcons: REMOVED permanently (2026-06-09).
