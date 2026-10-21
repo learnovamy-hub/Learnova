@@ -371,6 +371,66 @@ console.log('\n-- Test E: pedagogy — Nova constitution reaches Claude --');
     'message would be redirected instead of taught');
 }
 
+// ── Test F: Mandarin / Tamil path — library grounding ─────────────────────────
+//
+// Before the fix, the zh/ta early-return block at "if (isMandarin || isTamil)"
+// called Claude without injecting textbookContext, without a topic lock, and
+// without returning phase/segment.  These assertions verify the fix is in place.
+
+console.log('\n-- Test F: Mandarin/Tamil library grounding --');
+
+// Extract the zh/ta block boundaries so assertions are scoped to that code only.
+const ZH_TA_START = TUTOR_HANDLER.indexOf('if (isMandarin || isTamil)');
+const ZH_TA_END   = TUTOR_HANDLER.indexOf('\n    const novaIdentity', ZH_TA_START);
+const ZH_TA_BLOCK = ZH_TA_START >= 0 && ZH_TA_END > ZH_TA_START
+  ? TUTOR_HANDLER.slice(ZH_TA_START, ZH_TA_END)
+  : '';
+
+{
+  assert('F1: zh/ta block found in handler', ZH_TA_BLOCK.length > 100,
+    `block length ${ZH_TA_BLOCK.length}`);
+}
+
+{
+  // Library grounding: textbookContext must be appended to langPrompt inside the zh/ta block.
+  assert('F2: textbookContext injected into zh/ta prompt',
+    ZH_TA_BLOCK.includes('textbookContext'),
+    'textbookContext not referenced in zh/ta block — library grounding bypass');
+}
+
+{
+  // Topic lock: an absolute topic rule must be inside the zh/ta block.
+  const hasTopicLock = ZH_TA_BLOCK.includes('绝对规则') || ZH_TA_BLOCK.includes('விதி');
+  assert('F3: topic lock rule injected into zh/ta prompt', hasTopicLock,
+    'no topic-lock rule found in zh/ta block');
+}
+
+{
+  // Phase contract: intro→teach on first response; subsequent turns stay in current phase.
+  // This mirrors nextPhase('intro',...) = 'teach' in the BM/EN/ID path.
+  assert('F4a: zh/ta advances intro to teach',
+    ZH_TA_BLOCK.includes("currentPhase === 'intro' ? 'teach' : currentPhase"),
+    'intro→teach transition absent from zh/ta block');
+
+  // Segment contract: MUST NOT increment blindly. nextSegment() only increments on
+  // check→teach, which requires a classify_turn signal this path cannot produce.
+  // Unconditional +1 would burn through concept_chunks twice as fast as BM/EN/ID.
+  assert('F4b: zh/ta does NOT blindly increment segment',
+    !ZH_TA_BLOCK.includes('currentSegment + 1'),
+    'segment: currentSegment + 1 found — segment burns through chunks on every turn');
+
+  assert('F4c: zh/ta returns segment unchanged',
+    ZH_TA_BLOCK.includes('segment: currentSegment,') || ZH_TA_BLOCK.includes('segment: currentSegment\n'),
+    'segment not returned as currentSegment');
+}
+
+{
+  // start sentinel translation: literal 'start' must NOT be passed to Claude.
+  assert('F5: start sentinel translated before Claude call',
+    ZH_TA_BLOCK.includes("message === 'start'"),
+    'start sentinel not translated — model receives literal "start"');
+}
+
 // ── Summary ───────────────────────────────────────────────────────────────────
 
 console.log('\n' + results.join('\n'));

@@ -2234,20 +2234,56 @@ On the NEXT turn, after the student identifies the gap, re-explain ONLY that spe
 
     // Mandarin / Tamil: dedicated Nova prompts — return early before BM/EN/ID logic
     if (isMandarin || isTamil) {
-      const langPrompt = isMandarin
+      // Base identity + active subject/topic
+      let langPrompt = isMandarin
         ? NOVA_ZH_PROMPT + `\n\n正在教的科目：${subject || 'Mathematics'}${topic ? ` — ${topic}` : ''}`
         : NOVA_TA_PROMPT + `\n\nபடிக்கும் பாடம்: ${subject || 'Mathematics'}${topic ? ` — ${topic}` : ''}`;
+
+      // Topic lock — mirrors the ABSOLUTE RULE in the BM/EN/ID system prompt (server_updated.mjs:2281)
+      if (topic) {
+        langPrompt += isMandarin
+          ? `\n\n绝对规则：你正在教的主题是"${topic}"（${subject || 'Mathematics'}）。只教与此主题相关的内容。永远不要引入新主题，永远不要问学生"你想学什么"。`
+          : `\n\nவிதி: நீங்கள் "${topic}" (${subject || 'Mathematics'}) கற்பிக்கிறீர்கள். இந்த தலைப்பு தொடர்பான உள்ளடக்கத்தை மட்டுமே கற்பியுங்கள். புதிய தலைப்புகளை அறிமுகப்படுத்தாதீர்கள்.`;
+      }
+
+      // Library grounding — inject concept_chunks content (same requirement as BM/EN/ID path)
+      if (textbookContext) {
+        langPrompt += isMandarin
+          ? `\n\n教学参考内容（来自课本）：\n${textbookContext}\n\n请使用以上内容进行教学。不要说"根据课本"——像自己了解这些内容一样自然地教。`
+          : `\n\nபாடப்புத்தக உள்ளடக்கம்:\n${textbookContext}\n\nமேற்கண்ட உள்ளடக்கத்தை இயற்கையாக கற்பியுங்கள். "பாடப்புத்தகம் கூறுகிறது" என்று சொல்லாதீர்கள்.`;
+      }
+
+      // Translate 'start' sentinel into a natural opening message (mirrors BM/EN/ID path line 2760)
+      const langUserMsg = message === 'start'
+        ? (isMandarin ? `请开始教我关于"${topic}"的内容。` : `"${topic}" பற்றி கற்பிக்கத் தொடங்குங்கள்.`)
+        : (message || 'continue');
+
       const langMessages = await anthropic.messages.create({
         model: 'claude-sonnet-4-6',
         max_tokens: 1024,
         system: langPrompt,
         messages: history && history.length > 0
           ? [...history.map(m => ({ role: m.role, content: m.content })),
-             { role: 'user', content: message }]
-          : [{ role: 'user', content: message }],
+             { role: 'user', content: langUserMsg }]
+          : [{ role: 'user', content: langUserMsg }],
       });
       const langReply = formatNovaResponse(langMessages.content[0]?.text);
-      return res.json({ reply: langReply, subject, topic });
+      // Return phase/segment matching the BM/EN/ID contract:
+      // - intro advances to teach on first response (same as nextPhase('intro',...) = 'teach')
+      // - subsequent phases stay put (no classify_turn tool to drive check/quiz transitions)
+      // - segment is NEVER incremented here: nextSegment() only increments on check→teach, which
+      //   requires a classify_turn signal this path does not produce.
+      const newLangPhase = currentPhase === 'intro' ? 'teach' : currentPhase;
+      return res.json({
+        reply: langReply,
+        subject,
+        topic,
+        phase: newLangPhase,
+        segment: currentSegment,
+        source: 'claude',
+        suggestedResponses: [],
+        isCheckIn: false,
+      });
     }
 
     const novaIdentity = isEnglish
