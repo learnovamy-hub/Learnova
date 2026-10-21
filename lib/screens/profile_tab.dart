@@ -28,8 +28,31 @@ class _ProfileTabState extends State<ProfileTab> {
   String? _token;
   String? _studentId;
   Map<String, dynamic> _activitySummary = {};
-  // Hidden God Mode tap counter
+  // Hidden God Mode tap counter — triggers after 7 taps on the avatar
   int _logoBadgeTaps = 0;
+  DateTime? _lastGodModeTap;
+  bool _avatarFlash = false;
+
+  void _onAvatarTap() {
+    final now = DateTime.now();
+    if (_lastGodModeTap != null &&
+        now.difference(_lastGodModeTap!) > const Duration(seconds: 3)) {
+      _logoBadgeTaps = 0; // too slow — reset the sequence
+    }
+    _lastGodModeTap = now;
+    _logoBadgeTaps++;
+
+    setState(() => _avatarFlash = true);
+    Future.delayed(const Duration(milliseconds: 200), () {
+      if (mounted) setState(() => _avatarFlash = false);
+    });
+
+    if (_logoBadgeTaps >= 7) {
+      _logoBadgeTaps = 0;
+      _lastGodModeTap = null;
+      Navigator.push(context, MaterialPageRoute(builder: (_) => const GodModeScreen()));
+    }
+  }
 
   @override
   void initState() { super.initState(); _load(); }
@@ -106,13 +129,23 @@ class _ProfileTabState extends State<ProfileTab> {
           : SingleChildScrollView(
               padding: const EdgeInsets.all(20),
               child: Column(children: [
-                Container(
-                  width: 80, height: 80,
-                  decoration: BoxDecoration(gradient: const LinearGradient(colors: [kPrimary, kPrimary2]), borderRadius: BorderRadius.circular(20)),
-                  child: Center(child: Text(
-                    ((_profile?['student']?['name']?.toString().isNotEmpty ?? false) ? _profile!['student']['name'].toString().substring(0, 1).toUpperCase() : 'S'),
-                    style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w800),
-                  )),
+                GestureDetector(
+                  onTap: _onAvatarTap,
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 150),
+                    width: 80, height: 80,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(colors: [kPrimary, kPrimary2]),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: _avatarFlash
+                          ? [BoxShadow(color: kPrimary.withOpacity(0.55), blurRadius: 14, spreadRadius: 2)]
+                          : [],
+                    ),
+                    child: Center(child: Text(
+                      ((_profile?['student']?['name']?.toString().isNotEmpty ?? false) ? _profile!['student']['name'].toString().substring(0, 1).toUpperCase() : 'S'),
+                      style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w800),
+                    )),
+                  ),
                 ),
                 const SizedBox(height: 12),
                 Text(_profile?['student']?['name'] ?? 'Student', style: const TextStyle(color: kText, fontSize: 20, fontWeight: FontWeight.w800)),
@@ -177,19 +210,6 @@ class _ProfileTabState extends State<ProfileTab> {
                       onTap: _showPrivacyNotice,
                     ),
                   ]),
-                ),
-                const SizedBox(height: 16),
-                // Hidden God Mode trigger — triple-tap the divider area
-                GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    _logoBadgeTaps++;
-                    if (_logoBadgeTaps >= 7) {
-                      _logoBadgeTaps = 0;
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => const GodModeScreen()));
-                    }
-                  },
-                  child: const SizedBox(height: 60, width: double.infinity),
                 ),
                 const SizedBox(height: 16),
                 TextButton(
