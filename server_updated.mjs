@@ -2077,8 +2077,15 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
       });
     }
 
+    // Detect confusion early -- confusion signals must bypass the FAQ cache so
+    // Nova's diagnose-before-reteach path fires instead of a pre-written answer.
+    // 'tak faham' is in FAQ_TRIGGERS, so without this guard it would short-circuit.
+    const isConfused = req.body.isConfused === true || req.body.studentConfused === true ||
+      /tak faham|tidak faham|keliru|don'?t (get|understand)|confused|lost|huh\??|no idea|what do you mean|explain again|cara lain/i.test(message || '');
+
     // â”€â”€ Pregen: serve FAQ or explanation before calling Claude â”€â”€â”€
-    if (topic && message && message !== 'start') {
+    // Skipped when the student is expressing confusion -- Nova must diagnose first.
+    if (topic && message && message !== 'start' && !isConfused) {
       const country = req.body.country || 'MY';
 
       // FAQ check
@@ -2122,8 +2129,7 @@ app.post('/api/tutor/session', authStudent, async (req, res) => {
     const currentPhase = phase || 'intro';
     const currentSegment = parseInt(segment) || 0;
     const personalityMode = req.body.personality || 'balanced';
-    const isConfused = req.body.isConfused === true || req.body.studentConfused === true ||
-      /tak faham|tidak faham|keliru|don'?t (get|understand)|confused|lost|huh\??|no idea|what do you mean|explain again|cara lain/i.test(message || '');
+    // isConfused is computed above, before the FAQ cache block.
 
     // â”€â”€ Per-phase token limits (prevent content dumps) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     const phaseTokens = { intro: 500, teach: 480, check: 380, quiz_setup: 380, quiz_answer: 380, done: 380 };
@@ -2322,7 +2328,7 @@ CORE LEARNOVA TEACHING PRINCIPLES â€” ALWAYS ENFORCED
 2. Always explain WHY a step is used, WHEN to use it, and WHAT mistakes students make.
 3. After every teaching segment, ask the student a question. Do not continue until they respond.
 4. If student is WRONG: give a hint, not the answer. Make them think first.
-5. If student is CONFUSED: switch method entirely. Use analogy, diagram description, or simpler numbers.
+5. If student is CONFUSED: do NOT re-explain yet. Acknowledge in one sentence, then ask ONE specific question to locate exactly where understanding broke down. Only after the student's answer, reteach that specific part -- using a different method (analogy, simpler numbers, or diagram description) if needed.
 6. If student goes off-topic: gently redirect â€” “Let's master this first before moving on.”
 7. Match SPM exam format, marking scheme, and Paper 1/Paper 2 expectations.
 8. Use Malaysian student-friendly language. BM/Manglish phrases are welcome occasionally.
@@ -2385,8 +2391,10 @@ ${isBm ? '"Betul tu! [pujian spesifik]. Sekarang cuba: [soalan lebih sukar]"' : 
 RULE 5 â€” STUDENT ANSWERS INCORRECTLY:
 ${isBm ? '"Hampir! Cuba semak balik [bahagian spesifik]. Hint: [satu hint kecil]. Cuba lagi?"' : '"Almost! Check [specific part] again. Hint: [one small hint]. Try again?"'}
 
-RULE 6 â€” STUDENT SAYS TIDAK FAHAM:
-${isBm ? '"Okay takpe! Mula dengan yang paling asas â€” [soalan paling mudah berkaitan]"' : '"No worries! Let\'s start from the very basics â€” [simplest related question]"'}
+RULE 6 -- STUDENT SAYS TIDAK FAHAM / CONFUSED:
+${isBm
+  ? 'Akui kekeliruan dalam SATU ayat. Kemudian tanya SATU soalan diagnostik yang spesifik untuk tahu tepat di mana kefahaman terhenti. Jangan terangkan semula lagi -- tunggu jawapan pelajar dahulu. Selepas pelajar menjawab, barulah terangkan semula bahagian itu sahaja dengan kaedah yang berbeza.'
+  : 'Acknowledge the confusion in ONE sentence. Then ask ONE specific diagnostic question to find exactly where understanding stopped. Do NOT re-explain yet -- wait for the student\'s answer first. Only after they answer, reteach that specific part using a different method.'}
 
 RULE 7 â€” REDIRECT AFTER 3-4 EXCHANGES:
 ${isBm ? 'Selepas 3-4 pertukaran mesej dan pelajar dah faham, WAJIB kata:\n”Okay kamu dah faham! Pergi cuba soalan Try It dalam pelajaran tu. Kamu boleh buat!”' : 'After 3-4 exchanges and student understands, MUST say:\n”Great, you\'ve got it! Go try the Try It question in your lesson. You can do this!”'}
@@ -2396,6 +2404,17 @@ If the student\'s reply is a single character, garbled text, very short and unre
 ${isBm ? '”Hmm, kamu maksudkan [interpretasi yang paling munasabah]? Cuba tulis semula dengan lebih jelas supaya saya dapat bantu dengan tepat.”' : '”Hmm, did you mean [most likely interpretation]? Could you write that more clearly so I can help you accurately?”'}
 Do NOT mark it correct or wrong until the meaning is confirmed.
 This applies especially in Maths: “x2” could mean x^2 or 2x. “-6/21” could mean -6 divided by 2 times 1. Clarify before proceeding.
+
+RULE 9 -- SESSION RESUME AFTER A BREAK:
+${isBm
+  ? `Jika sejarah perbualan menunjukkan pengajaran telah bermula (terdapat giliran pengajar sebelum ini) DAN mesej pelajar sekarang adalah isyarat permulaan semula -- ucapan pendek seperti “okay”, “dah balik”, “boleh sambung?”, atau mesej kurang daripada 5 patah perkataan yang tidak meneruskan perbincangan:
+Buka dengan SATU ayat sahaja: rumuskan konsep terakhir yang diajar dan soalan yang masih belum dijawab.
+Kemudian teruskan dari situ -- jangan mula semula dari awal.
+Jika mesej pelajar adalah kesinambungan langsung, teruskan sahaja tanpa rumusan.`
+  : `If the conversation history shows teaching was already underway (there are prior assistant teaching turns) AND the student's current message is a re-opening signal -- a short phrase like “okay”, “I'm back”, “can we continue?”, or a message under 5 words not continuing the discussion:
+Open with ONE sentence only: recap the last concept taught and the unanswered question that was left.
+Then continue from there -- do not restart from the beginning.
+If the student's message is a direct continuation of the discussion, proceed without any recap.`}
 ==================================================
 
 ==================================================
