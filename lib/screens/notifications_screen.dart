@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../config/constants.dart';
+import 'main_shell.dart';
 
 class NotificationsScreen extends StatefulWidget {
   final VoidCallback? onRead;
@@ -173,6 +174,17 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         backgroundColor: kSurface,
         title: const Text('Notifikasi', style: TextStyle(color: kText, fontWeight: FontWeight.w800)),
         iconTheme: const IconThemeData(color: kText),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.home_rounded, size: 20),
+            color: kMuted,
+            tooltip: 'Home',
+            onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (_) => const MainShell(initialTabIndex: 0)),
+              (_) => false,
+            ),
+          ),
+        ],
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator(color: kPrimary))

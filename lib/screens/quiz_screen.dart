@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../config/constants.dart';
 import '../widgets/workspace_panel.dart';
+import 'main_shell.dart';
 
 class QuizScreen extends StatefulWidget {
   final String subject;
@@ -152,6 +153,15 @@ class _QuizScreenState extends State<QuizScreen> {
       appBar: AppBar(
         title: Text(widget.topic, style: const TextStyle(fontSize: 15)),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.home_rounded, size: 20),
+            color: kMuted,
+            tooltip: 'Home',
+            onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (_) => const MainShell(initialTabIndex: 0)),
+              (_) => false,
+            ),
+          ),
           Padding(padding: const EdgeInsets.only(right: 16),
             child: Center(child: Text('${_current + 1} / ${_questions.length}',
               style: const TextStyle(color: kMuted, fontSize: 13)))),

@@ -281,6 +281,16 @@ class _AITutorTabState extends State<AITutorTab> {
         title: Text(_tutorMode && _currentTopic != null ? 'Lesson: ${cleanTopicTitle(_currentTopic!)}' : 'AI Tutor - $_currentSubject',
           style: const TextStyle(fontSize: 15)),
         actions: [
+          if (Navigator.of(context).canPop())
+            IconButton(
+              icon: const Icon(Icons.home_rounded, size: 20),
+              color: kMuted,
+              tooltip: 'Home',
+              onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (_) => const MainShell(initialTabIndex: 0)),
+                (_) => false,
+              ),
+            ),
           _buildLangToggle(),
           if (_tutorMode)
             TextButton(

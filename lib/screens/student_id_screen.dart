@@ -6,6 +6,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert' show jsonDecode;
 import '../config/constants.dart';
+import 'main_shell.dart';
 
 class StudentIdScreen extends StatefulWidget {
   const StudentIdScreen({super.key});
@@ -317,6 +318,17 @@ class _StudentIdScreenState extends State<StudentIdScreen>
         elevation: 0,
         title: const Text('Kad Pelajar', style: TextStyle(color: kText, fontWeight: FontWeight.w800)),
         iconTheme: const IconThemeData(color: kText),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.home_rounded, size: 20),
+            color: kMuted,
+            tooltip: 'Home',
+            onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (_) => const MainShell(initialTabIndex: 0)),
+              (_) => false,
+            ),
+          ),
+        ],
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator(color: kPrimary))

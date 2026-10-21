@@ -108,7 +108,7 @@ class _LessonScreenState extends State<LessonScreen>
         ? DateTime.now().difference(_sessionStart!).inMinutes
         : _stopwatch.elapsed.inMinutes;
     try {
-      http.post(
+      await http.post(
         Uri.parse('$kApiUrl/api/progress/lesson-update'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
@@ -121,7 +121,7 @@ class _LessonScreenState extends State<LessonScreen>
           'scrollPosition': 0.0,
           'durationMinutes': minutes,
         }),
-      ).ignore();
+      );
     } catch (_) {}
   }
 
@@ -223,7 +223,10 @@ class _LessonScreenState extends State<LessonScreen>
     ));
   }
 
-  void _goHome() {
+  Future<void> _goHome() async {
+    _progressTimer?.cancel();
+    await _saveProgress();
+    if (!mounted) return;
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (_) => const MainShell(initialTabIndex: 0)),
       (_) => false,

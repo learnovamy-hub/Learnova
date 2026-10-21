@@ -5,6 +5,7 @@ import 'dart:convert';
 import '../config/constants.dart';
 import '../utils/form_level.dart';
 import 'lesson_list_screen.dart';
+import 'main_shell.dart';
 
 class TopicListScreen extends StatefulWidget {
   final String subjectKey;
@@ -97,6 +98,17 @@ class _TopicListScreenState extends State<TopicListScreen> {
         elevation: 0,
         title: Text(widget.subjectName,
           style: const TextStyle(color: kText, fontSize: 16, fontWeight: FontWeight.w700)),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.home_rounded, size: 20),
+            color: kMuted,
+            tooltip: 'Home',
+            onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (_) => const MainShell(initialTabIndex: 0)),
+              (_) => false,
+            ),
+          ),
+        ],
         bottom: const PreferredSize(
           preferredSize: Size.fromHeight(1),
           child: Divider(color: kBorder, height: 1),

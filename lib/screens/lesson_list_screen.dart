@@ -2,6 +2,7 @@
 import '../config/constants.dart';
 import '../utils/form_level.dart';
 import 'lesson_screen.dart';
+import 'main_shell.dart';
 
 class LessonListScreen extends StatefulWidget {
   final String topic;
@@ -53,6 +54,17 @@ class _LessonListScreenState extends State<LessonListScreen> {
           Text(widget.subjectName,
             style: const TextStyle(color: kMuted, fontSize: 11)),
         ]),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.home_rounded, size: 20),
+            color: kMuted,
+            tooltip: 'Home',
+            onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (_) => const MainShell(initialTabIndex: 0)),
+              (_) => false,
+            ),
+          ),
+        ],
         bottom: const PreferredSize(
           preferredSize: Size.fromHeight(1),
           child: Divider(color: kBorder, height: 1),
